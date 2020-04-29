@@ -1,0 +1,492 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+
+<title>orientation</title>
+<link rel="stylesheet" type="text/css" href="../css/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="../css/reset.css">
+<link rel="stylesheet" type="text/css" href="../css/common.css">
+
+<script src="../js/libs/jquery-1.11.1.min.js"></script>
+<script src="../js/libs/jquery-ui.min.js"></script>
+<script src="../js/libs/jquery-ui.js"></script> <!-- dskim -->
+<link rel="shortcut icon" type="image/x-icon" href="" />
+
+<script type="text/javascript">
+$(window).load(function(){	
+    setPositionGnb();
+    mobile_scroll_stop();
+});
+
+// gnb_action
+function mobile_scroll_stop(){
+	if ($(".gnb__btn__action").length !== 0) {
+		$('.gnb__btn__action').click(function() {
+			$('body').toggleClass('fixed');
+			$('.header__hidden-bg').toggleClass('show');
+		});
+	}
+}
+
+// 가로/세로모드
+function setPositionGnb() {
+    $(window).resize(function(e){
+        $('.gnb__contents__scroll').css('height', $(window).height() - $('.gnb__contents__header').innerHeight())
+    });
+    $(window).trigger("resize"); // 최초1회 호출
+}
+</script>
+
+<style rel="stylesheet" type="text/css" >
+    
+.header {
+  padding: 10px 0;
+  border-bottom: solid 1px #586ca9;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  min-height: 51px;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  z-index: 8000; }
+  .header.header--fixed {
+    background: #fff;
+    border-bottom: solid 1px #e7e7e7; }
+    .header.header--fixed .header__logo a {
+      color: inherit; }
+    .header.header--fixed .header__gnb .gnb__btn__action .spinner {
+      background: #000; }
+  .header.header--full {
+    background: none !important;
+    border-bottom: solid 1px #e7e7e7; }
+    .header.header--full .header__logo a {
+      color: #292929 !important; }
+    .header.header--full .header__gnb .gnb__btn__action .spinner {
+      background: #000; }
+  .header.header--white {
+    background: #fff;
+    border-bottom: solid 1px #e7e7e7; }
+    .header.header--white .header__logo a {
+      color: #292929 !important; }
+    .header.header--white .header__logo p {
+      color: #292929 !important; }
+    .header.header--white .header__gnb .gnb__btn__action .spinner {
+      background: #000; }
+
+.header__logo {
+  text-align: center; }
+  .header__logo a {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 15px;
+    line-height: 30px;
+    color: #fff; }
+    .header__logo a img {
+      height: 30px;
+      width: auto; }
+  .header__logo p {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 15px;
+    line-height: 30px;
+    color: #fff; }
+
+.header__close {
+  display: block;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  position: absolute;
+  z-index: 6666;
+  height: 100%;
+  width: 100%;
+  top: 18px;
+  right: 15px;
+  height: 21px;
+  width: 21px;
+  background: none; }
+  .header__close.button {
+    top: 15px; }
+    .header__close.button .spinner.diagonal.part-1 {
+      margin-top: 0; }
+  .header__close .spinner {
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background-color: #000;
+    z-index: 6666; }
+    .header__close .spinner.diagonal.part-1 {
+      position: relative;
+      float: left;
+      -webkit-transform: rotate(135deg);
+      -ms-transform: rotate(135deg);
+      transform: rotate(135deg);
+      margin-top: 7px; }
+    .header__close .spinner.diagonal.part-2 {
+      -webkit-transition: all 0.3s;
+      -o-transition: all 0.3s;
+      transition: all 0.3s;
+      position: relative;
+      float: left;
+      margin-top: 4px;
+      width: 100%;
+      -webkit-transform: rotate(-135deg);
+      -ms-transform: rotate(-135deg);
+      transform: rotate(-135deg);
+      margin-top: -2px; }
+
+.header__gnb .gnb__contents {
+  height: 100%;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 80%;
+  -webkit-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  transform: translateX(100%);
+  -webkit-transition: -webkit-transform 350ms ease-in-out;
+  transition: -webkit-transform 350ms ease-in-out;
+  -o-transition: transform 350ms ease-in-out;
+  transition: transform 350ms ease-in-out;
+  transition: transform 350ms ease-in-out, -webkit-transform 350ms ease-in-out;
+  z-index: 6100;
+  background: #f3f4f6; }
+  .header__gnb .gnb__contents .gnb__contents__header {
+    background: #383c4a;
+    padding: 28px 15px; }
+    .header__gnb .gnb__contents .gnb__contents__header::after {
+      content: '';
+      display: table;
+      clear: both; }
+    .header__gnb .gnb__contents .gnb__contents__header .login-info {
+      color: #fff;
+      font-size: 18px;
+      margin-bottom: 10px; }
+    .header__gnb .gnb__contents .gnb__contents__header .login-btn a {
+      color: #fff;
+      font-size: 13px;
+      display: inline-block;
+      vertical-align: top;
+      padding-right: 17px;
+      background: no-repeat right 3px url(/images/mobile/login_icon.png); }
+
+.header__gnb .gnb__contents__menu {
+  background: #fff; }
+  .header__gnb .gnb__contents__menu li {
+    border-bottom: solid 1px #ebebeb; }
+    .header__gnb .gnb__contents__menu li > a {
+      display: block;
+      font-size: 13px;
+      padding: 15px;
+      line-height: 20px;
+      background: no-repeat right 15px center url(/images/mobile/common/gnb_list_arrow.png); }
+      .header__gnb .gnb__contents__menu li > a i {
+        display: inline-block;
+        vertical-align: top;
+        width: 21px;
+        height: 20px;
+        background: no-repeat url(/images/mobile/common/gnb_icon_sheet_x4.png);
+        background-size: 126px 20px;
+        margin-right: 5px; }
+        .header__gnb .gnb__contents__menu li > a i.icon-set1 {
+          background-position: 0 0; }
+        .header__gnb .gnb__contents__menu li > a i.icon-set2 {
+          background-position: -21px 0; }
+        .header__gnb .gnb__contents__menu li > a i.icon-set3 {
+          background-position: -42px 0; }
+        .header__gnb .gnb__contents__menu li > a i.icon-set4 {
+          background-position: -63px 0; }
+        .header__gnb .gnb__contents__menu li > a i.icon-set5 {
+          background-position: -84px 0; }
+        .header__gnb .gnb__contents__menu li > a i.icon-set6 {
+          background-position: -105px 0; }
+
+.header__gnb .gnb__contents__service {
+  padding: 0 15px;
+  margin-top: 10px; }
+
+.header__gnb .gnb__contents__service--top {
+  margin-bottom: 11px; }
+  .header__gnb .gnb__contents__service--top::after {
+    content: '';
+    display: table;
+    clear: both; }
+  .header__gnb .gnb__contents__service--top .call_tit {
+    font-size: 13px;
+    line-height: 20px;
+    padding: 5px 0;
+    float: left; }
+    .header__gnb .gnb__contents__service--top .call_tit i {
+      display: inline-block;
+      vertical-align: top;
+      width: 21px;
+      height: 20px;
+      background: no-repeat -63px 0 url(/images/mobile/common/gnb_icon_sheet.png);
+      margin-right: 5px; }
+  .header__gnb .gnb__contents__service--top .call_btn {
+    float: right; }
+    .header__gnb .gnb__contents__service--top .call_btn a {
+      display: inline-block;
+      vertical-align: top;
+      line-height: 28px;
+      border: solid 1px #ccc;
+      font-size: 13px;
+      color: #9e9e9e;
+      padding: 0 17px;
+      border-radius: 2px 2px 2px 2px;
+      -moz-border-radius: 2px 2px 2px 2px;
+      -webkit-border-radius: 2px 2px 2px 2px; }
+
+.header__gnb .gnb__contents__service--bottom .service-number {
+  font-size: 18px;
+  margin-bottom: 7px;
+  font-weight: bold; }
+
+.header__gnb .gnb__contents__service--bottom .service-time {
+  font-size: 13px;
+  line-height: 20px; 
+  margin-bottom: 15px;}
+
+.header__gnb .gnb__contents__qiuck {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  border-top: 1px solid #dcdcdc;}
+ 
+.header__gnb .gnb__contents__qiuck::after {
+  content: '';
+  display: table;
+  clear: both; }
+
+.header__gnb .gnb__contents__qiuck li {
+  float: left;
+  width: 33.333%;
+  text-align: center;
+  padding: 13px 0;
+  box-sizing: border-box;}
+
+.header__gnb .gnb__contents__qiuck li:nth-child(2) {
+  border-left: 1px solid #dcdcdc;
+  border-right: 1px solid #dcdcdc;
+  box-sizing: border-box;}
+
+.header__gnb .gnb__contents__qiuck li img {
+  margin: 0 auto 7px;}
+
+.header__gnb input[type="checkbox"]:checked ~ .gnb__contents {
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0); }
+
+.header__gnb input[type=checkbox] {
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  display: none; }
+
+.header__gnb .gnb__btn__action {
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  position: absolute;
+  z-index: 6666;
+  height: 100%;
+  width: 100%;
+  top: 18px;
+  right: 15px;
+  height: 21px;
+  width: 21px; }
+  .header__gnb .gnb__btn__action .spinner {
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background-color: #fff;
+    z-index: 6666; }
+    .header__gnb .gnb__btn__action .spinner.horizontal {
+      -webkit-transition: all 0.3s;
+      -o-transition: all 0.3s;
+      transition: all 0.3s;
+      position: relative;
+      float: left;
+      margin-top: 4px; }
+    .header__gnb .gnb__btn__action .spinner.diagonal.part-1 {
+      position: relative;
+      -webkit-transition: all 0.3s;
+      -o-transition: all 0.3s;
+      transition: all 0.3s;
+      float: left; }
+    .header__gnb .gnb__btn__action .spinner.diagonal.part-2 {
+      -webkit-transition: all 0.3s;
+      -o-transition: all 0.3s;
+      transition: all 0.3s;
+      position: relative;
+      float: right;
+      margin-top: 4px;
+      width: 70%; }
+
+.header__gnb input[type=checkbox]:checked ~ .gnb__btn__action > .horizontal {
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  opacity: 0; }
+
+.header__gnb input[type=checkbox]:checked ~ .gnb__btn__action > .diagonal.part-1 {
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  -webkit-transform: rotate(135deg);
+  -ms-transform: rotate(135deg);
+  transform: rotate(135deg);
+  margin-top: 7px;
+  background: #fff; }
+
+.header__gnb input[type=checkbox]:checked ~ .gnb__btn__action > .diagonal.part-2 {
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  -webkit-transform: rotate(-135deg);
+  -ms-transform: rotate(-135deg);
+  transform: rotate(-135deg);
+  margin-top: -8px;
+  background: #fff;
+  float: left;
+  width: 100%; }
+
+.header__hidden-bg {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  position: fixed;
+  z-index: 6000;
+  top: 0;
+  opacity: 0.5;
+  filter: alpha(opacity=50); }
+  .header__hidden-bg.show {
+    display: block; }
+
+.header__home {
+  width: 20px;
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  margin-top: -10px; }
+  .header__home a {
+    display: block;
+    height: 20px;
+    text-indent: -9999px;
+    background: 0 0 url(/images/mobile/common/mypage_header_icon_sheet_x4.png);
+    background-size: 60px 20px; }
+
+.header__logout {
+  width: 20px;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  margin-top: -10px; }
+  .header__logout button {
+    width: 100%;
+    display: block;
+    height: 20px;
+    text-indent: -9999px;
+    background: -20px 0 url(/images/mobile/common/mypage_header_icon_sheet_x4.png);
+    background-size: 60px 20px; }
+
+.header__back {
+  width: 20px;
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  margin-top: -10px; }
+  .header__back a {
+    display: block;
+    height: 20px;
+    text-indent: -9999px;
+    background: -40px 0 url(/images/mobile/common/mypage_header_icon_sheet_x4.png);
+    background-size: 60px 20px; }
+
+/** 가로모드 **/    
+@media only screen and (orientation: landscape) {
+  .header__gnb .gnb__contents__scroll {overflow-y: scroll; -webkit-overflow-scrolling: touch;}
+  .header__gnb .gnb__contents__qiuck {position: relative;}
+}
+  
+/** 세로모드 **/
+@media only screen and (orientation: portrait) {
+  .header__gnb .gnb__contents__scroll {overflow-y: hidden;}
+  .header__gnb .gnb__contents__qiuck {position: absolute;}
+}
+</style>
+</head>
+<body>
+<form id="form" name="form" method="post">
+</form>
+	<div class="wrap">
+		<div class="header header--white">
+			<div class="header__logo">
+				<a href="javascript:;">로고</a>
+			</div>
+			<div class="header__gnb">
+				<input type="checkbox" class="gnb__btn" id="gnb__btn">
+				<label for="gnb__btn" class="gnb__btn__action">
+					<div class="spinner diagonal part-1"></div>
+					<div class="spinner horizontal"></div>
+					<div class="spinner diagonal part-2"></div>
+				</label>
+				<div class="gnb__contents">
+					<div class="gnb__contents__header">
+						<p class="login-info">로그인 해주세요</p>
+						<div class="login-btn">
+							<a href="#none">로그인</a>
+						</div>
+					</div>
+					<div class="gnb__contents__scroll">
+						<ul class="gnb__contents__menu">
+							<li><a href="#none"><i class="icon-set1"></i>부가세 환급지원</a></li>
+							<li><a href="#none"><i class="icon-set2"></i>셀프택스 자가신고</a></li>
+							<li><a href="#none"><i class="icon-set3"></i>세무상담</a></li>
+							<li><a href="#none"><i class="icon-set5"></i>상권분석</a></li>
+						</ul>
+						<div class="gnb__contents__service">
+							<div class="gnb__contents__service--top">
+								<p class="call_tit"><i></i>고객만족센터</p>
+								<div class="call_btn"><a href="#none">통화하기</a></div>
+							</div>
+							<div class="gnb__contents__service--bottom">
+								<p class="service-number">1588-5659</p>
+								<p class="service-time">
+									상담시간: 09:00~18:00(금요일 17:00까지)<br/>
+									점심시간: 12:00~13:00<br />
+									주말, 공휴일 휴무<br />
+								</p>
+							</div>
+						</div>
+						<div class="gnb__contents__qiuck">
+							<ul>
+								<li><a href="#none" id="tax_bill">전자세금<br/>계산서</a></li>
+								<li><a href="#none" id="check_biz">휴폐업<br/>조회</a></li>
+								<li><a href="#none" id="sgic">서울보증보험<br/>안내</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="header__hidden-bg"></div>
+		</div>
+	</div>
+</body>
+</html>
