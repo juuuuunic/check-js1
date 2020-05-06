@@ -11,7 +11,7 @@
     <script src="../js/libs/jquery-1.11.1.min.js"></script>
     <script src="../js/libs/jquery-ui.min.js"></script>
     <script src="../js/libs/jquery-ui.js"></script> <!-- dskim -->
-    <script src="../js/touchSlide.js"></script> <!-- dskim -->
+    <script src="../js/touchSlide.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
     });
@@ -19,11 +19,11 @@
     <style>
         .wrap {position: relative; width: 40%; margin: 40px auto; overflow: hidden;}
         .slides {position: relative; display: flex;}
-        .slides > li {flex: 100% 0 0;}
+        .slides > li {flex: 100% 0 0; box-sizing: unset;}
     </style>
 <body>
     <div class="wrap">
-        <div class="slideW slide01">
+        <div id="stage" class="stage01">
             <ul class="slides">
                 <li class="slide"><img src="./img/p1.png"/></li>
                 <li class="slide"><img src="./img/p2.png"/></li>
