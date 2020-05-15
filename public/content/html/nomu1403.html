@@ -1,0 +1,384 @@
+
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+<head>
+<title> nomu: 1402(소개>서비스이용프로세스) </title>
+<meta http-equiv='Content-Type' content='text/html; charset=euc-kr'>
+
+<link rel='stylesheet' href=/css/style.css type='text/css' />
+<link rel='stylesheet' href=/css/jquery-ui-1.8.22.custom.css type='text/css' />
+<link rel='stylesheet' href=css/default.css type='text/css' />
+<link rel='stylesheet' href=css/default_add.css type='text/css' />
+<style>
+
+.footer select {
+  border: 1px solid #c4c5c9;
+  background: #fff;
+  color: #333;
+  height: 34px;
+  line-height: 34px;
+  padding-left: 10px;
+  width: 100%; 
+}
+.footer select, .footer option {
+  font-family: "Noto Sans Korean";
+  color: #5f5f5f;
+}
+</style>
+<script language='javascript' charset='euc-kr' src=js/jquery-1.7.1.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery.alphanumeric.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomu.js></script>
+<script language='javascript' charset='euc-kr' src=mlrpt/mlrpt.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/javascript.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery-ui-1.8.22.custom.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomuAction.js></script>
+<script language='javascript' charset='euc-kr' src=js/smartPop.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomuCal.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomua.js></script>
+<script language='javascript' charset='euc-kr' src=js/floating.js></script>
+<script language='javascript' charset='euc-kr' src=js/common.js></script>
+<script language='javascript' charset='euc-kr' src=js/common_add.js></script>
+<script language='javascript'>
+
+var setAccTimeOut = null;
+var accTime = 3601;
+$().ready(function() {
+	
+	accTime = 3601;
+	$(".gnb li").each(function(i){
+      $(this).removeClass("active");
+	});
+	
+});
+function runAccTimeOut() {
+	accTime--;
+	if(accTime==0) {
+		$("#acc_time").html("0:00");
+//		alert('입력시간 초과입니다.');
+		window.clearTimeout(setAccTimeOut);
+		self.location = "/logout.do?fr=login.do";
+	} else {
+		mm = Math.floor(accTime / 60);
+		ss = accTime % 60;
+		mmss = mm + ":"+(ss<10?"0":"")+ss;
+		$("#acc_time").html(mmss);
+	}
+}
+function resetAcc() {
+	accTime = 3601;
+}
+
+function view_alert() {
+	alert('로그인후 이용가능합니다.');
+}
+</script>
+
+</head>
+<body>
+
+<div class="wrap logout">
+
+    <div class="header">
+      <div class="header_top_wrap">
+        <div class="header_top">
+          <p class="company_phone">&nbsp;</p>
+          <ul class="header_quick_menu">
+        
+            <li>
+              <a href="login.do">로그인</a>
+            </li>
+            <li>
+              <a href="nomu6201.do">회원가입</a>
+            </li>
+          
+          </ul>
+        </div>
+      </div>
+      <div class="header_bottom_wrap">
+        <div class="header_bottom">
+          <div class="logo_wrap">
+            <h1><a href="/">노무비닷컴</a></h1>
+            <p class="slogun">체불없는 세상을 위한 모두의 한걸음</p>
+          </div>
+          <ul class="gnb">
+            <!-- GNB 페이지 유지시 class명 active붙이기(depth1에서만 적용) -->
+
+            <li class="active">
+              <a href="#">소개</a>
+              <ul class="depth2">
+                <li><a href="nomu1401.do">서비스 소개</a></li>
+                <li><a href="nomu1402.do">서비스 특장점</a></li>
+                <li><a href="nomu1403.do">서비스 이용 프로세스</a></li>
+<!--                 <li><a href="nomu1404.do">서비스 도입 시행절차</a></li> -->
+              </ul>
+            </li>
+            <li>
+              <a href="#">발주기관</a>
+<!--              
+              <ul class="depth2">
+                <li><a href="javascript:view_alert()">현장조회</a></li>
+                <li><a href="javascript:view_alert()">대금지급계획 확인</a></li>
+                <li><a href="javascript:view_alert()">대금지급모니터링</a></li>
+              </ul>
+-->              
+            </li>
+            <li>
+              <a href="#">도입기업</a>
+              <ul class="depth2">
+                <li><a href="javascript:view_alert()">현장관리</a></li>
+                <li><a href="javascript:view_alert()">내역서확인</a></li>
+                <li><a href="javascript:view_alert()">SMS</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">협력기업</a>
+              <ul class="depth2">
+                <li><a href="javascript:view_alert()">현장등록</a></li>
+                <li><a href="javascript:view_alert()">내역서작성</a></li>
+                <li><a href="javascript:view_alert()">대금 지급</a></li>
+              </ul>
+            </li>
+
+            <li id=gnb41>
+            	<a href="#">고객센터</a>
+               <ul class="depth2">
+                 <li><a href="nomu5101.do">공지사항</a></li>
+                 <li><a href="nomu5201.do">소식란</a></li>
+                 <li><a href="nomu5301.do">자료실</a></li>
+                 <li><a href="nomu5501.do">FAQ</a></li>
+                 <li><a href="nomu5401.do">Q&A(1:1문의)</a></li>
+               </ul>
+           	</li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-visual-title sub03">
+      <div class="inner-contents">
+        <p>서비스 이용 프로세스</p>
+      </div>
+    </div>
+    <div class="sub-top-breadcrumb">
+      <div class="inner-contents">
+        <ul>
+          <li>
+            <span>홈</span>
+          </li>
+          <li>소개</li>
+          <li>서비스 이용 프로세스</li>
+        </ul>
+      </div>
+    </div>
+    <div class="logout-container">
+      <div class="contents_wrap">
+        <div class="sub-contents">
+          <div class="section">
+            <div class="si-process">
+              <p class="si-title">개념도</p>
+              <div class="si-line"></div>
+              <div class="si-process-chart">
+                <ol>
+                  <li>
+                    <p>
+                      <span>STEP 1</span>
+                      이용준비
+                    </p>
+                    <dl class="si-process-chart-cooperation">
+                      <dt>
+                        협력기업
+                      </dt>
+                      <dd>
+                        <ul>
+                          <li>회원가입 및 계좌개설</li>
+                          <li>현장 등록 및 계좌연동 요청</li>
+                        </ul>
+                      </dd>
+                    </dl>
+                    <dl class="si-process-chart-einleitung">
+                      <dt>도입기업</dt>
+                      <dd>
+                        <ul>
+                          <li>계정생성 및 현장개설</li>
+                          <li>현장 공사참여 신청 승인</li>
+                        </ul>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <p>
+                    <span>STEP 2</span>
+                    시스템 이용
+                    </p>
+                    <dl class="si-process-chart-cooperation">
+                      <dt>협력기업</dt>
+                      <dd>
+                        <ul>
+                          <li>청구내역서 (=대금지급계획서) 작성</li>
+                        </ul>
+                      </dd>
+                    </dl>
+                    <dl class="si-process-chart-einleitung">
+                      <dt>
+                        도입기업
+                      </dt>
+                      <dd>
+                        <ul>
+                          <li>청구내역서 승인</li>
+                          <li>기성 지급(협력기업 전용계좌에 입금)</li>
+                        </ul>
+                      </dd>
+                    </dl>
+                  </li>
+                  <li>
+                    <p>
+                      <span>STEP 3</span>
+                      지급 모니터링
+                    </p>
+                    <dl class="si-process-chart-cooperation">
+                      <dt>
+                        협력기업
+                      </dt>
+                      <dd>
+                        <ul>
+                          <li>대금 지급 (근로자/장비/자재업자 등)</li>
+                        </ul>
+                      </dd>
+                    </dl>
+                    <dl class="si-process-chart-einleitung">
+                      <dt>
+                        도입기업
+                      </dt>
+                      <dd>
+                        <ul>
+                          <li>실시간 대금 지급 모니터링</li>
+                        </ul>
+                      </dd>
+                    </dl>
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+          <div class="section full-width">
+            <div class="si-process-text">
+              <div class="inner-contents">
+                <ul class="si-process-text-list">
+                  <li class="list1">
+                    <div class="icon">도입기업</div>
+                    <ul>
+                      <li>노무비닷컴 회원가입<br>(도입문의: 02-788-9087/9088)</li>
+                      <li>노무비닷컴 이용 전 협력기업사전고지(협의)</li>
+                      <li>적용 대상 협력기업 등록<br>(노무비닷컴 운영팀 일괄처리)</li>
+                      <li>협력기업이 작성한 청구내역서<br>(=대금지급계획서) 검토</li>
+                      <li>실시간 대금 지급 모니터링</li>
+                    </ul>
+                  </li>
+                  <li class="list2">
+                    <div class="icon">협력기업</div>
+                    <ul>
+                      <li>노무비닷컴 회원가입<br>(이용문의: 1670-1970) <br>노무비닷컴 전용계좌(=에스크로계좌) 개설</li>
+                      <li>적용대상 현장등록</li>
+                      <li>청구내역서(=대금지급계획서) 작성</li>
+                      <li>대금집행(이체처리)</li>
+                    </ul>
+                  </li>
+                  <li class="list3">
+                    <div class="icon">발주기관</div>
+                    <ul>
+                      <li>노무비닷컴 회원가입<br>(도입문의: 1670-1970)</li>
+                      <li>실시간 대금 지급 모니터링</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="section">
+            <div class="si-process-tab-wrap">
+              <ul class="si-process-tab">
+                <li class="active">
+                  <span>협력기업</span>
+                </li>
+                <li>
+                  <span>도입기업</span>
+                </li>
+              </ul>
+              <div class="si-process-contents">
+                <div class="si-process-tab-cont1">
+                  asd
+                </div>
+              </div>
+              <div class="si-process-contents">
+                <div class="si-process-tab-cont2">
+                  asdasd
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div class="footer_wrap sub_tamplate no_margin">
+  <div class="footer">
+    <div class="family_site_wrap">
+      <div class="family_site_service">
+        <select name="familySite" id="familySite" onchange="if(this.value) window.open(this.value);">
+          <option value="" selected>FAMILY SITE</option>
+          <option value="http://www.nicednr.co.kr">NICE디앤알</option>
+          <option value="http://www.nice.co.kr">NICE홀딩스</option>
+          <option value="http://www.nicednb.com">NICE디앤비</option>
+          <option value="http://www.niceinfo.co.kr">NICE평가정보</option>
+          <option value="http://www.nicerating.com">NICE신용평가</option>
+          <option value="http://www.nicevan.co.kr">NICE정보통신</option>
+          <option value="http://www.kisvan.co.kr">KIS정보통신</option>
+          <option value="http://www.nicetcm.co.kr">한국전자금융</option>
+        </select>
+      </div>
+      <div class="family_site_service">
+        <select name="familyService" id="familyService" onchange="if(this.value) window.open(this.value);">
+          <option value="" selected>FAMILY SERVICE</option>
+          <option value="http://www.nicewinc.co.kr">동반성장지원 서비스</option>
+          <option value="http://www.nicedocu.com">전자계약/입찰 서비스</option>
+          <option value="http://www.nicesoho.co.kr">소상공인지원 서비스</option>
+          <option value="http://www.g2brating.co.kr">공공입찰 기업신용평가</option>
+          <option value="http://clipq.co.kr">협력업체 기업신용평가</option>
+          <option value="http://biz.ntcb.co.kr">기술 신용평가 서비스</option>
+          <option value="http://www.creport.co.kr">기업정보 서비스</option>
+          <option value="http://global.nicednb.com">글로벌 서비스</option>
+        </select>
+      </div>
+    </div>
+    <ul class="footer_menu">
+      <li>
+        <a href="nomu7201.do">이용약관</a>
+      </li>
+      <li>
+        <a href="nomu7301.do">개인정보처리방침</a>
+      </li>
+      <li>
+        <a href="nomu7401.do">이메일무단수집거부</a>
+      </li>
+    </ul>
+    <ul class="address">
+      <li>서울특별시 서대문구 충정로 36 NICE디앤알(주)</li>
+      <li>대표자 : 강용구</li>
+      <li>TEL : 1670-1970</li>
+      <li>FAX : 02-6442-2383</li>
+    </ul>
+    <ul class="address">
+    	<li>사업자등록번호 : 107-87-08207</li>
+    	<li>통신판매업 신고번호 : 제2012-서울구로-1033호</li>
+    </ul>
+    <p class="copyright">copyrightⓒ NICE Data&Research, Inc All Rights Reserved.</p>
+  </div>
+</div>
+
+</div>
+
+
+</body>
+</html>

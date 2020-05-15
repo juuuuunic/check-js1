@@ -1,0 +1,859 @@
+<html style="margin-right: 15px; display: block; overflow: hidden;"><head>
+<title>노무비_협력기업: 내역서작성(4201>4229>파일첨부하기)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<link rel="stylesheet" href="css/jquery-ui-1.8.22.custom.css" type="text/css">
+<link rel="stylesheet" href="css/default.css" type="text/css">
+<style>
+
+    .to-do-list .quick-bottom {
+    border: solid 3px #132c6b;
+    position: relative; }
+    .to-do-list .quick-bottom .img-wrap img {
+        width: 100%; }
+    .to-do-list .quick-bottom .btn-wrap a {
+        display: block;
+        line-height: 30px;
+        text-align: center;
+        color: #fff;
+        font-size: 12px;
+        background: #132c6b; }
+    .to-do-list .quick-bottom .todo_bottom_close {
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        cursor: pointer;
+        top: 3px;
+        right: 3px;
+        background: no-repeat right bottom url(images/common/to_do_list_close_btn.gif); }
+
+
+.footer select {
+    border: 1px solid #c4c5c9;
+    background: #fff;
+    color: #333;
+    height: 34px;
+    line-height: 34px;
+    padding-left: 10px;
+    width: 100%; 
+}
+.footer select, .footer option {
+    font-family: "Noto Sans Korean";
+    color: #5f5f5f;
+}
+</style>
+<script language="javascript" charset="euc-kr" src="js/jquery-1.7.1.min.js"></script>
+<script language="javascript" charset="euc-kr" src="js/jquery.alphanumeric.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomu.js"></script>
+<script language="javascript" charset="euc-kr" src="mlrpt/mlrpt.js"></script>
+<script language="javascript" charset="euc-kr" src="js/jquery.min.js"></script>
+<script language="javascript" charset="euc-kr" src="js/javascript.js"></script>
+<script language="javascript" charset="euc-kr" src="js/jquery-ui-1.8.22.custom.min.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomuAction.js"></script>
+<script language="javascript" charset="euc-kr" src="js/smartPop.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomuCal.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomua.js"></script>
+<script language="javascript" charset="euc-kr" src="js/floating.js"></script>
+<script language="javascript" charset="euc-kr" src="js/common_add.js"></script>
+<script language="javascript">
+
+var setAccTimeOut = null;
+var accTime = 3601;
+$().ready(function() {
+    
+    setAccTimeOut = window.setInterval(runAccTimeOut, 1000);
+    
+    accTime = 3601;
+    $(".gnb li").each(function(i){
+        $(this).removeClass("active");
+    });
+    $("#gnb32").addClass("active"); 
+});
+function runAccTimeOut() {
+    accTime--;
+    if(accTime==0) {
+        $("#acc_time").html("0:00");
+//		alert('입력시간 초과입니다.');
+        window.clearTimeout(setAccTimeOut);
+        self.location = "/logout.do?fr=login.do";
+    } else {
+        mm = Math.floor(accTime / 60);
+        ss = accTime % 60;
+        mmss = mm + ":"+(ss<10?"0":"")+ss;
+        $("#acc_time").html(mmss);
+    }
+}
+function resetAcc() {
+    accTime = 3601;
+}
+
+function view_alert() {
+    alert('로그인후 이용가능합니다.');
+}
+
+
+function moveDetl() {
+    var posLeft = event.x + document.documentElement.scrollLeft - 40;
+    if(posLeft>$(window).width()-230) posLeft = $(window).width()-230; 
+    helpbox.style.posLeft = posLeft;
+
+    helpbox.style.posTop  = event.y + 18;
+
+}
+function viewDetl_krcon(nm1, tel1, hp1, email1, nm2, tel2, hp2, email2) {
+    helpbox.innerHTML = "<table width=210 border=0 cellpadding=0 cellspacing=0><colgroup><col width=1><col width=*><col width=2></colgroup><tr><td height=1 colspan=3 bgcolor=#a6b4c1></td></tr><tr><td bgcolor=#a6b4c1></td>"+
+        "<td bgcolor=#FFFFFF style='padding-top:4px;padding-left:4px;'>"+
+        "1차승인권자<br>담당자명 : "+nm1+"<br>전화번호 : "+tel1+"<br>email : "+email1+"<br><br>"+
+        "2차승인권자<br>담당자명 : "+nm2+"<br>전화번호 : "+tel2+"<br>email : "+email2+
+        "</td><td bgcolor=#a6b4c1></td></tr><tr><td height=2 colspan=3 bgcolor=#a6b4c1></td></tr></table>";
+}
+function viewDetl_hdec(nm1, tel1, hp1, email1, nm2, tel2, hp2, email2, nm3, tel3, hp3, email3) {
+    helpbox.innerHTML = "<table width=210 border=0 cellpadding=0 cellspacing=0><colgroup><col width=1><col width=*><col width=2></colgroup><tr><td height=1 colspan=3 bgcolor=#a6b4c1></td></tr><tr><td bgcolor=#a6b4c1></td>"+
+        "<td bgcolor=#FFFFFF style='padding-top:4px;padding-left:4px;'>"+
+        "1차승인권자<br>담당자명 : "+nm1+"<br>전화번호 : "+tel1+"<br>email : "+email1+"<br><br>"+
+        "2차승인권자<br>담당자명 : "+nm2+"<br>전화번호 : "+tel2+"<br>email : "+email2+"<br><br>"+
+        "최종승인권자<br>담당자명 : "+nm3+"<br>전화번호 : "+tel3+"<br>email : "+email3+
+        "</td><td bgcolor=#a6b4c1></td></tr><tr><td height=2 colspan=3 bgcolor=#a6b4c1></td></tr></table>";
+}
+function viewDetl_hec(nm1, tel1, email1, nm2, tel2, email2) {
+    helpbox.innerHTML = "<table width=210 border=0 cellpadding=0 cellspacing=0><colgroup><col width=1><col width=*><col width=2></colgroup><tr><td height=1 colspan=3 bgcolor=#a6b4c1></td></tr><tr><td bgcolor=#a6b4c1></td>"+
+        "<td bgcolor=#FFFFFF style='padding-top:4px;padding-left:4px;'>"+
+        "1차승인권자<br>"+nm1+"<br>전화번호 : "+tel1+"<br>email : "+email1+"<br><br>"+
+        "2차승인권자<br>"+nm2+"<br>전화번호 : "+tel2+"<br>email : "+email2+
+        "</td><td bgcolor=#a6b4c1></td></tr><tr><td height=2 colspan=3 bgcolor=#a6b4c1></td></tr></table>";
+}
+function viewDetl(tel, email) {
+    helpbox.innerHTML = "<table width=210 border=0 cellpadding=0 cellspacing=0><colgroup><col width=1><col width=*><col width=2></colgroup><tr><td height=1 colspan=3 bgcolor=#a6b4c1></td></tr><tr><td bgcolor=#a6b4c1></td>"+
+        "<td bgcolor=#FFFFFF style='padding-top:4px;padding-left:4px;'>전화번호 : "+tel+"<br>email : "+email+"</td>"+
+        "<td bgcolor=#a6b4c1></td></tr><tr><td height=2 colspan=3 bgcolor=#a6b4c1></td></tr></table>";
+}
+function viewDetl_cs_n(tel) {
+    if(tel=='') return;
+    w = 108;
+    var html = "<table width="+w+" border=0 cellpadding=0 cellspacing=0><colgroup><col width=1><col width=*><col width=2></colgroup><tr><td height=1 colspan=3 bgcolor=#a6b4c1></td></tr><tr><td bgcolor=#a6b4c1></td>"+
+        "<td bgcolor=#FFFFFF style='padding-top:4px;padding-left:4px;'>"+tel;
+    html = html+"</td><td bgcolor=#a6b4c1></td></tr><tr><td height=2 colspan=3 bgcolor=#a6b4c1></td></tr></table>";
+    helpbox.innerHTML = html;
+}
+function viewDetl_cs(tel1, tel2, tel3) {
+    if(tel1.length>12)
+        w = 180
+    else
+        w = 150
+    var html = "<table width="+w+" border=0 cellpadding=0 cellspacing=0><colgroup><col width=1><col width=*><col width=2></colgroup><tr><td height=1 colspan=3 bgcolor=#a6b4c1></td></tr><tr><td bgcolor=#a6b4c1></td>"+
+        "<td bgcolor=#FFFFFF>전화번호1 : "+tel1;
+    if(tel2!="")
+        html = html	+"<br>전화번호2 : "+tel2;
+    if(tel3!="")
+        html = html	+"<br>전화번호3 : "+tel3;
+    html = html+"</td><td bgcolor=#a6b4c1></td></tr><tr><td height=2 colspan=3 bgcolor=#a6b4c1></td></tr></table>";
+    helpbox.innerHTML = html;
+}
+function viewDetls(str) {
+    helpbox.innerHTML = "<table width=210 border=0 cellpadding=0 cellspacing=0><colgroup><col width=1><col width=*><col width=2></colgroup><tr><td height=1 colspan=3 bgcolor=#a6b4c1></td></tr><tr><td bgcolor=#a6b4c1></td>"+
+        "<td bgcolor=#FFFFFF>"+str+"</td>"+
+        "<td bgcolor=#a6b4c1></td></tr><tr><td height=2 colspan=3 bgcolor=#a6b4c1></td></tr></table>";
+}
+function hideDetl() {
+    helpbox.innerHTML = "";
+}
+
+
+function pop(tel, email) {
+    smartPopClose();
+    $.smartPop.open({ width:300, height:80, html: '<br><br>전화번호 : '+tel+'<br>email : '+email});
+}
+function help_com(com_cd) {
+    ifrm_work.location.href = "nomuWork.do?sdo=공통_파일다운로드&id_typ=9004&seq="+com_cd;
+}
+function help_comh(com_cd) {
+    ifrm_work.location.href = "nomuWork.do?sdo=공통_파일다운로드&id_typ=9005&seq="+com_cd;
+}
+
+
+var first_view = true;
+var mov_view = false;
+var cmp_view = false;
+$().ready(function() {
+
+    searchList1(1);
+
+    first_view = false;
+    
+});
+// 0:|1:|2:|3:|4:|5:|
+function searchList1(pg, mov) { // 현장정보 조회
+    if(pg>0)
+        $("#frm1 input[name=curPage]").val(pg);
+$("#frm1 input[name=sdo]").val("공통_현장정보g");
+$.ajax({type:"get", url: "/nomuMnu.ado", data:$("#frm1").serialize(), dataType:"json",
+        success : function(data) {
+            $('#t_body').html(data.t_body); $("#d_page").html(data.d_page);
+            if(first_view)
+                list_view('','','', mov, 'true');
+            else if(mov_view) 
+                list_view('','','', mov, 'true');
+            else if(data.or_com_cd!="") 
+                list_view(data.or_cd, data.or_com_cd, data.or_name, mov, data.pc_type);
+            first_view = false;
+
+        },
+        //error : function(request,error) { alert('처리중 에러가 발생하였습니다.'); }
+    });
+}
+
+function edit_bill(or_cd, or_com_cd, bill_month, seq, or_name) {
+    location.href="nomu4221.do?or_cd="+or_cd+"&or_com_cd="+or_com_cd+"&bill_month="+bill_month+"&seq="+seq+"&or_name="+or_name;
+}
+function change_month(bill_month, seq) {
+    $("#frm_d input[name=bill_month_o]").val(bill_month);
+    $("#frm_d input[name=seq_o]").val(seq);
+    $("#frm_d input[name=or_com_cd]").val($("#add_frm1 input[name=or_com_cd]").val());
+
+//	dialog_mon.dialog("open");
+    
+    $.smartPop.open({ width:300, height:200, html: $('#dialog-mon').html()});
+}
+function save() {
+    $.ajax({type:"get", url: "/nomuMnu.ado", data:$("#smartPop #frm_d").serialize(), dataType:"json",
+        success : function(data) { alert(data.msg); searchList2(1); smartPopClose(); }, // dialog_mon.dialog("close"); },
+        //error : function(request,error) { alert('처리중 에러가 발생하였습니다.'); }
+    });
+}
+$().ready(function() {
+/*
+
+    dialog_mon = $( "#dialog-mon" ).dialog({
+        autoOpen: false,
+//		height: 250,
+        width: 360,
+        modal: true,
+        buttons: {
+            "변경": function() {
+                $.ajax({type:"get", url: "/nomuMnu.ado", data:$("#frm_d").serialize(), dataType:"json",
+                    success : function(data) { alert(data.msg); searchList2(1); dialog_mon.dialog("close"); },
+                    error : function(request,error) { alert('처리중 에러가 발생하였습니다.'); }
+                });
+            },
+            "닫기": function() { dialog_mon.dialog("close"); }
+        }
+    });
+    dialog_mon.dialog('option', 'position', 'center');
+
+*/	
+});
+
+var _pc_type;
+function list_view(or_cd,or_com_cd,or_name, mov, pc_type){ // 내역서조회
+    $("#frm6 input[name=or_cd]").val(or_cd);
+    v_or_cd = or_cd;
+    v_or_name = or_name;
+    $("#add_frm1 input[name=or_cd]").val(or_cd);
+    $("#add_frm1 input[name=or_com_cd]").val(or_com_cd);
+    $("#add_frm1 input[name=or_name]").val(or_name);
+    _pc_type = pc_type;
+    $('.or_name').html(or_name);
+    if(mov_view) {
+        
+        searchList2();
+        
+    } else if(cmp_view)
+        searchList6(1);
+    else
+        searchList2(1);
+    mov_view = false;
+    
+}
+function searchList2(pg) { // 내역서 페이지 조회
+    $("#add_frm1 input[name=sdo]").val("공통_내역서총괄");
+    $("#add_frm1 input[name=curPage]").val(pg);
+    $.ajax({type:"post", url: "/nomuMnu.do", data:$("#add_frm1").serialize(), dataType:"json",
+        success : function(data) { 
+            $("#t_body2").html(data.t_body); $("#d_page2").html(data.d_page); got2(_pc_type=='A'?"true":"false");
+        },
+        //error : function(request,error) { alert('처리중 에러가 발생하였습니다.'); }
+    });
+}
+/********** 공통_내역서총괄_tbody **********/
+function openLayer(){ //레이어 팝업열기(신규 청구서 추가 팝업)
+    if($('#add_frm1 input[name=or_com_cd]').val()=='') 
+        alert('현장을 먼저 선택하세요.');
+    else {
+//		$("#add_frm1 input[name=sdo]").val('공통_청구내역서추가');
+//		$.smartPop.open({ width:300, height:320, url: '/nomuMnu.ado?'+$('#add_frm1').serialize()});
+        var or_cd = $('#add_frm1 input[name=or_cd]').val();
+//		if(or_cd==1495 || or_cd==1434)
+        if(or_cd==1135 || or_cd==2890)
+            $.smartPop.open({ width:400, height:320, url: '/nomuMnu.do?sdo=공통_팝업31&or_cd='+or_cd+'&or_name='+$('#add_frm1 input[name=or_name]').val()});
+        else
+            $.smartPop.open({ width:400, height:320, url: '/nomuMnu.do?sdo=공통_팝업3&or_name='+$('#add_frm1 input[name=or_name]').val()});
+    }
+}
+function check_fin() {
+    smartPopClose();
+    $("#add_frm1 input[name=sdo]").val('공통_청구내역서추가');
+    $.smartPop.open({ width:300, height:340, url: '/nomuMnu.ado?'+$('#add_frm1').serialize()});
+}
+function insertSuccess(or_cd,or_com_cd,or_name){
+    smartPopClose();
+    list_view(or_cd,or_com_cd,or_name);
+}
+function delSuccess(or_cd,or_com_cd,or_name){
+    list_view(or_cd,or_com_cd,or_name);
+}
+function add_dup(or_cd,or_com_cd,bill_month,ac_type) {
+    $.ajax({type:"post", url: "/nomuMnu.do?sdo=공통_청구내역서저장추가&or_cd="+or_cd+"&or_com_cd="+or_com_cd+"&bill_month="+bill_month+"&ac_type="+ac_type, dataType:"json",
+        success : function(data) {
+            alert('등록되었습니다');
+            searchList2(1); 
+            smartPopClose();
+        },
+        //error : function(request,error) { alert('처리중 에러가 발생하였습니다.'); }
+    });
+}
+function del(or_cd,or_com_cd,bill_month,seq,no_cnt) {
+    if(no_cnt==0) {
+        if(!confirm("삭제하시겠습니까?")){
+            return;
+        }
+    } else {
+        var month = bill_month/100;
+        if(!confirm(month+"월달 청구내역이 있습니다. 삭제하시겠습니까?")){
+            return;
+        }
+    }
+    ifrm_work.location.href="/nomuWork.do?sdo=공통_청구내역서삭제&or_cd="+or_cd+"&or_com_cd="+or_com_cd+"&bill_month="+bill_month+"&seq="+seq;
+}
+function view_a(or_cd, or_com_cd, bill_month, seq) {
+    alert('계좌검증이 진행중입니다. 잠시 후에 새로고침(F5)을 클릭하여 주시기 바랍니다.');
+}
+function view1(or_cd, or_com_cd, bill_month, seq) { // 청구내역서 보기
+    ac_type = '';
+    if(add_frm1.ac_type.value!='') ac_type = '&ac_type='+add_frm1.ac_type.value;
+    $.smartPop.open({ width:820, height:620, url: '/nomuMnu.do?sdo=하도_청구내역서&or_cd='+or_cd+'&or_com_cd='+or_com_cd+'&bill_month='+bill_month+'&seq='+seq+'&key=1'+ac_type});
+}
+function write1(or_cd, or_com_cd, bill_month, seq, or_name){  // 청구내역서 작성
+
+    //location.href="nomu4229.do?or_cd="+or_cd+"&or_com_cd="+or_com_cd+"&bill_month="+bill_month+"&seq="+seq+"&or_name="+or_name+"&page_type=hasu";
+    location.href="nomu4229.html?or_cd";
+    
+}
+function mod(or_cd, or_com_cd, bill_month, seq, or_name, yn_key){ // 청구내역서 수정
+
+    location.href="nomu4220.do?or_cd="+or_cd+"&or_com_cd="+or_com_cd+"&bill_month="+bill_month+"&seq="+seq+"&or_name="+or_name+"&key=1&page_type=hasu";
+    
+}
+function view2(or_cd, or_com_cd, bill_month, seq){ //레이어 팝업열기(지급내역서 보기 팝업)
+    $.smartPop.open({ width:820, height:620, url: '/nomuView.do?sdo=하도_지급내역서&or_cd='+or_cd+'&or_com_cd='+or_com_cd+'&bill_month='+bill_month+'&seq='+seq+'&close=1'});
+}
+function write2(or_cd, or_com_cd, bill_month, seq, or_name){ // 지급내역서 작성
+
+    location.href="nomu4220.do?or_cd="+or_cd+"&or_com_cd="+or_com_cd+"&bill_month="+bill_month+"&seq="+seq+"&or_name="+or_name+"&key=1&page_type=hasu";
+    
+}
+function mod2(or_cd, or_com_cd, bill_month, seq, or_name, bl_key, pay_cd){ // 지급내역서 수정
+
+    location.href="nomu4220.do?or_cd="+or_cd+"&or_com_cd="+or_com_cd+"&bill_month="+bill_month+"&seq="+seq+"&or_name="+or_name+"&key=1&page_type=hasu";
+
+}	
+function edit_pay_day(or_cd, or_com_cd, bill_month, seq) {
+    $.smartPop.open({ width:820, height:620, url: '/nomuView.do?sdo=원도_지급정보입력&or_cd='+or_cd+'&or_com_cd='+or_com_cd+'&bill_month='+bill_month+'&seq='+seq});
+}
+function edit_recv(or_cd, or_com_cd, bill_month, seq) {
+    smartPopClose();
+    $.smartPop.open({ width:450, height:440, url: 'nomuMnu.do?sdo=하도_대금수령등록&or_cd='+or_cd+'&or_com_cd='+or_com_cd+'&bill_month='+bill_month+'&seq='+seq });
+}
+function fileLoad(seq) { // 첨부파일다운
+    ifrm_work.location.href = "nomuWork.do?sdo=공통_파일다운로드&id_typ=1002&seq="+seq;
+}
+function got2(show) {
+
+    show = $("#frm1 select[name=pc_type]").val()=='A';
+    var col3 = $('#go_id tr td');
+//	if(col3.attr("colspan")==14) col3.attr("colspan", 11);
+    if(show && col3.attr("colspan")==11) col3.attr("colspan", 14);
+    if(!show && col3.attr("colspan")==14) col3.attr("colspan", 11);
+    var col1 = $('#go_id thead th:nth-child(9),#go_id thead th:nth-child(10),#go_id thead th:nth-child(11)');
+    var col2 = $('#go_id tr td:nth-child(11),#go_id tr td:nth-child(12),#go_id tr td:nth-child(13)');
+//	if(show=='true') { col1.show(); col2.show(); } else { col1.hide(); col2.hide(); }
+    if(show) { col1.show(); col2.show(); } else { col1.hide(); col2.hide(); }
+
+}
+$(document).ready(function() {
+    //$.smartPop.open({ width:520, height:400, url: '/nomuMnu.do?sdo=하도_미지급안내'});
+    $.smartPop.open({ width:520, height:400, url: 'nomuMnu_4201.html'});
+});
+
+//popup_open('/popup/20160530/pop.html', 'p20160530', '600', '530', '0');
+//popup_open('/popup/20161101/pop.html', 'p20161101', '595', '735', '0');
+//popup_open('/popup/20170112/pop.html', 'p20170112', '595', '895', '0');
+//popup_open('/popup/20170401/pop.html', 'p20170401', '595', '585', '0');
+
+//popup_open('/popup/20190304/pop.html', 'p20190304', '695', '822', '0');
+$().ready(function() {
+    quick.style.display = "";
+//**//	new Floating(document.getElementById("quick"), -100, 210, 20, 10);
+    new Floating(document.getElementById("quick"), -100, 110, 20, 10);
+//	new Floating(document.getElementById("quick"), -114, 210, 20, 10);
+//	new Floating(document.getElementById("quick"), -114, 110, 20, 10);
+    $('.todo_bottom_close').click(function(){
+        $('#quick').hide();
+    });
+});
+</script>
+
+</head>
+<body>
+    
+    <prnoff>
+    <div class="wrap login">
+    
+        <div class="header">
+          <div class="header_top_wrap">
+            <div class="header_top">
+              <p class="company_phone">(주)나이스토건 (107-86-24873)</p>
+              <ul class="header_quick_menu">
+            
+                <li class="time_color" id="acc_time">53:10</li>
+                <li class="time_color">
+                  <a href="javascript:resetAcc()">연장</a>
+                </li>
+                <li>
+                  <a href="logout.do">로그아웃</a>
+                </li>
+                <li>
+    
+                  <a href="nomu6401.do">기업정보수정</a>
+    
+                </li>
+    <li><a href="/nomuMain.do?sdo=하도_결제내역_m">결제내역</a></li>          
+              </ul>
+            </div>
+          </div>
+          <div class="header_bottom_wrap">
+            <div class="header_bottom">
+              <div class="logo_wrap">
+                <h1><a href="/">노무비닷컴</a></h1>
+                <p class="slogun">체불없는 세상을 위한 모두의 한걸음</p>
+              </div>
+              <ul class="gnb">
+                <!-- GNB 페이지 유지시 class명 active붙이기(depth1에서만 적용) -->
+    
+                <li id="gnb31" class=""><a href="nomu4101.do">현장등록</a></li>
+                <li id="gnb32" class="active"><a href="nomu4201.do">내역서작성</a></li>
+                <li id="gnb33"><a href="nomu4301.do">대금지급</a></li>
+                    <li id="gnb33"><a href="nomu45051.do">확인서발급</a></li>
+    
+              </ul>
+            </div>
+          </div>
+        </div>
+    
+    <div id="warp" style="padding-top:30px">
+        <div id="content">	
+        
+    <div id="location">
+        <div id="locationNavi">
+    
+            <h1 style="float:left"><img src="images/title/title420.gif" alt="내역서작성"></h1>
+    
+        </div>
+        <ol style="line-height:1.5">
+            <li>HOME&nbsp;&gt;&nbsp;</li>
+            <li class="png24">협력기업&nbsp;&gt;&nbsp;</li>
+            <li class="last png24" id="pg_navi">내역서작성</li>
+        </ol>
+    </div>
+    
+    <script language="javascript">
+    function help(scr_id) {
+    //	ifrm_work.location.href = "nomuWork.do?sdo=공통_파일다운로드&id_typ=9003&seq="+scr_id;
+    //	ifrm_work.src = "nomuWork.do?sdo=공통_파일다운로드&id_typ=9003&seq="+scr_id;
+        window.open("nomuWork.do?sdo=공통_파일다운로드&view=true&id_typ=9003&seq="+scr_id, "_blank");
+    }
+    function help_talk() {
+    //	open_win("https://talk.naver.com/WCD8I5", "helptalk", 420, 540);
+        var _new_win= window.open("https://talk.naver.com/WCD8I5", "help","left=0,top=0,width=508,height=808");
+        _new_win.focus();
+    }
+    </script>
+    
+    <div style="float:right;padding-top:4px;"><a href="javascript:help_talk()"><img src="images/img/help_talk.gif"></a> <img src="images/img/help_tel.gif"> <a href="javascript:help('108')"><img src="images/img/help_no.gif"></a></div>
+    
+    <div style="clear:both;"></div>
+    
+    <div id="helpbox" style="position:absolute; left:0px; top:0px; width:300px; height:0px; border-width:0px; z-index:1;"></div>
+    
+    <div class="tableTop">
+        <div class="tLeft">
+            <h3>
+    
+            <img src="images/txt/txt_board1.gif" alt="내현장정보">
+    
+        </h3>
+        </div>
+    <form id="frm1" name="frm1" method="post" onsubmit="return false;">
+        <input type="hidden" id="del_key" name="del_key" value="">
+        <input type="hidden" id="or_cd" name="or_cd" value="">
+        <input type="hidden" id="or_com_cd" name="or_com_cd" value="">
+        <input type="hidden" name="sdo" value="공통_현장정보g"><input type="hidden" name="curPage" value="1">
+        <fieldset>
+            <legend>검색</legend>
+            <div class="tRight">
+                <ul>
+                
+                    <li>
+                        <select name="pc_type" onchange="searchList1()">
+                            <option value="">현장구분</option>
+                            <option value="A">공공제출</option>
+                            <option value="">일반</option>
+                        </select>
+                    </li>
+                    
+                    <li><img src="images/txt/txt_sday.gif" alt="등록일자"></li>
+                    <li>
+                        <input type="text" name="start_date" class="cal hasDatepicker" id="startDay1" value=""><img class="ui-datepicker-trigger" src="images/img/img_date1.gif" alt="..." title="..." style="margin-left:5px; vertical-align:middle; cusor:pointer;">
+                    </li>
+                    <li>~</li>
+                    <li>
+                        <input type="text" name="end_date2" class="cal hasDatepicker" id="startDay2" value=""><img class="ui-datepicker-trigger" src="images/img/img_date1.gif" alt="..." title="..." style="margin-left:5px; vertical-align:middle; cusor:pointer;">
+                    </li>
+                    <li>
+                        <select name="search" id="search">
+    <!--
+                            <option value="T">전체</option>
+    -->
+    
+                            <option value="W">원수급자</option>
+    
+                            <option value="N">계약번호</option>
+                            <option value="S" selected="">계약/현장명</option>
+                        </select>
+                    </li>
+                    <li class="p4"><input type="text" class="searchPut_150" name="keyword" id="search2" value=""></li>
+                    <li class="p4"><input type="button" onclick="javascript:searchList1(1)" class="searchBtn pointer" alt="조회"></li>
+    
+                    <li class="p4"><input type="button" onclick="javascript:excel_down('하도_내역서작성_내현장정보');" class="exelBtn pointer" alt="엑셀"></li>
+    
+                </ul>
+            </div>
+        </fieldset>
+    </form>
+    </div>
+    <!-- //Table 상단끝 -->
+    <div class="BorderTb">
+        <table summary="내현장정보" class="Type1" border="1" cellspacing="0">
+        <caption>내현장정보</caption>
+        <colgroup>
+            <col width="6%">
+    
+            <col width="8%">
+    
+            <col width="8%">
+            
+            <col width="10%">
+            
+            <col width="15%">
+            
+            <col width="*">
+            <col width="12%">
+            <col width="130">
+            
+            <col width="70">
+            
+        </colgroup>
+        <thead>
+        <tr>
+            <th scope="col">순번</th>
+    
+            <th scope="col">구분</th>
+    
+            <th scope="col">등록일자</th>
+    
+            <th scope="col">계약번호</th>
+            
+            <th scope="col">원수급자</th>
+            
+            <th scope="col">계약/현장명</th>
+    
+            <th scope="col">원청관리자</th>
+    <!-- 		<th scope="col">시스템 운영팀</th> -->
+            
+            <th scope="col">매뉴얼</th>
+            
+        </tr>
+        </thead>
+        <tbody id="t_body"><tr><td>16</td><td>민간</td><td>2020-05-08</td><td>-</td><td>나이스디앤알</td><td><a href="javascript:list_view('20009','89516','시연테스트 현장','','C')">시연테스트 현장</a></td><td onmousemove="moveDetl();" onmouseover="viewDetl('02-2122-2356', 'jhjang@nicednr.co.kr');" onmouseout="hideDetl();" style="cursor:pointer;text-decoration:underline;">문형민</td><!-- <td onMouseMove="moveDetl();" onMouseOver="viewDetl_cs('', '', '');" onMouseOut="hideDetl();" style="cursor:pointer;text-decoration:underline;"></td> --><!-- <td onMouseMove="moveDetl();" onMouseOver="viewDetl_cs_n('02-788-9062,9089');" onMouseOut="hideDetl();" style="cursor:pointer;text-decoration:underline;">시스템이용문의처</td> --><!--  <td onMouseMove="moveDetl();" onMouseOver="viewDetl_cs_n('');" onMouseOut="hideDetl();" style="cursor:pointer;text-decoration:underline;"><img src=/images/txtn/txt_tel.gif></td> --><td class="help_com"><a href="javascript:help_comh('4')">보기</a></td></tr><tr><td>15</td><td>민간</td><td>2020-03-24</td><td>-</td><td>나이스디앤알</td><td><a href="javascript:list_view('19271','87990','SK건설 시연용 현장','','C')">SK건설 시연용 현장</a></td><td onmousemove="moveDetl();" onmouseover="viewDetl('0-0-0', '0@0');" onmouseout="hideDetl();" style="cursor:pointer;text-decoration:underline;">test</td><!-- <td onMouseMove="moveDetl();" onMouseOver="viewDetl_cs('', '', '');" onMouseOut="hideDetl();" style="cursor:pointer;text-decoration:underline;"></td> --><!-- <td onMouseMove="moveDetl();" onMouseOver="viewDetl_cs_n('02-788-9062,9089');" onMouseOut="hideDetl();" style="cursor:pointer;text-decoration:underline;">시스템이용문의처</td> --><!--  <td onMouseMove="moveDetl();" onMouseOver="viewDetl_cs_n('');" onMouseOut="hideDetl();" style="cursor:pointer;text-decoration:underline;"><img src=/images/txtn/txt_tel.gif></td> --><td class="help_com"><a href="javascript:help_comh('4')">보기</a></td></tr><tr><td>14</td><td>민간</td><td>2019-06-21</td><td>-</td><td>나이스디앤알</td><td><a href="javascript:list_view('14389','72978','전환테스트1','','C')">전환테스트1</a></td><td onmousemove="moveDetl();" onmouseover="viewDetl('02-2122-2356', 'jhjang@nicednr.co.kr');" onmouseout="hideDetl();" style="cursor:pointer;text-decoration:underline;">문형민</td><!-- <td onMouseMove="moveDetl();" onMouseOver="viewDetl_cs('', '', '');" onMouseOut="hideDetl();" style="cursor:pointer;text-decoration:underline;"></td> --><!-- <td onMouseMove="moveDetl();" onMouseOver="viewDetl_cs_n('02-788-9062,9089');" onMouseOut="hideDetl();" style="cursor:pointer;text-decoration:underline;">시스템이용문의처</td> --><!--  <td onMouseMove="moveDetl();" onMouseOver="viewDetl_cs_n('');" onMouseOut="hideDetl();" style="cursor:pointer;text-decoration:underline;"><img src=/images/txtn/txt_tel.gif></td> --><td class="help_com"><a href="javascript:help_comh('4')">보기</a></td></tr><tr><td>13</td><td>민간</td><td>2019-05-21</td><td>-</td><td>나이스디앤알</td><td><a href="javascript:list_view('13829','71357','전환테스트2','','C')">전환테스트2</a></td><td onmousemove="moveDetl();" onmouseover="viewDetl('02-2122-2356', 'jhjang@nicednr.co.kr');" onmouseout="hideDetl();" style="cursor:pointer;text-decoration:underline;">문형민</td><!-- <td onMouseMove="moveDetl();" onMouseOver="viewDetl_cs('', '', '');" onMouseOut="hideDetl();" style="cursor:pointer;text-decoration:underline;"></td> --><!-- <td onMouseMove="moveDetl();" onMouseOver="viewDetl_cs_n('02-788-9062,9089');" onMouseOut="hideDetl();" style="cursor:pointer;text-decoration:underline;">시스템이용문의처</td> --><!--  <td onMouseMove="moveDetl();" onMouseOver="viewDetl_cs_n('');" onMouseOut="hideDetl();" style="cursor:pointer;text-decoration:underline;"><img src=/images/txtn/txt_tel.gif></td> --><td class="help_com"><a href="javascript:help_comh('4')">보기</a></td></tr><tr><td>12</td><td>민간</td><td>2018-11-22</td><td>-</td><td>나이스디앤알</td><td><a href="javascript:list_view('10889','59779','전환테스트3','','C')">전환테스트3</a></td><td onmousemove="moveDetl();" onmouseover="viewDetl('02-2122-2356', 'jhjang@nicednr.co.kr');" onmouseout="hideDetl();" style="cursor:pointer;text-decoration:underline;">문형민</td><!-- <td onMouseMove="moveDetl();" onMouseOver="viewDetl_cs('', '', '');" onMouseOut="hideDetl();" style="cursor:pointer;text-decoration:underline;"></td> --><!-- <td onMouseMove="moveDetl();" onMouseOver="viewDetl_cs_n('02-788-9062,9089');" onMouseOut="hideDetl();" style="cursor:pointer;text-decoration:underline;">시스템이용문의처</td> --><!--  <td onMouseMove="moveDetl();" onMouseOver="viewDetl_cs_n('');" onMouseOut="hideDetl();" style="cursor:pointer;text-decoration:underline;"><img src=/images/txtn/txt_tel.gif></td> --><td class="help_com"><a href="javascript:help_comh('4')">보기</a></td></tr></tbody>
+        </table>
+    </div>
+    <br>
+    <!-- 페이징부분  -->
+    <div class="page" id="d_page"><span class="pg_lst"><a href="javascript:searchList1(1)"><img src="images/board/btn_first.gif" alt="처음"></a><img src="images/board/btn_prev.gif" alt="이전"> 1 | <a href="javascript:searchList1(2)">2</a> | <a href="javascript:searchList1(3)">3</a> | <a href="javascript:searchList1(4)">4</a> &nbsp;<img src="images/board/btn_next.gif" alt="다음"><a href="javascript:searchList1(4)"><img src="images/board/btn_last.gif" alt="마지막"></a></span></div>
+    <div style="height:10px;"></div>
+    
+    <div id="div_m">
+    <form id="add_frm1" name="add_frm1" method="post" onsubmit="return false;">
+    <div class="tableTop">
+        <div class="tLeft">
+            <h3><img src="images/txt/txt_board2.gif" alt="청구/지급내역 총괄 현황"></h3>
+            <p class="btn"><span class="or_name">시연테스트 현장</span></p>
+        </div>
+        <div class="tRight">
+            <ul>
+                <li>
+    
+                </li><li class="p4">
+    
+                    <select name="ac_type" onchange="javascript:searchList2(1)">
+                        <option value="" selected="">전체</option>
+                        <option value="01">노무비</option>
+                        <option value="03">장비</option>
+                        <option value="04">자재</option>
+                        <option value="05">기타기성</option>
+                        
+                        <option value="06">선급금</option>
+                                        
+                    </select>
+                        
+                </li>
+    
+                <li class="p4"><a href="javascript:openLayer()"><img src="images/btn/btn_claim.gif" alt="신규 청구내역서 추가하기"></a></li>
+    
+                <li class="p4"><input type="button" onclick="javascript:excel_down('원도_내역서확인_청구지급내역총괄현황&amp;or_com_cd='+add_frm1.or_com_cd.value+'&amp;or_cd='+add_frm1.or_cd.value);" class="exelBtn pointer" alt="엑셀"></li>
+            </ul>
+        </div>
+    </div>
+    <input type="hidden" name="sdo" value="공통_내역서총괄"><input type="hidden" name="curPage" value="1">
+    <input type="hidden" name="or_cd" value="20009">
+    <input type="hidden" name="or_com_cd" value="89516">
+    <input type="hidden" name="or_name" value="시연테스트 현장">
+    </form>
+    <!-- //Table 상단끝 -->
+    <div class="BorderTb">
+        <table summary="현장관리" class="Type1" border="1" cellspacing="0" id="go_id">
+            <colgroup>
+    
+                <col width="50">
+                <col width="60">
+                <col width="70">
+                <col width="70">
+                <col width="90">
+                <col width="90">
+                <col width="70">
+                <col width="70">
+                <col width="70">
+                <col width="70">
+                <col width="70">
+                <col width="90">
+                <col width="60">
+                <col width="40">
+                
+            </colgroup>
+            <thead>
+            <tr>
+                <th rowspan="2" scope="col">순번</th>
+                <th rowspan="2" scope="col">해당월</th>
+    
+                <th rowspan="2" scope="col">청구일자</th>
+                <th rowspan="2" scope="col">지급일자</th>
+                <th rowspan="2" scope="col">청구액(원)</th>
+                
+                <th rowspan="2" scope="col">지급액(원)</th>
+                <th colspan="2" scope="col">청구내역서</th>
+                <th colspan="2" scope="col">지급내역서</th>
+    
+                <th rowspan="2" scope="col" style="display: none;">수령일자</th>
+                <th rowspan="2" scope="col" style="display: none;">수령금액</th>
+                <th rowspan="2" scope="col" style="display: none;">대금수령<br>등록</th>
+                
+                <th rowspan="2" scope="col">삭제</th>
+            </tr>
+            <tr>
+                <th>상태</th>
+                <th>진행</th>
+                <th>상태</th>
+                <th>진행</th>
+            </tr>
+            </thead>
+            <tbody id="t_body2">
+                <tr>
+                    <td id="td_edit" bill_month="202003" seq="0">1</td>
+                    <td><a href="javascript:change_month(202003,0)">2020/03</a></td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>27</td>
+                    <td>-</td>
+                    <td>작성중</td>
+                    <td><a href="javascript:write1('19271','87990','202003', '0','SK건설 시연용 현장')">수정하기</a></td>
+                    <td>미지급<!----></td>
+                    <td>확인하기<!--작성하기--><!----></td>
+                    <td style="display: none;"></td>
+                    <td class="td_ar" style="display: none;">0</td>
+                    <td style="display: none;"><a href="javascript:edit_recv('19271','87990','202003', '0')" style="line-height:1.7">등록</a></td>
+                    <td><a href="javascript:del('19271','87990','202003', '0', '5')">삭제</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <div class="page" id="d_page2"></div>
+    </div>
+    
+    <div id="dialog-mon" title="청구월 변경" style="display:none;">
+    <div class="tableTop">
+        <div class="tcenter2">
+            <p class="ptitle_ul">청구월 변경</p>
+        </div>
+    </div>
+    <!--
+    <div style="padding-top:20px"
+    -->
+    <div class="BorderTb" style="margin-top:10px">
+        <form id="frm_d" name="frm_d" method="post">
+            <input type="hidden" name="or_com_cd">
+            <input type="hidden" name="bill_month_o">
+            <input type="hidden" name="seq_o">
+            <input type="hidden" name="sdo" value="관리_청구월변경">
+        <table summary="신규 청구내역서 추가" class="Type1" bordr="1" cellspacing="0">
+            <colgroup>
+                <col style="width:130px;">
+                <col style="width:120px;">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th>변경후 청구월</th>
+                    <td>
+                        <input type="text" class="Popput_80" id="bill_month_n" name="bill_month_n" value="201607"> 
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </form>
+    </div>
+    <div class="btnArea" style="margin-top:10px">
+        <div class="pCenter">
+            <ul>
+                <li>
+                    <input type="button" class="saveBtn pointer" alt="저장" onclick="javascript:save();">
+                    <input type="button" class="closeBtn pointer" alt="닫기" onclick="javascript:parent.smartPopClose();">
+                </li>
+            </ul>
+        </div>
+    </div>
+    </div>
+    
+        </div>
+    </div>
+    
+    <div id="quick" style="width: 120px; position: absolute; z-index: 1; left: 1223px; top: 110px;">
+    <div>
+    <a href="https://aff.g2brating.co.kr/#MENUCM0300?param=NOMUBI" target="_blank">
+    <img src="images/page/nomubi_banner1_101_200.jpg" alt="">
+    </a>
+    </div>
+    <!--
+    <div>
+    <a href="https://www.nicers.co.kr" target=_blank>
+    <img src="images/page/nomubi_banner2_101_200.jpg" alt="">
+    </a>
+    </div>
+    <div>
+    <a href="https://nicewel.co.kr/?act=user.user_join_info&r=nomubi" target=_blank>
+    <img src="images/page/nomubi_banner4_101_200.jpg" alt="">
+    </a>
+    </div>
+    -->
+    <div>
+        <a href="https://www.niceabc.co.kr/ingress/main?aid=nomubi" target="_blank">
+        <img src="images/page/nomubi_02.jpg" alt="">
+        </a>
+    </div>
+    <div>
+        <a href="/nomu4505.do">
+        <img src="images/page/7.101x200.jpg" alt="">
+        </a>
+    </div>
+    <!--
+    -->
+    <!--
+          <div class="to-do-list">
+            <div class="quick-bottom inner-quick">
+              <div class="img-quick">
+                <div class="todo_bottom_close"></div>
+                <div class="img-wrap">
+                  <img src="images/common/quick_banner.gif" alt="">
+                </div>
+                <div class="btn-wrap">
+                  <a href="/nomu45051.do">발급바로가기</a>
+                </div>
+              </div>
+            </div>
+            </div>
+    -->
+    </div>
+    
+    <div id="content_work"></div>
+    <iframe id="ifrm_work" name="ifrm_work" border="0" width="0" height="0"></iframe>
+    </div>
+    
+    <div class="footer_wrap sub_tamplate ">
+      <div class="footer">
+        <div class="family_site_wrap">
+          <div class="family_site_service">
+            <select name="familySite" id="familySite" onchange="if(this.value) window.open(this.value);">
+              <option value="" selected="">FAMILY SITE</option>
+              <option value="http://www.nicednr.co.kr">NICE디앤알</option>
+              <option value="http://www.nice.co.kr">NICE홀딩스</option>
+              <option value="http://www.nicednb.com">NICE디앤비</option>
+              <option value="http://www.niceinfo.co.kr">NICE평가정보</option>
+              <option value="http://www.nicerating.com">NICE신용평가</option>
+              <option value="http://www.nicevan.co.kr">NICE정보통신</option>
+              <option value="http://www.kisvan.co.kr">KIS정보통신</option>
+              <option value="http://www.nicetcm.co.kr">한국전자금융</option>
+            </select>
+          </div>
+          <div class="family_site_service">
+            <select name="familyService" id="familyService" onchange="if(this.value) window.open(this.value);">
+              <option value="" selected="">FAMILY SERVICE</option>
+              <option value="http://www.nicewinc.co.kr">동반성장지원 서비스</option>
+              <option value="http://www.nicedocu.com">전자계약/입찰 서비스</option>
+              <option value="http://www.nicesoho.co.kr">소상공인지원 서비스</option>
+              <option value="http://www.g2brating.co.kr">공공입찰 기업신용평가</option>
+              <option value="http://clipq.co.kr">협력업체 기업신용평가</option>
+              <option value="http://biz.ntcb.co.kr">기술 신용평가 서비스</option>
+              <option value="http://www.creport.co.kr">기업정보 서비스</option>
+              <option value="http://global.nicednb.com">글로벌 서비스</option>
+            </select>
+          </div>
+        </div>
+        <ul class="footer_menu">
+          <li>
+            <a href="nomu7201.do">이용약관</a>
+          </li>
+          <li>
+            <a href="nomu7301.do">개인정보처리방침</a>
+          </li>
+          <li>
+            <a href="nomu7401.do">이메일무단수집거부</a>
+          </li>
+        </ul>
+        <ul class="address">
+          <li>서울특별시 서대문구 충정로 36 NICE디앤알(주)</li>
+          <li>대표자 : 강용구</li>
+          <li>TEL : 1670-1970</li>
+          <li>FAX : 02-6442-2383</li>
+        </ul>
+        <ul class="address">
+            <li>사업자등록번호 : 107-87-08207</li>
+            <li>통신판매업 신고번호 : 제2012-서울구로-1033호</li>
+        </ul>
+        <p class="copyright">copyrightⓒ NICE Data&amp;Research, Inc All Rights Reserved.</p>
+      </div>
+    </div>
+    
+    </prnoff>
+    
+    
+</body>
+</html>

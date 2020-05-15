@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+  <title>RETURN</title>
+  <meta name="product" content="Metro UI CSS Framework">
+  <meta name="description" content="Time-Space css framework">
+  <meta name="author" content="Time-Space">
+  <meta name="keywords" content="js, css, metro, framework, windows 8, metro ui">
+  
+  <link rel="stylesheet" type="text/css" href="../css/libs/jquery-ui.css">
+  <link rel="stylesheet" type="text/css" href="../css/reset.css">
+  <link rel="stylesheet" type="text/css" href="../css/common.css">
+  
+  <script src="../js/libs/jquery-1.11.1.min.js"></script>
+  <script src="../js/libs/jquery-ui.min.js"></script>
+  <script src="../js/libs/jquery-ui.js"></script> <!-- dskim -->
+  <script type="text/javascript">
+  $(document).ready(function() {
+    function returnTest1() {
+            alert('문장 A');
+        return;
+        alert('문장 B');
+    }
+    returnTest1();
+
+    function returnTest2() {
+        alert('문장 A');
+        return;
+        alert('문장 B');
+    }
+    var value = returnTest2();
+    alert(typeof (value) + ' : ' + value);
+  });
+  </script>
+</head>
+
+<body>
+</body>
+</html>

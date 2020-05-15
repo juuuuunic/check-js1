@@ -1,0 +1,483 @@
+<html>
+<head>
+    <title>협력기업</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+    
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui-1.8.22.custom.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery_ui.css" type="text/css">
+    <style>
+    
+    .span_on  { cursor:pointer; width:200px;height:22px;border:1px solid #0580ca; padding:4px 10px 1px 10px; font-weight:bold; font-family: "굴림","Arial";font-size:12px; color:#ffffff; background:#0580ca; }
+    </style>
+    <script language="javascript" charset="euc-kr" src="js/jquery-1.7.1.min.js"></script>
+    <script language="javascript" charset="euc-kr" src="js/jquery.alphanumeric.js"></script>
+    <script language="javascript" charset="euc-kr" src="js/nomu.js"></script>
+    <script language="javascript" charset="euc-kr" src="mlrpt/mlrpt.js"></script>
+    <script language="javascript" charset="euc-kr" src="js/jquery.min.js"></script>
+    <script language="javascript" charset="euc-kr" src="js/javascript.js"></script>
+    <script language="javascript" charset="euc-kr" src="js/jquery-ui-1.8.22.custom.min.js"></script>
+    <script language="javascript" charset="euc-kr" src="js/nomuAction.js"></script>
+    <script language="javascript" charset="euc-kr" src="js/smartPop.js"></script>
+    <script language="javascript" charset="euc-kr" src="js/nomuCal.js"></script>
+    <script language="javascript" charset="euc-kr" src="js/nomua.js"></script>
+    <script language="javascript" charset="euc-kr" src="js/floating.js"></script>
+    <script language="javascript" charset="euc-kr" src="js/jquery-ui-1.8.6.min.js"></script>
+    <script language="javascript">
+    var obj_tr;
+    $().ready(function() {
+        dialog_mon = $( "#dialog-mon" ).dialog({
+            autoOpen: false,
+    //		height: 250,
+            width: 360,
+            modal: true,
+            buttons: {
+                "선택": function() {
+                    var ac_val = $("[name=ac_val]:checked").val();
+                    if(ac_val!=null) {
+                        var v = ac_val.split('|');
+                        obj_tr.find("[name=nomu_bank] option[value="+v[0]+"]").attr("selected", true);
+                        obj_tr.find("[name=nomu_name]").val(v[2]);
+                        obj_tr.find("[name=nomu_no]").val(v[1]);
+                        obj_tr.find("[name=ac_cms_cd]").val(v[3]);
+                        obj_tr.find("[name=ac_pay_cd]").val(v[4]);
+                        dialog_mon.dialog("close");
+                    } else
+                        alert('선택하세요');
+                },
+                "닫기": function() { dialog_mon.dialog("close"); }
+            }
+        });
+        dialog_mon.dialog('option', 'position', 'center');
+    });
+    $(window).bind('scroll', function() { dialog_mon.dialog('option', 'position', 'center'); });		
+    function select_other(obj) {
+        obj_tr = $(obj).parent().parent();
+        dialog_mon.dialog("open");
+    }
+    
+    function modifyOrder(){
+        var frm = document.frm1;
+    /*
+        if(!frm.nomu_bank[0].value){
+            frm.nomu_bank[0].focus();
+            alert("은행(노무비 전용계좌)명을 입력하세요.");
+            return;
+        }
+        if(!frm.nomu_name[0].value){
+            frm.nomu_name[0].focus();
+            alert("예금자(노무비 전용계좌)명을 입력하세요.");
+            return;
+        }
+        if(!frm.nomu_no[0].value){
+            frm.nomu_no[0].focus();
+            alert("계좌번호(노무비 전용계좌)명을 입력하세요.");
+            return;
+        }
+        if(!frm.my_bank.value){
+            frm.my_bank.focus();
+            alert("은행(선지급 자사계좌)명을 입력하세요.");
+            return;
+        }
+        if(!frm.my_deposit.value){
+            frm.my_deposit.focus();
+            alert("예금주(선지급 자사계좌)명을 입력하세요.");
+            return;
+        }
+        if(!frm.my_account_num.value){
+            frm.my_account_num.focus();
+            alert("계좌번호(선지급 자사계좌)명을 입력하세요.");
+            return;
+        }
+    */
+        if(confirm('계좌번호를 저장하시겠습니까?')){
+    //		frm.action = "nomuWork.do";
+            frm.action = "nomuMnu.do";
+            frm.sdo.value = "공통_지급계좌등록";
+            frm.target = "ifrm_work";
+            frm.submit();
+        }
+    }
+    function check_acc() {
+        frm_acc.no_bank_name.value = frm1.my_bank.value;
+        frm_acc.no_bank_no.value = frm1.my_ac_no.value;
+        if(frm_acc.no_bank_name.value=='') {
+            alert('이체은행을 입력하세요.');
+            return;
+        }
+        if(frm_acc.no_bank_no.value=='') {
+            alert('이체계좌번호를 입력하세요.');
+            return;
+        }
+        $.ajax({type:"get", url: "/nomuMnu.ado", data:$("#frm_acc").serialize(), dataType:"json",
+            success : function(data) {
+                if(data.no_ac_chk=='Y') {
+                    $("#no_acc_name").html(data.no_acc_name);
+                    frm1.my_ac_name.value = data.no_acc_name;
+                    $("#ac_result").html('검증완료');
+                    alert('계좌검증이 정상적으로 완료되었습니다.');
+                } else {
+                    alert('계좌검증에 실패하였습니다. 은행명 및 계좌번호를 확인하여 주시기 바랍니다.\n\n실패사유 : '+data.no_ac_err_ma);
+                }
+            },
+            error : function(request,error) { alert('처리중 에러가 발생하였습니다.'); }
+        });
+    }
+    function add_check() {
+        $("#ac_result").html('<a href=javascript:check_acc()>계좌검증</a>');
+    }
+    
+    
+    
+    function add() {
+        var add_tr = $("#insList tbody tr:first").clone(true);
+        add_tr.find("input[type=hidden]").val($("#add_acc").val());
+        var ac_type = $("#add_acc").val();
+        var ac_before = '';
+        if(ac_type=='10') {
+            add_tr.find("td:eq(0)").html("<a href='#' onclick='select_other(this);'>노무비 전용</a>");
+            ac_before = "#ac_03";
+        } else if(ac_type=='30') {
+            add_tr.find("td:eq(0)").html("<a href='#' onclick='select_other(this);'>장비비 전용</a>");
+            ac_before = "#ac_04";
+        } else if(ac_type=='40') {
+            add_tr.find("td:eq(0)").html("<a href='#' onclick='select_other(this);'>자재비 전용</a>");
+            ac_before = "#ac_07";
+        } else if(ac_type=='70') {
+            add_tr.find("td:eq(0)").html("<a href='#' onclick='select_other(this);'>경비 전용</a>");
+            ac_before = "#ac_05";
+        } else if(ac_type=='50') {
+            add_tr.find("td:eq(0)").html("<a href='#' onclick='select_other(this);'>기타기성 전용</a>");
+    
+            ac_before = "#ac_99";
+        }
+        add_tr.attr("id", "ac_"+ac_type);
+        add_tr.find('select[name=nomu_bank]').val('');
+        add_tr.find('input[name=nomu_name]').val('');
+        add_tr.find('input[name=nomu_no]').val('');
+        add_tr.find('input[name=ac_cms_cd]').val('');
+        add_tr.find('input[name=ac_pay_cd]').val('');
+        add_tr.insertBefore(ac_before);
+        parent.smartPopResize(document.body.clientHeight);
+    }
+    </script>
+    
+    </head>
+    <body>
+    
+    <div class="tableTop">
+        <div class="tcenter2">
+            <p><img src="images/txt/txt_title1.gif" alt="계좌번호 등록/수정"></p>
+        </div>
+    </div>
+    <div class="tRight_com">
+        <p><img src="images/pop/txt_popdesc.gif" alt="필수 입력 사항"></p>
+    </div>
+    <form id="frm_acc" name="frm_acc" method="post" onsubmit="return false;">
+    <input type="hidden" name="sdo" value="하도_일반계좌이체C">
+    <input type="hidden" name="or_com_cd" value="89516">
+    <input type="hidden" name="no_bank_no" id="no_bank_no">
+    <input type="hidden" name="no_bank_name" id="no_bank_name">
+    </form>
+    <form id="form" name="frm1" method="post" onsubmit="return false;">
+    <input type="hidden" name="or_com_cd" value="89516">
+    <input type="hidden" name="sdo">
+    
+    <div class="tableTop">
+        <div class="tLeft">
+            <p class="pop_txt"><img src="images/txt/txt_pop6.gif" alt="전용계좌 등록"><span class="red_txt">*</span></p>
+        </div>
+    
+        <div style="float:right">
+            <select name="add_acc" id="add_acc">
+                <option value="10">노무비 전용</option>
+                <option value="30">장비비 전용</option>
+                <option value="40">자재비 전용</option>
+                <option value="70">경비 전용</option>
+                <option value="50">기타기성 전용</option>
+    
+            </select>
+            <span class="span_on" onclick="javascript:add()">추가</span>
+        </div>
+        
+    </div>
+    <!-- //Table 상단끝 -->
+    <div class="BorderTb">
+        <colcgroup>
+                </colcgroup><table summary="노무비 전용계좌" class="Type1" border="1" cellspacing="0" id="insList">
+            <caption>노무비 전용계좌</caption>
+            <colgroup><col width="75">
+                <col width="85">
+                <col width="75">
+                <col width="85">
+                <col width="55">
+    
+                <col width="55">
+        
+            </colgroup>
+            <thead>
+                <tr>
+                    <th scope="col">전용계좌</th>
+                    <th scope="col">은행명</th>
+                    <th scope="col">예금주</th>
+                    <th scope="col">계좌번호</th>
+                    <th scope="col">기관코드</th>
+    
+                    <th scope="col">업체코드</th>
+        
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr id="ac_01">
+                    <input type="hidden" name="ac_type" value="01">
+                    
+    <!--					
+                        <td>노무비 전용</td>
+    -->					
+                        <td><a href="#" onclick="select_other(this);">노무비 전용</a></td>
+                        <td>
+                            <select name="nomu_bank" id="nomu_bank" style="WIDTH:90px">
+                                <option value="">계좌없음</option>
+                                <option value="11">농협중앙회</option> 
+                                <option value="20">우리은행</option> 
+                                <option value="88">신한은행</option> 
+                                <option value="81">하나은행</option>
+                                <option value="05">외환은행</option>
+                                <option value="04">국민은행</option>
+                                <option value="23">SC은행</option>
+                                <option value="03">기업은행</option>
+                                <option value="32">부산은행</option>
+                                <option value="39">경남은행</option>
+                                <option value="34">광주은행</option>
+                            </select>
+                        </td>
+                        <td> <input type="text" name="nomu_name" value="" class="Popput_70" maxlength="10" onkeyup="onlyko_en(this);"> </td>
+                        <td> <input type="text" name="nomu_no" value="" class="Popput_80" onkeyup="is_Num(this);" maxlength="20"> </td>
+                        <td> <input type="text" class="Popput_50" id="ac_cms_cd" name="ac_cms_cd" value="" onkeyup="is_Num(this);" maxlength="8"></td>
+                        <td> <input type="text" class="Popput_50" id="ac_pay_cd" name="ac_pay_cd" value="" maxlength="8"></td>
+                    
+                </tr>
+    
+                <tr id="ac_03">
+                    <input type="hidden" name="ac_type" value="03">
+                    
+    <!--					
+                        <td>장비비 전용</td>
+    -->					
+                        <td><a href="#" onclick="select_other(this);">장비비 전용</a></td>
+                        <td>
+                            <select name="nomu_bank" id="nomu_bank" style="WIDTH:90px">
+                                <option value="">계좌없음</option>
+                                <option value="11">농협중앙회</option> 
+                                <option value="20">우리은행</option> 
+                                <option value="88">신한은행</option> 
+                                <option value="81">하나은행</option>
+                                <option value="05">외환은행</option>
+                                <option value="04">국민은행</option>
+                                <option value="23">SC은행</option>
+                                <option value="03">기업은행</option>
+                                <option value="32">부산은행</option>
+                                <option value="39">경남은행</option>
+                                <option value="34">광주은행</option>
+                            </select>
+                        </td>
+                        <td> <input type="text" name="nomu_name" value="" class="Popput_70" maxlength="10" onkeyup="onlyko_en(this);"> </td>
+                        <td> <input type="text" name="nomu_no" value="" class="Popput_80" onkeyup="is_Num(this);" maxlength="20"> </td>
+                        <td> <input type="text" class="Popput_50" id="ac_cms_cd" name="ac_cms_cd" value="" onkeyup="is_Num(this);" maxlength="8"></td>
+                        <td> <input type="text" class="Popput_50" id="ac_pay_cd" name="ac_pay_cd" value="" maxlength="8"></td>
+                    
+                </tr>
+    
+                <tr id="ac_04">
+                    <input type="hidden" name="ac_type" value="04">
+                    
+    <!--					
+                        <td>자재비 전용</td>
+    -->					
+                        <td><a href="#" onclick="select_other(this);">자재비 전용</a></td>
+                        <td>
+                            <select name="nomu_bank" id="nomu_bank" style="WIDTH:90px">
+                                <option value="">계좌없음</option>
+                                <option value="11">농협중앙회</option> 
+                                <option value="20">우리은행</option> 
+                                <option value="88">신한은행</option> 
+                                <option value="81">하나은행</option>
+                                <option value="05">외환은행</option>
+                                <option value="04">국민은행</option>
+                                <option value="23">SC은행</option>
+                                <option value="03">기업은행</option>
+                                <option value="32">부산은행</option>
+                                <option value="39">경남은행</option>
+                                <option value="34">광주은행</option>
+                            </select>
+                        </td>
+                        <td> <input type="text" name="nomu_name" value="" class="Popput_70" maxlength="10" onkeyup="onlyko_en(this);"> </td>
+                        <td> <input type="text" name="nomu_no" value="" class="Popput_80" onkeyup="is_Num(this);" maxlength="20"> </td>
+                        <td> <input type="text" class="Popput_50" id="ac_cms_cd" name="ac_cms_cd" value="" onkeyup="is_Num(this);" maxlength="8"></td>
+                        <td> <input type="text" class="Popput_50" id="ac_pay_cd" name="ac_pay_cd" value="" maxlength="8"></td>
+                    
+                </tr>
+    
+                <tr id="ac_07">
+                    <input type="hidden" name="ac_type" value="07">
+                    
+    <!--					
+                        <td>경비 전용</td>
+    -->					
+                        <td><a href="#" onclick="select_other(this);">경비 전용</a></td>
+                        <td>
+                            <select name="nomu_bank" id="nomu_bank" style="WIDTH:90px">
+                                <option value="">계좌없음</option>
+                                <option value="11">농협중앙회</option> 
+                                <option value="20">우리은행</option> 
+                                <option value="88">신한은행</option> 
+                                <option value="81">하나은행</option>
+                                <option value="05">외환은행</option>
+                                <option value="04">국민은행</option>
+                                <option value="23">SC은행</option>
+                                <option value="03">기업은행</option>
+                                <option value="32">부산은행</option>
+                                <option value="39">경남은행</option>
+                                <option value="34">광주은행</option>
+                            </select>
+                        </td>
+                        <td> <input type="text" name="nomu_name" value="" class="Popput_70" maxlength="10" onkeyup="onlyko_en(this);"> </td>
+                        <td> <input type="text" name="nomu_no" value="" class="Popput_80" onkeyup="is_Num(this);" maxlength="20"> </td>
+                        <td> <input type="text" class="Popput_50" id="ac_cms_cd" name="ac_cms_cd" value="" onkeyup="is_Num(this);" maxlength="8"></td>
+                        <td> <input type="text" class="Popput_50" id="ac_pay_cd" name="ac_pay_cd" value="" maxlength="8"></td>
+                    
+                </tr>
+    
+                <tr id="ac_05">
+                    <input type="hidden" name="ac_type" value="05">
+                    
+    <!--					
+                        <td>기타기성 전용</td>
+    -->					
+                        <td><a href="#" onclick="select_other(this);">기타기성 전용</a></td>
+                        <td>
+                            <select name="nomu_bank" id="nomu_bank" style="WIDTH:90px">
+                                <option value="">계좌없음</option>
+                                <option value="11">농협중앙회</option> 
+                                <option value="20">우리은행</option> 
+                                <option value="88">신한은행</option> 
+                                <option value="81">하나은행</option>
+                                <option value="05">외환은행</option>
+                                <option value="04">국민은행</option>
+                                <option value="23">SC은행</option>
+                                <option value="03">기업은행</option>
+                                <option value="32">부산은행</option>
+                                <option value="39">경남은행</option>
+                                <option value="34">광주은행</option>
+                            </select>
+                        </td>
+                        <td> <input type="text" name="nomu_name" value="" class="Popput_70" maxlength="10" onkeyup="onlyko_en(this);"> </td>
+                        <td> <input type="text" name="nomu_no" value="" class="Popput_80" onkeyup="is_Num(this);" maxlength="20"> </td>
+                        <td> <input type="text" class="Popput_50" id="ac_cms_cd" name="ac_cms_cd" value="" onkeyup="is_Num(this);" maxlength="8"></td>
+                        <td> <input type="text" class="Popput_50" id="ac_pay_cd" name="ac_pay_cd" value="" maxlength="8"></td>
+                    
+                </tr>
+    
+                <tr id="ac_99" style="display:none"></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="popTop_com">
+        <p style="line-height:1.3;padding-top:8px;">기성대금을 구분 관리할 계좌를 등록하여 주시기 바랍니다. 등록하신 계좌로 수령한 기성대금은은 노무비닷컴을 통해서만 이체 가능합니다.</p>
+    </div>
+    
+    <div class="tableTop">
+        <div class="tLeft">
+            <p class="pop_txt"><img src="images/txt/txt_pop7.gif" alt="선지급 자사계좌"></p>
+        </div>
+    </div>
+    <!-- //Table 상단끝 -->
+    <div class="BorderTb">
+        <table summary="선지급 자사계좌" class="Type1" border="1" cellspacing="0">
+            <colgroup>
+                <col width="95">
+                <col width="95">
+                <col width="95">
+                <col width="65">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th scope="col">은행명</th>
+                    <th scope="col">계좌번호</th>
+                    <th scope="col">예금주</th>
+                    <th scope="col">계좌검증</th>
+                </tr>
+            </thead><thead>
+            </thead><tbody>
+                <tr>
+                    
+                    <td>
+                        <select name="my_bank" id="my_bank" class="Popput_100" style="WIDTH:100px" onchange="add_check()">
+                            <option value="">선택하세요.</option>
+                            <option value="02">산업은행</option><option value="03">기업은행</option><option value="04">국민은행</option><option value="05">외환은행</option><option value="07">수협</option><option value="08">수출입은행</option><option value="11">농협중앙회</option><option value="12">농협(단위)</option><option value="20">우리은행</option><option value="23">SC은행</option><option value="27">씨티은행</option><option value="31">대구은행</option><option value="32">부산은행</option><option value="34">광주은행</option><option value="35">제주은행</option><option value="37">전북은행</option><option value="39">경남은행</option><option value="40">충북은행</option><option value="45">새마을금고</option><option value="48">신협중앙회</option><option value="50">상호저축은행</option><option value="54">홍콩은행</option><option value="55">도이치은행</option><option value="56">암로은행</option><option value="57">UFJ</option><option value="58">다이이찌강교은행</option><option value="59">도쿄미쓰비시은행</option><option value="60">BOA(뱅크오브아메리카)</option><option value="64">산림조합중앙회</option><option value="71">우체국</option><option value="76">신보</option><option value="77">기술신보</option><option value="81">하나은행</option><option value="88">신한은행</option><option value="89">케이뱅크</option><option value="90">카카오뱅크</option>
+                        </select>
+                    </td>
+                    <td> <input type="text" name="my_ac_no" value="" class="Popput_100" maxlength="20" onkeyup="is_Num(this);" onchange="add_check()"> </td>
+                    <input type="hidden" name="my_ac_name" value="">
+                    <td id="no_acc_name"></td>
+                    <td id="ac_result">검증완료</td>
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="popTop_com">
+    <!--
+        <p style="line-height:1.3;padding-top:8px;">현장에서 현금으로 선지급 하였을 경우, 청구내역서 상에는 근로자의 계좌가 아닌 귀사의 계좌번호가 기재됩니다. 이체실행 시, 근로자의 계좌가 아닌 귀사의 선지급 일반계좌로 대금이 이체됩니다.</p>
+    -->	
+        <p style="line-height:1.3;padding-top:8px;">“내 일반계좌로 이체하기”를 위한 협력기업의 (법인)일반계좌를 입력합니다.(시스템 운영팀 문의: 02-788-9089)</p>
+    </div>
+    
+    </form>
+    <div class="btnArea">
+        <div class="pCenter">
+            <ul>
+                <li>
+    
+                    <input type="button" onclick="modifyOrder();" class="saveBtn pointer" alt="저장">
+    
+                    <input type="button" onclick="parent.smartPopClose();" class="closeBtn pointer" alt="취소">
+                </li>
+            </ul>
+        </div>
+    </div>
+    <br>
+    
+    
+    
+    
+    
+    
+    <div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all ui-helper-hidden-accessible" style="display: none;"></div><div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable ui-resizable" tabindex="-1" role="dialog" aria-labelledby="ui-dialog-title-dialog-mon" style="display: none; z-index: 1000; outline: 0px; position: absolute; top: 81px; left: 111px;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span class="ui-dialog-title" id="ui-dialog-title-dialog-mon">동일원청사 타현장 전용계좌 사용</span><a href="#" class="ui-dialog-titlebar-close ui-corner-all" role="button"><span class="ui-icon ui-icon-closethick">close</span></a></div><div id="dialog-mon" style="line-height: 18px;" class="ui-dialog-content ui-widget-content">
+    
+        <input type="radio" name="ac_val" value="null|null|null||">  /  / <br>
+    
+        <input type="radio" name="ac_val" value="88|112233445566|테스트|20080001|"> 신한은행 / 112233445566 / 테스트<br>
+    
+        <input type="radio" name="ac_val" value="88|01046262511|테스트|20080001|"> 신한은행 / 01046262511 / 테스트<br>
+    
+        <input type="radio" name="ac_val" value="04|null|나이스데이터||"> 국민은행 /  / 나이스데이터<br>
+    
+        <input type="radio" name="ac_val" value="88|123456789|테스트|20080001|"> 신한은행 / 123456789 / 테스트<br>
+    
+        <input type="radio" name="ac_val" value="88|12345678|테스트|20080001|"> 신한은행 / 12345678 / 테스트<br>
+    
+        <input type="radio" name="ac_val" value="88|123456|테스트|20080001|"> 신한은행 / 123456 / 테스트<br>
+    
+        <input type="radio" name="ac_val" value="88|01088307149|테스트|20080001|"> 신한은행 / 01088307149 / 테스트<br>
+    
+        <input type="radio" name="ac_val" value="32|1132011403004|테스트|20080018|"> 부산은행 / 1132011403004 / 테스트<br>
+    
+        <input type="radio" name="ac_val" value="20|1005503598943|테스트|20080027|"> 우리은행 / 1005503598943 / 테스트<br>
+    
+        <input type="radio" name="ac_val" value="03|null|null||"> 기업은행 /  / <br>
+    
+        <input type="radio" name="ac_val" value="88|100033940585|나이스7|20080001|"> 신한은행 / 100033940585 / 나이스7<br>
+    
+    </div><div class="ui-resizable-handle ui-resizable-n"></div><div class="ui-resizable-handle ui-resizable-e"></div><div class="ui-resizable-handle ui-resizable-s"></div><div class="ui-resizable-handle ui-resizable-w"></div><div class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se ui-icon-grip-diagonal-se" style="z-index: 1001;"></div><div class="ui-resizable-handle ui-resizable-sw" style="z-index: 1002;"></div><div class="ui-resizable-handle ui-resizable-ne" style="z-index: 1003;"></div><div class="ui-resizable-handle ui-resizable-nw" style="z-index: 1004;"></div><div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button"><span class="ui-button-text">선택</span></button><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button"><span class="ui-button-text">닫기</span></button></div></div></div></body></html>

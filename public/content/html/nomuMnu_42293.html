@@ -1,0 +1,97 @@
+<html>
+<head>
+<title>노무비_협력기업: 내역서작성(4201>4229>양식UP/DOWN)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<link rel="stylesheet" href="css/jquery-ui-1.8.22.custom.css" type="text/css">
+
+
+<script language="javascript" charset="euc-kr" src="js/jquery-1.7.1.min.js"></script>
+<script language="javascript" charset="euc-kr" src="js/jquery.alphanumeric.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomu.js"></script>
+<script language="javascript" charset="euc-kr" src="mlrpt/mlrpt.js"></script>
+<script language="javascript" charset="euc-kr" src="js/jquery.min.js"></script>
+<script language="javascript" charset="euc-kr" src="js/javascript.js"></script>
+<script language="javascript" charset="euc-kr" src="js/jquery-ui-1.8.22.custom.min.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomuAction.js"></script>
+<script language="javascript" charset="euc-kr" src="js/smartPop.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomuCal.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomua.js"></script>
+<script language="javascript" charset="euc-kr" src="js/floating.js"></script>
+
+<script language="javascript">
+function file_save(){
+//	if(confirm("※ 유의사항 \n1.예를 보고 청구내역서를 작성하셨습니까? 데이터 작성 형식이 예와 다를경우 업로드시 오류가 발생합니다.\n2.저장시 '다른 이름으로 저장'에서 'Excel 97-2003(.xls)' 형식으로 파일 형식을 설정한 후, 저장하시기 바랍니다.")) {
+        var frm = document.frm1;
+        frm.action = "/nomuMnu.do";
+        frm.sdo.value = "공통_엑셀업로드F"; 
+        frm.target = "ifrm_work";
+        frm.submit();
+//	}
+}
+function FormDown() { // 엑셀다운
+    parent.ifrm_work.location.href = "nomuMnu.do?sdo=공통_파일다운로드&id_typ=9001&seq=6";
+}
+</script>
+
+</head>
+<body>
+    
+    <div class="tableTop">
+        <div class="tcenter">
+            <p><img src="images/txt/txt_title10.gif" alt="첨부파일"></p>
+        </div>
+    </div>
+    <form id="form" name="frm1" method="post" onsubmit="return false;" enctype="multipart/form-data">
+    <input type="hidden" name="or_no" value="19271">
+    <input type="hidden" name="bill_month" value="202003">
+    <input type="hidden" name="no_or_com_cd" value="87990">
+    <input type="hidden" name="sdo">
+    <div class="BorderTb">
+        <table summary="파일업로드" class="Type1" border="1" cellspacing="0" id="insList">
+        <caption>파일업로드</caption>
+        <colgroup>
+            <col width="30%">
+            <col width="*">
+        </colgroup>
+        <tbody><tr>
+            <td>양식 업로드</td>
+            <td>
+                <input type="file" id="no_pay_file" name="no_pay_file" class="Popup_200" value="">
+            </td>
+        </tr>
+        <tr>
+            <td>양식 다운로드</td>
+            <td>
+                <a href="javascript:FormDown()" class="txt_btn_tb w80" style="color:white;display:inline-block;">다운로드</a>
+            </td>
+        </tr>
+        </tbody></table>
+    </div>
+    <br>
+    </form>
+    <div style="padding-left:10px">
+    <span class="red_txt" style="line-height:15px">※ 양식 내 지급처 식별정보 입력란이 추가되었으므로,<br>
+     &nbsp; &nbsp; 양식 업로드 간 <font style="text-decoration:underline;">오류 발생 시, 식별정보 작성여부</font>를 확인해 주세요.<br>
+    ※ 양식업로드 시 기존 데이터는 삭제되고, 업로드된 데이터만 저장됩니다.<br></span>
+    </div>
+    <!-- 버튼영역 시작 -->
+    <div class="btnArea">
+        <div class="pCenter">
+            <ul>
+                <li>
+                    <input type="button" class="saveBtn pointer" onclick="javascript:file_save();" alt="저장">
+                    <input type="button" class="closeBtn pointer" onclick="javascript:parent.smartPopClose();" alt="취소">
+                </li>
+            </ul>
+        </div>
+    </div>
+    <br>
+    <!-- //버튼영역 끝 -->
+    
+    
+
+
+</body>
+</html>

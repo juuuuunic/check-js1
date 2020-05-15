@@ -1,0 +1,241 @@
+<html>
+<head>
+<title>노무비_도입기업: 93011(도입기업 메인>미지급 실시간 모니터링)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+
+<link rel="stylesheet" href="http://www.nomubi.com/css/default.css" type="text/css">
+<link rel="stylesheet" href="http://www.nomubi.com/css/default_add.css" type="text/css">
+<link rel="stylesheet" href="http://www.nomubi.com/css/tooltipster.css" type="text/css">
+<style>
+.pointer { cursor: pointer }
+</style>
+<script language="javascript" charset="euc-kr" src="http://www.nomubi.com/js/jquery-1.7.1.min.js"></script>
+<script language="javascript" charset="euc-kr" src="http://www.nomubi.com/js/jquery.tooltipster.js"></script>
+<script language="javascript">
+function moveDetl() {}
+function viewDetl() {}
+function hideDetl() {}
+function viewMonitor(or_cd) {
+    //	$.smartPop.open({ width:550, height:620, url: 'nomuMnu.do?sdo=원도_모니터링메인_w&or_cd='+or_cd});
+    cross_ifrm.location.href = "http://www.nomubi.com/nomuMnu.do?sdo=nomuNdaCross&func_run=viewMonitor("+or_cd+")";
+}
+function go(obj, sub) {
+    var tr_obj = $(obj).parent().parent();
+    var param = tr_obj.find('input[name=url]').val();
+    var t_url;
+    if(sub==0) 
+        t_url = 'http://www.nomubi.com/nomu3201.do?';
+    else {
+        t_url = 'http://www.nomubi.com/nomuMnu.do?sdo=원도_모니터링&sub='+sub+'&';
+    }
+
+    parent.location.href = t_url+param;
+}
+function searchList1(pg) {
+    cross_ifrm.location.href = "http://www.nomubi.com/nomuMnu.do?sdo=nomuNdaCross&func_run=ifrm2_go("+pg+")";
+}
+$(document).ready(function(){
+    $(".tooltip").tooltipster({
+        minWidth : 750,
+        maxWidth : 750,
+        contentAsHTML: true,
+        animation: 'fade',
+        delay: 200,
+        trigger: 'hover',
+        position: 'left',
+        offsetX : -4
+    });
+});   
+</script>
+
+</head>
+<body style="overflow-x: hidden;">
+    <div class="table_wrap">
+        <div class="table_top">
+            <iframe name="cross_ifrm" frameborder="0" width="0" height="0"></iframe>
+            <table class="nomubi_base_table1" summary="미지급 상황이 등록일자, 현장명, 협력기업, 담당자, 위험등급, 모니터링으로 되어있다.">
+                <caption>미지급 실시간 모니터링</caption>
+                <colgroup>
+                    <col width="16%">
+                    <col width="34%">
+                    <col width="14%">
+                    <col width="14%">
+                    <col width="12%">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">등록일자</th>
+                        <th scope="col">현장(계약)명</th>
+                        <th scope="col">담당자</th>
+                        <th scope="col">협력기업수</th>
+                        <th scope="col">모니터링</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="first">2019-05-21</td>
+                        <td class="long"><a href="javascript:;" onclick="go(this, 0)" title="전환테스트2">전환테스트2</a></td>
+                    <!-- 		<td class="pointer" onMouseMove="moveDetl();" onMouseOver="viewDetl('02-2122-2356', 'jhjang@nicednr.co.kr');" onMouseOut="hideDetl();">문형민</td>								 -->
+                        <td class="pointer tooltip" title="전화번호: 02-2122-2356<br/> email: jhjang@nicednr.co.kr">문형민</td>
+                        <td><a href="javascript:viewMonitor(13829)">1</a></td>								
+                        <td><input type="image" src="http://www.nomubi.com/images/common/unpaid_icon.gif" onclick="go(this, 1)"></td>								
+                        <input type="hidden" name="url" value="or_cd=13829&amp;or_com_cd=71340&amp;or_name=전환테스트2">
+                    </tr>                                        
+                    <tr>
+                        <td class="first">2019-06-21</td>
+                        <td class="long"><a href="javascript:;" onclick="go(this, 0)" title="전환테스트1">전환테스트1</a></td>
+                    <!-- 		<td class="pointer" onMouseMove="moveDetl();" onMouseOver="viewDetl('02-2122-2356', 'jhjang@nicednr.co.kr');" onMouseOut="hideDetl();">문형민</td>								 -->
+                        <td class="pointer tooltip" title="전화번호: 02-2122-2356<br/> email: jhjang@nicednr.co.kr">문형민</td>
+                        <td><a href="javascript:viewMonitor(14389)">1</a></td>								
+                        <td><input type="image" src="http://www.nomubi.com/images/common/unpaid_icon.gif" onclick="go(this, 1)"></td>								
+                        <input type="hidden" name="url" value="or_cd=14389&amp;or_com_cd=72977&amp;or_name=전환테스트1">
+                    </tr>                                        
+                    <tr>
+                        <td class="first">2017-08-26</td>
+                        <td class="long"><a href="javascript:;" onclick="go(this, 0)" title="테스트(이체)">테스트(이체)</a></td>
+                    <!-- 		<td class="pointer" onMouseMove="moveDetl();" onMouseOver="viewDetl('02-2122-2356', 'jhjang@nicednr.co.kr');" onMouseOut="hideDetl();">문형민</td>								 -->
+                        <td class="pointer tooltip" title="전화번호: 02-2122-2356<br/> email: jhjang@nicednr.co.kr">문형민</td>
+                        <td><a href="javascript:viewMonitor(4649)">2</a></td>								
+                        <td><input type="image" src="http://www.nomubi.com/images/common/unpaid_icon.gif" onclick="go(this, 1)"></td>								
+                        <input type="hidden" name="url" value="or_cd=4649&amp;or_com_cd=38638&amp;or_name=테스트(이체)">
+                    </tr>                                        
+                    <tr>
+                        <td class="first">2018-11-22</td>
+                        <td class="long"><a href="javascript:;" onclick="go(this, 0)" title="전환테스트3">전환테스트3</a></td>
+                    <!-- 		<td class="pointer" onMouseMove="moveDetl();" onMouseOver="viewDetl('02-2122-2356', 'jhjang@nicednr.co.kr');" onMouseOut="hideDetl();">문형민</td>								 -->
+                        <td class="pointer tooltip" title="전화번호: 02-2122-2356<br/> email: jhjang@nicednr.co.kr">문형민</td>
+                        <td><a href="javascript:viewMonitor(10889)">1</a></td>								
+                        <td><input type="image" src="http://www.nomubi.com/images/common/unpaid_icon.gif" onclick="go(this, 1)"></td>								
+                        <input type="hidden" name="url" value="or_cd=10889&amp;or_com_cd=59778&amp;or_name=전환테스트3">
+                    </tr>                                        
+                    <tr>
+                        <td class="first">2020-03-24</td>
+                        <td class="long"><a href="javascript:;" onclick="go(this, 0)" title="SK건설 시연용 현장">SK건설 시연용 현장</a></td>
+                    <!-- 		<td class="pointer" onMouseMove="moveDetl();" onMouseOver="viewDetl('0-0-0', '0@0');" onMouseOut="hideDetl();">test</td>								 -->
+                        <td class="pointer tooltip" title="전화번호: 0-0-0<br/> email: 0@0">test</td>
+                        <td><a href="javascript:viewMonitor(19271)">2</a></td>								
+                        <td><input type="image" src="http://www.nomubi.com/images/common/unpaid_icon.gif" onclick="go(this, 1)"></td>								
+                        <input type="hidden" name="url" value="or_cd=19271&amp;or_com_cd=87104&amp;or_name=SK건설 시연용 현장">
+                    </tr>                                        
+                    <tr>
+                        <td class="first">2013-11-13</td>
+                        <td class="long"><a href="javascript:;" onclick="go(this, 0)" title="샘플 현장">샘플 현장</a></td>
+                    <!-- 		<td class="pointer" onMouseMove="moveDetl();" onMouseOver="viewDetl('02-2122-2356', 'jhjang@nicednr.co.kr');" onMouseOut="hideDetl();">문형민</td>								 -->
+                        <td class="pointer tooltip" title="전화번호: 02-2122-2356<br/> email: jhjang@nicednr.co.kr">문형민</td>
+                        <td><a href="javascript:viewMonitor(78)">38</a></td>								
+                        <td><input type="image" src="http://www.nomubi.com/images/common/unpaid_icon.gif" onclick="go(this, 1)"></td>								
+                        <input type="hidden" name="url" value="or_cd=78&amp;or_com_cd=338&amp;or_name=샘플 현장">
+                    </tr>                                        
+                    <tr>
+                        <td class="first">2016-04-04</td>
+                        <td class="long"><a href="javascript:;" onclick="go(this, 0)" title="대우조선해양_샘플">대우조선해양_샘플</a></td>
+                    <!-- 		<td class="pointer" onMouseMove="moveDetl();" onMouseOver="viewDetl('02-2122-2356', 'jhjang@nicednr.co.kr');" onMouseOut="hideDetl();">문형민</td>								 -->
+                        <td class="pointer tooltip" title="전화번호: 02-2122-2356<br/> email: jhjang@nicednr.co.kr">문형민</td>
+                        <td><a href="javascript:viewMonitor(1223)">1</a></td>								
+                        <td><input type="image" src="http://www.nomubi.com/images/common/unpaid_icon.gif" onclick="go(this, 1)"></td>								
+                        <input type="hidden" name="url" value="or_cd=1223&amp;or_com_cd=13469&amp;or_name=대우조선해양_샘플">
+                    </tr>                                        
+                    <tr>
+                        <td class="first">2015-04-13</td>
+                        <td class="long"><a href="javascript:;" onclick="go(this, 0)" title="샘플현장2">샘플현장2</a></td>
+                    <!-- 		<td class="pointer" onMouseMove="moveDetl();" onMouseOver="viewDetl('02-2122-2356', 'jhjang@nicednr.co.kr');" onMouseOut="hideDetl();">문형민</td>								 -->
+                        <td class="pointer tooltip" title="전화번호: 02-2122-2356<br/> email: jhjang@nicednr.co.kr">문형민</td>
+                        <td><a href="javascript:viewMonitor(559)">2</a></td>								
+                        <td><input type="image" src="http://www.nomubi.com/images/common/paid_icon.gif" onclick="go(this, 2)"></td>								
+                        <input type="hidden" name="url" value="or_cd=559&amp;or_com_cd=6242&amp;or_name=샘플현장2">
+                    </tr>                                        
+                    <tr>
+                        <td class="first">2016-07-13</td>
+                        <td class="long"><a href="javascript:;" onclick="go(this, 0)" title="공공현장 테스트(발주계약)">공공현장 테스트(발주계약)</a></td>
+                    <!-- 		<td class="pointer" onMouseMove="moveDetl();" onMouseOver="viewDetl('02-2122-2356', 'jhjang@nicednr.co.kr');" onMouseOut="hideDetl();">문형민</td>								 -->
+                        <td class="pointer tooltip" title="전화번호: 02-2122-2356<br/> email: jhjang@nicednr.co.kr">문형민</td>
+                        <td><a href="javascript:viewMonitor(1434)">2</a></td>								
+                        <td><input type="image" src="http://www.nomubi.com/images/common/paid_icon.gif" onclick="go(this, 2)"></td>								
+                        <input type="hidden" name="url" value="or_cd=1434&amp;or_com_cd=18872&amp;or_name=공공현장 테스트(발주계약)">
+                    </tr>                                        
+                    <tr>
+                        <td class="first">2016-08-09</td>
+                        <td class="long"><a href="javascript:;" onclick="go(this, 0)" title="현장등록 테스트 (원 - 1)">현장등록 테스트 (원 - 1)</a></td>
+                    <!-- 		<td class="pointer" onMouseMove="moveDetl();" onMouseOver="viewDetl('02-2122-2356', 'jhjang@nicednr.co.kr');" onMouseOut="hideDetl();">문형민</td>								 -->
+                        <td class="pointer tooltip" title="전화번호: 02-2122-2356<br/> email: jhjang@nicednr.co.kr">문형민</td>
+                        <td><a href="javascript:viewMonitor(1495)">2</a></td>								
+                        <td><input type="image" src="http://www.nomubi.com/images/common/paid_icon.gif" onclick="go(this, 2)"></td>								
+                        <input type="hidden" name="url" value="or_cd=1495&amp;or_com_cd=19768&amp;or_name=현장등록 테스트 (원 - 1)">
+                    </tr>                                        
+                    <tr>
+                        <td class="first">2016-05-16</td>
+                        <td class="long"><a href="javascript:;" onclick="go(this, 0)" title="시연용">시연용</a></td>
+                    <!-- 		<td class="pointer" onMouseMove="moveDetl();" onMouseOver="viewDetl('02-2122-2356', 'jhjang@nicednr.co.kr');" onMouseOut="hideDetl();">문형민</td>								 -->
+                        <td class="pointer tooltip" title="전화번호: 02-2122-2356<br/> email: jhjang@nicednr.co.kr">문형민</td>
+                        <td><a href="javascript:viewMonitor(1320)">1</a></td>								
+                        <td><input type="image" src="http://www.nomubi.com/images/common/paid_icon.gif" onclick="go(this, 2)"></td>								
+                        <input type="hidden" name="url" value="or_cd=1320&amp;or_com_cd=15771&amp;or_name=시연용">
+                    </tr>                                        
+                    <tr>
+                        <td class="first">2017-09-01</td>
+                        <td class="long"><a href="javascript:;" onclick="go(this, 0)" title="건설 시스템 도입 현장 외 기성대금 청구용">건설 시스템 도입 현장 외 ...</a></td>
+                    <!-- 		<td class="pointer" onMouseMove="moveDetl();" onMouseOver="viewDetl('02-2122-2356', 'jhjang@nicednr.co.kr');" onMouseOut="hideDetl();">문형민</td>								 -->
+                        <td class="pointer tooltip" title="전화번호: 02-2122-2356<br/> email: jhjang@nicednr.co.kr">문형민</td>
+                        <td><a href="javascript:viewMonitor(4710)">1</a></td>								
+                        <td><input type="image" src="http://www.nomubi.com/images/common/paid_icon.gif" onclick="go(this, 2)"></td>								
+                        <input type="hidden" name="url" value="or_cd=4710&amp;or_com_cd=38909&amp;or_name=건설 시스템 도입 현장 외 기성대금 청구용">
+                    </tr>
+                    <tr>
+                        <td class="first">2018-09-05</td>
+                        <td class="long"><a href="javascript:;" onclick="go(this, 0)" title="시스템 도입 현장 시연용">시스템 도입 현장 시연용</a></td>
+                    <!-- 		<td class="pointer" onMouseMove="moveDetl();" onMouseOver="viewDetl('02-2122-2356', 'jhjang@nicednr.co.kr');" onMouseOut="hideDetl();">문형민</td>								 -->
+                        <td class="pointer tooltip" title="전화번호: 02-2122-2356<br/> email: jhjang@nicednr.co.kr">문형민</td>
+                        <td><a href="javascript:viewMonitor(9909)">1</a></td>								
+                        <td><input type="image" src="http://www.nomubi.com/images/common/paid_icon.gif" onclick="go(this, 2)"></td>								
+                        <input type="hidden" name="url" value="or_cd=9909&amp;or_com_cd=56276&amp;or_name=시스템 도입 현장 시연용">
+                    </tr>
+                    <tr>
+                        <td class="first">2020-05-08</td>
+                        <td class="long"><a href="javascript:;" onclick="go(this, 0)" title="시연테스트 현장">시연테스트 현장</a></td>
+                    <!-- 		<td class="pointer" onMouseMove="moveDetl();" onMouseOver="viewDetl('02-2122-2356', 'jhjang@nicednr.co.kr');" onMouseOut="hideDetl();">문형민</td>								 -->
+                        <td class="pointer tooltip" title="전화번호: 02-2122-2356<br/> email: jhjang@nicednr.co.kr">문형민</td>
+                        <td><a href="javascript:viewMonitor(20009)">1</a></td>								
+                        <td><input type="image" src="http://www.nomubi.com/images/common/paid_icon.gif" onclick="go(this, 2)"></td>								
+                        <input type="hidden" name="url" value="or_cd=20009&amp;or_com_cd=89515&amp;or_name=시연테스트 현장">
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="table_bottom">
+        <div class="table_bottom">  
+            <div class="paginate_wrap">   
+                <div class="paginate">      
+                    <p class="first arrow" onclick="searchList1(1)">        
+                        <span class="icon"></span>        
+                        <span class="text">처음으로</span>      
+                    </p>      
+                    <p class="pre arrow" onclick="searchList1(1)">        
+                        <span class="icon"></span>        
+                        <span class="text">이전</span>      
+                    </p>      
+                    <ol class="number">
+                    <!--    <li class="active"><a href="javascript:searchList1()">1</a></li>        
+                        <li><a href="#">2</a></li>        
+                        <li><a href="#">3</a></li>        
+                        <li><a href="#">4</a></li>        
+                        <li><a href="#">5</a></li>        
+                        <li><a href="#">6</a></li> 
+                    --> 
+                        <li class="active"><a href="javascript:searchList1(1)">1</a></li>       
+                    </ol>      
+                    <p class="next arrow" onclick="searchList1(1)">        
+                        <span class="icon"></span>        
+                        <span class="text">다음</span>     
+                    </p>      
+                    <p class="last arrow" onclick="searchList1(1)">        
+                        <span class="icon"></span>        
+                        <span class="text">마지막으로</span>      
+                    </p>    
+                </div>  
+            </div>
+        </div>
+    </div>
+</body>
+</html>

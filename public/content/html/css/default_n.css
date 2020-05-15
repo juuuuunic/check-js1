@@ -1,0 +1,214 @@
+@charset "euc-kr";
+
+/* nomuc.원도_거래명세서 */
+.excel-print-wrap {
+  padding: 40px 30px; }
+  .excel-print-wrap .excel-header {
+    text-align: center;
+    position: relative;
+    margin-bottom: 35px; }
+    .excel-print-wrap .excel-header::after {
+      content: '';
+      display: table;
+      clear: both; }
+    .excel-print-wrap .excel-header h1 {
+      display: inline-block;
+      font-size: 28px;
+      font-weight: bold;
+      color: #333;
+      letter-spacing: 6px;
+      line-height: 33px;
+      border-bottom: solid 2px #333; }
+    .excel-print-wrap .excel-header .logo {
+      position: absolute;
+      right: 0;
+      top: 0; }
+  .excel-print-wrap .excel-container .excel-info {
+    margin-bottom: 15px; }
+    .excel-print-wrap .excel-container .excel-info .excel-info-top::after {
+      content: '';
+      display: table;
+      clear: both; }
+    .excel-print-wrap .excel-container .excel-info .excel-info-top .excel-info-left {
+      float: left; }
+    .excel-print-wrap .excel-container .excel-info .excel-info-top .excel-info-right {
+      float: right; }
+    .excel-print-wrap .excel-container .excel-info .excel-info-top p {
+      line-height: 23px;
+      font-size: 15px;
+      color: #333333; }
+      .excel-print-wrap .excel-container .excel-info .excel-info-top p.company-ceo {
+        margin-top: 7px;
+        font-weight: bold; }
+        .excel-print-wrap .excel-container .excel-info .excel-info-top p.company-ceo span {
+          letter-spacing: 8px; }
+    .excel-print-wrap .excel-container .excel-info .excel-info-bottom p {
+      line-height: 23px;
+      font-size: 15px;
+      color: #333333; }
+      .excel-print-wrap .excel-container .excel-info .excel-info-bottom p.total-price-detail {
+        font-weight: bold; }
+  .excel-print-wrap .excel-container .excel-table-block {
+    margin-bottom: 25px; }
+    .excel-print-wrap .excel-container .excel-table-block .excel-table-text {
+      line-height: 23px;
+      font-size: 15px;
+      color: #333333; }
+    .excel-print-wrap .excel-container .excel-table-block .type1 {
+      border: solid 2px #555555;
+      margin-bottom: 10px; }
+      .excel-print-wrap .excel-container .excel-table-block .type1 thead th {
+        text-align: center;
+        color: #333333;
+        font-size: 12px;
+        border-bottom: double #898989;
+        padding: 4px 0;
+        border-right: solid 1px #898989; }
+        .excel-print-wrap .excel-container .excel-table-block .type1 thead th:last-child {
+          border-right: none; }
+        .excel-print-wrap .excel-container .excel-table-block .type1 thead th span {
+          margin-top: 3px;
+          font-size: 10px;
+          display: block; }
+      .excel-print-wrap .excel-container .excel-table-block .type1 tbody td {
+        text-align: center;
+        font-size: 12px;
+        color: #333333;
+        padding: 9px 5px;
+        border-bottom: solid 1px #898989;
+        border-right: solid 1px #898989; }
+        .excel-print-wrap .excel-container .excel-table-block .type1 tbody td:last-child {
+          border-right: none; }
+        .excel-print-wrap .excel-container .excel-table-block .type1 tbody td:nth-child(3) {
+          text-align: left; }
+        .excel-print-wrap .excel-container .excel-table-block .type1 tbody td:nth-child(7) {
+          text-align: right; }
+    .excel-print-wrap .excel-container .excel-table-block .type2 {
+      border: solid 2px #555555; }
+      .excel-print-wrap .excel-container .excel-table-block .type2 tbody th {
+        text-align: center;
+        color: #333333;
+        font-size: 12px;
+        padding: 9px 5px;
+        border-right: solid 1px #898989;
+        border-bottom: solid 1px #898989; }
+        .excel-print-wrap .excel-container .excel-table-block .type2 tbody th.important {
+          font-weight: bold; }
+      .excel-print-wrap .excel-container .excel-table-block .type2 tbody td {
+        text-align: left;
+        font-size: 12px;
+        color: #333333;
+        padding: 9px 5px;
+        border-bottom: solid 1px #898989;
+        border-right: solid 1px #898989; }
+        .excel-print-wrap .excel-container .excel-table-block .type2 tbody td.price {
+          text-align: right;
+          font-weight: bold; }
+  .excel-print-wrap .excel-footer ul {
+    text-align: center; }
+    .excel-print-wrap .excel-footer ul li {
+      display: inline-block; }
+      .excel-print-wrap .excel-footer ul li input {
+        width: 180px;
+        height: 43px;
+        background: #132c6b;
+        border: solid 1px #132c6b;
+        color: #fff;
+        font-size: 15px; }
+        .excel-print-wrap .excel-footer ul li input.close {
+          background: #fff;
+          color: #132c6b; }
+	        
+/* nomu6.nomu6101 */
+.login-block .login-input {
+  width: 100%;
+  height: 520px;
+  display: table;
+  border: solid 1px #e0e0e0;
+  background: no-repeat center bottom url(../images/common/login_bg.jpg); }
+  .login-block .login-input .login-input-inner {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center; }
+  .login-block .login-input .login-input-contents {
+    display: inline-block; }
+    .login-block .login-input .login-input-contents .logo {
+      text-align: center;
+      margin-bottom: 18px; }
+      .login-block .login-input .login-input-contents .logo img {
+        display: inline-block;
+        vertical-align: top; }
+    .login-block .login-input .login-input-contents .txt {
+      font-size: 18px;
+      color: #8a8a8a;
+      text-align: center;
+      margin-bottom: 29px; }
+    .login-block .login-input .login-input-contents .input-area {
+      width: 460px; }
+      .login-block .login-input .login-input-contents .input-area .input-area-top input[type='text'] {
+  
+    padding-left : 10px;
+    width : 100%;
+    
+    margin-bottom: 14px; }
+  .login-block .login-input .login-input-contents .input-area .input-area-top input[type='text'], .login-block .login-input .login-input-contents .input-area .input-area-top input[type='password'] {
+    border: solid 1px #dadada;
+    display: block;
+    height: 50px;
+    line-height: 48px;
+    background: #fff; }
+    .login-block .login-input .login-input-contents .input-area .input-area-top input[type='text']:last-child, .login-block .login-input .login-input-contents .input-area .input-area-top input[type='password']:last-child {
+      margin-bottom: 0; }
+  .login-block .login-input .login-input-contents .input-area .input-area-top button {
+    font-size: 20px;
+    color: #fff;
+    width: 100%;
+    height: 60px;
+    background: #1768b3;
+    margin: 30px 0 20px 0; }
+  .login-block .login-input .login-input-contents .input-area .input-area-bottom::after {
+    content: '';
+    display: table;
+    clear: both; }
+  .login-block .login-input .login-input-contents .input-area .input-area-bottom .check {
+    float: left; }
+    .login-block .login-input .login-input-contents .input-area .input-area-bottom .check label {
+      font-size: 13px;
+      cursor: pointer; }
+  .login-block .login-input .login-input-contents .input-area .input-area-bottom ul {
+    float: right; }
+    .login-block .login-input .login-input-contents .input-area .input-area-bottom ul::after {
+      content: '';
+      display: table;
+      clear: both; }
+    .login-block .login-input .login-input-contents .input-area .input-area-bottom ul li {
+      font-size: 13px;
+      float: left;
+      position: relative;
+      padding-right: 11px;
+      margin-right: 10px; }
+      .login-block .login-input .login-input-contents .input-area .input-area-bottom ul li::after {
+        content: '';
+        display: block;
+        width: 1px;
+        height: 10px;
+        background: #e4e4e5;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        margin-top: -5px; }
+      .login-block .login-input .login-input-contents .input-area .input-area-bottom ul li:last-child {
+        margin-right: 0;
+        padding-right: 0; }
+        .login-block .login-input .login-input-contents .input-area .input-area-bottom ul li:last-child::after {
+          display: none; }
+      .login-block .login-input .login-input-contents .input-area .input-area-bottom ul li strong {
+        color: #1768b3; }
+  .login-block .login-input .login-input-contents .input-area .contact-number {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1768b3;
+    text-align: center;
+    padding-top: 31px;
+    margin-top: 30px;
+    border-top: solid 1px #e4e4e5; }

@@ -1,0 +1,1569 @@
+
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+<head>
+<title>노무비_도입기업: 내역서확인(3201>청구/지급내역총괄현황>청구내역서>조회하기)</title>
+<meta http-equiv='Content-Type' content='text/html; charset=euc-kr'>
+
+<link rel='stylesheet' href=css/style.css type='text/css' />
+<link rel='stylesheet' href=css/jquery-ui-1.8.22.custom.css type='text/css' />
+<link rel='stylesheet' href=css/default.css type='text/css' />
+<style>
+
+.quick_size1{width:94px;height:auto;border:3px solid #61adde;box-sizing:content-box; }
+.quick_size{}
+
+
+.footer select {
+  border: 1px solid #c4c5c9;
+  background: #fff;
+  color: #333;
+  height: 34px;
+  line-height: 34px;
+  padding-left: 10px;
+  width: 100%; 
+}
+.footer select, .footer option {
+  font-family: "Noto Sans Korean";
+  color: #5f5f5f;
+}
+</style>
+<script language='javascript' charset='euc-kr' src=js/jquery-1.7.1.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery.alphanumeric.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomu.js></script>
+<script language='javascript' charset='euc-kr' src=mlrpt/mlrpt.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/javascript.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery-ui-1.8.22.custom.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomuAction.js></script>
+<script language='javascript' charset='euc-kr' src=js/smartPop.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomuCal.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomua.js></script>
+<script language='javascript' charset='euc-kr' src=js/floating.js></script>
+<script language='javascript' charset='euc-kr' src=js/common_add.js></script>
+<script language='javascript'>
+
+var setAccTimeOut = null;
+var accTime = 3601;
+$().ready(function() {
+	
+	setAccTimeOut = window.setInterval(runAccTimeOut, 1000);
+	
+	accTime = 3601;
+	$(".gnb li").each(function(i){
+      $(this).removeClass("active");
+	});
+	$("#gnb22").addClass("active"); 
+});
+function runAccTimeOut() {
+	accTime--;
+	if(accTime==0) {
+		$("#acc_time").html("0:00");
+//		alert('입력시간 초과입니다.');
+		window.clearTimeout(setAccTimeOut);
+		self.location = "/logout.do?fr=login.do";
+	} else {
+		mm = Math.floor(accTime / 60);
+		ss = accTime % 60;
+		mmss = mm + ":"+(ss<10?"0":"")+ss;
+		$("#acc_time").html(mmss);
+	}
+}
+function resetAcc() {
+	accTime = 3601;
+}
+
+function view_alert() {
+	alert('로그인후 이용가능합니다.');
+}
+
+
+function moveDetl() {
+	var posLeft = event.x + document.documentElement.scrollLeft - 40;
+	if(posLeft>$(window).width()-230) posLeft = $(window).width()-230; 
+	helpbox.style.posLeft = posLeft;
+
+	helpbox.style.posTop  = event.y + 18;
+
+}
+function viewDetl_krcon(nm1, tel1, hp1, email1, nm2, tel2, hp2, email2) {
+	helpbox.innerHTML = "<table width=210 border=0 cellpadding=0 cellspacing=0><colgroup><col width=1><col width=*><col width=2></colgroup><tr><td height=1 colspan=3 bgcolor=#a6b4c1></td></tr><tr><td bgcolor=#a6b4c1></td>"+
+		"<td bgcolor=#FFFFFF style='padding-top:4px;padding-left:4px;'>"+
+		"1차승인권자<br>담당자명 : "+nm1+"<br>전화번호 : "+tel1+"<br>email : "+email1+"<br><br>"+
+		"2차승인권자<br>담당자명 : "+nm2+"<br>전화번호 : "+tel2+"<br>email : "+email2+
+		"</td><td bgcolor=#a6b4c1></td></tr><tr><td height=2 colspan=3 bgcolor=#a6b4c1></td></tr></table>";
+}
+function viewDetl_hdec(nm1, tel1, hp1, email1, nm2, tel2, hp2, email2, nm3, tel3, hp3, email3) {
+	helpbox.innerHTML = "<table width=210 border=0 cellpadding=0 cellspacing=0><colgroup><col width=1><col width=*><col width=2></colgroup><tr><td height=1 colspan=3 bgcolor=#a6b4c1></td></tr><tr><td bgcolor=#a6b4c1></td>"+
+		"<td bgcolor=#FFFFFF style='padding-top:4px;padding-left:4px;'>"+
+		"1차승인권자<br>담당자명 : "+nm1+"<br>전화번호 : "+tel1+"<br>email : "+email1+"<br><br>"+
+		"2차승인권자<br>담당자명 : "+nm2+"<br>전화번호 : "+tel2+"<br>email : "+email2+"<br><br>"+
+		"최종승인권자<br>담당자명 : "+nm3+"<br>전화번호 : "+tel3+"<br>email : "+email3+
+		"</td><td bgcolor=#a6b4c1></td></tr><tr><td height=2 colspan=3 bgcolor=#a6b4c1></td></tr></table>";
+}
+function viewDetl_hec(nm1, tel1, email1, nm2, tel2, email2) {
+	helpbox.innerHTML = "<table width=210 border=0 cellpadding=0 cellspacing=0><colgroup><col width=1><col width=*><col width=2></colgroup><tr><td height=1 colspan=3 bgcolor=#a6b4c1></td></tr><tr><td bgcolor=#a6b4c1></td>"+
+		"<td bgcolor=#FFFFFF style='padding-top:4px;padding-left:4px;'>"+
+		"1차승인권자<br>"+nm1+"<br>전화번호 : "+tel1+"<br>email : "+email1+"<br><br>"+
+		"2차승인권자<br>"+nm2+"<br>전화번호 : "+tel2+"<br>email : "+email2+
+		"</td><td bgcolor=#a6b4c1></td></tr><tr><td height=2 colspan=3 bgcolor=#a6b4c1></td></tr></table>";
+}
+function viewDetl(tel, email) {
+	helpbox.innerHTML = "<table width=210 border=0 cellpadding=0 cellspacing=0><colgroup><col width=1><col width=*><col width=2></colgroup><tr><td height=1 colspan=3 bgcolor=#a6b4c1></td></tr><tr><td bgcolor=#a6b4c1></td>"+
+		"<td bgcolor=#FFFFFF style='padding-top:4px;padding-left:4px;'>전화번호 : "+tel+"<br>email : "+email+"</td>"+
+		"<td bgcolor=#a6b4c1></td></tr><tr><td height=2 colspan=3 bgcolor=#a6b4c1></td></tr></table>";
+}
+function viewDetl_cs_n(tel) {
+	if(tel=='') return;
+	w = 108;
+	var html = "<table width="+w+" border=0 cellpadding=0 cellspacing=0><colgroup><col width=1><col width=*><col width=2></colgroup><tr><td height=1 colspan=3 bgcolor=#a6b4c1></td></tr><tr><td bgcolor=#a6b4c1></td>"+
+		"<td bgcolor=#FFFFFF style='padding-top:4px;padding-left:4px;'>"+tel;
+	html = html+"</td><td bgcolor=#a6b4c1></td></tr><tr><td height=2 colspan=3 bgcolor=#a6b4c1></td></tr></table>";
+	helpbox.innerHTML = html;
+}
+function viewDetl_cs(tel1, tel2, tel3) {
+	if(tel1.length>12)
+		w = 180
+	else
+		w = 150
+	var html = "<table width="+w+" border=0 cellpadding=0 cellspacing=0><colgroup><col width=1><col width=*><col width=2></colgroup><tr><td height=1 colspan=3 bgcolor=#a6b4c1></td></tr><tr><td bgcolor=#a6b4c1></td>"+
+		"<td bgcolor=#FFFFFF>전화번호1 : "+tel1;
+	if(tel2!="")
+		html = html	+"<br>전화번호2 : "+tel2;
+	if(tel3!="")
+		html = html	+"<br>전화번호3 : "+tel3;
+	html = html+"</td><td bgcolor=#a6b4c1></td></tr><tr><td height=2 colspan=3 bgcolor=#a6b4c1></td></tr></table>";
+	helpbox.innerHTML = html;
+}
+function viewDetls(str) {
+	helpbox.innerHTML = "<table width=210 border=0 cellpadding=0 cellspacing=0><colgroup><col width=1><col width=*><col width=2></colgroup><tr><td height=1 colspan=3 bgcolor=#a6b4c1></td></tr><tr><td bgcolor=#a6b4c1></td>"+
+		"<td bgcolor=#FFFFFF>"+str+"</td>"+
+		"<td bgcolor=#a6b4c1></td></tr><tr><td height=2 colspan=3 bgcolor=#a6b4c1></td></tr></table>";
+}
+function hideDetl() {
+	helpbox.innerHTML = "";
+}
+
+
+$().ready(function() {
+	
+	todo_lst.style.display = "";
+	new Floating(document.getElementById("todo_lst"), -100, 210, 20, 10);
+	
+});
+function toggle_body() {
+	if(todo_body.style.display=="") 
+		todo_body.style.display = "none";
+	else
+		todo_body.style.display = "";
+}
+function close_body() {
+	if(confirm('재로그인 전 까지 To do List 를 삭제 하시겠습니까?')) {
+		$.ajax({type:"get", url: "/nomuMnu.do", data:"sdo=원도_TODO", dataType:"json",
+			success : function(data) {},
+			//error : function(request,error) { alert('처리중 에러가 발생하였습니다.'); }
+		});
+	}
+	todo_lst.style.display = "none";
+}
+function todo_0() {
+	if(confirm('공사참여를 승인해 주시면, 협력업체는 청구내역서를 작성할수 있습니다. 공사참여 승인을 위해 "현장관리" 메뉴로 이동하시겠습니까?')) {
+		self.location.href = "nomu3101.do";
+	}
+}
+function todo_1() {
+//	if(confirm('현재 협력업체로부터 수신한 청구내역서 중 확인하지 않은 건이 존재합니다. "내역서 확인" 메뉴로 이동하시겠습니까?')) {
+		
+			self.location = "nomu3709.do";
+//			self.location = "nomu3200.do?page_type=hasu";
+		
+//	}
+}
+function todo_2_sms() {
+	if(confirm('협력업체에게 노무비를 지급한 직후 협력업체가 고용한 근로자들에게 문자메시지를 발송하여, 곧 임금이 지급될 예정임을 알릴 수 있습니다. "SMS" 메뉴로 이동하시겠습니까?')) {
+		self.location = "nomu3401.do";
+	}
+}
+function todo_2() {
+//	if(confirm('협력업체에게 노무비를 지급한 직후 협력업체가 고용한 근로자들에게 문자메시지를 발송하여, 곧 임금이 지급될 예정임을 알릴 수 있습니다. "SMS" 메뉴로 이동하시겠습니까?')) {
+		self.location = "nomu3702.do";
+//	}
+}
+function todo_3() {
+	self.location = "/nomuMnu.do?sdo=원도_모니터링";
+}
+function todo_5() {
+	self.location = "/nomuMain.do?sdo=원도_결제내역_m&stl_flag=1";
+}
+function todo_6() {
+//	self.location = "nomuMnu.do?sdo=원도_모니터링&mtyp=premium";
+//	self.location = "nomu3701.do?mtyp=premium";
+
+	alert('서비스 예정입니다.');
+	
+}
+$().ready(function() {
+    $('.todo_close_btn').click(function(){
+      close_body();
+    });
+});
+
+
+//var one_edit = '';
+function navi(sub) {
+	$('#p_btn input:eq(0)').attr('class', 'pointer hadoviewBtn');
+	$('#p_btn input:eq(1)').attr('class', 'pointer silmuSaveBtn');
+	$('#p_btn input:eq(2)').attr('class', 'pointer billSendBtn');
+	$('#d_hasu').hide();
+	$('#d_one').hide();
+	$('#d_total').hide();
+	var page_url;
+	var data = 'or_cd=13829&or_com_cd=71340&bill_or_com_cd=&bill_month=201912&yn_key=';
+	if(sub=='hasu') { 
+		$('#pg_navi').text('협력업체 청구내역 확인');
+		$('#p_btn input:eq(0)').attr('class', 'pointer hadoviewBtn_on'); 
+		$('#d_hasu').show();
+		$.ajax({type:'post', url: '/nomuMnu.do', data: data+'&sdo=원도_하도청구내역', dataType:"html",
+			success : function(data) { $('#d_hasu').html(data); },
+			//error : function(request,error) { alert('처리중 에러가 발생하였습니다.'); }
+		});
+	} else if(sub=='one') {
+		$('#pg_navi').text('자사 실근무내역 등록');
+		$('#p_btn input:eq(1)').attr('class', 'pointer silmuSaveBtn_on'); 
+		$('#d_one').show();
+		$.ajax({type:"post", url: '/nomuMnu.do', data: data+'&sdo=원도_자사실근무등록', dataType:"html",
+			success : function(data) { $('#d_one').html(data); },
+			//error : function(request,error) { alert('처리중 에러가 발생하였습니다.'); }
+		});
+	} else { 
+		$('#pg_navi').text('청구내역서 제출');
+		$('#p_btn input:eq(2)').attr('class', 'pointer billSendBtn_on'); 
+		$('#d_total').show();
+		$.ajax({type:"post", url: '/nomuMnu.do', data: data+'&sdo=원도_청구내역서제출', dataType:"html",
+			success : function(data) { $('#d_total').html(data); },
+			//error : function(request,error) { alert('처리중 에러가 발생하였습니다.'); }
+		});
+	}
+}
+$().ready(function() {
+	navi('hasu');
+});
+/******* 원도_하도청구내역서 *******/
+function search_list3(or_no,bill_or_com_cd,bill_month,year,month,list_yn){
+	if(list_yn==''){
+		alert("작성된 지급내역서가 없습니다.");
+	}else{
+		$.smartPop.open({ width:820, height:620, url: 'nomu32035.do?or_no='+or_no+'&no_or_com_cd='+bill_or_com_cd+'&bill_month='+list_yn+'&year='+year+'&month='+month+'&key=1'});
+	}
+}
+/*  "원도_하도청구내역서" 으로 이동
+function bill_return(bill_ing,bill_cd,bill_month,seq,ha_name,or_com_cd){
+	if(bill_ing=='05'){
+		alert("현재 반려 상태중입니다.");
+		return;
+	}else{
+		$.smartPop.open({ width:300, height:320, url: 'nomuView.do?sdo=공통_반려사유입력&bill_cd='+bill_cd+'&bill_month='+bill_month+'&seq='+seq+'&ha_name='+ha_name+'&or_com_cd='+or_com_cd});
+	}
+}
+var param;
+function bill_confirm(or_cd,or_com_cd,bill_month, seq, ac_sub, pay90) {
+
+	if(confirm("승인하시겠습니까?")){
+
+		ifrm_work.location.href = '/nomuView.do?sdo=원도_하도청구내역승인&or_cd='+or_cd+'&or_com_cd='+or_com_cd+'&bill_month='+bill_month+'&seq='+seq+'&ac_sub='+ac_sub;
+			
+	}
+		
+}
+function bill_ing(or_cd,or_com_cd,bill_month, seq, ac_sub) {
+	if(confirm("수신상태로 되돌리시겠습니까?")){
+		ifrm_work.location.href = 'nomuMnu.do?sdo=원도_하도청구내역승인&or_cd='+or_cd+'&or_com_cd='+or_com_cd+'&bill_month='+bill_month+'&seq='+seq+'&bill_ing=03&ac_sub='+ac_sub;
+	}
+}
+*/
+</script>
+
+</head>
+<body>
+
+<prnoff>
+<div class="wrap login">
+
+    <div class="header">
+      <div class="header_top_wrap">
+        <div class="header_top">
+          <p class="company_phone">나이스디앤알 (107-87-08207)</p>
+          <ul class="header_quick_menu">
+        
+            <li class="time_color" id="acc_time">
+              60:00
+            </li>
+            <li class="time_color">
+              <a href="javascript:resetAcc()">연장</a>
+            </li>
+            <li>
+              <a href="logout.do">로그아웃</a>
+            </li>
+            <li>
+
+              <a href="nomu6401.do">기업정보수정</a>
+
+            </li>
+            <li><a href="/nomuMain.do?sdo=원도_결제내역_m"><img src="images/common/blink_text1.gif" alt="결제내역"></a></li>          
+          </ul>
+        </div>
+      </div>
+      <div class="header_bottom_wrap">
+        <div class="header_bottom">
+          <div class="logo_wrap">
+            <h1><a href="/">노무비닷컴</a></h1>
+            <p class="slogun">체불없는 세상을 위한 모두의 한걸음</p>
+          </div>
+          <ul class="gnb">
+            <!-- GNB 페이지 유지시 class명 active붙이기(depth1에서만 적용) -->
+            
+            <li id=gnb21 class="active"><a href="nomu3101.do">현장관리</a></li>
+            <li id=gnb22><a href="nomu3201.do">내역서확인</a></li>
+            <li id=gnb23><a href="nomu3401.do">SMS</a></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="warp" style='padding-top:30px'>
+        <div id="content">	
+                
+            <div id="helpbox" style="position:absolute; left:0px; top:0px; width:300px; height:0px; border-width:0px; z-index:1;"></div>
+
+            <div id="location">
+                <div id="locationNavi">
+
+                    <h1 style='float:left'><img src="images/title/title220.gif" alt="내역서확인" /></h1>    
+                    <span class="navi_or_name">전환테스트2</span>
+                </div>
+                <ol style='line-height:1.5'>
+                    <li>HOME&nbsp;&gt;&nbsp;</li>
+                    <li class="png24">도입기업&nbsp;&gt;&nbsp;</li>
+                    <li class="last png24" id="pg_navi">내역서확인</li>
+                </ol>
+            </div>
+
+            <script language=javascript>
+            function list_back(url) {
+                self.location = url+"?ini=Y";
+            }
+            </script>
+            <div style="float:left;padding-top:4px;"><a href=javascript:list_back('/nomu3201.do')><img src='images/img/back.gif'></a></div>
+
+            <script language=javascript>
+            function help(scr_id) {
+            //	ifrm_work.location.href = "nomuWork.do?sdo=공통_파일다운로드&id_typ=9003&seq="+scr_id;
+            //	ifrm_work.src = "nomuWork.do?sdo=공통_파일다운로드&id_typ=9003&seq="+scr_id;
+                window.open("nomuWork.do?sdo=공통_파일다운로드&view=true&id_typ=9003&seq="+scr_id, "_blank");
+            }
+            function help_talk() {
+            //	open_win("https://talk.naver.com/WCD8I5", "helptalk", 420, 540);
+                var _new_win= window.open("https://talk.naver.com/WCD8I5", "help","left=0,top=0,width=508,height=808");
+                _new_win.focus();
+            }
+            </script>
+
+            <div style="float:right;padding-top:4px;"><img src='images/img/help_tel.gif'> <a href=javascript:help('104')><img src='images/img/help.gif'></a></div>
+
+            <div style="clear:both;"></div>
+
+            <div id='todo_lst' class="quick_size" style="position:absolute;z-index:1;left:1000px;top:210px;display:none;">
+            <!--div style='position:absolute;top:0px;width:12px;height:12px;right:-1px;' -->
+                <div class="to-do-list">
+                    <div class="title">
+                    <p>To Do List</p>
+                    <div class="todo_close_btn"></div>
+                    </div>
+                    <ul>
+                    <li>
+                        <a href="javascript:todo_0()">
+                        <div class="todo-inner-left">
+                            <p>공사참여<br>미승인</p>
+                        </div>
+                        <div class="todo-inner-right">
+                            1
+                        </div>
+                        </a>
+                    </li>
+                    <li class="accent">
+                        <a href="javascript:todo_1()">
+                        <div class="todo-inner-left">
+                            <p>내역서<br>미승인</p>
+                        </div>
+                        <div class="todo-inner-right">
+                            9
+                        </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:todo_3()">
+                        <div class="todo-inner-left">
+                            <p>미지급<br>실시간<br>모니터링</p>
+                        </div>
+                        <div class="todo-inner-right">
+                            29
+                        </div>
+                        </a>
+                    </li>
+                    <li class="accent">
+                        <a href="javascript:todo_5()">
+                        <div class="todo-inner-left">
+                            <p>노무비닷컴<br>이용수수료<br>미결제현황</p>
+                        </div>
+                        <div class="todo-inner-right">
+                            3
+                        </div>
+                        </a>
+                    </li>
+
+                    </ul>
+                </div>
+            <!-- /div -->      
+            </div>      
+
+            <div class="tableTop">
+                <div class="tLeft">
+                    <p id='p_btn'>
+                        <input type="button" class="pointer hadoviewBtn_on" onclick="javascript:navi('hasu')" alt="하도 청구내역 확인">
+
+            <!--
+                        <input type="button" class="pointer silmuSaveBtn" onclick="javascript:navi('one')" alt="자사 실근무내역 등록">
+                        <input type="button" class="pointer billSendBtn" onclick="javascript:navi('total')" alt="청구내역서 제출">
+            -->			
+
+                    </p>
+                </div>
+            </div>
+            <br/>
+
+            <div id="d_hasu" style="display: block;">
+
+
+                <title>도입기업</title>
+                <meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+                
+                <link rel="stylesheet" href="/css/jquery_ui.css" type="text/css">
+                <style>
+                .Type1 th{padding:6px 0 3px 0;}
+                .nomubi4 {
+                width:300px;
+                color:#333;
+                font-size:13px;
+                font-weight:bold;
+                line-height:17px;
+                padding:15px;
+                background-color:#f5f5f5;
+                border:2px #bbb solid; 
+                -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px; overflow:hidden;
+                }
+                .ptitleh { font-weight:bold; padding-top:18px; }
+                </style>
+                
+                <div class="tableTop">
+                    <div class="tLeft">
+                        <h3><img src="images/txt/txt_board11.gif" alt="하도 청구내역 확인"></h3>
+                <!--		<p class="btn"><span class="or_name"></span></p> -->
+                        
+                    </div>
+                    <div class="tRight" style="min-height:10px;">
+                        <form id="frm1" name="frm1" method="post" onsubmit="return false;">	
+                            <input type="hidden" name="sdo" value="원도_하도청구내역tb">
+                            <input type="hidden" name="or_cd" value="13829">
+                            <input type="hidden" name="or_com_cd" value="71340">
+                            <input type="hidden" name="bill_or_com_cd" value="">
+                            <input type="hidden" name="bill_month" value="201912">	
+                            <input type="hidden" name="sort_ty" id="sort_ty">
+                            <input type="hidden" name="curPage">
+                                <ul>
+                            <li>
+                            <select name="pageDataCnt">
+                                <option value="5">5개씩 보기</option>
+                                <option value="20" selected="">20개씩 보기</option>
+                                <option value="50">50개씩 보기</option>
+                                <option value="9999">전체 보기</option>
+                            </select>
+                            </li>
+                        <!--
+                            <input type=hidden name=pageDataCnt value=9999>
+                        -->
+                                    
+                                    <li class="ptitleh">상태</li>
+                                    <li class="p4">
+                                        <select name="bill_ing">
+                                            <option value="" selected="">전체</option>
+                                            <option value="03">수신</option>
+                                            <option value="04">승인</option>
+                                            <option value="05">반려</option>
+                                        </select>
+                                    </li>
+                        
+                                    <input type="hidden" name="search" value="N">
+                                    <li class="ptitleh">협력기업명</li>
+                                    
+                                    <li class="p4"><input type="text" class="searchPut_150" name="keyword" id="search2" value=""></li>
+                                    
+                                    <li class="p4"><input type="button" onclick="javascript:searchList()" class="searchBtn pointer" alt="조회"></li>
+                                    <li class="p4"><input type="button" onclick="javascript:excel_down('원도_하도청구내역&amp;or_com_cd=71340&amp;or_cd=13829&amp;bill_month=201912&amp;bill_or_com_cd=');" class="exelBtn pointer" alt="엑셀"></li>
+                        <!--  			<li class="p4"><input type="button" onclick="javascript:excel_down_job('frm1', urlencode('원도_하도청구내역'));" class="exelBtn pointer" alt="엑셀" /></li> -->
+                        
+                                    <li class="p4"><img src="images/btn/btn_indata.gif" onclick="check_excel()" class="pointer" alt="조회"></li>
+                        
+                                </ul>
+                        </form>		
+                    </div>
+                <!-- 	<p class="btn" style="float:right;clear:both;padding-top:2px;padding-bottom:2px;"><span class="red_txt">"조회하기" 버튼은 클릭하시면, 청구내역서가 조회되며 "승인" 혹은 "반려"처리 할 수 있습니다.</span></p> -->
+                </div>
+                <div style="clear:both;padding-bottom:12px;"></div>
+                <div class="BorderTb">
+                    <table summary="하도 청구내역 확인" class="Type1" border="1" cellspacing="0" id="insList">
+                    <caption>하도 청구내역 확인</caption>
+                    <colgroup>
+                        
+                        <col width="60">
+                        <col width="80">
+                        <col width="*">
+                
+                        <col width="*">
+                        <col width="*">
+                        <col width="*" bgcolor="#f5f5f5">
+                        <col width="90">
+                        <col width="100">
+                        
+                    </colgroup>
+                    <thead>
+                    <tr>
+                
+                        <th scope="col">순번</th>
+                        <th scope="col">해당월</th>
+                        <th scope="col" class="pointer" onclick="sort_c(3)">협력기업</th>
+                
+                        <th scope="col" class="pointer" onclick="sort_c(1)">청구일자</th>
+                        <th scope="col" class="pointer" onclick="sort_c(2)">이체약속일자</th>
+                <!-- 		<th scope="col" class="pointer" onclick="sort_c(4)">청구액(원)</th> -->
+                        <th scope="col" class="pointer" onclick="sort_c(4)">지급예정액(원)</th>
+                        <th scope="col" class="pointer" onclick="sort_c(5)">상태</th>
+                        <th scope="col" class="pointer" onclick="sort_c(6)">진행</th>
+                        
+                    </tr>
+                        
+                    </thead>
+                    <tbody id="t_body">
+                
+                        <tr bgcolor="#ffffe0">
+                            <td>합계</td>
+                            <td>2019-12</td>
+                <!--			<td>129.0</td> -->
+                        
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>15</td>
+                            <td>-</td>
+                            <td>-</td>
+                        
+                        </tr>
+                    
+                        <tr>
+                            <td>1</td>
+                <!-- 			<td>2019/12</td> -->
+                            <td>2019/12</td>
+                            <td>(주)나이스토건</td>
+                        
+                            <td>2020-05-08</td>
+                            <td>2020-01-31</td>
+                            <td>15</td>
+                            <td>
+                                수신
+                            </td>
+                
+                            <td>
+                                <a href="javascript:hasu_view('1','71357','201912','0', '|O||', '')"><span class="red_a">조회하기</span></a>
+                            </td>
+                        
+                        </tr>
+                        
+                    </tbody>
+                    </table>
+                </div>
+                <!-- 페이징부분  -->
+                <div style="height:10px;"></div>
+                <br>
+                <div class="page" id="d_page"></div>
+
+                <div id="hasu_detail">
+                    <title>도입기업</title>
+                    <meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+                                      
+                    <style>
+                    
+                    .btn_gr2  { cursor:pointer; width:200px;height:24px;border:1px solid gray; background:gray; padding:4px 10px 0px 10px; font-weight:bold; font-family: "굴림","Arial";font-size:12px; color:#ffffff; }
+                    .btn_bu2  { cursor:pointer; width:200px;height:34px;border:1px solid blue; background:blue; padding:4px 10px 0px 10px; font-weight:bold; font-family: "굴림","Arial";font-size:12px; color:#ffffff; }
+                    </style>
+                    <style>
+                    .ani-btn-wrap {
+                        position: relative;
+                        overflow: hidden;
+                        display: inline-block; }
+                    .ani-btn-wrap .ani-btn {
+                        color: #fff;
+                        width: 130px;
+                        height: 28px;
+                        display: inline-block;
+                        background: url(images/common/ani_btn_bg.png);
+                        padding: 0 5px;
+                        text-align: center;
+                        text-indent: -9999px;
+                        border-radius: 3px 3px 3px 3px;
+                        -moz-border-radius: 3px 3px 3px 3px;
+                        -webkit-border-radius: 3px 3px 3px 3px; }
+                    .ani-btn-wrap .pulse-button {
+                        left: -40px;
+                        top: 50%;
+                        margin-top: -15px;
+                        position: absolute;
+                        width: 30px;
+                        height: 30px;
+                        border: none;
+                        -webkit-box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+                        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+                        border-radius: 50%;
+                        background-color: #7b97df;
+                        background-size: cover;
+                        background-repeat: no-repeat;
+                        cursor: pointer;
+                        -webkit-animation-name: btnAction1;
+                        -moz-animation-name: btnAction1;
+                        -ms-animation-name: btnAction1;
+                        animation-name: btnAction1;
+                        -webkit-animation-duration: 5s;
+                        -moz-animation-duration: 5s;
+                        -ms-animation-duration: 5s;
+                        animation-duration: 5s;
+                        -webkit-animation-iteration-count: infinite;
+                        -moz-animation-iteration-count: infinite;
+                        -ms-animation-iteration-count: infinite;
+                        animation-iteration-count: infinite;
+                        -webkit-animation-timing-function: cubic-bezier(0.66, 0, 0, 1);
+                        -moz-animation-timing-function: cubic-bezier(0.66, 0, 0, 1);
+                        -ms-animation-timing-function: cubic-bezier(0.66, 0, 0, 1);
+                        animation-timing-function: cubic-bezier(0.66, 0, 0, 1); }
+                    @-webkit-keyframes btnAction1 {
+                      to {
+                         -webkit-box-shadow: 0 0 0 300px rgba(123, 151, 223, 0);
+                         box-shadow: 0 0 0 300px rgba(123, 151, 223, 0); } }
+                    @-moz-keyframes btnAction1 {
+                      to {
+                         box-shadow: 0 0 0 300px rgba(123, 151, 223, 0); } }
+                    @-ms-keyframes btnAction1 {
+                      to {
+                         box-shadow: 0 0 0 300px rgba(123, 151, 223, 0); } }
+                    @keyframes btnAction1 {
+                      to {
+                         -webkit-box-shadow: 0 0 0 300px rgba(123, 151, 223, 0);
+                         box-shadow: 0 0 0 300px rgba(123, 151, 223, 0); } }
+                    </style>
+                    
+                    <form id="pwp_frm" name="pwp_frm" method="post" action="?">
+                    <input type="hidden" name="sdo" value="pwp">
+                    <input type="hidden" name="html">
+                    </form>
+                    
+                    
+                    <prnon>
+                        <div class="tableTop">
+                            <div class="tcenter">
+                                <p><img src="images/txt/txt_title12.gif" alt="청구 내역서"></p>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="tableTop">
+                            <div class="tLeft">
+                                <h3><img src="images/txt/txt_result5.gif" alt="청구기업명"></h3>
+                                <p class="txt">(주)나이스토건(107-86-24873)</p>
+                            </div>
+                        </div>
+                        <div class="tableTop">
+                            <div class="tLeft">
+                                <h3><img src="images/txt/txt_result2.gif" alt="계약/공사명"></h3>
+                                <p class="txt">(하도급)전환테스트2</p>
+                            </div>
+                        </div>
+                        
+                        <div class="tableTop">
+                            <div class="tLeft">
+                                <h3><img src="images/txt/txt_result3.gif" alt="청구내역 요약"></h3>
+                                
+                            </div>
+                            <div class="tRight">
+                                <ul>
+                                
+                                    <li class="p4"><input type="button" onclick="alert('첨부된 파일이 없습니다.')" class="pointer" alt="첨부파일 조회" style="background:url(/images/btn/btn_btn2_off.gif);width:87px;height:22px;border:none;"></li>
+                                
+                                    <li class="p4"><input type="button" onclick="javascript:excel_down('공통_청구내역서다운&amp;or_com_cd=71357&amp;or_cd=13829&amp;bill_month=201912&amp;seq=0');" class="exelBtn pointer" alt="엑셀"></li>
+                                </ul>
+                            </div>
+                        <!--
+                            <div class="tRight">
+                                <div style="height:14px;"></div>
+                                <span class="red_txt">노임 이체약속일 : </span>
+                            </div>
+                        -->	
+                        </div>
+                        <div class="BorderTb">
+                            <table summary="청구내역 요약" class="Type1" border="1" cellspacing="0" id="insList">
+                            <caption>청구내역 요약</caption>
+                            <colgroup>
+                                <col width="60">
+                                <col width="80">
+                                <col width="80">
+                                <col width="*">
+                                <col width="*">
+                                <col width="*">
+                                <col width="100">
+                                <col width="*">
+                                <col width="*">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th scope="col">해당월</th>
+                                <th scope="col">구분</th>
+                                <th scope="col">청구일자</th>
+                                <th scope="col">이체약속일</th>
+                                <th scope="col">청구액(원)</th>
+                                <th scope="col">공제액(원)</th>
+                                <th scope="col">지급예정액(원)</th>
+                                <th scope="col">은행명</th>
+                                <th scope="col">예금주</th>
+                                <th scope="col">계좌번호</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                        
+                            <tr>
+                                <td>2019/12</td>
+                                <td>노무비</td>
+                                <td>2020-05-08</td>
+                                <td>2020-01-24</td>
+                                <td bgcolor="#f5f5f5">3</td>
+                                <td bgcolor="#f5f5f5">0</td>
+                                <td bgcolor="#f5f5f5">3</td>
+                                <td>부산은행</td>
+                                <td>테스트</td>
+                        
+                                <td>1132011403004</td>
+                                
+                            </tr>
+                        
+                            <tr>
+                                <td>2019/12</td>
+                                <td>장비비</td>
+                                <td>2020-05-08</td>
+                                <td>2020-01-31</td>
+                                <td bgcolor="#f5f5f5">3</td>
+                                <td bgcolor="#f5f5f5">0</td>
+                                <td bgcolor="#f5f5f5">3</td>
+                                <td></td>
+                                <td></td>
+                        
+                                <td></td>
+                                
+                            </tr>
+                        
+                            <tr>
+                                <td>2019/12</td>
+                                <td>자재비</td>
+                                <td>2020-05-08</td>
+                                <td>2020-01-31</td>
+                                <td bgcolor="#f5f5f5">3</td>
+                                <td bgcolor="#f5f5f5">0</td>
+                                <td bgcolor="#f5f5f5">3</td>
+                                <td></td>
+                                <td></td>
+                        
+                                <td></td>
+                                
+                            </tr>
+                        
+                            <tr>
+                                <td>2019/12</td>
+                                <td>경비</td>
+                                <td>2020-05-08</td>
+                                <td>2020-01-31</td>
+                                <td bgcolor="#f5f5f5">3</td>
+                                <td bgcolor="#f5f5f5">0</td>
+                                <td bgcolor="#f5f5f5">3</td>
+                                <td></td>
+                                <td></td>
+                        
+                                <td></td>
+                                
+                            </tr>
+                        
+                            <tr>
+                                <td>2019/12</td>
+                                <td>기타 기성</td>
+                                <td>2020-05-08</td>
+                                <td>2020-01-31</td>
+                                <td bgcolor="#f5f5f5">3</td>
+                                <td bgcolor="#f5f5f5">0</td>
+                                <td bgcolor="#f5f5f5">3</td>
+                                <td></td>
+                                <td></td>
+                        
+                                <td></td>
+                                
+                            </tr>
+                        
+                            <tr bgcolor="#ffffe0">
+                                <td colspan="2">합계</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>15</td>
+                                <td>0</td>
+                                <td>15</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                        
+                            </tbody>
+                            </table>
+                        </div>
+                        <div class="tableTop">
+                            <div class="tLeft">
+                                <h3><img src="images/txt/txt_result4.gif" alt="청구내역 상세"></h3>
+                            </div>
+                        <!--	
+                            <prnoff>
+                            <div class="tRight">
+                                <ul>
+                                    <li class="p4"><input type="button" onclick="javascript:excel_down('공통_청구내역서다운&or_com_cd=71357&or_cd=13829&bill_month=201912');" class="exelBtn pointer" alt="엑셀" /></li>
+                                </ul>
+                            </div>
+                            </prnoff>
+                        -->	
+                        </div>
+                        
+                        <div style="height:18px;"></div>
+                        <img src="images/txt/txt1_01.png" alt="노무비" style="padding-bottom:6px">
+                        
+                        <div style="width:100%;overflow:hidden;">
+                            <table summary="청구내역 상세" class="Type1" border="1" cellspacing="0" id="insList" celloptimize="vertical" vline="1">
+                            <caption>청구내역 상세</caption>
+                            <colgroup>
+                        
+                                <col width="50"> <!-- 순번 -->
+                                <col width="70"> <!-- 성명 -->
+                                <col width="84" bgcolor="#f5f5f5"> <!-- 청구액 -->
+                                <col width="84" bgcolor="#f5f5f5"> <!-- 공제액 -->
+                                <col width="84" bgcolor="#f5f5f5"> <!-- 지급예정액 -->
+                                <col width="96"> <!-- 연락처 -->
+                                <col width="56"> <!-- 선지급 -->
+                                <col width="70"> <!-- 예금주 -->
+                                <col width="60"> <!-- 선지급수령인 -->
+                                <col width="60"> <!-- 위임장 -->
+                                <col width="120"><!-- 비고 -->    
+                                <col width="90"><!-- 비고 -->    
+                                
+                                <col width="80">
+                        
+                            </colgroup>
+                            <thead>
+                                <tr style="border-top:2px #58aadc solid;">
+                                    <th scope="col">순번</th>
+                        <!--
+                                    <th scope="col">해당월</th>
+                        -->
+                        
+                                    <th scope="col" class="pointer" onclick="sort_ac('01',1)">성명</th>
+                                
+                                    <th scope="col" class="pointer" onclick="sort_ac('01',2)">청구액(원)</th>
+                                    <th scope="col" class="pointer" onclick="sort_ac('01',3)">공제액(원)</th>
+                                    <th scope="col" class="pointer" onclick="sort_ac('01',4)">지급예정액(원)</th>
+                                    <th scope="col" class="pointer" onclick="sort_ac('01',5)">연락처</th>
+                                    <th scope="col" class="pointer" onclick="sort_ac('01',6)">선지급</th>
+                        <!--			<th scope="col">은행</th> -->
+                                    <th scope="col" class="pointer" onclick="sort_ac('01',7)">예금주</th>
+                        <!--			<th scope="col">계좌번호</th> -->
+                        
+                                <th scope="col" class="pointer" onclick="sort_ac('01',8)">선지급<br>수령인</th>
+                                <th scope="col" class="pointer" onclick="sort_ac('01',9)">위임장 등</th>
+                            
+                                    <th scope="col" class="pointer" onclick="sort_ac('01',10)">비고</th>
+                                
+                                    <th scope="col" class="pointer" onclick="sort_ac('01',12)">입금적요</th>
+                                        
+                                </tr>
+                                </thead>
+                                <tbody id="tbody_01">
+                        
+                            <tr>
+                                <td>1</td>
+                        <!--
+                                <td>2019/12</td>
+                        -->
+                                <td>장정현1</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>010-3176-4406</td>
+                                <td>N</td>
+                        <!--		<td>신한은행</td> -->
+                        <!--		<td onMouseOver="viewDetls('장정현, 신한은행, ******52969');" onMouseOut="hideDetl();" style="cursor:pointer;"><a href="javascript:diff_name('장정현','장정현1')">불일치</a></td> -->
+                        
+                                <td><a href="javascript:view_bank('신한은행', '******52969', '장정현','장정현1')">불일치</a></td>
+                                
+                        <!--		<td>110442752969</td> -->
+                        
+                                <td>
+                                    -
+                                </td>
+                                <td>
+                                    미첨부
+                                </td>
+                            
+                                <td>&nbsp;</td>
+                        
+                                <td>&nbsp;</td>
+                                
+                            </tr>
+                        
+                            <tr>
+                                <td>2</td>
+                        <!--
+                                <td>2019/12</td>
+                        -->
+                                <td>장정현2</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>2</td>
+                                <td>010-3176-4406</td>
+                                <td>N</td>
+                        <!--		<td>카카오뱅크</td> -->
+                        <!--		<td onMouseOver="viewDetls('장정현, 카카오뱅크, ******86951');" onMouseOut="hideDetl();" style="cursor:pointer;"><a href="javascript:diff_name('장정현','장정현2')">불일치</a></td> -->
+                        
+                                <td><a href="javascript:view_bank('카카오뱅크', '******86951', '장정현','장정현2')">불일치</a></td>
+                                
+                        <!--		<td>3333014586951</td> -->
+                        
+                                <td>
+                                    -
+                                </td>
+                                <td>
+                                    미첨부
+                                </td>
+                            
+                                <td>&nbsp;</td>
+                        
+                                <td>&nbsp;</td>
+                                
+                            </tr>
+                        
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div style="height:18px;"></div>
+                        <img src="images/txt/txt1_03.png" alt="장비비" style="padding-bottom:6px">
+                        
+                        <div style="width:100%;overflow:hidden;">
+                            <table summary="청구내역 상세" class="Type1" border="1" cellspacing="0" id="insList" celloptimize="vertical" vline="1">
+                            <caption>청구내역 상세</caption>
+                            <colgroup>
+                        
+                                <col width="50"> <!-- 순번 -->
+                                <col width="70"> <!-- 성명 -->
+                                <col width="84" bgcolor="#f5f5f5"> <!-- 청구액 -->
+                                <col width="84" bgcolor="#f5f5f5"> <!-- 공제액 -->
+                                <col width="84" bgcolor="#f5f5f5"> <!-- 지급예정액 -->
+                                <col width="96"> <!-- 연락처 -->
+                                <col width="56"> <!-- 선지급 -->
+                                <col width="70"> <!-- 예금주 -->
+                                <col width="60"> <!-- 선지급수령인 -->
+                                <col width="60"> <!-- 위임장 -->
+                                <col width="120"><!-- 비고 -->    
+                                <col width="90"><!-- 비고 -->    
+                                
+                                <col width="80">
+                        
+                            </colgroup>
+                            <thead>
+                                <tr style="border-top:2px #58aadc solid;">
+                                    <th scope="col">순번</th>
+                        <!--
+                                    <th scope="col">해당월</th>
+                        -->
+                        
+                                    <th scope="col" class="pointer" onclick="sort_ac('03',1)">회사명</th>
+                                
+                                    <th scope="col" class="pointer" onclick="sort_ac('03',2)">청구액(원)</th>
+                                    <th scope="col" class="pointer" onclick="sort_ac('03',3)">공제액(원)</th>
+                                    <th scope="col" class="pointer" onclick="sort_ac('03',4)">지급예정액(원)</th>
+                                    <th scope="col" class="pointer" onclick="sort_ac('03',5)">연락처</th>
+                                    <th scope="col" class="pointer" onclick="sort_ac('03',6)">선지급</th>
+                        <!--			<th scope="col">은행</th> -->
+                                    <th scope="col" class="pointer" onclick="sort_ac('03',7)">예금주</th>
+                        <!--			<th scope="col">계좌번호</th> -->
+                        
+                                <th scope="col" class="pointer" onclick="sort_ac('03',8)">선지급<br>수령인</th>
+                                <th scope="col" class="pointer" onclick="sort_ac('03',9)">위임장 등</th>
+                            
+                                    <th scope="col" class="pointer" onclick="sort_ac('03',10)">비고</th>
+                                
+                                    <th scope="col" class="pointer" onclick="sort_ac('03',12)">입금적요</th>
+                                        
+                                </tr>
+                                </thead>
+                                <tbody id="tbody_03">
+                        
+                            <tr>
+                                <td>1</td>
+                        <!--
+                                <td>2019/12</td>
+                        -->
+                                <td>장정현3</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>010-3176-4406</td>
+                                <td>N</td>
+                        <!--		<td>신한은행</td> -->
+                        <!--		<td onMouseOver="viewDetls('장정현, 신한은행, ******52969');" onMouseOut="hideDetl();" style="cursor:pointer;"><a href="javascript:diff_name('장정현','장정현3')">불일치</a></td> -->
+                        
+                                <td><a href="javascript:view_bank('신한은행', '******52969', '장정현','장정현3')">불일치</a></td>
+                                
+                        <!--		<td>110442752969</td> -->
+                        
+                                <td>
+                                    -
+                                </td>
+                                <td>
+                                    미첨부
+                                </td>
+                            
+                                <td>&nbsp;</td>
+                        
+                                <td>&nbsp;</td>
+                                
+                            </tr>
+                        
+                            <tr>
+                                <td>2</td>
+                        <!--
+                                <td>2019/12</td>
+                        -->
+                                <td>장정현4</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>2</td>
+                                <td>010-3176-4406</td>
+                                <td>N</td>
+                        <!--		<td>카카오뱅크</td> -->
+                        <!--		<td onMouseOver="viewDetls('장정현, 카카오뱅크, ******86951');" onMouseOut="hideDetl();" style="cursor:pointer;"><a href="javascript:diff_name('장정현','장정현4')">불일치</a></td> -->
+                        
+                                <td><a href="javascript:view_bank('카카오뱅크', '******86951', '장정현','장정현4')">불일치</a></td>
+                                
+                        <!--		<td>3333014586951</td> -->
+                        
+                                <td>
+                                    -
+                                </td>
+                                <td>
+                                    미첨부
+                                </td>
+                            
+                                <td>&nbsp;</td>
+                        
+                                <td>&nbsp;</td>
+                                
+                            </tr>
+                        
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div style="height:18px;"></div>
+                        <img src="images/txt/txt1_04.png" alt="자재비" style="padding-bottom:6px">
+                        
+                        <div style="width:100%;overflow:hidden;">
+                            <table summary="청구내역 상세" class="Type1" border="1" cellspacing="0" id="insList" celloptimize="vertical" vline="1">
+                            <caption>청구내역 상세</caption>
+                            <colgroup>
+                        
+                                <col width="50"> <!-- 순번 -->
+                                <col width="70"> <!-- 성명 -->
+                                <col width="84" bgcolor="#f5f5f5"> <!-- 청구액 -->
+                                <col width="84" bgcolor="#f5f5f5"> <!-- 공제액 -->
+                                <col width="84" bgcolor="#f5f5f5"> <!-- 지급예정액 -->
+                                <col width="96"> <!-- 연락처 -->
+                                <col width="56"> <!-- 선지급 -->
+                                <col width="70"> <!-- 예금주 -->
+                                <col width="60"> <!-- 선지급수령인 -->
+                                <col width="60"> <!-- 위임장 -->
+                                <col width="120"><!-- 비고 -->    
+                                <col width="90"><!-- 비고 -->    
+                                
+                                <col width="80">
+                        
+                            </colgroup>
+                            <thead>
+                                <tr style="border-top:2px #58aadc solid;">
+                                    <th scope="col">순번</th>
+                        <!--
+                                    <th scope="col">해당월</th>
+                        -->
+                        
+                                    <th scope="col" class="pointer" onclick="sort_ac('04',1)">회사명</th>
+                                
+                                    <th scope="col" class="pointer" onclick="sort_ac('04',2)">청구액(원)</th>
+                                    <th scope="col" class="pointer" onclick="sort_ac('04',3)">공제액(원)</th>
+                                    <th scope="col" class="pointer" onclick="sort_ac('04',4)">지급예정액(원)</th>
+                                    <th scope="col" class="pointer" onclick="sort_ac('04',5)">연락처</th>
+                                    <th scope="col" class="pointer" onclick="sort_ac('04',6)">선지급</th>
+                        <!--			<th scope="col">은행</th> -->
+                                    <th scope="col" class="pointer" onclick="sort_ac('04',7)">예금주</th>
+                        <!--			<th scope="col">계좌번호</th> -->
+                        
+                                <th scope="col" class="pointer" onclick="sort_ac('04',8)">선지급<br>수령인</th>
+                                <th scope="col" class="pointer" onclick="sort_ac('04',9)">위임장 등</th>
+                            
+                                    <th scope="col" class="pointer" onclick="sort_ac('04',10)">비고</th>
+                                
+                                    <th scope="col" class="pointer" onclick="sort_ac('04',12)">입금적요</th>
+                                        
+                                </tr>
+                                </thead>
+                                <tbody id="tbody_04">
+                        
+                            <tr>
+                                <td>1</td>
+                        <!--
+                                <td>2019/12</td>
+                        -->
+                                <td>장정현5</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>010-3176-4406</td>
+                                <td>N</td>
+                        <!--		<td>신한은행</td> -->
+                        <!--		<td onMouseOver="viewDetls('장정현, 신한은행, ******52969');" onMouseOut="hideDetl();" style="cursor:pointer;"><a href="javascript:diff_name('장정현','장정현5')">불일치</a></td> -->
+                        
+                                <td><a href="javascript:view_bank('신한은행', '******52969', '장정현','장정현5')">불일치</a></td>
+                                
+                        <!--		<td>110442752969</td> -->
+                        
+                                <td>
+                                    -
+                                </td>
+                                <td>
+                                    미첨부
+                                </td>
+                            
+                                <td>&nbsp;</td>
+                        
+                                <td>&nbsp;</td>
+                                
+                            </tr>
+                        
+                            <tr>
+                                <td>2</td>
+                        <!--
+                                <td>2019/12</td>
+                        -->
+                                <td>장정현6</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>2</td>
+                                <td>010-3176-4406</td>
+                                <td>N</td>
+                        <!--		<td>카카오뱅크</td> -->
+                        <!--		<td onMouseOver="viewDetls('장정현, 카카오뱅크, ******86951');" onMouseOut="hideDetl();" style="cursor:pointer;"><a href="javascript:diff_name('장정현','장정현6')">불일치</a></td> -->
+                        
+                                <td><a href="javascript:view_bank('카카오뱅크', '******86951', '장정현','장정현6')">불일치</a></td>
+                                
+                        <!--		<td>3333014586951</td> -->
+                        
+                                <td>
+                                    -
+                                </td>
+                                <td>
+                                    미첨부
+                                </td>
+                            
+                                <td>&nbsp;</td>
+                        
+                                <td>&nbsp;</td>
+                                
+                            </tr>
+                        
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div style="height:18px;"></div>
+                        <img src="images/txt/txt1_07.png" alt="경비" style="padding-bottom:6px">
+                        
+                        <div style="width:100%;overflow:hidden;">
+                            <table summary="청구내역 상세" class="Type1" border="1" cellspacing="0" id="insList" celloptimize="vertical" vline="1">
+                            <caption>청구내역 상세</caption>
+                            <colgroup>
+                        
+                                <col width="50"> <!-- 순번 -->
+                                <col width="70"> <!-- 성명 -->
+                                <col width="84" bgcolor="#f5f5f5"> <!-- 청구액 -->
+                                <col width="84" bgcolor="#f5f5f5"> <!-- 공제액 -->
+                                <col width="84" bgcolor="#f5f5f5"> <!-- 지급예정액 -->
+                                <col width="96"> <!-- 연락처 -->
+                                <col width="56"> <!-- 선지급 -->
+                                <col width="70"> <!-- 예금주 -->
+                                <col width="60"> <!-- 선지급수령인 -->
+                                <col width="60"> <!-- 위임장 -->
+                                <col width="120"><!-- 비고 -->    
+                                <col width="90"><!-- 비고 -->    
+                                
+                                <col width="80">
+                        
+                            </colgroup>
+                            <thead>
+                                <tr style="border-top:2px #58aadc solid;">
+                                    <th scope="col">순번</th>
+                        <!--
+                                    <th scope="col">해당월</th>
+                        -->
+                        
+                                    <th scope="col" class="pointer" onclick="sort_ac('07',1)">회사명</th>
+                                
+                                    <th scope="col" class="pointer" onclick="sort_ac('07',2)">청구액(원)</th>
+                                    <th scope="col" class="pointer" onclick="sort_ac('07',3)">공제액(원)</th>
+                                    <th scope="col" class="pointer" onclick="sort_ac('07',4)">지급예정액(원)</th>
+                                    <th scope="col" class="pointer" onclick="sort_ac('07',5)">연락처</th>
+                                    <th scope="col" class="pointer" onclick="sort_ac('07',6)">선지급</th>
+                        <!--			<th scope="col">은행</th> -->
+                                    <th scope="col" class="pointer" onclick="sort_ac('07',7)">예금주</th>
+                        <!--			<th scope="col">계좌번호</th> -->
+                        
+                                <th scope="col" class="pointer" onclick="sort_ac('07',8)">선지급<br>수령인</th>
+                                <th scope="col" class="pointer" onclick="sort_ac('07',9)">위임장 등</th>
+                            
+                                    <th scope="col" class="pointer" onclick="sort_ac('07',10)">비고</th>
+                                
+                                    <th scope="col" class="pointer" onclick="sort_ac('07',12)">입금적요</th>
+                                        
+                                </tr>
+                                </thead>
+                                <tbody id="tbody_07">
+                        
+                            <tr>
+                                <td>1</td>
+                        <!--
+                                <td>2019/12</td>
+                        -->
+                                <td>장정현7</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>010-3176-4406</td>
+                                <td>N</td>
+                        <!--		<td>신한은행</td> -->
+                        <!--		<td onMouseOver="viewDetls('장정현, 신한은행, ******52969');" onMouseOut="hideDetl();" style="cursor:pointer;"><a href="javascript:diff_name('장정현','장정현7')">불일치</a></td> -->
+                        
+                                <td><a href="javascript:view_bank('신한은행', '******52969', '장정현','장정현7')">불일치</a></td>
+                                
+                        <!--		<td>110442752969</td> -->
+                        
+                                <td>
+                                    -
+                                </td>
+                                <td>
+                                    미첨부
+                                </td>
+                            
+                                <td>&nbsp;</td>
+                        
+                                <td>&nbsp;</td>
+                                
+                            </tr>
+                        
+                            <tr>
+                                <td>2</td>
+                        <!--
+                                <td>2019/12</td>
+                        -->
+                                <td>장정현8</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>2</td>
+                                <td>010-3176-4406</td>
+                                <td>N</td>
+                        <!--		<td>카카오뱅크</td> -->
+                        <!--		<td onMouseOver="viewDetls('장정현, 카카오뱅크, ******86951');" onMouseOut="hideDetl();" style="cursor:pointer;"><a href="javascript:diff_name('장정현','장정현8')">불일치</a></td> -->
+                        
+                                <td><a href="javascript:view_bank('카카오뱅크', '******86951', '장정현','장정현8')">불일치</a></td>
+                                
+                        <!--		<td>3333014586951</td> -->
+                        
+                                <td>
+                                    -
+                                </td>
+                                <td>
+                                    미첨부
+                                </td>
+                            
+                                <td>&nbsp;</td>
+                        
+                                <td>&nbsp;</td>
+                                
+                            </tr>
+                        
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div style="height:18px;"></div>
+                        <img src="images/txt/txt1_05.png" alt="기타 기성" style="padding-bottom:6px">
+                        
+                        <div style="width:100%;overflow:hidden;">
+                            <table summary="청구내역 상세" class="Type1" border="1" cellspacing="0" id="insList" celloptimize="vertical" vline="1">
+                            <caption>청구내역 상세</caption>
+                            <colgroup>
+                        
+                                <col width="50"> <!-- 순번 -->
+                                <col width="70"> <!-- 성명 -->
+                                <col width="84" bgcolor="#f5f5f5"> <!-- 청구액 -->
+                                <col width="84" bgcolor="#f5f5f5"> <!-- 공제액 -->
+                                <col width="84" bgcolor="#f5f5f5"> <!-- 지급예정액 -->
+                                <col width="96"> <!-- 연락처 -->
+                                <col width="56"> <!-- 선지급 -->
+                                <col width="70"> <!-- 예금주 -->
+                                <col width="60"> <!-- 선지급수령인 -->
+                                <col width="60"> <!-- 위임장 -->
+                                <col width="120"><!-- 비고 -->    
+                                <col width="90"><!-- 비고 -->    
+                                
+                                <col width="80">
+                        
+                            </colgroup>
+                            <thead>
+                                <tr style="border-top:2px #58aadc solid;">
+                                    <th scope="col">순번</th>
+                        <!--
+                                    <th scope="col">해당월</th>
+                        -->
+                        
+                                    <th scope="col" class="pointer" onclick="sort_ac('05',1)">회사명</th>
+                                
+                                    <th scope="col" class="pointer" onclick="sort_ac('05',2)">청구액(원)</th>
+                                    <th scope="col" class="pointer" onclick="sort_ac('05',3)">공제액(원)</th>
+                                    <th scope="col" class="pointer" onclick="sort_ac('05',4)">지급예정액(원)</th>
+                                    <th scope="col" class="pointer" onclick="sort_ac('05',5)">연락처</th>
+                                    <th scope="col" class="pointer" onclick="sort_ac('05',6)">선지급</th>
+                        <!--			<th scope="col">은행</th> -->
+                                    <th scope="col" class="pointer" onclick="sort_ac('05',7)">예금주</th>
+                        <!--			<th scope="col">계좌번호</th> -->
+                        
+                                <th scope="col" class="pointer" onclick="sort_ac('05',8)">선지급<br>수령인</th>
+                                <th scope="col" class="pointer" onclick="sort_ac('05',9)">위임장 등</th>
+                            
+                                    <th scope="col" class="pointer" onclick="sort_ac('05',10)">비고</th>
+                                
+                                    <th scope="col" class="pointer" onclick="sort_ac('05',12)">입금적요</th>
+                                        
+                                </tr>
+                                </thead>
+                                <tbody id="tbody_05">
+                        
+                            <tr>
+                                <td>1</td>
+                        <!--
+                                <td>2019/12</td>
+                        -->
+                                <td>장정현9</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>010-3176-4406</td>
+                                <td>N</td>
+                        <!--		<td>신한은행</td> -->
+                        <!--		<td onMouseOver="viewDetls('장정현, 신한은행, ******52969');" onMouseOut="hideDetl();" style="cursor:pointer;"><a href="javascript:diff_name('장정현','장정현9')">불일치</a></td> -->
+                        
+                                <td><a href="javascript:view_bank('신한은행', '******52969', '장정현','장정현9')">불일치</a></td>
+                                
+                        <!--		<td>110442752969</td> -->
+                        
+                                <td>
+                                    -
+                                </td>
+                                <td>
+                                    미첨부
+                                </td>
+                            
+                                <td>&nbsp;</td>
+                        
+                                <td>&nbsp;</td>
+                                
+                            </tr>
+                        
+                            <tr>
+                                <td>2</td>
+                        <!--
+                                <td>2019/12</td>
+                        -->
+                                <td>장정현10</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>2</td>
+                                <td>010-3176-4406</td>
+                                <td>N</td>
+                        <!--		<td>카카오뱅크</td> -->
+                        <!--		<td onMouseOver="viewDetls('장정현, 카카오뱅크, ******86951');" onMouseOut="hideDetl();" style="cursor:pointer;"><a href="javascript:diff_name('장정현','장정현10')">불일치</a></td> -->
+                        
+                                <td><a href="javascript:view_bank('카카오뱅크', '******86951', '장정현','장정현10')">불일치</a></td>
+                                
+                        <!--		<td>3333014586951</td> -->
+                        
+                                <td>
+                                    -
+                                </td>
+                                <td>
+                                    미첨부
+                                </td>
+                            
+                                <td>&nbsp;</td>
+                        
+                                <td>&nbsp;</td>
+                                
+                            </tr>
+                        
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </prnon>
+                        
+                        <!-- 버튼영역 시작 -->
+                        <!--/ bill_ing=03 / mem_com_cd=4 / ac_sub= / mem_man_cd=-1 / mem_auth_cd=01 /-->				 
+                        <prnoff>
+                        <div class="btnArea">
+                            <div class="bLeft">
+                                <ul>
+                                    <li class="first">
+                                
+                                        <div class="ani-btn-wrap">
+                                            <div class="pulse-button"></div>
+                                            <a href="javascript:bill_check('13829','71357','201912','0')" class="ani-btn">내역서 검증</a>
+                                <!--
+                                            <input type="image" id="billCheck" onclick="javascript:bill_check('13829','71357','201912','0')" src="images/btn/btn_dgray30_gs.gif" alt="출역 DATA 검증하기"/>
+                                -->
+                                        </div>
+                                
+                                    </li>
+                                    <li>
+                                
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bCenter">
+                                <ul>
+                                    <li>
+                                        
+                                        <input type="button" class="passBtn pointer" onclick="bill_confirm('13829','71357','201912', '0', '', '')" alt="승인">
+                                        
+                                        <input type="button" class="retakeBtn pointer" onclick="javascript:bill_return('00','2220172','201912', '0','','71357')" alt="반려">
+                                            
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="bRight">
+                                <ul>
+                                    
+                                    <li>
+                                        <input type="image" id="billConf" onclick="javascript:print_view()" src="images/btn/btn_dgray27.gif" alt="내역서 출력">
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                    </prnoff>
+                    <!-- //버튼영역 끝 -->
+                </div>
+                <div class="up50"></div>
+                <div id="tooltip_s" style="position:absolute; left:0px; top:0px; width:300px; height:0px; border-width:0px; z-index:1;"></div>                
+            </div>
+            <div id='d_one' style="display: none;"></div>
+            <div id='d_total' style="display: none;"></></div>
+
+        </div>
+    </div>
+
+    <div id="content_work"></div>
+    <iframe id="ifrm_work" name="ifrm_work" border=0 width=0 height=0></iframe>
+    </div>
+
+    <div class="footer_wrap sub_tamplate ">
+    <div class="footer">
+        <div class="family_site_wrap">
+        <div class="family_site_service">
+            <select name="familySite" id="familySite" onchange="if(this.value) window.open(this.value);">
+            <option value="" selected>FAMILY SITE</option>
+            <option value="http://www.nicednr.co.kr">NICE디앤알</option>
+            <option value="http://www.nice.co.kr">NICE홀딩스</option>
+            <option value="http://www.nicednb.com">NICE디앤비</option>
+            <option value="http://www.niceinfo.co.kr">NICE평가정보</option>
+            <option value="http://www.nicerating.com">NICE신용평가</option>
+            <option value="http://www.nicevan.co.kr">NICE정보통신</option>
+            <option value="http://www.kisvan.co.kr">KIS정보통신</option>
+            <option value="http://www.nicetcm.co.kr">한국전자금융</option>
+            </select>
+        </div>
+        <div class="family_site_service">
+            <select name="familyService" id="familyService" onchange="if(this.value) window.open(this.value);">
+            <option value="" selected>FAMILY SERVICE</option>
+            <option value="http://www.nicewinc.co.kr">동반성장지원 서비스</option>
+            <option value="http://www.nicedocu.com">전자계약/입찰 서비스</option>
+            <option value="http://www.nicesoho.co.kr">소상공인지원 서비스</option>
+            <option value="http://www.g2brating.co.kr">공공입찰 기업신용평가</option>
+            <option value="http://clipq.co.kr">협력업체 기업신용평가</option>
+            <option value="http://biz.ntcb.co.kr">기술 신용평가 서비스</option>
+            <option value="http://www.creport.co.kr">기업정보 서비스</option>
+            <option value="http://global.nicednb.com">글로벌 서비스</option>
+            </select>
+        </div>
+        </div>
+        <ul class="footer_menu">
+        <li>
+            <a href="nomu7201.do">이용약관</a>
+        </li>
+        <li>
+            <a href="nomu7301.do">개인정보처리방침</a>
+        </li>
+        <li>
+            <a href="nomu7401.do">이메일무단수집거부</a>
+        </li>
+        </ul>
+        <ul class="address">
+        <li>서울특별시 서대문구 충정로 36 NICE디앤알(주)</li>
+        <li>대표자 : 강용구</li>
+        <li>TEL : 1670-1970</li>
+        <li>FAX : 02-6442-2383</li>
+        </ul>
+        <ul class="address">
+            <li>사업자등록번호 : 107-87-08207</li>
+            <li>통신판매업 신고번호 : 제2012-서울구로-1033호</li>
+        </ul>
+        <p class="copyright">copyrightⓒ NICE Data&Research, Inc All Rights Reserved.</p>
+    </div>
+    </div>
+
+</prnoff>
+
+
+</body>
+</html>

@@ -1,0 +1,1273 @@
+
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+<head>
+<title>노무비_협력기업: index_n(메인)</title>
+<meta http-equiv='Content-Type' content='text/html; charset=euc-kr'>
+
+<link rel='stylesheet' href=css/default.css type='text/css' />
+<link rel='stylesheet' href=css/default_add.css type='text/css' />
+<link rel='stylesheet' href=css/libs/jquery.bxslider.css type='text/css' />
+<link rel='stylesheet' href=css/libs/jquery.fancybox.css type='text/css' />
+<style>
+.footer select {
+  border: 1px solid #c4c5c9;
+  background: #fff;
+  color: #333;
+  height: 34px;
+  line-height: 34px;
+  padding-left: 10px;
+  width: 100%; 
+}
+.footer select, .footer option {
+  font-family: "Noto Sans Korean";
+  color: #5f5f5f;
+}
+</style>
+<script language='javascript' charset='euc-kr' src=js/libs/jquery-1.11.1.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/libs/jquery.easing.1.3.js></script>
+<script language='javascript' charset='euc-kr' src=js/libs/jquery.bxslider.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/libs/initializers.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery-ui-1.8.22.custom.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/libs/jquery.fancybox.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/libs/modernizr.custom.js></script>
+<script language='javascript' charset='euc-kr' src=js/libs/jquery.anchor.js></script>
+<script language='javascript' charset='euc-kr' src=js/libs/jquery.tabslet.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/libs/rainbow-custom.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/libs/jquery.animateNumber.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/common.js></script>
+<script language='javascript' charset='euc-kr' src=http://www.gstatic.com/charts/loader.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomu.js></script>
+<script language='javascript'>
+//https://code.jquery.com/ui/1.12.1/jquery-ui.js|
+$(document).ready(function(){
+  company_logo_slider();
+  map_slider();
+  HeightAuto();
+//  clc_popup();
+  animate_bg();
+  aNumber_set(32059427, 4332852);
+
+	google.charts.load('current', {'packages':['corechart']});
+	google.charts.setOnLoadCallback(drawChart);
+	
+//	popup_open('/popup/20171019/pop.html', 'p20171019', '700', '850', '0');
+//	popup_open('/popup/20171130/pop.html', 'p20171130', '595', '495', '0');
+//	popup_open('/popup/20180201/pop.html', 'p20180201', '595', '505', '0');
+//	popup_open('/popup/20180227/pop.html', 'p20180227', '595', '495', '0');
+//	popup_open('/popup/20180424/pop.html', 'p20180424', '595', '505', '605');
+//	popup_open('/popup/20180531/pop.html', 'p20180531', '595', '505', '605');
+//	popup_open('/popup/20180620/pop.html', 'p20180620', '595', '475', '605');
+//	popup_open('/popup/20180919/pop.html', 'p20180919', '695', '775', '605');
+//	popup_open('/popup/20180921/pop.html', 'p20180921', '595', '505', '0');
+//	popup_open('/popup/20181010/pop.html', 'p20181010', '595', '695', '0');
+//	popup_open('/popup/20181130/pop.html', 'p20181130', '495', '607', '0');
+//	popup_open('/popup/20190124/pop.html', 'p20190124', '595', '661', '0');
+//	popup_open('/popup/20190426/pop.html', 'p20190426', '595', '531', '0');
+//	popup_open('/popup/20190523/pop.html', 'p20190523', '595', '531', '0');
+//	popup_open('/popup/20190724/pop.html', 'p20190724', '595', '531', '605');
+//	popup_open('/popup/20190724/pop.html', 'p20190724', '595', '531', '0');
+//	popup_open('/popup/20191218/pop.html', 'p20191218', '595', '531', '0');
+//popup_open('/popup/20200401/pop.html', 'p20200401', '595', '531', '0');
+//popup_open('/popup/20200428/pop.html', 'p20200428', '595', '531', '0');
+});
+function popup_open( name, idx, iwidth, iheight, left  ){
+	if ( getCookie( idx ) != "done" ) {
+		noteWindow  =  window.open( name , '', 'width=' + iwidth + ',height=' + iheight+',left='+left+',top=0');
+	}
+}
+function drawChart() {
+	ctData = [
+/*	
+    ['2016.01',289,'보호금액 2,886,896 백만원', 360,'color:gray', '보호금액 2,886,896 백만원\n보호건수 360,387건'],
+    ['',	      238,'보호금액 2,387,724 백만원', 319,  '',			'보호금액 2,387,724 백만원\n보호건수 319,083건'],
+    ['',     	222,'보호금액 2,223,222 백만원', 319,'color:gray', '보호금액 2,223,222 백만원\n보호건수 319,223건'],
+    ['',    	277,'보호금액 2,771,491 백만원', 362,'',			   '보호금액 2,771,491 백만원\n보호건수 362,241건'],
+    ['',    	282,'보호금액 2,822,211 백만원', 361,'color:gray', '보호금액 2,822,211 백만원\n보호건수 361,593건'],
+    ['',	   	263,'보호금액 2,637,691 백만원', 344,'',			   '보호금액 2,637,691 백만원\n보호건수 344,114건'],
+    ['',    	289,'보호금액 2,893,670 백만원', 386,'color:gray', '보호금액 2,893,670 백만원\n보호건수 386,121건'],
+    ['',    	268,'보호금액 2,684,660 백만원', 356,'',			   '보호금액 2,684,660 백만원\n보호건수 356,859건'],
+    ['',    	278,'보호금액 2,783,107 백만원', 392,'color:gray', '보호금액 2,783,107 백만원\n보호건수 392,639건'],
+    ['',    	247,'보호금액 2,478,071 백만원', 357,'',			   '보호금액 2,478,071 백만원\n보호건수 357,629건'],
+    ['',	   	247,'보호금액 2,475,488 백만원', 373,'color:gray', '보호금액 2,475,488 백만원\n보호건수 373,137건'],
+    ['2016.12',301,'보호금액 3,015,196 백만원', 399,'',			   '보호금액 3,015,196 백만원\n보호건수 399,826건'],
+*/    
+    ['2019.01',289,'보호금액 2,886,896 백만원', 360,'color:gray', '보호건수 360,387건'],
+    ['',	      	238,'보호금액 2,387,724 백만원', 319,  '',			'보호건수 319,083건'],
+    ['',     		222,'보호금액 2,223,222 백만원', 319,'color:gray', '보호건수 319,223건'],
+    ['',    		277,'보호금액 2,771,491 백만원', 362,'',			   '보호건수 362,241건'],
+    ['',    		282,'보호금액 2,822,211 백만원', 361,'color:gray', '보호건수 361,593건'],
+    ['',	   		263,'보호금액 2,637,691 백만원', 344,'',			   '보호건수 344,114건'],
+    ['',    		289,'보호금액 2,893,670 백만원', 386,'color:gray', '보호건수 386,121건'],
+    ['',    		268,'보호금액 2,684,660 백만원', 356,'',			   '보호건수 356,859건'],
+    ['',    		278,'보호금액 2,783,107 백만원', 392,'color:gray', '보호건수 392,639건'],
+    ['',    		247,'보호금액 2,478,071 백만원', 357,'',			   '보호건수 357,629건'],
+    ['',	   		247,'보호금액 2,475,488 백만원', 373,'color:gray', '보호건수 373,137건'],
+    ['2019.12',301,'보호금액 3,015,196 백만원', 399,'',			   '보호건수 399,826건'],
+  ];
+  chart1(ctData);
+}
+function chart1(ctData) {
+  var data = new google.visualization.DataTable();
+  data.addColumn('string', '청구년월');
+  data.addColumn('number', '지급보호금액');
+  data.addColumn({type:'string', role:'tooltip'});
+  data.addColumn('number', '지급보호건수');
+  data.addColumn({type:'string', role:'style'});
+  data.addColumn({type:'string', role:'tooltip'});
+  data.addRows(ctData);
+
+  var options = {
+	 legend:'none',
+	 width:500, height:195,
+	 chartArea:{left:0, top:10, width:500, height:150},
+//	 chartArea:{left:40, top:10, width:420, height:150},
+	 seriesType: 'bars',
+	 series: {0: {type:'line',targetAxisIndex:1}},
+/*	 
+hAxis:{
+  title: 'Hello',
+  titleTextStyle: {
+    color: '#FF0000'
+  }
+},
+*/
+ 	 vAxes:[
+ 	 	{
+			gridlines : {color: 'white', count: 0}
+ 	 	},
+	 	{
+			textStyle:{color:'white'}, // 글씨 작아지는건 chartArea width 조정
+			gridlines : {color: 'white', count: 4}
+	 	},
+	 ],
+/*
+ 	 vAxes:[
+ 	 	{},
+	 	{
+	 		title:'보호금액(백억원)',
+			textStyle:{color:'white'}, // 글씨 작아지는건 chartArea width 조정
+			titleTextStyle:{color:'white'}  
+	 	},
+	 ],
+*/	 
+/*
+1005202887885 06503994704041	 
+	 vAxis:[{
+			textStyle:{color:'white'}  
+	 	},
+	 	{
+	 	}
+	 ],
+*/	 
+//	 vAxis:{	title:'보호건수(만건)', titleTextStyle:{color:'white'}, textStyle:{color:'white'} },  
+	 vAxis:{	textStyle:{color:'white'} },  
+//	 vAxis:{	textStyle:{color:'transparent'} },  
+	 hAxis:{showTextEvery:11,
+//		 titleTextStyle:{color:'white'}  
+		 textStyle:{color:'white'}
+	 }, // maxAlternation:1, slantedText:false, maxTextLines:1, minTextSpacing:8, maxAlternation:1
+	 backgroundColor:'transparent',
+  };
+//  var chart = new google.visualization.ColumnChart(document.getElementById('vc_chart'));
+  var chart = new google.visualization.ComboChart(document.getElementById('vc_chart'));
+  chart.draw(data, options);
+}
+
+
+var setAccTimeOut = null;
+var accTime = 3601;
+$().ready(function() {
+	
+	accTime = 3601;
+	$(".gnb li").each(function(i){
+      $(this).removeClass("active");
+	});
+	
+});
+function runAccTimeOut() {
+	accTime--;
+	if(accTime==0) {
+		$("#acc_time").html("0:00");
+//		alert('입력시간 초과입니다.');
+		window.clearTimeout(setAccTimeOut);
+		self.location = "/logout.do?fr=login.do";
+	} else {
+		mm = Math.floor(accTime / 60);
+		ss = accTime % 60;
+		mmss = mm + ":"+(ss<10?"0":"")+ss;
+		$("#acc_time").html(mmss);
+	}
+}
+function resetAcc() {
+	accTime = 3601;
+}
+
+function view_alert() {
+	alert('로그인후 이용가능합니다.');
+}
+</script>
+
+<meta name="description" lang="ko" content="『근로자 임금보호 시스템, 상호협력평가 가점 우대, 노무비 구분관리, 공정거래 및 동반성장 확산 』">
+
+</head>
+<body>
+
+  <div class="wrap logout">
+
+    <div class="header">
+      <div class="header_top_wrap">
+        <div class="header_top">
+          <p class="company_phone">&nbsp;</p>
+          <ul class="header_quick_menu">
+        
+            <li>
+              <a href="login.do">로그인</a>
+            </li>
+            <li>
+              <a href="nomu6201.do">회원가입</a>
+            </li>
+          
+          </ul>
+        </div>
+      </div>
+      <div class="header_bottom_wrap">
+        <div class="header_bottom">
+          <div class="logo_wrap">
+            <h1><a href="/">노무비닷컴</a></h1>
+            <p class="slogun">체불없는 세상을 위한 모두의 한걸음</p>
+          </div>
+          <ul class="gnb">
+            <!-- GNB 페이지 유지시 class명 active붙이기(depth1에서만 적용) -->
+
+            <li class="active">
+              <a href="#">소개</a>
+              <ul class="depth2">
+                <li><a href="nomu1401.do">서비스 소개</a></li>
+                <li><a href="nomu1402.do">서비스 특장점</a></li>
+                <li><a href="nomu1403.do">서비스 이용 프로세스</a></li>
+<!--                 <li><a href="nomu1404.do">서비스 도입 시행절차</a></li> -->
+              </ul>
+            </li>
+            <li>
+              <a href="#">발주기관</a>
+<!--              
+              <ul class="depth2">
+                <li><a href="javascript:view_alert()">현장조회</a></li>
+                <li><a href="javascript:view_alert()">대금지급계획 확인</a></li>
+                <li><a href="javascript:view_alert()">대금지급모니터링</a></li>
+              </ul>
+-->              
+            </li>
+            <li>
+              <a href="#">도입기업</a>
+              <ul class="depth2">
+                <li><a href="javascript:view_alert()">현장관리</a></li>
+                <li><a href="javascript:view_alert()">내역서확인</a></li>
+                <li><a href="javascript:view_alert()">SMS</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">협력기업</a>
+              <ul class="depth2">
+                <li><a href="javascript:view_alert()">현장등록</a></li>
+                <li><a href="javascript:view_alert()">내역서작성</a></li>
+                <li><a href="javascript:view_alert()">대금 지급</a></li>
+              </ul>
+            </li>
+
+            <li id=gnb41>
+            	<a href="#">고객센터</a>
+               <ul class="depth2">
+                 <li><a href="nomu5101.do">공지사항</a></li>
+                 <li><a href="nomu5201.do">소식란</a></li>
+                 <li><a href="nomu5301.do">자료실</a></li>
+                 <li><a href="nomu5501.do">FAQ</a></li>
+                 <li><a href="nomu5401.do">Q&A(1:1문의)</a></li>
+               </ul>
+           	</li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  
+    <div class="logout-container">
+    <!-- 요일별로 CSS 변경(monday,tuesday,wednesday,thursday,friday,saturday) -->
+      <div class="visual_wrap tuesday">
+        <div class="visual_contents">
+          <div class="vc_con vc_left">
+            <p class="vc_title">지역별<br>이용 현장 정보</p>
+            <div class="map_wrap">
+              <ul class="map_list">
+                <li class="map_point1"><a href="#tab-1">서울특별시</a></li>
+                <li class="map_point2"><a href="#tab-2">인천광역시</a></li>
+                <li class="map_point3"><a href="#tab-3">경기도</a></li>
+                <li class="map_point4"><a href="#tab-4">강원도</a></li>
+                <li class="map_point5"><a href="#tab-5">충청남도</a></li>
+                <li class="map_point6"><a href="#tab-6">충청북도</a></li>
+                <li class="map_point16"><a href="#tab-16">세종시</a></li>
+                <li class="map_point7"><a href="#tab-7">대전광역시</a></li>
+                <li class="map_point8"><a href="#tab-8">경상북도</a></li>
+                <li class="map_point9"><a href="#tab-9">경상남도</a></li>
+                <li class="map_point10"><a href="#tab-10">대구광역시</a></li>
+                <li class="map_point11"><a href="#tab-11">울산광역시</a></li>
+                <li class="map_point12"><a href="#tab-12">부산광역시</a></li>
+                <li class="map_point13"><a href="#tab-13">광주광역시</a></li>
+                <li class="map_point14"><a href="#tab-14">전라남도</a></li>
+                <li class="map_point15"><a href="#tab-15">전라북도</a></li>
+                <li class="map_point17"><a href="#tab-17">제주도</a></li>
+              </ul>
+              <div id="tab-1" class="map_contents map_img1">
+                <div class="tooltip">
+                  <p class="title">서울특별시</p>
+                  <ul class="map_data">
+                    <li>479개 현장</li><li>10,643개 협력사</li><li>150,148억원 지급보호금액</li><li>1,783,520명 근로자수</li>
+                  </ul>
+                </div>
+              </div>
+              <div id="tab-2" class="map_contents map_img2">
+                <div class="tooltip">
+                  <p class="title">인천광역시</p>
+                  <ul class="map_data">
+                    <li>102개 현장</li><li>1,625개 협력사</li><li>24,889억원 지급보호금액</li><li>407,496명 근로자수</li>
+                  </ul>
+                </div>
+              </div>
+              <div id="tab-3" class="map_contents map_img3">
+                <div class="tooltip">
+                  <p class="title">경기도</p>
+                  <ul class="map_data">
+                    <li>672개 현장</li><li>12,381개 협력사</li><li>176,319억원 지급보호금액</li><li>2,793,063명 근로자수</li>
+                  </ul>
+                </div>
+              </div>
+              <div id="tab-4" class="map_contents map_img4">
+                <div class="tooltip">
+                  <p class="title">강원도</p>
+                  <ul class="map_data">
+                    <li>102개 현장</li><li>1,485개 협력사</li><li>17,600억원 지급보호금액</li><li>248,128명 근로자수</li>
+                  </ul>
+                </div>
+              </div>
+              <div id="tab-5" class="map_contents map_img5">
+                <div class="tooltip">
+                  <p class="title">충청남도</p>
+                  <ul class="map_data">
+                    <li>110개 현장</li><li>1,727개 협력사</li><li>22,158억원 지급보호금액</li><li>307,527명 근로자수</li>
+                  </ul>
+                </div>
+              </div>
+              <div id="tab-6" class="map_contents map_img6">
+                <div class="tooltip">
+                  <p class="title">충청북도</p>
+                  <ul class="map_data">
+                    <li>52개 현장</li><li>1,104개 협력사</li><li>12,758억원 지급보호금액</li><li>184,813명 근로자수</li>
+                  </ul>
+                </div>
+              </div>
+              <div id="tab-7" class="map_contents map_img7">
+                <div class="tooltip">
+                  <p class="title">대전광역시</p>
+                  <ul class="map_data">
+                    <li>20개 현장</li><li>261개 협력사</li><li>5,038억원 지급보호금액</li><li>69,628명 근로자수</li>
+                  </ul>
+                </div>
+              </div>
+              <div id="tab-8" class="map_contents map_img8">
+                <div class="tooltip">
+                  <p class="title">경상북도</p>
+                  <ul class="map_data">
+                    <li>87개 현장</li><li>1,590개 협력사</li><li>27,904억원 지급보호금액</li><li>304,617명 근로자수</li>
+                  </ul>
+                </div>
+              </div>
+              <div id="tab-9" class="map_contents map_img9">
+                <div class="tooltip">
+                  <p class="title">경상남도</p>
+                  <ul class="map_data">
+                    <li>155개 현장</li><li>1,973개 협력사</li><li>46,552억원 지급보호금액</li><li>1,105,283명 근로자수</li>
+                  </ul>
+                </div>
+              </div>
+              <div id="tab-10" class="map_contents map_img10">
+                <div class="tooltip">
+                  <p class="title">대구광역시</p>
+                  <ul class="map_data">
+                    <li>40개 현장</li><li>562개 협력사</li><li>5,071억원 지급보호금액</li><li>96,180명 근로자수</li>
+                  </ul>
+                </div>
+              </div>
+              <div id="tab-11" class="map_contents map_img11">
+                <div class="tooltip">
+                  <p class="title">울산광역시</p>
+                  <ul class="map_data">
+                    <li>60개 현장</li><li>869개 협력사</li><li>20,434억원 지급보호금액</li><li>267,117명 근로자수</li>
+                  </ul>
+                </div>
+              </div>
+              <div id="tab-12" class="map_contents map_img12">
+                <div class="tooltip">
+                  <p class="title">부산광역시</p>
+                  <ul class="map_data">
+                    <li>121개 현장</li><li>2,043개 협력사</li><li>30,540억원 지급보호금액</li><li>480,155명 근로자수</li>
+                  </ul>
+                </div>
+              </div>
+              <div id="tab-13" class="map_contents map_img13">
+                <div class="tooltip">
+                  <p class="title">광주광역시</p>
+                  <ul class="map_data">
+                    <li>21개 현장</li><li>339개 협력사</li><li>3,458억원 지급보호금액</li><li>50,443명 근로자수</li>
+                  </ul>
+                </div>
+              </div>
+              <div id="tab-14" class="map_contents map_img14">
+                <div class="tooltip">
+                  <p class="title">전라남도</p>
+                  <ul class="map_data">
+                    <li>74개 현장</li><li>743개 협력사</li><li>10,053억원 지급보호금액</li><li>125,076명 근로자수</li>
+                  </ul>
+                </div>
+              </div>
+              <div id="tab-15" class="map_contents map_img15">
+                <div class="tooltip">
+                  <p class="title">전라북도</p>
+                  <ul class="map_data">
+                    <li>48개 현장</li><li>517개 협력사</li><li>5,721억원 지급보호금액</li><li>71,803명 근로자수</li>
+                  </ul>
+                </div>
+              </div>
+              <div id="tab-16" class="map_contents map_img16">
+                <div class="tooltip">
+                  <p class="title">세종특별자치시</p>
+                  <ul class="map_data">
+                    <li>30개 현장</li><li>557개 협력사</li><li>6,510억원 지급보호금액</li><li>116,123명 근로자수</li>
+                  </ul>
+                </div>
+              </div>
+              <div id="tab-17" class="map_contents map_img17">
+                <div class="tooltip">
+                  <p class="title">제주도</p>
+                  <ul class="map_data">
+                    <li>30개 현장</li><li>404개 협력사</li><li>9,892억원 지급보호금액</li><li>88,416명 근로자수</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="vc_con vc_right">
+            <p class="vc_title">연간<br>지급 보호 현황</p>
+            <div class="vc_money">
+              <p class="small">연간 지급 보호 금액</span>
+              <p class="large middle">
+                <!-- 하단 숫자부분은 JS파일에서 aNumber_set안의 숫자 변경 -->
+                <span class="aNumber1">0</span>
+                <span>(백만원)</span>
+              </p>
+              <p class="small">연간 지급 보호 건수</span>
+              <p class="large">
+                <!-- 하단 숫자부분은 JS파일에서 aNumber_set안의 숫자 변경 -->
+                <span class="aNumber2">0</span>
+                <span>(건)</span>
+              </p>
+            </div>
+            <div class="vc_chart" id=vc_chart>
+              <!-- 실제 차트 삽입시 하단 한줄 삭제 요망 -->
+              <p class="vc_sample">Chart</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contents">
+        <div class="contents_top">
+<!--
+          <div class="nomubi_menu">
+            <div class="menu_wrap">
+              <span class="title">사용자별 메뉴 소개</span>
+              <span class="text">각 사용자별 메뉴 이용 설명</span>
+              <ul class="menu_list">
+                <li class="ani_bg">
+                  <a class="ml_btn mlbtn1 user_menu" data-fancybox data-type="iframe" data-src="layerpopup/user_menu1.html" href="javascript:;">
+                    <span class="icon ic1"></span>
+                    <span class="text">도입기업</span>
+                  </a>
+                </li>
+                <li class="ani_bg">
+                  <a class="ml_btn mlbtn2 user_menu" data-fancybox data-type="iframe" data-src="layerpopup/user_menu2.html" href="javascript:;">
+                    <span class="icon ic2"></span>
+                    <span class="text">협력기업</span>
+                  </a>
+                </li>
+                <li class="ani_bg">
+                  <a class="ml_btn" href="nomu5401.do">
+                    <span class="icon ic3"></span>
+                    <span class="text">Q&A</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+-->
+          <div class="nomubi_contact">
+            <aa href="javascript:;">
+              <div class="title">운영팀 연락처</div>
+              <div class="text">
+                <span class="text_top">1670-1970</span>
+<!--                <span class="text_bottom">9090, 9092, 9093</span> -->
+              </div>
+            </aa>
+          </div>
+          <div class="nomubi_manual">
+				
+				<a href="/nomuMnu.do?sdo=공통_파일다운로드o&id_typ=9002&seq=5">
+				
+              노무비닷컴 전용계좌<br><span>(=에스크로 계좌)</span> 개설 메뉴얼
+            </a>
+          </div>
+<!--          
+          <div class="nomubi_banner">
+				<a href="https://aff.g2brating.co.kr/#MENUCM0300?param=NOMUBI" target=_blank>
+            </a>
+          </div>
+-->          
+          <div class="nomubi_banner_1">
+				<a href="https://aff.g2brating.co.kr/#MENUCM0300?param=NOMUBI" target=_blank>
+            </a>
+          </div>
+<!--          
+          <div class="nomubi_banner_4">
+				<a href="https://nicewel.co.kr/?act=user.user_join_info&r=nomubi" target=_blank>
+            </a>
+          </div>
+-->          
+<!--
+          <div class="nomubi_banner_2">
+				<a href="https://www.nicers.co.kr" target=_blank>
+            </a>
+          </div>
+-->
+          <div class="nomubi_banner_2">
+				<a href="https://www.niceabc.co.kr/ingress/main?aid=nomubi" target=_blank>
+            </a>
+          </div>
+        </div>
+        <div class="contents_bottom">
+          <div class="tab_wrap">
+            <div class="tab_left">
+              <ul class="login_tab">
+                <li class="active">공지사항</li>
+                <li>소식란</li>
+                <li class="bbn">자료실</li>
+                <li class="bbn">FAQ</li>
+              </ul>
+            </div>
+            <div class="tab_contents">
+              <div class="login_tab_cont">
+                <ul class="tab_contents_list notice">
+
+                  <li>
+                    <a href="/nomu5102.do?no_no=2748">
+                      <p class="title">(공지) 웹 페이지 메시지 차단 해제 방법</p>
+                      <p class="date">2019-07-24</p>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="/nomu5102.do?no_no=2648">
+                      <p class="title">(공지) 인터넷 익스플로러 업데이트 매뉴얼</p>
+                      <p class="date">2019-05-21</p>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="/nomu5102.do?no_no=2293">
+                      <p class="title">(공지) 체불제로확인서 발급 서비스 오픈</p>
+                      <p class="date">2018-07-03</p>
+                    </a>
+                  </li>
+                  
+                </ul>
+                <div class="more_btn">
+                  <a href="nomu5101.do">더보기</a>
+                </div>
+              </div>
+              <div class="login_tab_cont">
+                <ul class="tab_contents_list notice">
+
+                  <li>
+                    <a href="/nomu5202.do?ne_no=2928">
+                      <p class="title">국토부 "임금체불 없애고 건설안전 높인다"</p>
+                      <p class="date">2020-01-13</p>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="/nomu5202.do?ne_no=2588">
+                      <p class="title">[정책 인터뷰] 국토부 이성해 건설정책국장 "글로벌 경쟁력 선진화 정책 추 ...</p>
+                      <p class="date">2019-04-12</p>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="/nomu5202.do?ne_no=2308">
+                      <p class="title">건설기계보증 "더 간편하게 해제"</p>
+                      <p class="date">2018-08-24</p>
+                    </a>
+                  </li>
+                  
+                </ul>
+                <div class="more_btn">
+                  <a href="nomu5201.do">더보기</a>
+                </div>
+              </div>
+              <div class="login_tab_cont">
+                <ul class="tab_contents_list notice">
+
+                  <li>
+                    <a href="/nomu5302.do?da_no=2568">
+                      <p class="title">계약예규 전문(시행 2019.1.1.) - 기획재정부</p>
+                      <p class="date">2019-03-27</p>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="/nomu5302.do?da_no=2134">
+                      <p class="title">건설업자간 상호협력에 관한 권장사항 및 평가기준(개정 2018.3.14., 시행  ...</p>
+                      <p class="date">2018-05-03</p>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="/nomu5302.do?da_no=40">
+                      <p class="title">건설근로자의 고용개선 등에 관한 법률 개정안 입법예고(2012.09.03) - 고 ...</p>
+                      <p class="date">2013-02-04</p>
+                    </a>
+                  </li>
+                  
+                </ul>
+                <div class="more_btn">
+                  <a href="nomu5501.do">더보기</a>
+                </div>
+              </div>
+              <div class="login_tab_cont">
+                <ul class="tab_contents_list notice">
+
+                  <li>
+                    <a href="/nomu55010.do?mu_no=213">
+                      <p class="title">1. 회원가입 절차는 어떻게 되나요?</p>
+                      <p class="date">2017-10-19</p>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="/nomu55010.do?mu_no=212">
+                      <p class="title">2. 전용계좌 개설 및 등록절차는 어떻게 되나요?</p>
+                      <p class="date">2017-10-19</p>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a href="/nomu55010.do?mu_no=211">
+                      <p class="title">3. 현장등록 및 관리 절차는 어떻게 되나요?</p>
+                      <p class="date">2017-10-19</p>
+                    </a>
+                  </li>
+                  
+                </ul>
+                <div class="more_btn">
+                  <a href="nomu5501.do">더보기</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="company_contents_wrap">
+        <div class="company_contents_top_wrap">
+          <div class="company_contents_top">
+            <p class="cct_title">체불제로 캠페인 참여기업</p>
+            <a class="cct_btn_wrap" data-fancybox data-type="iframe" data-src="layerpopup/company_logo.html" href="javascript:;">전체보기</a>
+          </div>
+        </div>
+        <div class="company_contents_bottom_wrap">
+          <div class="company_contents_bottom">
+            <div class="company_slider">
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl01.gif" alt="삼성물산"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl02.gif" alt="현대건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl03.gif" alt="포스코건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl04.gif" alt="대우건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl05.gif" alt="대림"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl06.gif" alt="GS건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl07.gif" alt="현대엔지니어링"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl08.gif" alt="롯데건설"></a>
+              </div>
+
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl09.gif" alt="SK건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl10.gif" alt="HDC"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl11.gif" alt="한화건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl12.gif" alt="호반건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl13.gif" alt="두산중공업"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl14.gif" alt="금호건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl15.gif" alt="두산건설"></a>
+              </div>
+<!--              
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl16.gif" alt="코오롱글로벌"></a>
+              </div>
+-->
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl17.gif" alt="쌍용건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl18.gif" alt="한진중공업"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl19.gif" alt="신세계건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl20.gif" alt="경남기업"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl21.gif" alt="고려개발"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl22.gif" alt="아이에스동서"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl23.gif" alt="진흥기업"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl24.gif" alt="대우조선해양건설"></a>
+              </div>
+
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl25.gif" alt="동원건설산업"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl26.gif" alt="금강주택"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl27.gif" alt="대명"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl28.gif" alt="stx건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl29.gif" alt="일성건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl30.gif" alt="PARADISE CONSTRUCTION"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl31.gif" alt="한일건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl32.gif" alt="동광건설"></a>
+              </div>
+
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl33.gif" alt="동문건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl34.gif" alt="영동건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl35.gif" alt="대림종합건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl36.gif" alt="창성건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl37.gif" alt="부강종합건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl38.gif" alt="이랜드건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl39.gif" alt="북악건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl40.gif" alt="도시의미"></a>
+              </div>
+
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl41.gif" alt="대원"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl42.gif" alt="Electro-nite"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl43.gif" alt="모아"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl44.gif" alt="효성"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl45.gif" alt="CITY건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl46.gif" alt="개일건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl47.gif" alt="대원개발"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl48.gif" alt="삼호"></a>
+              </div>
+
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl49.gif" alt="중산건설"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl50.gif" alt="대우조선해양"></a>
+              </div>
+              <div class="slide">
+                <a href="javascript:;"><img src="/images/main/company_logo_bw/sl51.gif" alt="화엄토건주식회사"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer_wrap">
+  <div class="footer">
+    <div class="family_site_wrap">
+      <div class="family_site_service">
+        <select name="familySite" id="familySite" onchange="if(this.value) window.open(this.value);">
+          <option value="" selected>FAMILY SITE</option>
+          <option value="http://www.nicednr.co.kr">NICE디앤알</option>
+          <option value="http://www.nice.co.kr">NICE홀딩스</option>
+          <option value="http://www.nicednb.com">NICE디앤비</option>
+          <option value="http://www.niceinfo.co.kr">NICE평가정보</option>
+          <option value="http://www.nicerating.com">NICE신용평가</option>
+          <option value="http://www.nicevan.co.kr">NICE정보통신</option>
+          <option value="http://www.kisvan.co.kr">KIS정보통신</option>
+          <option value="http://www.nicetcm.co.kr">한국전자금융</option>
+        </select>
+      </div>
+      <div class="family_site_service">
+        <select name="familyService" id="familyService" onchange="if(this.value) window.open(this.value);">
+          <option value="" selected>FAMILY SERVICE</option>
+          <option value="http://www.nicewinc.co.kr">동반성장지원 서비스</option>
+          <option value="http://www.nicedocu.com">전자계약/입찰 서비스</option>
+          <option value="http://www.nicesoho.co.kr">소상공인지원 서비스</option>
+          <option value="http://www.g2brating.co.kr">공공입찰 기업신용평가</option>
+          <option value="http://clipq.co.kr">협력업체 기업신용평가</option>
+          <option value="http://biz.ntcb.co.kr">기술 신용평가 서비스</option>
+          <option value="http://www.creport.co.kr">기업정보 서비스</option>
+          <option value="http://global.nicednb.com">글로벌 서비스</option>
+        </select>
+      </div>
+    </div>
+    <ul class="footer_menu">
+      <li>
+        <a href="nomu7201.do">이용약관</a>
+      </li>
+      <li>
+        <a href="nomu7301.do">개인정보처리방침</a>
+      </li>
+      <li>
+        <a href="nomu7401.do">이메일무단수집거부</a>
+      </li>
+    </ul>
+    <ul class="address">
+      <li>서울특별시 서대문구 충정로 36 NICE디앤알(주)</li>
+      <li>대표자 : 강용구</li>
+      <li>TEL : 1670-1970</li>
+      <li>FAX : 02-6442-2383</li>
+    </ul>
+    <ul class="address">
+    	<li>사업자등록번호 : 107-87-08207</li>
+    	<li>통신판매업 신고번호 : 제2012-서울구로-1033호</li>
+    </ul>
+    <p class="copyright">copyrightⓒ NICE Data&Research, Inc All Rights Reserved.</p>
+  </div>
+    </div>
+  </div>
+  <div class="company_logo_color_wrap lp-wrap HeightAuto">
+    <div class="lp-inner clc_popup">
+      <div class="lp-close_btn">
+        <span>닫기</span>
+      </div>
+      <ul class="clc_logo_wrap">
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl01.png" alt="삼성물산">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl02.png" alt="현대">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl03.png" alt="포스코건설">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl04.png" alt="대우건설">
+          </a>
+        </li>
+        <li class="brn">
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl05.png" alt="대림">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl06.png" alt="GS건설">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl07.png" alt="현대엔지니어링">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl08.png" alt="롯데건설">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl09.png" alt="SK건설">
+          </a>
+        </li>
+        <li class="brn">
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl10.png" alt="HDC">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl11.png" alt="한화건설">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl12.png" alt="호반건설">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl13.png" alt="두산중공업">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl14.png" alt="금호건설">
+          </a>
+        </li>
+        <li class="brn">
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl15.png" alt="두산건설">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl16.png" alt="코오롱글로벌">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl17.png" alt="쌍용건설">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl18.png" alt="한진중공업">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl19.png" alt="신세계건설">
+          </a>
+        </li>
+        <li class="brn">
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl20.png" alt="경남기업">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl21.png" alt="고려개발">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl22.png" alt="아이에스동서">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl23.png" alt="진흥기업">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl24.png" alt="대우조선해양건설">
+          </a>
+        </li>
+        <li class="brn">
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl25.png" alt="동원건설산업">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl26.png" alt="금강주택">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl27.png" alt="Daemyung">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl28.png" alt="STX건설">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl29.png" alt="일성건설">
+          </a>
+        </li>
+        <li class="brn">
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl30.png" alt="PRADISE CONSTRUCTION">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl31.png" alt="한일건설">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl32.png" alt="동광건설">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl33.png" alt="동문건설">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl34.png" alt="영동건설">
+          </a>
+        </li>
+        <li class="brn">
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl35.png" alt="대림종합건설">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl36.png" alt="창성건설">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl37.png" alt="부강종합건설">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl38.png" alt="이랜드건설">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl39.png" alt="북악건설">
+          </a>
+        </li>
+        <li class="brn">
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl40.png" alt="도시의미">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl41.png" alt="대원개발">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl42.png" alt="대원">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl43.png" alt="Electro-Nite">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl44.png" alt="게일건설">
+          </a>
+        </li>
+        <li class="brn">
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl45.png" alt="모아">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl46.png" alt="삼호">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl47.png" alt="효성">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl48.png" alt="CITY건설">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl49.png" alt="중산건설">
+          </a>
+        </li>
+        <li class="brn">
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl50.png" alt="대우조선해양">
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="/images/main/company_logo_color/sl51.png" alt="화엄토건주식회사">
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="user_menu1_wrap lp-wrap HeightAuto">
+    <div class="lp-inner um_popup">
+      <div class="lp-close_btn">
+        <span>닫기</span>
+      </div>
+      <div class="user_menu">
+        <p class="title">도입기업</p>
+        <dl class="sub_text icon1">
+          <dt>공사현장 체불관리</dt>
+          <dd>대금지급여부 실시간확인</dd>
+          <dd>협력기업 부실방지</dd>
+        </dl>
+        <div class="text_comment_wrap">
+          <dl>
+            <dt class="tc_bg1">현장관리</dt>
+            <dd>
+              <ul>
+                <li>시스템 적용현장 등록</li>
+                <li>협력기업 현장참여 승인</li>
+              </ul>
+            </dd>
+          </dl>
+          <dl>
+            <dt class="tc_bg2">내역서확인</dt>
+            <dd>
+              <ul>
+                <li>청구내역서 확인 및 승인</li>
+                <li>대금수령 및 대금지급계획 등록 </li>
+              </ul>
+            </dd>
+          </dl>
+          <dl class="last">
+            <dt class="tc_bg3">SMS</dt>
+            <dd>
+              <ul>
+                <li>대금지급 결과 SMS발송</li>
+                <li>SMS 발송현황 조회</li>
+              </ul>
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="user_menu2_wrap lp-wrap HeightAuto">
+    <div class="lp-inner um_popup">
+      <div class="lp-close_btn">
+        <span>닫기</span>
+      </div>
+      <div class="user_menu">
+        <p class="title">협력기업</p>
+        <dl class="sub_text icon2">
+          <dt>현장 대금지급 편의성 제고</dt>
+          <dd>공사대금 일괄지급 서비스</dd>
+          <dd>대금지급 증빙 자동제출</dd>
+        </dl>
+        <div class="text_comment_wrap">
+          <dl>
+            <dt class="tc_bg1">현장관리</dt>
+            <dd class="line3">
+              <ul>
+                <li>도입기업 등록현장 조회</li>
+                <li>현장참여 신청 / 결과조회</li>
+                <li>하도급계약 등록</li>
+              </ul>
+            </dd>
+          </dl>
+          <dl>
+            <dt class="tc_bg2">내역서확인</dt>
+            <dd class="line3">
+              <ul>
+                <li>월별 기성청구 내역 등록</li>
+                <li>노임, 장비 / 자재대금 지급예정 등록</li>
+                <li>대금수령내역 등록</li>
+              </ul>
+            </dd>
+          </dl>
+          <dl class="last">
+            <dt class="tc_bg3">SMS</dt>
+            <dd>
+              <ul>
+                <li>전용계좌를 통한 대금이체</li>
+                <li>협력기업 몫 인출지시</li>
+              </ul>
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>

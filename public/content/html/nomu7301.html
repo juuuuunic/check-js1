@@ -1,0 +1,424 @@
+
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+<head>
+<title>노무비: 7301(개인정보취급정책)</title>
+<meta http-equiv='Content-Type' content='text/html; charset=euc-kr'>
+<link rel='stylesheet' href=css/style.css type='text/css' />
+<link rel='stylesheet' href=css/jquery-ui-1.8.22.custom.css type='text/css' />
+<link rel='stylesheet' href=css/nomua.css type='text/css' />
+<link rel='stylesheet' href=css/default.css type='text/css' />
+<style>
+
+div.provContent {float:left; padding-top:10px; padding-left:10px; padding-right:10px; line-height:1.5; width:98%; }
+div pre { padding:0; margin:0; word-wrap: break-word; white-space:pre-wrap; }
+table.cont { width:600px; margin-left:20px; }
+table.cont th { border:1px solid #d5d5d5; background-color:#e1e1e1; padding:10px; }
+table.cont td { border:1px solid #d5d5d5; padding:10px; }
+
+
+  .to-do-list .quick-bottom {
+    border: solid 3px #132c6b;
+    position: relative; }
+    .to-do-list .quick-bottom .img-wrap img {
+      width: 100%; }
+    .to-do-list .quick-bottom .btn-wrap a {
+      display: block;
+      line-height: 30px;
+      text-align: center;
+      color: #fff;
+      font-size: 12px;
+      background: #132c6b; }
+    .to-do-list .quick-bottom .todo_bottom_close {
+      width: 10px;
+      height: 10px;
+      position: absolute;
+      cursor: pointer;
+      top: 3px;
+      right: 3px;
+      background: no-repeat right bottom url(images/common/to_do_list_close_btn.gif); }
+
+
+.footer select {
+  border: 1px solid #c4c5c9;
+  background: #fff;
+  color: #333;
+  height: 34px;
+  line-height: 34px;
+  padding-left: 10px;
+  width: 100%; 
+}
+.footer select, .footer option {
+  font-family: "Noto Sans Korean";
+  color: #5f5f5f;
+}
+</style>
+<script language='javascript' charset='euc-kr' src=js/jquery-1.7.1.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery.alphanumeric.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomu.js></script>
+<script language='javascript' charset='euc-kr' src=mlrpt/mlrpt.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/javascript.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery-ui-1.8.22.custom.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomuAction.js></script>
+<script language='javascript' charset='euc-kr' src=js/smartPop.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomuCal.js></script>
+<script language='javascript' charset='euc-kr' src=js/floating.js></script>
+<script language='javascript' charset='euc-kr' src=js/common_add.js></script>
+<script language='javascript'>
+
+var setAccTimeOut = null;
+var accTime = 3601;
+$().ready(function() {
+	
+	setAccTimeOut = window.setInterval(runAccTimeOut, 1000);
+	
+	accTime = 3601;
+	$(".gnb li").each(function(i){
+      $(this).removeClass("active");
+	});
+	
+});
+function runAccTimeOut() {
+	accTime--;
+	if(accTime==0) {
+		$("#acc_time").html("0:00");
+//		alert('입력시간 초과입니다.');
+		window.clearTimeout(setAccTimeOut);
+		self.location = "/logout.do?fr=login.do";
+	} else {
+		mm = Math.floor(accTime / 60);
+		ss = accTime % 60;
+		mmss = mm + ":"+(ss<10?"0":"")+ss;
+		$("#acc_time").html(mmss);
+	}
+}
+function resetAcc() {
+	accTime = 3601;
+}
+
+function view_alert() {
+	alert('로그인후 이용가능합니다.');
+}
+
+
+$().ready(function() {
+	quick.style.display = "";
+//**//	new Floating(document.getElementById("quick"), -100, 210, 20, 10);
+	new Floating(document.getElementById("quick"), -100, 110, 20, 10);
+//	new Floating(document.getElementById("quick"), -114, 210, 20, 10);
+//	new Floating(document.getElementById("quick"), -114, 110, 20, 10);
+    $('.todo_bottom_close').click(function(){
+      $('#quick').hide();
+    });
+});
+</script>
+
+</head>
+<body>
+
+<prnoff>
+<div class="wrap login">
+
+    <div class="header">
+      <div class="header_top_wrap">
+        <div class="header_top">
+          <p class="company_phone">(주)나이스토건 (107-86-24873)</p>
+          <ul class="header_quick_menu">
+        
+            <li class="time_color" id="acc_time">
+              60:00
+            </li>
+            <li class="time_color">
+              <a href="javascript:resetAcc()">연장</a>
+            </li>
+            <li>
+              <a href="logout.do">로그아웃</a>
+            </li>
+            <li>
+
+              <a href="nomu6401.do">기업정보수정</a>
+
+            </li>
+<li><a href="/nomuMain.do?sdo=하도_결제내역_m">결제내역</a></li>          
+          </ul>
+        </div>
+      </div>
+      <div class="header_bottom_wrap">
+        <div class="header_bottom">
+          <div class="logo_wrap">
+            <h1><a href="/">노무비닷컴</a></h1>
+            <p class="slogun">체불없는 세상을 위한 모두의 한걸음</p>
+          </div>
+          <ul class="gnb">
+            <!-- GNB 페이지 유지시 class명 active붙이기(depth1에서만 적용) -->
+
+            <li id=gnb31 class="active"><a href="nomu4101.do">현장등록</a></li>
+            <li id=gnb32><a href="nomu4201.do">내역서작성</a></li>
+            <li id=gnb33><a href="nomu4301.do">대금지급</a></li>
+				<li id=gnb33><a href="nomu45051.do">확인서발급</a></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+<div id="warp" style='padding-top:30px'>
+	<div id="content">	
+	
+<div id="location">
+	<div id="locationNavi">
+		<h1><img src="images/title/title630.gif" alt="개인정보처리방침" /></h1>
+	</div>
+	<ol>
+		<li>HOME&nbsp;&gt;&nbsp;</li>
+		<li class="png24">개인정보처리방침&nbsp;</li>
+	</ol>
+</div>
+<div class="provContent"><p><pre>
+나이스디앤알(이하 “회사”라 한다.)이 취급하는 모든 개인정보는 개인정보보호법 등 관련 법률에 따라 이용자의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 다음과 같이 개인정보 처리 지침을 수립, 공개합니다.
+
+제1조(개인정보 처리목적)
+회사는 다음의 목적을 위하여 개인정보를 수집, 이용합니다. 처리하고 있는 개인정보는 다음의 목적 이외의 용도로는 이용되지 않으며, 이용 목적이 변경되는 경우에는 개인정보 보호법 제18조에 따라 별도의 동의를 받는 등 필요한 조치를 이행할 예정입니다. 
+1.	홈페이지 회원 가입 및 관리
+회원 가입의사 확인, 회원제 서비스 제공에 따른 본인 식별 인증, 회원자격 유지 관리, 제한적 본인확인제 시행에 따른 본인확인, 서비스 부정이용 방지, 각종 고지 통지, 고충처리 등을 목적으로 개인정보를 처리합니다.
+2.	재화 또는 서비스 제공
+서비스 제공, 고객상담 및 “서비스”에 대한 안내, 전화상담, 계약서 청구서 발송, 콘텐츠 제공, 맞춤서비스 제공, 본인인증, 요금결제 정산, 채권추심 등을 목적으로 개인정보를 처리합니다.
+3.	마케팅 및 프로모션 제공
+이벤트 정보 및 참여기회 제공, 광고성 정보 제공 등 마케팅 및 프로모션 등의 목적으로 개인정보를 처리합니다.
+4.	고충처리
+민원인의 신원 확인, 민원사항 확인, 사실조사를 위한 연락 통지, 처리결과 통보 등의 목적으로 개인정보를 처리합니다.
+
+제2조(처리하는 개인정보 항목)
+1.	회사는 다음의 개인정보 항목을 처리하고 있습니다.
+    1) 회원정보 : 회사 개요정보 및 대표 담당자 정보 등
+    2) 거래처정보 : 매출/매입자 정보, 거래규모/실적 정보 등
+    3) 거래정보 : 계좌개설정보, 세금계산서정보, 현금/어음/채권 지급 및 수신 정보 등
+    4) 신용정보 : 신용능력정보(납세실적 등), 신용도판단정보(연체 등) 등
+    5) 대금지급확인시스템 이용정보 : 현장정보, 대금지급계획정보, 실지급정보, 적기지급정보 등
+    6) 기타 정보 : 현장출입관리시스템 이용정보(근로자/거래처 출입정보 등) 등
+
+2.	인터넷 서비스 이용과정에서 IP주소, 쿠키, MAC주소, 서비스 이용기록, 방문기록, 불량 이용기록 등이 자동으로 생성되어 수집될 수 있습니다.
+
+제3조(개인정보의 처리 및 보유기간)
+1.	회사는 법령에 따른 개인정보 보유 이용기간 또는 이용자로부터 개인정보를 수집시에 동의받은 개인정보 보유 이용기간 내에서 개인정보를 처리, 보유합니다.
+2.	각각의 개인정보 처리 및 보유기간은 다음과 같습니다.
+1)	홈페이지 회원가입 및 관리: 회원 탈퇴시 까지, 단 다음의 사유에 해당하는 경우에는 해당사유 종료시까지
+(1)	관계법령 위반에 따른 수사, 조사 등이 진행중인 경우: 수사 종료시까지
+(2)	홈페이지 이용에 따른 채권, 채무관계 잔조시: 채권, 채무관계 정산시까지
+2)	재화 또는 서비스 제공: 재화, 서비스 공급완료 및 요금결제, 정산 완료시까지, 단 다음 사유에 해당하는 경우 해당기간 종료시까지
+(1)	“전자상거래 등에서의 소비자 보호에 관한 법률”에 다른 표시, 광고, 계약내용 및 이행 등 거래에 관한 기록
+-	표시, 광고에 관한 기록: 6개월
+-	계약 또는 청약철회, 대금결제, 재화 등의 공급기록: 5년
+-	소비자 불만 또는 분쟁처리에 관한 기록: 3년
+(2)	“통신비밀보호법” 제41조에 따른 통신사실확인자료 보관
+-	가입자 전기통신일시, 개시 종료시간, 상대방 가입자번호, 사용도수, 발신기지국 위치 추적자료 : 1년
+-	컴퓨터통신, 인터넷 로그기록자료, 접속지 추적자료 : 3개월
+
+제4조(개인정보의 제3자 제공)
+1.	회사는 이용자의 개인정보를 제1조(개인정보의 처리 목적)에서 명시한 범위 내에서만 처리하며, 이용자의 동의, 법률의 특별한 규정 등 개인정보 보호법 제17조 및 제18조에 따라 해당하는 경우에만 개인정보를 제3자에게 제공합니다.
+2.	회사는 다음과 같이 개인정보를 제3자에게 제공하고 있습니다.
+<table class=cont>
+<tr><th>제공처</th><th>제공 목적</th><th>제공 항목</th><th>제공 기간</th></tr>
+<tr>
+	<td>금융기관(하나은행 등), 보증기관(전문건설공제조합 등), 공공기관(서울시 등), 신용조회기관(주식회사 나이스디앤비 등), 노무비닷컴 회원(GS건설 등) 및 기타 제휴처(나이스비즈니스플랫폼 주식회사 등), 근로자, 당사 타 서비스(나이스윙크, 나이스다큐 등)</td>
+	<td>편의기능 제공, 분쟁해결, 민원처리, 상거래 관계의 설정 및 유지여부 등의 판단, 회원 신용관리, 거래처 신용관리 서비스의 개발, 복지증진 및 구인/구직 서비스의 개발, 동반성장 및 공정거래 확산을 위한 서비스의 개발 등</td>
+	<td>1) 회원정보 : 회사명, 사업자번호, 법인번호, 대표자명, 우편번호, 사업장주소, 전화번호, 담당자명, 담당자전화번호, 담당자휴대전화번호, 담당자팩스번호 등
+2) 현장정보 : 현장명, 현장식별코드, 현장소재지, 계약금액, 계약일자, 착공일자, 준공일자, 공사참여거래처정보 등
+3) 지급계획정보 : 지급예정처, 지급예정액, 지급예정은행명, 지급예정계좌번호, 지급예정계좌번호예금주, 지급약속일자 등
+4) 실지급정보 : 실지급처, 실지급액, 실지급은행명, 실지급계좌번호, 실지급예금주, 실지급일자 등
+5) 적기지급정보 : 지급계획정보와 실지급정보간 비교정보, 적기/지연/미지급정보 등
+6) 적합청구정보 : 현장출입여부 등
+7) 기타 정보 : 수집한 정보를 결합하여 가공한 정보(노무비닷컴 체불제로확인서 정보 등)</td>
+<td>동의 철회시까지</td></tr>
+</table>
+
+제5조(개인정보 처리의 위탁에 관한 사항)
+1.	회사는 원활한 개인정보 업무처리를 위하여 다음과 같이 개인정보 처리업무를 위탁하고 있습니다.
+<table class=cont>
+<tr><th>수탁자</th><th>위탁업무 내용</th></tr>
+<tr><td>(주)서울정보시스템</td><td>고객상담이력관리, 상담녹취저장, 고객의 성명, 연락처 등 저장</td></tr>
+<tr><td>(주)쿠콘</td><td>지급이체정보 등의 처리 및 저장</td></tr>
+<tr><td>나이스페이먼츠(주)</td><td>지급이체정보, 수수료 결제정보 등의 처리 및 저장</td></tr>
+</table>
+2.	회사는 위탁계약 체결시 개인정보 보호법 25조에 따라 위탁업무 수행목적 외 개인정보 처리금지, 기술적.관리적 보호조치, 재위탁제한, 수탁자에 대한 관리.감독, 손해배상 등 책임에 관한 사항을 계약서 등 문서에 명시하고, 수탁자가 개인정보를 안전하게 처리하는지를 감독하고 있습니다.
+3.	위탁업무의 내용이나 수탁자가 변경될 경우에는 지체 없이 본 개인정보 처리방침을 통하여 공개하도록 하겠습니다.
+
+제6조(이용자의 권리, 의무 및 행사방법)
+1.	이용자는 회사에 대해 언제든지 다음 각 호의 개인정보 보호 관련 권리를 행사할 수 있습니다.
+1)	개인정보 열람 요구
+2)	오류 등이 있을 경우 정정 요구
+3)	삭제 요구
+4)	처리정지 요구
+2.	본조 제1항에 따른 권리 행사는 회사에 대해 서면, 전화, 전자우편, 모사전송(FAX) 등 혹은 직접 로그인 하여 회원정보 관련 페이지 접속을 통하여 하실 수 있으며, 회사는 이에 대해 지체 없이 조치하겠습니다.
+3.	이용자가 개인정보의 오류 등에 대한 정정 또는 삭제를 요구한 경우에는 회사는 정정 또는 삭제를 완료할 때까지 당해 개인정보를 이용하거나 제공하지 않습니다.
+4.	제1항에 따른 권리 행사는 이용자의 법정대리인이나 위임을 받은 자 등 대리인을 통하여 하실 수 있습니다. 이 경우 개인정보 보호법 시행규칙 별지 제11호 서식에 따른 위임장을 제출하셔야 합니다.
+5.	이용자는 개인정보 보호법 등 관계법령을 위반하여 회사가 처리하고 있는 이용자 본인이나 타인의 개인정보 및 사생활을 침해하여서는 아니됩니다.
+
+제7조(개인정보의 파기)
+1.	회사는 개인정보 보유기간의 경과, 처리목적 달성 등 개인정보가 불필요하게 되었을 때에는 지체 없이 해당 개인정보를 파기합니다.
+2.	이용자로부터 동의받은 개인정보 보유기간이 경과하거나 처리목적이 달성되었음에도 불구하고 다른 법령에 따라 개인정보를 계속 보존하여야 하는 경우에는, 해당 개인정보를 별도의 데이터베이스(DB)로 옮기거나 보관장소를 달리하여 보존합니다.
+3.	개인정보 파기의 절차 및 방법은 다음과 같습니다.
+1)	파기절차: 회사는 파기 사유가 발생한 개인정보를 선정하고, 회사의 개인정보 보호책임자의 승인을 받아 개인정보를 파기합니다.
+2)	파기방법: 회사는 전자적 파일 형태로 기록 저장된 개인정보는 기록을 재생할 수 없도록 로우레밸포멧(Low Level Format) 등의 방법을 이용하여 파기하며, 종이 문서에 기록 저장된 개인정보는 분쇄기로 분쇄하거나 소각하여 파기합니다.
+
+제8조(개인정보 보호책임자)
+1.	회사는 개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보 처리와 관련한 이용자의 불만처리 및 피해구제 등을 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.
+<개인정보 보호 및 보호 책임자>
+- 성명: 남영민
+- 소속부서: NICE디앤알(주)
+- 직위: 기획관리본부장
+
+<고객만족센터>
+- 연락처: 02-788-9083
+- 팩스: 02-6442-2383
+- 이메일: nrkim@nicednr.co.kr
+- 전화상담은 평일 오전 9시 부터 오후 6시까지만 가능합니다.
+ 
+2.	이용자는 회사의 서비스(또는 사업)를 이용하시면서 발생한 모든 개인정보 보호 관련 문의, 불만처리, 피해구제 등에 관한 사항을 개인정보 보호책임자 및 담당부서로 문의하실 수 있습니다. 회사는 이용자의 문의에 대해 지체없이 답변 및 처리합니다. 
+
+제9조(개인정보의 안정성 확보조치)
+회사는 개인정보의 안전성 확보를 위해 다음과 같은 조치를 취하고 있습니다.
+1.	관리적 조치: 내부관리계획 수립 시행, 정기적 직원 교육 등
+2.	기술적 조치: 개인정보처리시스템 등의 접근권한 관리, 접근통제시스템 설치, 고유식별정보 등의 암호화, 보안프로그램 설치
+3.	물리적 조치:  IDC센타, 자료보관실 등의 접근통제
+
+제10조(개인정보 자동 수집 장치의 설치 운영 및 거부에 관한 사항)
+1.	회사는 이용자에게 개별적인 맞춤서비스를 제공하기 위해 이용정보를 저장하고 수시로 불러오는 ‘쿠키(cookie)’를 사용합니다.
+2.	쿠키는 웹사이트를 운영하는데 이용되는 서버(http)가 이용자의 컴퓨터 브라우저에게 보내는 소량의 정보이며 이용자들의 PC 컴퓨터내의 하드디스크에 저장되기도 합니다.
+1)	쿠키의 사용목적: 이용자가 방문한 각 서비스와 웹 사이트들에 대한 방문 및 이용형태, 인기 검색어, 보안접속 여부 등을 파악하여 이용자에게 최적화된 정보 제공을 위해 사용됩니다.
+2)	쿠키의 설치 운영 및 거부 : 웹브라우저 상단의 도구>인터넷 옵션>개인정보 메뉴의 옵션 설정을 통해 쿠키 저장을 거부 할 수 있습니다.
+3)	쿠키 저장을 거부할 경우 맞춤형 서비스 이용에 어려움이 발생할 수 있습니다.
+
+제11조(링크사이트에 대한 책임)
+회사는 이용자에게 다른 웹사이트에 대한 링크를 제공할 수 있습니다. 다만, 링크되어 있는 웹사이트가 개인정보를 수집하는 행위에 대해서는 본 개인정보처리방침이 적용되지 않습니다.
+
+제12조(권익침해 구제방법)
+이용자는 아래의 기관에 대해 개인정보 침해에 대한 피해구제, 상담 등을 문의하실 수 있습니다.
+1.	개인정보 침해신고센터: 한국인터넷진흥원 운영 : (국번없이) 118 (http://privacy.kisa.or.kr)
+2.	개인정보 분쟁조정위원회 : (국번없이) 1833-6972 (www.kopico.go.kr)
+3.	대검찰청 사이버범죄수사단 : 02-3480-3573 (www.spo.go.kr)
+4.	경찰청 사이버안전국 : 182 (http://cyberbureau.police.go.kr)
+
+제13조(개인정보 처리방침 변경)
+회사는 위 내용에 대한 추가, 삭제, 수정이 있을 경우에는 시행일로부터 최소 7일 전에 공지사항 등을 통해 이용자에게 설명 드립니다. 다만, 이용자의 권리 또는 의무와 관련된 중요한 내용의 변경은 최소 30일 전에 알려드립니다.
+1.	공고일자: 2019. 11. 08.
+2.	시행일자: 2019. 12. 27.
+
+
+</pre></p></div>
+
+	</div>
+</div>
+
+<div id=quick style="width:120px;position:absolute;z-index:1;left:1200px;top:0px;display:none;">
+<div>
+<a href="https://aff.g2brating.co.kr/#MENUCM0300?param=NOMUBI" target=_blank>
+<img src="images/page/nomubi_banner1_101_200.jpg" alt="">
+</a>
+</div>
+<!--
+<div>
+<a href="https://www.nicers.co.kr" target=_blank>
+<img src="images/page/nomubi_banner2_101_200.jpg" alt="">
+</a>
+</div>
+<div>
+<a href="https://nicewel.co.kr/?act=user.user_join_info&r=nomubi" target=_blank>
+<img src="images/page/nomubi_banner4_101_200.jpg" alt="">
+</a>
+</div>
+-->
+<div>
+	<a href="https://www.niceabc.co.kr/ingress/main?aid=nomubi" target=_blank>
+	<img src="images/page/nomubi_02.jpg" alt="">
+	</a>
+</div>
+<div>
+	<a href="/nomu4505.do">
+	<img src="images/page/7.101x200.jpg" alt="">
+	</a>
+</div>
+<!--
+-->
+<!--
+      <div class="to-do-list">
+        <div class="quick-bottom inner-quick">
+          <div class="img-quick">
+            <div class="todo_bottom_close"></div>
+            <div class="img-wrap">
+              <img src="images/common/quick_banner.gif" alt="">
+            </div>
+            <div class="btn-wrap">
+              <a href="/nomu45051.do">발급바로가기</a>
+            </div>
+          </div>
+        </div>
+		</div>
+-->
+</div>
+
+<div id="content_work"></div>
+<iframe id="ifrm_work" name="ifrm_work" border=0 width=0 height=0></iframe>
+</div>
+
+<div class="footer_wrap sub_tamplate ">
+  <div class="footer">
+    <div class="family_site_wrap">
+      <div class="family_site_service">
+        <select name="familySite" id="familySite" onchange="if(this.value) window.open(this.value);">
+          <option value="" selected>FAMILY SITE</option>
+          <option value="http://www.nicednr.co.kr">NICE디앤알</option>
+          <option value="http://www.nice.co.kr">NICE홀딩스</option>
+          <option value="http://www.nicednb.com">NICE디앤비</option>
+          <option value="http://www.niceinfo.co.kr">NICE평가정보</option>
+          <option value="http://www.nicerating.com">NICE신용평가</option>
+          <option value="http://www.nicevan.co.kr">NICE정보통신</option>
+          <option value="http://www.kisvan.co.kr">KIS정보통신</option>
+          <option value="http://www.nicetcm.co.kr">한국전자금융</option>
+        </select>
+      </div>
+      <div class="family_site_service">
+        <select name="familyService" id="familyService" onchange="if(this.value) window.open(this.value);">
+          <option value="" selected>FAMILY SERVICE</option>
+          <option value="http://www.nicewinc.co.kr">동반성장지원 서비스</option>
+          <option value="http://www.nicedocu.com">전자계약/입찰 서비스</option>
+          <option value="http://www.nicesoho.co.kr">소상공인지원 서비스</option>
+          <option value="http://www.g2brating.co.kr">공공입찰 기업신용평가</option>
+          <option value="http://clipq.co.kr">협력업체 기업신용평가</option>
+          <option value="http://biz.ntcb.co.kr">기술 신용평가 서비스</option>
+          <option value="http://www.creport.co.kr">기업정보 서비스</option>
+          <option value="http://global.nicednb.com">글로벌 서비스</option>
+        </select>
+      </div>
+    </div>
+    <ul class="footer_menu">
+      <li>
+        <a href="nomu7201.do">이용약관</a>
+      </li>
+      <li>
+        <a href="nomu7301.do">개인정보처리방침</a>
+      </li>
+      <li>
+        <a href="nomu7401.do">이메일무단수집거부</a>
+      </li>
+    </ul>
+    <ul class="address">
+      <li>서울특별시 서대문구 충정로 36 NICE디앤알(주)</li>
+      <li>대표자 : 강용구</li>
+      <li>TEL : 1670-1970</li>
+      <li>FAX : 02-6442-2383</li>
+    </ul>
+    <ul class="address">
+    	<li>사업자등록번호 : 107-87-08207</li>
+    	<li>통신판매업 신고번호 : 제2012-서울구로-1033호</li>
+    </ul>
+    <p class="copyright">copyrightⓒ NICE Data&Research, Inc All Rights Reserved.</p>
+  </div>
+</div>
+
+</prnoff>
+
+
+</body>
+</html>

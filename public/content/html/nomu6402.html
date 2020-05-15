@@ -1,0 +1,721 @@
+
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+<head>
+<title>노무비: 기업정보관리>비밀번호확인</title>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<link rel="stylesheet" href="css/jquery-ui-1.8.22.custom.css" type="text/css">
+<link rel="stylesheet" href="css/nomua.css" type="text/css">
+<link rel="stylesheet" href="css/default.css" type="text/css">
+<style>
+
+
+    .to-do-list .quick-bottom {
+    border: solid 3px #132c6b;
+    position: relative; }
+    .to-do-list .quick-bottom .img-wrap img {
+        width: 100%; }
+    .to-do-list .quick-bottom .btn-wrap a {
+        display: block;
+        line-height: 30px;
+        text-align: center;
+        color: #fff;
+        font-size: 12px;
+        background: #132c6b; }
+    .to-do-list .quick-bottom .todo_bottom_close {
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        cursor: pointer;
+        top: 3px;
+        right: 3px;
+        background: no-repeat right bottom url(../images/common/to_do_list_close_btn.gif); }
+
+
+.footer select {
+    border: 1px solid #c4c5c9;
+    background: #fff;
+    color: #333;
+    height: 34px;
+    line-height: 34px;
+    padding-left: 10px;
+    width: 100%; 
+}
+.footer select, .footer option {
+    font-family: "Noto Sans Korean";
+    color: #5f5f5f;
+}
+</style>
+<script language="javascript" charset="euc-kr" src="js/jquery-1.7.1.min.js"></script>
+<script language="javascript" charset="euc-kr" src="js/jquery.alphanumeric.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomu.js"></script>
+<script language="javascript" charset="euc-kr" src="mlrpt/mlrpt.js"></script>
+<script language="javascript" charset="euc-kr" src="js/jquery.min.js"></script>
+<script language="javascript" charset="euc-kr" src="js/javascript.js"></script>
+<script language="javascript" charset="euc-kr" src="js/jquery-ui-1.8.22.custom.min.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomuAction.js"></script>
+<script language="javascript" charset="euc-kr" src="js/smartPop.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomuCal.js"></script>
+<script language="javascript" charset="euc-kr" src="js/floating.js"></script>
+<script language="javascript" charset="euc-kr" src="js/common_add.js"></script>
+<script language="javascript">
+
+var setAccTimeOut = null;
+var accTime = 3601;
+$().ready(function() {
+    
+    setAccTimeOut = window.setInterval(runAccTimeOut, 1000);
+    
+    accTime = 3601;
+    $(".gnb li").each(function(i){
+        $(this).removeClass("active");
+    });
+    
+});
+function runAccTimeOut() {
+    accTime--;
+    if(accTime==0) {
+        $("#acc_time").html("0:00");
+//		alert('입력시간 초과입니다.');
+        window.clearTimeout(setAccTimeOut);
+        self.location = "/logout.do?fr=login.do";
+    } else {
+        mm = Math.floor(accTime / 60);
+        ss = accTime % 60;
+        mmss = mm + ":"+(ss<10?"0":"")+ss;
+        $("#acc_time").html(mmss);
+    }
+}
+function resetAcc() {
+    accTime = 3601;
+}
+
+function view_alert() {
+    alert('로그인후 이용가능합니다.');
+}
+
+
+    function searchZip(){
+        //2012.12.26 reaol url modify  By Andy.
+//		var url = "http://interface.nicednb.com/serv/benis/addrInfo.do?p_ret_url=http://www.nomubi.com/nomu62042.do";
+//		var width = 450;
+        var url = "/nomuMnu.do?sdo=공통_주소검색";
+        var width = 535;
+        var height = 400;
+        var win1= window.open(url,'pop_zip','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,width='+width+',height='+height);
+        win1.focus();
+    }
+    function setZip_(zip1,zip2,addr){
+        var frm = document.frm1;
+        frm.zip_co1.value = zip1;
+        frm.zip_co2.value = zip2;
+        frm.address1.value = addr;
+    }
+    function setZip(zip_cd,addr){
+        var frm = document.frm1;
+        frm.zip_co.value = zip_cd;
+        frm.address1.value = addr;
+    }
+    function save(){
+        var frm = document.frm1;
+
+        if(!frm.com_name.value){
+            frm.com_name.focus();
+            alert("기업(기관)명을 입력하세요.");
+            return;
+        }
+        if(!frm.com_ceo_name.value){
+            frm.com_ceo_name.focus();
+            alert("대표자명을 입력하세요.");
+            return;
+        }
+        if((frm.com_bubin_yn[0].checked) && (!frm.com_bubin_no1.value || !frm.com_bubin_no2.value)){
+            frm.com_bubin_no1.focus();
+            alert("법인번호를 입력하세요.");
+            return;
+        }
+
+        if(!frm.com_tel1.value || !frm.com_tel2.value || !frm.com_tel3.value){
+            frm.com_tel1.focus();
+            alert("회사 대표전화번호를 입력하세요.");
+            return;
+        }
+
+/*
+        
+        frm.action = "https://www.nomubi.com/ssl_url.do?act_host=www.nomubi.com&act_url=/nomu64021.do";
+        frm.submit();
+        
+*/
+        frm.action = "https://www.nomubi.com/ssl_url.do?act_host=www.nomubi.com&act_url=/nomu64021.do";
+        frm.submit();
+    }
+
+    function cmsAlert(val, idx) {
+        var frm = document.frm1;
+
+        if(val=='01') {	//노무비닷컴 CMS이용 선택 시
+            msg="모든 노무비지급을 본 시스템 내의 CMS를 통해 이체처리 하시겠습니까?";
+        } else if(val=='02') {	//자체 시스템이용 선택 시
+            msg="본 시스템을 통해 노무비를 이체하지 않고\n현재 귀사의 이체 시스템을 이용하여 노무비를 이체처리 하시겠습니까?";
+        }
+
+        if(confirm(msg)){
+            frm.com_cms[idx].checked = true;
+        } else {
+            frm.com_cms[idx].checked = false;
+        }
+    }
+
+    var winModify;
+    function modifyMember(id){
+        var url = "nomu64022.do?id="+id;
+        var width = 700;
+        var height = 700;
+        winModify = window.open(url,'pop_modify','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,width='+width+',height='+height);
+        winModify.focus();
+    }
+    function modifySuccess(){
+        if(winModify) winModify.close();
+        alert('권한이 바뀌어 로그아웃 됩니다.');
+        location.href = "login.do";
+    }
+
+    function deleteMember(){
+        var frm = document.frm1;
+
+        var checklen = $('input:checkbox[id=memcheck]:checked').length;
+
+        if(checklen == 0) {
+            alert("삭제할 담당자를 선택하세요");
+            return;
+        }
+
+        var memlist="";
+        $('input:checkbox[id=memcheck]:checked').each(function() {
+            memlist = memlist +"'"+ this.value +"',";
+        });
+
+        if(confirm("선택된 담당자 "+ memlist +"를 정말 삭제하시겠습니까?")) {
+            frm.action = "nomu64027.do";
+            frm.memlist.value = memlist.substr(0,(memlist.length-1));
+            frm.memlistcnt.value = checklen;
+            frm.submit();
+        }
+    }
+
+    function deleteSuccessAll(){
+        location.reload();
+    }
+    function deleteSuccess(){
+        if(winModify) winModify.close();
+        location.reload();
+    }
+
+    var winInsert;
+    function insertMember(){
+        var url = "nomu64024.do";
+        var width = 700;
+        var height = 700;
+        winInsert = window.open(url,'pop_insert','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,width='+width+',height='+height);
+        winInsert.focus();
+    }
+    function insertSuccess(){
+        if(winInsert) winInsert.close();
+        location.reload();
+    }
+
+    function viewBubinNum(val) {
+        if (val=='01') {
+            $('#bubin').css({display:''});
+        } else {
+            $('#bubin').css({display:'none'});
+        }
+    }
+
+    $().ready(function() {
+        //$("#com_bubin_no1").numeric();
+        //$("#com_bubin_no2").numeric();
+        //$("#com_tel1").numeric();
+        //$("#com_tel2").numeric();
+        //$("#com_tel3").numeric();
+        //$("#com_fax1").numeric();
+        //$("#com_fax2").numeric();
+        //$("#com_fax3").numeric();
+
+        $(":radio[name='com_bubin_yn']:radio[value='01']").attr("checked", true);
+        $(":radio[name='com_cms']:radio[value='']").attr("checked", true);
+    });
+    function go_ord() {
+        self.location = "nomu3706.do";
+    }
+
+
+$().ready(function() {
+    quick.style.display = "";
+//**//	new Floating(document.getElementById("quick"), -100, 210, 20, 10);
+    new Floating(document.getElementById("quick"), -100, 110, 20, 10);
+//	new Floating(document.getElementById("quick"), -114, 210, 20, 10);
+//	new Floating(document.getElementById("quick"), -114, 110, 20, 10);
+    $('.todo_bottom_close').click(function(){
+        $('#quick').hide();
+    });
+});
+</script>
+
+</head>
+<body>
+    
+    <prnoff>
+    <div class="wrap login">
+    
+        <div class="header">
+          <div class="header_top_wrap">
+            <div class="header_top">
+              <p class="company_phone">(주)나이스토건 (107-86-24873)</p>
+              <ul class="header_quick_menu">
+            
+                <li class="time_color" id="acc_time">59:31</li>
+                <li class="time_color">
+                  <a href="javascript:resetAcc()">연장</a>
+                </li>
+                <li>
+                  <a href="logout.do">로그아웃</a>
+                </li>
+                <li>
+    
+                  <a href="nomu6401.do">기업정보수정</a>
+    
+                </li>
+    <li><a href="/nomuMain.do?sdo=하도_결제내역_m">결제내역</a></li>          
+              </ul>
+            </div>
+          </div>
+          <div class="header_bottom_wrap">
+            <div class="header_bottom">
+              <div class="logo_wrap">
+                <h1><a href="/">노무비닷컴</a></h1>
+                <p class="slogun">체불없는 세상을 위한 모두의 한걸음</p>
+              </div>
+              <ul class="gnb">
+                <!-- GNB 페이지 유지시 class명 active붙이기(depth1에서만 적용) -->
+    
+                <li id="gnb31" class=""><a href="nomu4101.do">현장등록</a></li>
+                <li id="gnb32"><a href="nomu4201.do">내역서작성</a></li>
+                <li id="gnb33"><a href="nomu4301.do">대금지급</a></li>
+                    <li id="gnb33"><a href="nomu45051.do">확인서발급</a></li>
+    
+              </ul>
+            </div>
+          </div>
+        </div>
+    
+    <div id="warp" style="padding-top:30px">
+        <div id="content">	
+        
+        <div class="joinLine">
+            <ul>
+    
+                <li class="joinTitle"><img src="images/login/title630.gif"></li>
+                <li class="joinNavi"> HOME &gt; 회원 &gt; 기업정보관리</li>
+    
+            </ul>
+        </div>
+    
+        <div class="viewForm">
+    
+            <img src="images/login/tab_info_on.gif" class="infohover">
+    
+            <img src="images/login/tab_pw_off.gif" class="pw pointer goAction" href="nomu6404.do">
+        </div>
+    
+        <form name="frm1" id="frm1" method="post">
+        <input type="hidden" name="mem_com_cd" value="480">
+        <input type="hidden" name="memlist" value="">
+        <input type="hidden" name="memlistcnt" value="">
+        <table class="joinForm" width="100%" cellpadding="1" cellspacing="1" border="1">
+            <colgroup><col width="15"><col width="160"><col width="822"></colgroup><colgroup>
+            </colgroup><tbody>
+                <tr>
+                    <td scope="col" colspan="3">
+    
+                        <div class="joinDesc"><img src="images/login/txt_stitle5.gif" class="mt_22 ml_10"></div>
+    
+                        <div class="bline2 mt_8"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="images/pop/bul_essential.gif" class="ml_10"></td>
+                    <td class="joinDesc"><img src="images/login/txt_g_th2.gif" class="ml_10" alt="사업자번호"></td>
+                    <td>107-86-24873</td>
+                </tr>
+                <tr>
+                    <td><img src="images/pop/bul_essential.gif" class="ml_10"></td>
+                    <td class="joinDesc"><img src="images/login/txt_g_th3.gif" class="ml_10" alt="기업기관명"></td>
+                    <td><input type="text" name="com_name" value="(주)나이스토건" maxlength="20" class="wd_420"></td>
+                </tr>
+                <tr>
+                    <td><img src="images/pop/bul_essential.gif" class="ml_10"></td>
+                    <td class="joinDesc"><img src="images/login/txt_g_th4.gif" class="ml_10" alt="대표자명"></td>
+                    <td><input type="text" name="com_ceo_name" value="테스트" maxlength="10" class="wd_80"></td>
+                </tr>
+    
+                <tr>
+                    <td><img src="images/pop/bul_essential.gif" class="ml_10"></td>
+                    <td class="joinDesc"><img src="images/login/txt_g_th5.gif" class="ml_10" alt="법인개인여부"></td>
+                    <td>
+                        <input type="radio" name="com_bubin_yn" value="01" onclick="viewBubinNum('01');" class="mt_5m" checked="checked"> 법인
+                        <input type="radio" name="com_bubin_yn" value="02" onclick="viewBubinNum('02');" class="mt_5m ml_10"> 개인
+                    </td>
+                </tr>
+                <tr id="bubin">
+                    <td><img src="images/pop/bul_essential.gif" class="ml_10"></td>
+                    <td class="joinDesc"><img src="images/login/txt_g_th6.gif" class="ml_10" alt="법인번호"></td>
+                    <td>
+                        <input type="text" id="com_bubin_no1" name="com_bubin_no1" value="110111" maxlength="10" class="wd_80"> -
+                        <input type="text" id="com_bubin_no2" name="com_bubin_no2" value="2629347" maxlength="10" class="wd_80">
+                    </td>
+                </tr>
+    
+                <tr>
+                    <td><img src="images/pop/bul_essential.gif" class="ml_10"></td>
+                    <td class="joinDesc"><img src="images/login/txt_g_th7.gif" class="ml_10" alt="본사 우편번호"></td>
+                    <td>
+    <!--				
+                        <input type="text" name="zip_co1" value="" maxlength="3" class="wd_80" readonly /> -
+                        <input type="text" name="zip_co2" value="" maxlength="3" class="wd_80" readonly/>
+    -->					
+                        <input type="text" name="zip_co" value="07237" maxlength="5" class="wd_80" readonly="">
+                        <input type="button" alt="우편번호 찾기" class="postsearchbtn" onclick="searchZip();">
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="images/pop/bul_essential.gif" class="ml_10"></td>
+                    <td class="joinDesc"><img src="images/login/txt_g_th8.gif" class="ml_10" alt="본사사업장주소"></td>
+                    <td><input type="text" name="address1" value="서울특별시 영등포구 국회대로66길 9 (여의도동, NICE2사옥)" maxlength="50" class="wd_420" readonly=""></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="joinDesc"><img src="images/login/txt_g_th9.gif" class="ml_10" alt="본사나머지주소"></td>
+                    <td><input type="text" name="address2" value="" maxlength="20" class="wd_420"></td>
+                </tr>
+                <tr>
+                    <td><img src="images/pop/bul_essential.gif" class="ml_10"></td>
+                    <td class="joinDesc"><img src="images/login/txt_g_th10.gif" class="ml_10" alt="회사대표전화번호"></td>
+                    <td>
+                        <input type="text" id="com_tel1" name="com_tel1" value="02" maxlength="3" class="wd_80"> -
+                        <input type="text" id="com_tel2" name="com_tel2" value="2122" maxlength="4" class="wd_80"> -
+                        <input type="text" id="com_tel3" name="com_tel3" value="2356" maxlength="4" class="wd_80">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="joinDesc"><img src="images/login/txt_g_th11.gif" class="ml_10" alt="회사대표팩스번호"></td>
+                    <td>
+                        <input type="text" id="com_fax1" name="com_fax1" value="" maxlength="3" class="wd_80"> -
+                        <input type="text" id="com_fax2" name="com_fax2" value="" maxlength="4" class="wd_80"> -
+                        <input type="text" id="com_fax3" name="com_fax3" value="" maxlength="4" class="wd_80">
+                    </td>
+                </tr>
+                <!---
+                <tr>
+                    <td><img src="images/pop/bul_essential.gif" class="ml_10"></td>
+                    <td class="joinDesc"><img src="images/login/txt_g_th12.gif" class="ml_10" "노무비이체방식"></td>
+                    <td>
+                        <input type="radio" name="com_cms" value="01" class="mt_5m"  onclick="cmsAlert('01', '0');"/> 노무비닷컴 CMS 이용
+                         <input type="radio" name="com_cms" value="02" class="mt_5m ml_10"  onclick="cmsAlert('02', '1');"/> 자체 시스템 이용
+                    </td>
+                </tr>
+                --->
+    
+                <tr>
+                    <td></td>
+                    <td class="joinDesc"><img src="images/login/txt_g_th13.gif" class="ml_10" alt="사업자등록증"></td>
+                    <td>
+                        <!-- <input type="file" name="com_file" id="file1" value="" class="wd_420"/> -->
+                        
+                    </td>
+                </tr>
+    
+            </tbody>
+        </table>
+    
+        <div class="joinAction">
+            <input type="button" alt="저장" class="savebtn pointer" onclick="save();">
+        </div>
+        </form>
+    
+        <table class="orderForm" cellpadding="1" cellspacing="1" border="1">
+    
+            <colgroup><col width="12%"><col width="12%"><col width="12%"><col width="12%"><col width="12%"><col width="5%"></colgroup><colgroup>
+    
+            </colgroup><thead>
+                <tr>
+    
+                    <td scope="col" colspan="6">
+                        <div class="joinDesc"><img src="images/login/txt_stitle6.gif" class="mt_22 ml_10">
+    
+                        </div>
+    
+                        <div class="bline2 mt_8"></div>
+                    </td>
+                </tr>
+                <tr>
+    
+                    <th class="a_center">권한</th>
+                    <th class="a_center">담당자명</th>
+                    <th class="a_center">ID</th>
+                    <th class="a_center">등록일자</th>
+                    <th class="a_center">정보수정</th>
+                    <th class="a_center">선택</th>
+    
+                </tr>
+            </thead>
+            <tbody>
+                
+                <!-- <tr  style="background-color:#bbbbbb;" > -->
+                <tr>
+                    <td class="a_center">
+                         Master 
+                    </td>
+                    <td class="a_center">문형민</td>
+    
+                    <td class="a_center">nice7</td>
+                    <td class="a_center">2014-08-05 10:37:25.0</td>
+    
+                    <td class="a_center"><a href="javascript:modifyMember('nice7')">수정하기</a></td>
+                    <td class="a_center">
+                        
+                    </td>
+                </tr>
+                
+                <!-- <tr > -->
+                <tr>
+                    <td class="a_center">
+                         일반 
+                    </td>
+                    <td class="a_center">최창준</td>
+    
+                    <td class="a_center">nice777</td>
+                    <td class="a_center">2015-06-11 18:57:54.0</td>
+    
+                    <td class="a_center"><a href="javascript:modifyMember('nice777')">수정하기</a></td>
+                    <td class="a_center">
+                         
+                        <input type="checkbox" id="memcheck" comcd="480" value="nice777">
+                        
+                    </td>
+                </tr>
+                
+                <!-- <tr > -->
+                <tr>
+                    <td class="a_center">
+                         일반 
+                    </td>
+                    <td class="a_center">김사일</td>
+    
+                    <td class="a_center">nice78</td>
+                    <td class="a_center">2015-10-28 17:05:46.0</td>
+    
+                    <td class="a_center"><a href="javascript:modifyMember('nice78')">수정하기</a></td>
+                    <td class="a_center">
+                         
+                        <input type="checkbox" id="memcheck" comcd="480" value="nice78">
+                        
+                    </td>
+                </tr>
+                
+                <!-- <tr > -->
+                <tr>
+                    <td class="a_center">
+                         일반 
+                    </td>
+                    <td class="a_center">이예은</td>
+    
+                    <td class="a_center">zzaru</td>
+                    <td class="a_center">2016-04-26 14:15:56.0</td>
+    
+                    <td class="a_center"><a href="javascript:modifyMember('zzaru')">수정하기</a></td>
+                    <td class="a_center">
+                         
+                        <input type="checkbox" id="memcheck" comcd="480" value="zzaru">
+                        
+                    </td>
+                </tr>
+                
+                <!-- <tr > -->
+                <tr>
+                    <td class="a_center">
+                         일반 
+                    </td>
+                    <td class="a_center">test</td>
+    
+                    <td class="a_center">cyberone2</td>
+                    <td class="a_center">2017-12-04 16:06:58.0</td>
+    
+                    <td class="a_center"><a href="javascript:modifyMember('cyberone2')">수정하기</a></td>
+                    <td class="a_center">
+                         
+                        <input type="checkbox" id="memcheck" comcd="480" value="cyberone2">
+                        
+                    </td>
+                </tr>
+                
+                <!-- <tr > -->
+                <tr>
+                    <td class="a_center">
+                         일반 
+                    </td>
+                    <td class="a_center">김남류</td>
+    
+                    <td class="a_center">second0312</td>
+                    <td class="a_center">2018-02-19 16:15:23.0</td>
+    
+                    <td class="a_center"><a href="javascript:modifyMember('second0312')">수정하기</a></td>
+                    <td class="a_center">
+                         
+                        <input type="checkbox" id="memcheck" comcd="480" value="second0312">
+                        
+                    </td>
+                </tr>
+                
+                <!-- <tr > -->
+                <tr>
+                    <td class="a_center">
+                         일반 
+                    </td>
+                    <td class="a_center">최창준</td>
+    
+                    <td class="a_center">nice7777777</td>
+                    <td class="a_center">2020-04-27 18:02:30.0</td>
+    
+                    <td class="a_center"><a href="javascript:modifyMember('nice7777777')">수정하기</a></td>
+                    <td class="a_center">
+                         
+                        <input type="checkbox" id="memcheck" comcd="480" value="nice7777777">
+                        
+                    </td>
+                </tr>
+                
+            </tbody>
+        </table>
+    
+        <div class="joinAction">
+            <input type="button" alt="담당자추가하기" class="memberaddbtn pointer" onclick="insertMember();">
+            <input type="button" alt="담당자삭제하기" class="memberdelbtn pointer" onclick="deleteMember();">
+        </div>
+    
+        </div>
+    </div>
+    
+    <div id="quick" style="width: 120px; position: absolute; z-index: 1; left: 1223px; top: 110px;">
+    <div>
+    <a href="https://aff.g2brating.co.kr/#MENUCM0300?param=NOMUBI" target="_blank">
+    <img src="images/page/nomubi_banner1_101_200.jpg" alt="">
+    </a>
+    </div>
+    <!--
+    <div>
+    <a href="https://www.nicers.co.kr" target=_blank>
+    <img src="images/page/nomubi_banner2_101_200.jpg" alt="">
+    </a>
+    </div>
+    <div>
+    <a href="https://nicewel.co.kr/?act=user.user_join_info&r=nomubi" target=_blank>
+    <img src="images/page/nomubi_banner4_101_200.jpg" alt="">
+    </a>
+    </div>
+    -->
+    <div>
+        <a href="https://www.niceabc.co.kr/ingress/main?aid=nomubi" target="_blank">
+        <img src="images/page/nomubi_02.jpg" alt="">
+        </a>
+    </div>
+    <div>
+        <a href="/nomu4505.do">
+        <img src="images/page/7.101x200.jpg" alt="">
+        </a>
+    </div>
+    <!--
+    -->
+    <!--
+          <div class="to-do-list">
+            <div class="quick-bottom inner-quick">
+              <div class="img-quick">
+                <div class="todo_bottom_close"></div>
+                <div class="img-wrap">
+                  <img src="images/common/quick_banner.gif" alt="">
+                </div>
+                <div class="btn-wrap">
+                  <a href="/nomu45051.do">발급바로가기</a>
+                </div>
+              </div>
+            </div>
+            </div>
+    -->
+    </div>
+    
+    <div id="content_work"></div>
+    <iframe id="ifrm_work" name="ifrm_work" border="0" width="0" height="0"></iframe>
+    </div>
+    
+    <div class="footer_wrap sub_tamplate ">
+      <div class="footer">
+        <div class="family_site_wrap">
+          <div class="family_site_service">
+            <select name="familySite" id="familySite" onchange="if(this.value) window.open(this.value);">
+              <option value="" selected="">FAMILY SITE</option>
+              <option value="http://www.nicednr.co.kr">NICE디앤알</option>
+              <option value="http://www.nice.co.kr">NICE홀딩스</option>
+              <option value="http://www.nicednb.com">NICE디앤비</option>
+              <option value="http://www.niceinfo.co.kr">NICE평가정보</option>
+              <option value="http://www.nicerating.com">NICE신용평가</option>
+              <option value="http://www.nicevan.co.kr">NICE정보통신</option>
+              <option value="http://www.kisvan.co.kr">KIS정보통신</option>
+              <option value="http://www.nicetcm.co.kr">한국전자금융</option>
+            </select>
+          </div>
+          <div class="family_site_service">
+            <select name="familyService" id="familyService" onchange="if(this.value) window.open(this.value);">
+              <option value="" selected="">FAMILY SERVICE</option>
+              <option value="http://www.nicewinc.co.kr">동반성장지원 서비스</option>
+              <option value="http://www.nicedocu.com">전자계약/입찰 서비스</option>
+              <option value="http://www.nicesoho.co.kr">소상공인지원 서비스</option>
+              <option value="http://www.g2brating.co.kr">공공입찰 기업신용평가</option>
+              <option value="http://clipq.co.kr">협력업체 기업신용평가</option>
+              <option value="http://biz.ntcb.co.kr">기술 신용평가 서비스</option>
+              <option value="http://www.creport.co.kr">기업정보 서비스</option>
+              <option value="http://global.nicednb.com">글로벌 서비스</option>
+            </select>
+          </div>
+        </div>
+        <ul class="footer_menu">
+          <li>
+            <a href="nomu7201.do">이용약관</a>
+          </li>
+          <li>
+            <a href="nomu7301.do">개인정보처리방침</a>
+          </li>
+          <li>
+            <a href="nomu7401.do">이메일무단수집거부</a>
+          </li>
+        </ul>
+        <ul class="address">
+          <li>서울특별시 서대문구 충정로 36 NICE디앤알(주)</li>
+          <li>대표자 : 강용구</li>
+          <li>TEL : 1670-1970</li>
+          <li>FAX : 02-6442-2383</li>
+        </ul>
+        <ul class="address">
+            <li>사업자등록번호 : 107-87-08207</li>
+            <li>통신판매업 신고번호 : 제2012-서울구로-1033호</li>
+        </ul>
+        <p class="copyright">copyrightⓒ NICE Data&amp;Research, Inc All Rights Reserved.</p>
+      </div>
+    </div>
+    
+    </prnoff>
+    
+</body>
+</html>

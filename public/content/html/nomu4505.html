@@ -1,0 +1,637 @@
+
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+<head>
+<title>노무비_협력기업: 45051(로그인 후)</title>
+<meta http-equiv='Content-Type' content='text/html; charset=euc-kr'>
+
+<link rel='stylesheet' href=css/style.css type='text/css' />
+<link rel='stylesheet' href=css/jquery-ui-1.8.22.custom.css type='text/css' />
+<link rel='stylesheet' href=css/default.css type='text/css' />
+<link rel='stylesheet' href=css/libs/jquery.fancybox.css type='text/css' />
+<style>
+
+  .to-do-list .quick-bottom {
+    border: solid 3px #132c6b;
+    position: relative; }
+    .to-do-list .quick-bottom .img-wrap img {
+      width: 100%; }
+    .to-do-list .quick-bottom .btn-wrap a {
+      display: block;
+      line-height: 30px;
+      text-align: center;
+      color: #fff;
+      font-size: 12px;
+      background: #132c6b; }
+    .to-do-list .quick-bottom .todo_bottom_close {
+      width: 10px;
+      height: 10px;
+      position: absolute;
+      cursor: pointer;
+      top: 3px;
+      right: 3px;
+      background: no-repeat right bottom url(images/common/to_do_list_close_btn.gif); }
+
+
+.footer select {
+  border: 1px solid #c4c5c9;
+  background: #fff;
+  color: #333;
+  height: 34px;
+  line-height: 34px;
+  padding-left: 10px;
+  width: 100%; 
+}
+.footer select, .footer option {
+  font-family: "Noto Sans Korean";
+  color: #5f5f5f;
+}
+</style>
+<script language='javascript' charset='euc-kr' src=js/jquery-1.7.1.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery.alphanumeric.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomu.js></script>
+<script language='javascript' charset='euc-kr' src=mlrpt/mlrpt.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/javascript.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery-ui-1.8.22.custom.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomuAction.js></script>
+<script language='javascript' charset='euc-kr' src=js/smartPop.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomuCal.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomua.js></script>
+<script language='javascript' charset='euc-kr' src=js/floating.js></script>
+<script language='javascript' charset='euc-kr' src=js/libs/jquery.fancybox.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/common_add.js></script>
+<script language='javascript'>
+
+var setAccTimeOut = null;
+var accTime = 3601;
+$().ready(function() {
+	
+	setAccTimeOut = window.setInterval(runAccTimeOut, 1000);
+	
+	accTime = 3601;
+	$(".gnb li").each(function(i){
+      $(this).removeClass("active");
+	});
+	
+});
+function runAccTimeOut() {
+	accTime--;
+	if(accTime==0) {
+		$("#acc_time").html("0:00");
+//		alert('입력시간 초과입니다.');
+		window.clearTimeout(setAccTimeOut);
+		self.location = "/logout.do?fr=login.do";
+	} else {
+		mm = Math.floor(accTime / 60);
+		ss = accTime % 60;
+		mmss = mm + ":"+(ss<10?"0":"")+ss;
+		$("#acc_time").html(mmss);
+	}
+}
+function resetAcc() {
+	accTime = 3601;
+}
+
+function view_alert() {
+	alert('로그인후 이용가능합니다.');
+}
+
+
+$(document).ready(function(){
+  if ($(".zero_lp").length !== 0) {
+    $(".zero_lp").fancybox({
+      toolbar  : false,
+      smallBtn : true,
+      clickSlide : false,
+      clickOutside : false,
+      iframe : {
+        css : {
+          width : '650px',
+//          height : '691px'
+        }
+      }
+    });
+  }
+//	popup_open('/popup/20190304/pop.html', 'p20190304', '695', '822', '0');
+//	popup_open('/popup/20200102/pop.html', 'p20200102', '595', '531', '0');
+	popup_open('/popup/20200116/pop.html', 'p20200116', '595', '531', '0');
+});
+function printReceipt(tid, rcpt_tid) {
+	var url;
+	if(rcpt_tid=='') { 
+		url = "https://npg.nicepay.co.kr/issue/IssueLoader.do?TID="+tid+"&type=0";
+		open_win(url, "popupIssue", 420, 540);
+	} else { 
+		url = "https://pg.nicepay.co.kr/issue/CashIssueCart.jsp?TID="+rcpt_tid;
+		open_win(url, "popupIssue", 340, 800);
+	}
+}
+function sample() {
+//alert('aaa');
+//	$.smartPop.open({ width:650, height:620, url: '/download.do?filePath=downloadpdf/&fileName=체불제로확인서.pdf'});
+	$.smartPop.open({ width:650, height:620, html: '<html><img src=../images/report/sample01.jpg><img src=../images/report/sample02.jpg><img src=../images/report/sample03.jpg><img src=../images/report/sample04.gif><img src=../images/report/sample05.jpg></html>'});
+	smartPopResize(4250);
+//	$.smartPop.resize();
+}
+function proc(report_seq) {
+	$.smartPop.open({ width:880, height:620, url: 'nomu5014.do?report_seq='+report_seq});
+}
+function level() {
+//	$.smartPop.open({ width:600, height:720, html: $('#dialog-mon').html()});
+}
+
+
+$().ready(function() {
+	quick.style.display = "";
+//**//	new Floating(document.getElementById("quick"), -100, 210, 20, 10);
+	new Floating(document.getElementById("quick"), -100, 110, 20, 10);
+//	new Floating(document.getElementById("quick"), -114, 210, 20, 10);
+//	new Floating(document.getElementById("quick"), -114, 110, 20, 10);
+    $('.todo_bottom_close').click(function(){
+      $('#quick').hide();
+    });
+});
+</script>
+
+</head>
+<body>
+
+<prnoff>
+<div class="wrap login">
+
+    <div class="header">
+      <div class="header_top_wrap">
+        <div class="header_top">
+          <p class="company_phone">(주)나이스토건 (107-86-24873)</p>
+          <ul class="header_quick_menu">
+        
+            <li class="time_color" id="acc_time">
+              60:00
+            </li>
+            <li class="time_color">
+              <a href="javascript:resetAcc()">연장</a>
+            </li>
+            <li>
+              <a href="logout.do">로그아웃</a>
+            </li>
+            <li>
+
+              <a href="nomu6401.do">기업정보수정</a>
+
+            </li>
+<li><a href="/nomuMain.do?sdo=하도_결제내역_m">결제내역</a></li>          
+          </ul>
+        </div>
+      </div>
+      <div class="header_bottom_wrap">
+        <div class="header_bottom">
+          <div class="logo_wrap">
+            <h1><a href="/">노무비닷컴</a></h1>
+            <p class="slogun">체불없는 세상을 위한 모두의 한걸음</p>
+          </div>
+          <ul class="gnb">
+            <!-- GNB 페이지 유지시 class명 active붙이기(depth1에서만 적용) -->
+
+            <li id=gnb31 class="active"><a href="nomu4101.do">현장등록</a></li>
+            <li id=gnb32><a href="nomu4201.do">내역서작성</a></li>
+            <li id=gnb33><a href="nomu4301.do">대금지급</a></li>
+				<li id=gnb33><a href="nomu45051.do">확인서발급</a></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+<div id="warp" style='padding-top:30px'>
+	<div id="content">	
+	
+<div class="zero-container">
+  <div class="contents_wrap">
+    <div class="contents">
+      <div class="zero-sub-header">
+        <h2>노무비닷컴 체불제로 확인서</h2>
+        <ul class="breadcrumb">
+          <li>Home</li>
+          <li>협력기업</li>
+          <li>확인서발급</li>
+        </ul>
+      </div>
+      <div class="zero-sub-contents">
+        <div class="zero-sub-artcle">
+          <div class="zero-sub-title">· 주요 제출처</div>
+          <ol class="zero-sub-ol">
+            <li>
+              원청사 제출자료
+              : 신규 협력기업 등록 및 정기 평가 시 활용
+            </li>
+            <li>
+              <span>기업신용평가 제출자료</span> <a href="https://www.nicers.co.kr" class="inner-btn" target="_blank">신청 바로가기</a><br>
+              : 귀사의 신용도 증빙자료로 활용
+            </li>
+            <li>
+              마케팅 자료<br>
+              : 공사지명원 등에 귀사 거래처(근로자, 장비/자재업자 등)에 대한 대금적기지급 및 완납 증빙자료로써 활용
+            </li>
+          </ol>
+        </div>
+        <div class="zero-sub-artcle">
+          <div class="zero-sub-title"><span class="title">· 발급 및 레벨기준</span> <a  class="zero_lp inner-btn" data-fancybox data-type="iframe" data-src="../layerpopup/level_popup.html" href="javascript:;">레벨기준 보기</a></div>
+          <ol class="zero-sub-ol">
+            <li>노무비닷컴 사용기간 및 정상지급 여부에 따른 레벨 분류</li>
+            <li>노무비닷컴 사용 중 미지급/지연지급 존재 여부에 따른 레벨 조정</li>
+            <li>연체정보(금융권연체/세금체납 등) 등재 시 발급 불가</li>
+          </ol>
+        </div>
+        <div class="zero-sub-artcle">
+          <div class="zero-sub-title">
+            <span class="title">· 발급 소요기간 :</span>
+            <div class="sub-text">
+              <div class="normal">
+                <span class="label">일반</span>
+                <span class="color-text">신청일로부터 5영업일(D+5영업일)</span>
+              </div>
+              <div class="express">
+                <span class="label">급행</span>
+                <span class="color-text">신청일로부터 2영업일(D+2영업일)</span>
+              </div>
+<!--
+              <div style="clear:both;">
+	              <span class="color-text">이벤트 기간 신청 건 2019년 3월 14일부터 신청순으로 발급예정</span>
+              </div>
+-->
+            </div>
+          </div>
+        </div>
+<!--
+        <div class="zero-sub-artcle">
+          <div class="zero-sub-title">
+            <span class="title">· 발급 수수료(VAT별도) :</span>
+            <div class="sub-text">
+              <div class="normal">
+                <span class="label">일반</span>
+<x!--                 <del>5만원</del> → <strong>3만원</strong> --x>
+                 5만원
+              </div>
+              <div class="express">
+                <span class="label">급행</span>
+<x!--                 <del>10만원</del> → <strong>6만원</strong> (할인이벤트 : ~’18.12.31) --x>
+                 10만원
+              </div>
+<x!--
+              <div style="clear:both;">
+	              <span class="color-text"><font style="color:red">무료</font> (이벤트 기간 내 한함)</span>
+              </div>
+--x>
+            </div>
+          </div>
+        </div>
+-->
+        <div class="zero-sub-artcle">
+          <div class="zero-sub-title">
+            <span class="title">· 관련 문의 :</span>
+            <div class="sub-text">
+              NICE디앤알㈜ 노무비닷컴 운영팀 김남류 대리(02-788-9083, nrkim@nicednr.co.kr)
+            </div>
+          </div>
+        </div>
+        <div class="zero-sub-artcle">
+          <ul class="zero-btn">
+            <li>
+              <a href="javascript:sample()">샘플 확인서 보기</a>
+            </li>
+            <li>
+              <a class="zero_lp" data-fancybox data-type="iframe" data-src="nomu4506.do" href="javascript:;" style="background: #132c6b">발급 신청하기</a>
+            </li>
+	         <div style="padding-top:8px;line-height:28px;font-size:20px;color:#242424;">
+            ※ 발급된 체불제로확인서는 아래 신청 내역에서 확인 가능합니다.
+            </div>
+          </ul>
+        </div>
+        <div class="zero-sub-artcle">
+          <div class="zero-sub-title">
+            <span class="title">· 확인서 신청 내역</span>
+				<li>
+					<select name="pageDataCnt" style="float:right;margin-top:5px;">
+						<option value='20'>20개씩 보기</option>
+						<option value='50'>50개씩 보기</option>
+						<option value='9999'>전체 보기</option>
+					</select>
+				</li>
+          </div>
+          <div class="zero-table">
+              <table class="nomubi_base_table3">
+                <caption>확인서 신청 내역</caption>
+                <col width="43px">
+                <col width="139px">
+                <col width="139px">
+                <col width="139px">
+                <col width="148px">
+                <col width="58px">
+                <col width="103px">
+                <col width="94px">
+                <col width="68px">
+                <col width="69px">
+                <thead>
+                  <tr>
+                    <th scope="col">순번</th>
+                    <th scope="col">신청일자</th>
+                    <th scope="col">발급예정일자</th>
+                    <th scope="col">실제발급일자</th>
+                    <th scope="col">제출처</th>
+                    <th scope="col">종류</th>
+                    <th scope="col">수수료(원)</th>
+                    <th scope="col">진행 상태</th>
+                    <th scope="col">확인서</th>
+                    <th scope="col">영수증</th>
+                  </tr>
+                </thead>
+                <tbody id=t_body>
+						
+	<tr>
+		<td>3</td>
+		<td>2020-02-19</td>
+
+		<td>2020-02-21</td>
+
+		<td>2020-02-21</td>
+
+		<td>GS건설</td>
+		<td>급행</td>
+		<td>330,000</td>
+		<td>취소</td>
+ 		<td>-</a></td>
+		<td><a href="javascript:printReceipt('nomubi002m01012002191447491847','')">보기</a></td>
+	</tr>
+						
+	<tr>
+		<td>2</td>
+		<td>2020-02-19</td>
+
+		<td>2020-02-26</td>
+
+		<td>2020-02-21</td>
+
+		<td>동원건설산업</td>
+		<td>일반</td>
+		<td>33,000</td>
+		<td>취소</td>
+ 		<td>-</a></td>
+		<td><a href="javascript:printReceipt('nomubi002m01012002191445231519','')">보기</a></td>
+	</tr>
+						
+	<tr>
+		<td>1</td>
+		<td>2019-03-05</td>
+
+		<td>-</td>
+
+		<td>2019-03-14</td>
+
+		<td>자사보관용</td>
+		<td>무료</td>
+		<td>0</td>
+		<td>취소</td>
+ 		<td>-</a></td>
+		<td>-</td>
+	</tr>
+
+<!--
+                  <tr>
+                    <td>3</td>
+                    <td>2018-03-26</td>
+                    <td>2018-03-26</td>
+                    <td>-</td>
+                    <td>호반건설</td>
+                    <td>급행</td>
+                    <td>66,000</td>
+                    <td>대기</td>
+                    <td>-</td>
+                    <td><a href="">보기</a></td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>2018-03-26</td>
+                    <td>2018-03-05</td>
+                    <td>2018-03-12</td>
+                    <td>현대건설</td>
+                    <td>일반</td>
+                    <td>33,000</td>
+                    <td>완료</td>
+                    <td><a href="">보기</a></td>
+                    <td><a href="">보기</a></td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>2017-09-05</td>
+                    <td>2017/09/12</td>
+                    <td>-</td>
+                    <td>현대산업개발</td>
+                    <td>일반</td>
+                    <td>-</td>
+                    <td>취소</td>
+                    <td>-</td>
+                    <td><a href="">보기</a></td>
+                  </tr>
+-->                  
+                </tbody>
+              </table>
+          </div>
+<!--
+          <div class="paginate_wrap">
+            <div class="paginate">
+              <p class="first arrow">
+                <span class="icon"></span>
+                <span class="text">처음으로</span>
+              </p>
+              <p class="pre arrow">
+                <span class="icon"></span>
+                <span class="text">이전</span>
+              </p>
+              <ol class="number">
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">6</a></li>
+              </ol>
+              <p class="next arrow">
+                <span class="icon"></span>
+                <span class="text">다음</span>
+              </p>
+              <p class="last arrow">
+                <span class="icon"></span>
+                <span class="text">마지막으로</span>
+              </p>
+            </div>
+          </div>
+-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="dialog-mon" class="page5-block" style="display:none;">
+	<table width="100%" class="level-table">
+		<col width="25%;">
+		<col width="75%;">
+		<thead>
+			<tr>
+				<th scope="col">레벨</th>
+				<th scope="col">발급 조건</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Level 1</td>
+				<td>최근 36개월 내 24개월 이상 노무비닷컴을 이용중에 있으며,<br>
+				최근 36개월 내 노무비닷컴 상 체불건이 존재하지 않는 경우</td>
+			</tr>
+			<tr>
+				<td>Level 2</td>
+				<td>최근 24개월 내 18개월 이상 노무비닷컴을 이용중에 있으며,<br>
+				최근 36개월 내 노무비닷컴 상 체불건이 존재하지 않는 경우</td>
+			</tr>
+			<tr>
+				<td>Level 3</td>
+				<td>최근 18개월 내 12개월 이상 노무비닷컴을 이용중에 있으며,<br>
+				최근 36개월 내 노무비닷컴 상 체불건이 존재하지 않는 경우</td>
+			</tr>
+			<tr>
+				<td>Level 4</td>
+				<td>최근 12개월 내 8개월 이상 노무비닷컴을 이용중에 있으며,<br>
+				최근 36개월 내 노무비닷컴 상 체불건이 존재하지 않는 경우</td>
+			</tr>
+			<tr>
+				<td>Level 5</td>
+				<td>최근 6개월 내 4개월 이상 노무비닷컴을 이용중에 있으며,<br>
+				최근 36개월 내 노무비닷컴 상 체불건이 존재하지 않는 경우</td>
+			</tr>
+			<tr>
+				<td>Level 6</td>
+				<td>최근 36개월 내 노무비닷컴 상 체불건은 존재하지 아니하나,<br>
+				이용실적 기준이 상위레벨(Level 1 ~ 5)에 미치지 못할 경우</td>
+			</tr>
+			<tr>
+				<td class="danger">Level 7</td>
+				<td>최근 36개월 내 노무비닷컴 상 체불건이 1건 이상 존재할 경우</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+	</div>
+</div>
+
+<div id=quick style="width:120px;position:absolute;z-index:1;left:1200px;top:0px;display:none;">
+<div>
+<a href="https://aff.g2brating.co.kr/#MENUCM0300?param=NOMUBI" target=_blank>
+<img src="images/page/nomubi_banner1_101_200.jpg" alt="">
+</a>
+</div>
+<!--
+<div>
+<a href="https://www.nicers.co.kr" target=_blank>
+<img src="images/page/nomubi_banner2_101_200.jpg" alt="">
+</a>
+</div>
+<div>
+<a href="https://nicewel.co.kr/?act=user.user_join_info&r=nomubi" target=_blank>
+<img src="images/page/nomubi_banner4_101_200.jpg" alt="">
+</a>
+</div>
+-->
+<div>
+	<a href="https://www.niceabc.co.kr/ingress/main?aid=nomubi" target=_blank>
+	<img src="images/page/nomubi_02.jpg" alt="">
+	</a>
+</div>
+<div>
+	<a href="/nomu4505.do">
+	<img src="images/page/7.101x200.jpg" alt="">
+	</a>
+</div>
+<!--
+-->
+<!--
+      <div class="to-do-list">
+        <div class="quick-bottom inner-quick">
+          <div class="img-quick">
+            <div class="todo_bottom_close"></div>
+            <div class="img-wrap">
+              <img src="images/common/quick_banner.gif" alt="">
+            </div>
+            <div class="btn-wrap">
+              <a href="/nomu45051.do">발급바로가기</a>
+            </div>
+          </div>
+        </div>
+		</div>
+-->
+</div>
+
+<div id="content_work"></div>
+<iframe id="ifrm_work" name="ifrm_work" border=0 width=0 height=0></iframe>
+</div>
+
+<div class="footer_wrap sub_tamplate ">
+  <div class="footer">
+    <div class="family_site_wrap">
+      <div class="family_site_service">
+        <select name="familySite" id="familySite" onchange="if(this.value) window.open(this.value);">
+          <option value="" selected>FAMILY SITE</option>
+          <option value="http://www.nicednr.co.kr">NICE디앤알</option>
+          <option value="http://www.nice.co.kr">NICE홀딩스</option>
+          <option value="http://www.nicednb.com">NICE디앤비</option>
+          <option value="http://www.niceinfo.co.kr">NICE평가정보</option>
+          <option value="http://www.nicerating.com">NICE신용평가</option>
+          <option value="http://www.nicevan.co.kr">NICE정보통신</option>
+          <option value="http://www.kisvan.co.kr">KIS정보통신</option>
+          <option value="http://www.nicetcm.co.kr">한국전자금융</option>
+        </select>
+      </div>
+      <div class="family_site_service">
+        <select name="familyService" id="familyService" onchange="if(this.value) window.open(this.value);">
+          <option value="" selected>FAMILY SERVICE</option>
+          <option value="http://www.nicewinc.co.kr">동반성장지원 서비스</option>
+          <option value="http://www.nicedocu.com">전자계약/입찰 서비스</option>
+          <option value="http://www.nicesoho.co.kr">소상공인지원 서비스</option>
+          <option value="http://www.g2brating.co.kr">공공입찰 기업신용평가</option>
+          <option value="http://clipq.co.kr">협력업체 기업신용평가</option>
+          <option value="http://biz.ntcb.co.kr">기술 신용평가 서비스</option>
+          <option value="http://www.creport.co.kr">기업정보 서비스</option>
+          <option value="http://global.nicednb.com">글로벌 서비스</option>
+        </select>
+      </div>
+    </div>
+    <ul class="footer_menu">
+      <li>
+        <a href="nomu7201.do">이용약관</a>
+      </li>
+      <li>
+        <a href="nomu7301.do">개인정보처리방침</a>
+      </li>
+      <li>
+        <a href="nomu7401.do">이메일무단수집거부</a>
+      </li>
+    </ul>
+    <ul class="address">
+      <li>서울특별시 서대문구 충정로 36 NICE디앤알(주)</li>
+      <li>대표자 : 강용구</li>
+      <li>TEL : 1670-1970</li>
+      <li>FAX : 02-6442-2383</li>
+    </ul>
+    <ul class="address">
+    	<li>사업자등록번호 : 107-87-08207</li>
+    	<li>통신판매업 신고번호 : 제2012-서울구로-1033호</li>
+    </ul>
+    <p class="copyright">copyrightⓒ NICE Data&Research, Inc All Rights Reserved.</p>
+  </div>
+</div>
+
+</prnoff>
+
+
+</body>
+</html>

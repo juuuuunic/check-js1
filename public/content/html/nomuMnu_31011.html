@@ -1,0 +1,86 @@
+<html>
+<head>
+<title>노무비_도입기업: 현장관리(3101>신규현장등록>등록바로가기)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<link rel="stylesheet" href="css/jquery-ui-1.8.22.custom.css" type="text/css">
+
+<style>
+.selBtn { background:url(images/txtn/txt14.png); border:none; width:75px; height:28px; }
+</style>
+<script language="javascript" charset="euc-kr" src="js/jquery-1.7.1.min.js"></script>
+<script language="javascript" charset="euc-kr" src="js/jquery.alphanumeric.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomu.js"></script>
+<script language="javascript" charset="euc-kr" src="mlrpt/mlrpt.js"></script>
+<script language="javascript" charset="euc-kr" src="js/jquery.min.js"></script>
+<script language="javascript" charset="euc-kr" src="js/javascript.js"></script>
+<script language="javascript" charset="euc-kr" src="js/jquery-ui-1.8.22.custom.min.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomuAction.js"></script>
+<script language="javascript" charset="euc-kr" src="js/smartPop.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomuCal.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomua.js"></script>
+<script language="javascript" charset="euc-kr" src="js/floating.js"></script>
+
+<script language="javascript">
+function save() {
+    if($("[name=typ]:checked").val()==null) {
+        alert('현장구분을 선택하여 주세요.');
+        return; 
+    } else {
+        parent.sel_gb_fin($("[name=typ]:checked").val());
+    }
+}					
+</script>
+
+</head>
+<body>
+    
+    <div class="tableTop">
+        <div class="tcenter2">
+            <p class="ptitle_ul">현장구분<img_ src="images/txt/txt_title2.gif" alt="현장/계좌정보등록"></img_></p>
+        </div>
+    </div>
+    <div class="tableTop">
+        <form id="frm_pop" name="frm_pop" method="post">
+            <table>
+                <colgroup>
+                    <col width="140">
+                    <col width="*">
+                </colgroup>
+                <tbody><tr>
+                    <td valign="top"><input type="radio" name="typ" value="P"> <b><font style="color:blue">민간 발주현장</font> :</b></td>
+                    <td style="padding-bottom:15px">발주처가 민간사업자인 현장</td>
+                </tr>
+                <tr>
+                    <td valign="top"><input type="radio" name="typ" value="C"> <b><font style="color:blue">공공 발주현장</font> :</b></td>
+                    <td style="padding-bottom:15px">발주처가 공공기관인 현장이나 이 시스템의 자료를 공공기관이 볼 수 없는 현장</td>
+                </tr>
+                <tr>
+                    <td valign="top"><input type="radio" name="typ" value="A"> <b><font style="color:blue">공공기관 제출현장</font> :</b></td>
+                    <td style="padding-bottom:25px">발주처가 공공기관인 현장이며 이 시스템의 자료를 공공기관이 볼 수 있도록 하는 현장</td>
+                </tr>
+            </tbody></table>
+        </form>
+    </div>
+    <div style="text-align:right;padding-bottom:15px">
+        <b>현장구분을 선택해 주세요.</b>
+    </div>
+    <div class="btnArea">
+        <div class="pCenter">
+            <ul>
+                <li>
+                    <input type="button" class="selBtn pointer" alt="선택" onclick="javascript:save();">
+                    <input type="button" class="closeBtn pointer" alt="닫기" onclick="javascript:parent.smartPopClose();">
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- //버튼영역 끝 -->
+    <div class="blank22"></div>
+    
+    
+    
+    
+</body>
+</html>

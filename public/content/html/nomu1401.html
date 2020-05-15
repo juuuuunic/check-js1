@@ -1,0 +1,355 @@
+
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+<head>
+<title> nomu: 1401(소개>서비스소개) </title>
+<meta http-equiv='Content-Type' content='text/html; charset=euc-kr'>
+
+<link rel='stylesheet' href=css/style.css type='text/css' />
+<link rel='stylesheet' href=css/jquery-ui-1.8.22.custom.css type='text/css' />
+<link rel='stylesheet' href=css/default.css type='text/css' />
+<link rel='stylesheet' href=css/default_add.css type='text/css' />
+<style>
+
+.footer select {
+  border: 1px solid #c4c5c9;
+  background: #fff;
+  color: #333;
+  height: 34px;
+  line-height: 34px;
+  padding-left: 10px;
+  width: 100%; 
+}
+.footer select, .footer option {
+  font-family: "Noto Sans Korean";
+  color: #5f5f5f;
+}
+</style>
+<script language='javascript' charset='euc-kr' src=js/jquery-1.7.1.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery.alphanumeric.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomu.js></script>
+<script language='javascript' charset='euc-kr' src=mlrpt/mlrpt.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/javascript.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery-ui-1.8.22.custom.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomuAction.js></script>
+<script language='javascript' charset='euc-kr' src=js/smartPop.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomuCal.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomua.js></script>
+<script language='javascript' charset='euc-kr' src=js/floating.js></script>
+<script language='javascript' charset='euc-kr' src=js/common_add.js></script>
+<script language='javascript'>
+
+var setAccTimeOut = null;
+var accTime = 3601;
+$().ready(function() {
+	
+	accTime = 3601;
+	$(".gnb li").each(function(i){
+      $(this).removeClass("active");
+	});
+	
+});
+function runAccTimeOut() {
+	accTime--;
+	if(accTime==0) {
+		$("#acc_time").html("0:00");
+//		alert('입력시간 초과입니다.');
+		window.clearTimeout(setAccTimeOut);
+		self.location = "/logout.do?fr=login.do";
+	} else {
+		mm = Math.floor(accTime / 60);
+		ss = accTime % 60;
+		mmss = mm + ":"+(ss<10?"0":"")+ss;
+		$("#acc_time").html(mmss);
+	}
+}
+function resetAcc() {
+	accTime = 3601;
+}
+
+function view_alert() {
+	alert('로그인후 이용가능합니다.');
+}
+</script>
+
+</head>
+<body>
+
+<div class="wrap logout">
+
+    <div class="header">
+      <div class="header_top_wrap">
+        <div class="header_top">
+          <p class="company_phone">&nbsp;</p>
+          <ul class="header_quick_menu">
+        
+            <li>
+              <a href="login.do">로그인</a>
+            </li>
+            <li>
+              <a href="nomu6201.do">회원가입</a>
+            </li>
+          
+          </ul>
+        </div>
+      </div>
+      <div class="header_bottom_wrap">
+        <div class="header_bottom">
+          <div class="logo_wrap">
+            <h1><a href="/">노무비닷컴</a></h1>
+            <p class="slogun">체불없는 세상을 위한 모두의 한걸음</p>
+          </div>
+          <ul class="gnb">
+            <!-- GNB 페이지 유지시 class명 active붙이기(depth1에서만 적용) -->
+
+            <li class="active">
+              <a href="#">소개</a>
+              <ul class="depth2">
+                <li><a href="nomu1401.do">서비스 소개</a></li>
+                <li><a href="nomu1402.do">서비스 특장점</a></li>
+                <li><a href="nomu1403.do">서비스 이용 프로세스</a></li>
+<!--                 <li><a href="nomu1404.do">서비스 도입 시행절차</a></li> -->
+              </ul>
+            </li>
+            <li>
+              <a href="#">발주기관</a>
+<!--              
+              <ul class="depth2">
+                <li><a href="javascript:view_alert()">현장조회</a></li>
+                <li><a href="javascript:view_alert()">대금지급계획 확인</a></li>
+                <li><a href="javascript:view_alert()">대금지급모니터링</a></li>
+              </ul>
+-->              
+            </li>
+            <li>
+              <a href="#">도입기업</a>
+              <ul class="depth2">
+                <li><a href="javascript:view_alert()">현장관리</a></li>
+                <li><a href="javascript:view_alert()">내역서확인</a></li>
+                <li><a href="javascript:view_alert()">SMS</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">협력기업</a>
+              <ul class="depth2">
+                <li><a href="javascript:view_alert()">현장등록</a></li>
+                <li><a href="javascript:view_alert()">내역서작성</a></li>
+                <li><a href="javascript:view_alert()">대금 지급</a></li>
+              </ul>
+            </li>
+
+            <li id=gnb41>
+            	<a href="#">고객센터</a>
+               <ul class="depth2">
+                 <li><a href="nomu5101.do">공지사항</a></li>
+                 <li><a href="nomu5201.do">소식란</a></li>
+                 <li><a href="nomu5301.do">자료실</a></li>
+                 <li><a href="nomu5501.do">FAQ</a></li>
+                 <li><a href="nomu5401.do">Q&A(1:1문의)</a></li>
+               </ul>
+           	</li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+<div class="sub-visual-title sub01">
+  <div class="inner-contents">
+    <p>서비스 소개</p>
+  </div>
+</div>
+<div class="sub-top-breadcrumb">
+  <div class="inner-contents">
+    <ul>
+      <li>
+        <span>홈</span>
+      </li>
+      <li>소개</li>
+      <li>서비스 소개</li>
+    </ul>
+  </div>
+</div>
+<div class="logout-container">
+  <div class="contents_wrap">
+    <div class="sub-contents bg-introduce">
+      <div class="section">
+        <div class="si-introduce">
+          <p class="si-title">"노무비닷컴" 은</p>
+          <div class="si-line"></div>
+          <p class="si-explanation">
+            국내 최대 금융 인프라그룹인 NICE의 RM(Risk Management) 솔루션과 결합하여,<br>
+            보다 직접적이고 선제적으로 거래처의 체불리스크를 관리할 수 있으며, 이를 통해 사회적 약자를 보호할 수 있는<br>
+            금융기관 연계 시스템입니다.
+          </p>
+        </div>
+      </div>
+      <div class="section full-width">
+        <div class="si-symbol">
+          <div class="inner-contents">
+            <div class="sub-inner-title">Symbol</div>
+            <div class="si-left">
+              <div class="logo_wrap">
+                <img src="/images/sub/si_logo_nicednr.jpg" alt="나이스디앤알 로고">
+              </div>
+              <div class="si-symbol-text">
+                <p class="title">
+                  <span class="first_bg"></span>
+                  <span class="text">NICE디앤알의 Primary Identifier는</span>
+                  <span class="last_bg"></span>
+                </p>
+                <p class="text">
+                  <span>
+                    <strong>National Information & Credit Evaluation, Inc</strong>의 어두 문자와 데이터의 합성어로 Corperate Identity의 장점을 살리고 데이터의 활용이라는 사업목적을 부각시키고자 하는 의미입니다.<br><br>
+                  </span>
+                  NICE디앤알의 Symbol Mark에서 배경이 되는 Square Shape는 신용과 신뢰의 장인 현대사회를 나타내며 디자인상으로는 모던하고 정돈된 느낌을 줍니다. 또 중앙에 그래픽 모티브로 사용된 이미지는 신용사회의 '빛'이라는 의미와 고객의 가치를 plus(+) 시킨다는 뜻을 함축하며, 전체 Primary Identifier에 악센트로 작용하여 시선을 집중시키고 이미지를 결집시키는 역할을 합니다.<br>
+                  NICE디앤알의 우측 심벌의 plus(+)는 고객의 가치뿐만 아니라 기업과 고객이 필요로하는 모든 정보(데이터)를 함께 Plus(+) 하여 데이터 인프라를 구축하고자 하는 콘셉트를 뜻하고 있습니다.
+                </p>
+              </div>
+            </div>
+            <div class="si-right">
+              <div class="logo_wrap">
+                <img src="/images/sub/si_logo_nomubi.jpg" alt="노무비 로고">
+              </div>
+              <div class="si-symbol-text">
+                <p class="title">
+                  <span class="first_bg"></span>
+                  <span class="text">노무비닷컴의 Primary Identifier는</span>
+                  <span class="last_bg"></span>
+                </p>
+                <p class="text">
+                  <span>
+                    노무비닷컴 BI에서 사용된 푸른 계열의 색상을 통해 <strong>신뢰, 신용을 의미하며 심플하면서 깔끔한 심미적 효과</strong>를 추구합니다.<br><br><br>
+                  </span>
+                  또한, 시스템 이름에서 국문과 영문을 함께 나타냄을 통해 노무비닷컴의 인지도와 더불어 웹 서비스 기반의 시스템 접속 주소를 직관적으로 인지할 수 있도록 하였습니다. 시스템 이름 좌측에 있는 심벌을 통해 노무비닷컴을 통해 안전하게 대금거래가 이루어짐을 기하학적으로 표현하였으며 하단의 도형은 안전, 신용을 상징하며, 상단의 도형은 희망, 활력을 상징하였습니다. 이를 통해 노무비닷컴 시스템의 지향점인 신용있는 거래를 통해 최약자의 권익을 보호하겠다는 의지를 표현하고 있습니다.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="si-needs">
+          <div class="sub-inner-title">NEEDs</div>
+          <p class="si-notice_text">
+            건설업, 제조업, 서비스업 등으로 대표되는 수주산업의 경우, 계약단계에 따라 대금이 집행.<br>
+            하위 사업자를 비롯, 최종 수급 대상인 근로자 및 영세업자에게 대금 지급 사고 리스크 증가
+          </p>
+          <div class="si-needs-risk-chart">
+            <ol>
+              <li>원사업체</li>
+              <li>1차협력기업</li>
+              <li>2차협력기업</li>
+              <li>근로자 영세사업자</li>
+            </ol>
+            <p class="si-needs-risk-caption">위험도</p>
+          </div>
+        </div>
+      </div>
+      <div class="section full-width">
+        <div class="si-situations">
+          <div class="inner-contents">
+            <div class="sub-inner-title">Situations</div>
+            <p class="si-notice_text">
+              2016년 체불임금은 약 <strong>1조 4,286억원</strong>, 체불 근로자수는 약 <strong>32만 여명</strong> (고용노동부, 2016)<br>
+              임금 체불 규모는 지속적으로 상승하는 추세로 사회적으로 심각한 문제로 대두
+            </p>
+            <div class="si-left">
+              <img src="/images/sub/si-situations-chart1.jpg" alt="연도별 임금체불 현황">
+            </div>
+            <div class="si-right">
+              <img src="/images/sub/si-situations-chart2.jpg" alt="연도별 임금체불 근로자수">
+            </div>
+            <div class="si-clear">
+              <p class="si-situations-chart-text">「고용노동부 "연도별 임금체불 현황", 2017」</p>
+            </div>
+            <div class="si-situations-notice">
+              <p>범국가적 문제로 부상된 임금체불은 정부 주요 정책 현안 중 하나로 부각</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="si-situations last">
+          <div class="si-situations-notice-text">
+            <dl>
+              <dt>[고용노동부, 2017 업무계획]</dt>
+              <dd class="middle">근로조건 침해에 대한 감독 및 제재 강화 예정 - 원청 귀책사유로 인한 임금지급 연대책임 엄격 적용(3년 이하 징역 또는 2천 만원 이하 벌금)</dd>
+              <dt>[국토교통부, 2017 업무계획]</dt>
+              <dd>
+                대금체불 근절을 위해 대금관리시스템 운용 실태조사 및 평가 통해 정착 유도 및 체불업체 처분기준 강화<br>
+                <span>*대금관리시스템 : 상위업체가 하위업체에 지급해야 할 대금을 유용하지 못하도록 인출제한 된 시스템</span>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <div class="si-slogan">
+          <p>
+            <span>체</span><span>불</span><span>없</span><span>는</span> 세상을 위한 모두의 한 걸음
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="footer_wrap sub_tamplate no_margin">
+  <div class="footer">
+    <div class="family_site_wrap">
+      <div class="family_site_service">
+        <select name="familySite" id="familySite" onchange="if(this.value) window.open(this.value);">
+          <option value="" selected>FAMILY SITE</option>
+          <option value="http://www.nicednr.co.kr">NICE디앤알</option>
+          <option value="http://www.nice.co.kr">NICE홀딩스</option>
+          <option value="http://www.nicednb.com">NICE디앤비</option>
+          <option value="http://www.niceinfo.co.kr">NICE평가정보</option>
+          <option value="http://www.nicerating.com">NICE신용평가</option>
+          <option value="http://www.nicevan.co.kr">NICE정보통신</option>
+          <option value="http://www.kisvan.co.kr">KIS정보통신</option>
+          <option value="http://www.nicetcm.co.kr">한국전자금융</option>
+        </select>
+      </div>
+      <div class="family_site_service">
+        <select name="familyService" id="familyService" onchange="if(this.value) window.open(this.value);">
+          <option value="" selected>FAMILY SERVICE</option>
+          <option value="http://www.nicewinc.co.kr">동반성장지원 서비스</option>
+          <option value="http://www.nicedocu.com">전자계약/입찰 서비스</option>
+          <option value="http://www.nicesoho.co.kr">소상공인지원 서비스</option>
+          <option value="http://www.g2brating.co.kr">공공입찰 기업신용평가</option>
+          <option value="http://clipq.co.kr">협력업체 기업신용평가</option>
+          <option value="http://biz.ntcb.co.kr">기술 신용평가 서비스</option>
+          <option value="http://www.creport.co.kr">기업정보 서비스</option>
+          <option value="http://global.nicednb.com">글로벌 서비스</option>
+        </select>
+      </div>
+    </div>
+    <ul class="footer_menu">
+      <li>
+        <a href="nomu7201.do">이용약관</a>
+      </li>
+      <li>
+        <a href="nomu7301.do">개인정보처리방침</a>
+      </li>
+      <li>
+        <a href="nomu7401.do">이메일무단수집거부</a>
+      </li>
+    </ul>
+    <ul class="address">
+      <li>서울특별시 서대문구 충정로 36 NICE디앤알(주)</li>
+      <li>대표자 : 강용구</li>
+      <li>TEL : 1670-1970</li>
+      <li>FAX : 02-6442-2383</li>
+    </ul>
+    <ul class="address">
+    	<li>사업자등록번호 : 107-87-08207</li>
+    	<li>통신판매업 신고번호 : 제2012-서울구로-1033호</li>
+    </ul>
+    <p class="copyright">copyrightⓒ NICE Data&Research, Inc All Rights Reserved.</p>
+  </div>
+</div>
+
+
+</body>
+</html>

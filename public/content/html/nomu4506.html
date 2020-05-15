@@ -1,0 +1,349 @@
+
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+<head>
+<title>협력기업</title>
+<meta http-equiv='Content-Type' content='text/html; charset=euc-kr'>
+
+<link rel='stylesheet' href=css/style.css type='text/css' />
+<link rel='stylesheet' href=css/jquery-ui-1.8.22.custom.css type='text/css' />
+<link rel='stylesheet' href=css/default.css type='text/css' />
+<link rel='stylesheet' href=css/default_add.css type='text/css' />
+
+<script language='javascript' charset='euc-kr' src=js/jquery-1.7.1.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery.alphanumeric.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomu.js></script>
+<script language='javascript' charset='euc-kr' src=mlrpt/mlrpt.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/javascript.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery-ui-1.8.22.custom.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomuAction.js></script>
+<script language='javascript' charset='euc-kr' src=js/smartPop.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomuCal.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomua.js></script>
+<script language='javascript' charset='euc-kr' src=js/floating.js></script>
+<script language='javascript' charset='euc-kr' src=https://web.nicepay.co.kr/flex/js/nicepay_tr.js></script>
+<script language='javascript'>
+NicePayUpdate();	//Active-x Control 초기화
+// nicepay를 통해 결제를 시작합니다.
+function nicepay() { 
+	var payForm	= document.payForm;
+	if(payForm.PayMethod.value=='') {
+		alert('결제수단을 선택하여 주시기 바랍니다.');
+		return;
+	}
+	if(payForm.rpt_type.value=='') {
+		alert('보고서종류를 선택하여 주시기 바랍니다.');
+		return;
+	}
+	var pass = true;
+	$('#chk_div').find("input[type=checkbox]").each(function(index, item) { if(!item.checked) pass = false; });
+	if(pass) {
+		goPay(payForm);
+	} else {
+		alert('유의사항을 모두 체크하여 주시기 바랍니다.');
+	}
+}
+//	결제를 취소 할때 호출됩니다.
+function nicepayClose() {
+	alert("결제가 취소 되었습니다");
+//	nicepaySubmit();
+}
+function nicepaySubmit() {
+	$.ajax({type:"post", url: "/nomuMnu.do", data:$("#frm1").serialize(), dataType:"json",
+		success : function(data) { 
+			alert(data.ret);
+			parent.location.reload();
+		},
+		error : function(request,error) { alert('처리중 에러가 발생하였습니다.'); }
+	});
+}
+function chkPayType(sel) {
+	document.payForm.PayMethod.value = sel;
+}
+function chgAmt() {
+	var v_amt = 0;
+	if($("[name=recep_cmp]").val()=='3') { // GS건설
+		if($("[name=selType2]:checked").val()=='1') {
+			v_amt = 165000;
+			v_amt_o = "<del>660,000</del> → 165,000";
+		} else if($("[name=selType2]:checked").val()=='2') {
+			v_amt = 330000;
+			v_amt_o = "<del>1,320,000</del> → 330,000";
+		}
+	} else if($("[name=recep_cmp]").val()=='21') { // 동원건설
+		if($("[name=selType2]:checked").val()=='1') {
+			v_amt = 33000;
+			v_amt_o = "<del>55,000</del> → 33,000";
+		} else if($("[name=selType2]:checked").val()=='2') {
+			v_amt = 66000;
+			v_amt_o = "<del>110,000</del> → 66,000";
+		}
+	} else {
+		if($("[name=selType2]:checked").val()=='1') {
+			v_amt = 55000;
+			v_amt_o = "55,000";
+		} else if($("[name=selType2]:checked").val()=='2') {
+			v_amt = 110000;
+			v_amt_o = "110,000";
+		}
+	}
+	if(v_amt==0) return;
+	$.ajax({type:"get", url: "/nomuMnu.do", data:"sdo=하도_체불제로md&Amt="+v_amt, dataType:"json",
+		success : function(data) {
+			$("#EdiDate").val(data.ediDate);
+			$("#hash_String").val(data.hash_String);
+			$("#pg_sum").text(data.pg_sum);
+//			$("#amt").text(addComma("" + v_amt));
+			$("#amt").html(v_amt_o);
+			document.all.Amt.value = v_amt;
+			document.all.rpt_type.value = $("[name=selType2]:checked").val();
+		},
+		error : function(request,error) { alert('처리중 에러가 발생하였습니다.'); }
+	});
+}
+
+function chgRptType(val) {
+	var v_amt = 0;
+	if(val=='1') {
+//		v_amt = 33000;
+//		v_amt_o = "<del>55,000</del> → 33,000";
+		v_amt = 55000;
+		v_amt_o = "55,000";
+	} else {
+//		v_amt = 66000;
+//		v_amt_o = "<del>110,000</del> → 66,000";
+		v_amt = 110000;
+		v_amt_o = "110,000";
+	}
+	$.ajax({type:"get", url: "/nomuMnu.do", data:"sdo=하도_체불제로md&Amt="+v_amt, dataType:"json",
+		success : function(data) {
+			$("#EdiDate").val(data.ediDate);
+			$("#hash_String").val(data.hash_String);
+			$("#pg_sum").text(data.pg_sum);
+//			$("#amt").text(addComma("" + v_amt));
+			$("#amt").html(v_amt_o);
+			document.all.Amt.value = v_amt;
+			document.all.rpt_type.value = val;
+		},
+		error : function(request,error) { alert('처리중 에러가 발생하였습니다.'); }
+	});
+}
+</script>
+
+</head>
+<body>
+
+<div class="user_menu1_wrap lpa-wrap">
+  <div class="lp-zero">
+    <div class="zero-header">
+      <p>노무비닷컴 체불제로 확인서 발급신청</p>
+      <div class="logo">
+        <img src="/images/common/lp_logo.gif" alt="나이스디앤알">
+      </div>
+    </div>
+    <div class="zero-contents">
+<form name="payForm" id=frm1 method="post" onSubmit="return false;">
+<input type=hidden name=sdo value="하도_체불제로결제">
+<input type=hidden name=Amt value='0'>
+<input type=hidden name=rpt_type value=''>
+      <table width="100%">
+        <col width="20%;">
+        <col width="20%;">
+        <col width="60%;">
+        <tbody>
+          <tr>
+            <th rowspan="4" scope="row">신청정보</th>
+            <th class="bg-not">담당자명</th>
+            <td>
+              <input type="text" name=v1 value="문형민">
+            </td>
+          </tr>
+          <tr>
+            <th class="bg-not">연락처</th>
+            <td>
+              <div class="phone"><input type="text" name=v2 value="010"></div>
+              <div class="phone-text">-</div>
+              <div class="phone"><input type="text" name=v3 value="4626"></div>
+              <div class="phone-text">-</div>
+              <div class="phone"><input type="text" name=v4 value="2511"></div>
+            </td>
+          </tr>
+          <tr>
+            <th class="bg-not">이메일주소</th>
+            <td>
+              <div class="mail"><input type="text" name=v6 value="jhjang"></div>
+              <div class="mail-text">@</div>
+              <div class="mail2"><input type="text" name=v7 value="nicednr.co.kr"></div>
+<!--              
+              <div class="mail-select">
+                <select id="select1">
+                  <option value="1">직접입력</option>
+                  <option value="2">naver.com</option>
+                  <option value="3">daum.net</option>
+                  <option value="4">nate.com</option>
+                  <option value="5">gmail.com</option>
+                  <option value="6">hotmail.com</option>
+                  <option value="7">hanmail.net</option>
+                </select>
+              </div>
+-->
+            </td>
+          </tr>
+          <tr>
+            <th class="bg-not">제출처명</th>
+            <td>
+              <select name=recep_cmp id="select2" onchange="javascript:chgAmt()">
+
+                <option value="3">GS건설(104-81-18121)</option>
+
+                <option value="21">동원건설산업(129-86-78894)</option>
+
+                <option value="1">나이스디앤비(107-86-24874)</option>
+
+                <option value="4">HDC현대산업개발(334-86-00815)</option>
+
+                <option value="5">SK건설(101-81-34928)</option>
+
+                <option value="6">고려개발(106-81-44682)</option>
+
+                <option value="7">대림산업(116-81-35007)</option>
+
+                <option value="8">대우건설(104-81-58180)</option>
+
+                <option value="9">롯데건설(114-81-16377)</option>
+
+                <option value="10">삼성물산(468-85-00111)</option>
+
+                <option value="11">삼호(102-81-34561)</option>
+
+                <option value="12">신세계건설(201-81-44158)</option>
+
+                <option value="13">포스코건설(506-81-02280)</option>
+
+                <option value="14">한화건설(104-81-73406)</option>
+
+                <option value="15">현대건설(101-81-16293)</option>
+
+                <option value="16">현대엔지니어링(101-81-66755)</option>
+
+                <option value="17">호반건설(417-81-12848)</option>
+
+                <option value="18">효성중공업(702-85-00762)</option>
+
+                <option value="19">두산중공업(609-81-04684)</option>
+
+                <option value="20">우미건설(409-81-31276)</option>
+
+                <option value="22">일성건설(105-81-29640)</option>
+
+              </select>
+              <p class="sub-text">
+                선택한 제출처명은 확인서에 명기 되오니, 정확하게 선택하여<br>주시기 바랍니다.<br><br>
+                원하시는 제출처가 존재하지 않을 경우, 노무비닷컴 운영팀<br>김남류 대리(02-788-9083, nrkim@nicednr.co.kr) 에게<br>문의하여 주시기 바랍니다.
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">결제수단</th>
+            <td colspan="2">
+              <ul class="radio-select">
+                <li>
+                  <label>
+                    <input type="radio" name="selType1" value="CARD" onClick="javascript:chkPayType('CARD');" id="radio1_0"> 신용카드
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input type="radio" name="selType1" value="BANK" onClick="javascript:chkPayType('BANK');" id="radio1_1"> 계좌이체
+                  </label>
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">보고서종류</th>
+            <td colspan="2">
+              <ul class="radio-select">
+                <li>
+                  <label>
+<!--                     <input type="radio" name="selType2" value="1" id="radio2_0" onclick="javascript:chgRptType('1')"> 일반(D+5영업일) -->
+                    <input type="radio" name="selType2" value="1" id="radio2_0" onclick="javascript:chgAmt()"> 일반(D+5영업일)
+                  </label>
+                </li>
+                <li>
+                  <label>
+<!--                     <input type="radio" name="selType2" value="2" id="radio2_1" onclick="javascript:chgRptType('2')"> 급행(D+2영업일) -->
+                    <input type="radio" name="selType2" value="2" id="radio2_1" onclick="javascript:chgAmt()"> 급행(D+2영업일)
+                  </label>
+                </li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">결제금액</th>
+            <td colspan="2"><span id=amt>0</span> 원 (VAT포함)</td>
+          </tr>
+          <tr>
+            <th scope="row">유의사항</th>
+            <td colspan="2">
+              <ul class="notice-list" id=chk_div>
+                <li class="sub-text"><input type=checkbox name=chk>노무비닷컴 내  미지급정보 존재 시 Level7 등급이 부여 됩니다.</li>
+                <li><input type=checkbox name=chk>연체정보(금융권연체, 세금체납, 법정관리 등) 존재 시 발급이 불가 합니다</li>
+                <li><input type=checkbox name=chk>발급예정일자 및 확인서 상 명기되는 제출처, 레벨은 수정이 불가 합니다.</li>
+                <li><input type=checkbox name=chk>확인서 발급완료 이후 수수료결제 취소는 불가 합니다.</li>
+                <li><input type=checkbox name=chk>노무비닷컴 운영팀은 선택하신 제출처로부터 요청이 접수될 경우, 본 확인서 및 데이터를 해당 제출처에 자동 전송합니다.</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+<input name="MID" type="hidden" value="nomubi002m"/><!-- 상점아이디 -->
+<input name="GoodsName" type="hidden" value="노무비닷컴 체불제로수수료 결제"/>
+<input name="GoodsCnt" type="hidden" value="1" />
+<input name="BuyerName" type="hidden" value="(주)나이스토건"/> <!-- 구매자명 -->
+<input name="BuyerEmail" type="hidden" value="jhjang@nicednr.co.kr"/> <!-- 구매자 이메일 -->
+<input name="BuyerTel" type="hidden" value="02-2122-2356"/> <!-- 구매자 전화번호 -->
+<input name="Moid" type="hidden" value="999999"/> <!-- 상품주문번호 -->
+<input name="SkinType" type="hidden" value="blue"/> <!-- 스킨 타입 -->
+<input name="RcptType" type="hidden" value="0"/> <!-- 현금영수증발행안함 -->
+<!-- <input type="hidden" name="Period" value="BILL"> -->
+<!-- Mall Parameters -->
+<input type="hidden" name="PayMethod" value="">
+<input type="hidden" name="ParentEmail" value=""> <!-- 주소 -->
+<input type="hidden" name="BuyerAddr" value=""> <!-- 우편 번호 -->
+<input type="hidden" name="BuyerPostNo" value="">
+<input type="hidden" name="UserIP" value="192.168.10.54">
+<input type="hidden" name="MallIP" value="172.16.10.19">
+
+<input type="hidden" name="TransType" value="0"> <!-- 결제 타입 0:일반, 1:에스크로 -->
+<input type="hidden" name="OptionList" value=""> <!-- 결제 옵션  -->
+<input type="hidden" name="VbankExpDate" value="20200512"> <!-- 가상계좌 입금예정 만료일  -->
+<input type="hidden" name="MallUserID" value=""> <!-- 구매자 고객 ID -->
+<input type="hidden" name="SUB_ID" value=""> <!-- 서브몰 아이디 -->
+<input type="hidden" name="GoodsCl" value=""> <!-- 휴대폰 실물/컨텐츠 구분 -->
+<input type="hidden" name="EncodeParameters" value="CardNo,CardExpire,CardPwd"/> <!-- 암호화 항목 -->
+
+<!-- 변경 불가 -->
+<input type="hidden" id="EdiDate" name="EdiDate" value="20200511162804">
+<input type="hidden" id="hash_String" name="EncryptData" value="NjBhMTAwNDYzY2JiMzZmNTMwNmVmMzczYTRjYjA0YTE=" >
+<input type="hidden" name="SocketYN" value="Y">
+<input type="hidden" name="TrKey" value="">
+</form>
+    </div>
+    <div class="zero-footer">
+      <ul>
+        <li>
+          <input type="button" value="다음단계로" onclick="nicepay()">
+        </li>
+        <li>
+          <input type="button" value="닫기" class="close" onclick="parent.$.fancybox.close();">
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

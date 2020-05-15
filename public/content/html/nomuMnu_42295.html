@@ -1,0 +1,143 @@
+<html>
+    <head>
+<title>협력기업</title>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<link rel="stylesheet" href="css/jquery-ui-1.8.22.custom.css" type="text/css">
+
+
+<script language="javascript" charset="euc-kr" src="js/jquery-1.7.1.min.js"></script>
+<script language="javascript" charset="euc-kr" src="js/jquery.alphanumeric.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomu.js"></script>
+<script language="javascript" charset="euc-kr" src="mlrpt/mlrpt.js"></script>
+<script language="javascript" charset="euc-kr" src="js/jquery.min.js"></script>
+<script language="javascript" charset="euc-kr" src="js/javascript.js"></script>
+<script language="javascript" charset="euc-kr" src="js/jquery-ui-1.8.22.custom.min.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomuAction.js"></script>
+<script language="javascript" charset="euc-kr" src="js/smartPop.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomuCal.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomua.js"></script>
+<script language="javascript" charset="euc-kr" src="js/floating.js"></script>
+
+<script language="javascript">$().ready(function() {
+    
+});
+
+function confirm_bill() {
+
+    var pass = confirm_cb.checked && confirm_cb1.checked;
+
+
+var cont_no = '';
+var ac_sub = '';
+
+    if(pass) {
+        parent.ifrm_work.location.href = 'nomuMnu.do?sdo=하도_청구내역서청구&or_cd=19271&or_com_cd=87990&bill_month=202003&seq=0'+ac_sub+cont_no;
+        parent.smartPopClose();
+    } else
+        alert('확인 체크박스에 체크하여 주시기 바랍니다.');
+}
+</script>
+
+</head>
+<body>
+
+    <div class="tableTop">
+        <div class="tcenter">
+    <!--
+            <p class="pop_txt nu">청구내역 확인</p>
+    -->
+            <p>		
+                <img src="images/txt/txt_title14.gif" alt="청구내역확인">
+            </p>
+        </div>
+    </div>
+    <br>
+    <div class="BorderTb">
+        <table summary="현장관리" class="Type1" border="1" cellspacing="0">
+            <caption>현장관리</caption>
+            <colgroup>
+                <col width="120">
+                <col width="*">
+            </colgroup>
+            <thead>
+            <tr>
+                <th scope="col">해당월</th>
+                <th scope="col">구분</th>
+                <th scope="col">청구총액(원)</th>
+                <th scope="col">공제총액(원)</th>
+                <th scope="col">지급예정총액(원)</th>
+                <th scope="col">구분별 비율</th>
+                <th scope="col">이체약속일</th>
+            </tr>
+            </thead>
+            <tbody>
+            
+            <tr>
+                <td bgcolor="#ffffe0">2020/03</td>
+                <td bgcolor="#ffffe0">노무비</td>
+                <td>8</td>
+                <td>0</td>
+                <td>8</td>
+                <td class="bg_red1">30 %</td>
+                <td>2020-04-30</td>
+            </tr>
+            
+            <tr>
+                <td bgcolor="#ffffe0">2020/03</td>
+                <td bgcolor="#ffffe0">장비비</td>
+                <td>10</td>
+                <td>0</td>
+                <td>10</td>
+                <td class="bg_red1">37 %</td>
+                <td>2020-04-23</td>
+            </tr>
+            
+            <tr>
+                <td bgcolor="#ffffe0">2020/03</td>
+                <td bgcolor="#ffffe0">기타 기성</td>
+                <td>9</td>
+                <td>0</td>
+                <td>9</td>
+                <td class="bg_red1">33 %</td>
+                <td>2020-04-30</td>
+            </tr>
+            
+            <tr>
+                <td colspan="2">합계</td>
+                <td style="font-weight:bold;color:red">27</td>
+                <td style="font-weight:bold;color:red">0</td>
+                <td style="font-weight:bold;color:red">27</td>
+                <td></td>
+                <td>-</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="padding-top:10px;line-height:17px;" id="chk_div">
+        <ul style="padding-bottom:10px;">
+            <li><input type="checkbox" name="confirm_cb"> 본 청구내역은 사실과 다름 없음을 확인합니다.</li>
+            <li><br><input type="checkbox" name="confirm_cb1"> 본 지급예정내역서의 제출에 대한 <b>나이스디앤알</b>의 확인은 지급예정내역서에
+    따라 해당 월 하도급 기성대금을 집행한다는 것에 대한 확인을 의미할 뿐, 추후 <b>나이스디앤알</b>(이/가) 해당 월 지급예정내역과 같은 금액으로 공사금액을
+    증액시켜주거나 채무인수를 한다는 의미를 가지지 않고 있음을 확인합니다(공사대금의 증액 또는 감액은 <b>나이스디앤알</b>(과/와) 당사가 체결한 하도급계약조건에 따름)</li>
+            <li style="color:red;font-weight:bold;"><br>※ 생년월일 및 사업자번호는 2020년 1월 1일부 필수입력사항으로 적용 예정입니다.</li>
+        </ul>
+    
+    </div>
+    <div class="btnArea" style="clear:both; padding-bottom:30px;">
+        <div class="bCenter">
+            <ul>
+                <li>
+                    <input type="button" onclick="javascript:confirm_bill();" class="moveBtn pointer" alt="확인">
+                    <input type="button" onclick="parent.smartPopClose()" class="closeBtn pointer" alt="취소">
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    
+    
+
+</body>
+</html>

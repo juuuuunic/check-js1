@@ -1,0 +1,126 @@
+<html>
+<head>
+<title>노무비_협력기업: 내역서확인(4201>해당월별조회하기>청구/지급내역총괄현황>청구내역서>청구서보기)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<link rel="stylesheet" href="css/jquery-ui-1.8.22.custom.css" type="text/css">
+
+
+<script language="javascript" charset="euc-kr" src="js/jquery-1.7.1.min.js"></script>
+<script language="javascript" charset="euc-kr" src="js/jquery.alphanumeric.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomu.js"></script>
+<script language="javascript" charset="euc-kr" src="mlrpt/mlrpt.js"></script>
+<script language="javascript" charset="euc-kr" src="js/jquery.min.js"></script>
+<script language="javascript" charset="euc-kr" src="js/javascript.js"></script>
+<script language="javascript" charset="euc-kr" src="js/jquery-ui-1.8.22.custom.min.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomuAction.js"></script>
+<script language="javascript" charset="euc-kr" src="js/smartPop.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomuCal.js"></script>
+<script language="javascript" charset="euc-kr" src="js/nomua.js"></script>
+<script language="javascript" charset="euc-kr" src="js/floating.js"></script>
+
+<script language="javascript">
+var add_seq = 1;
+function add_file() {
+    tro = $("#insFile span:last").clone(true);
+    add_seq++;
+    tro.find("input[type=file]").attr("name", "att_file"+add_seq);
+    tro.appendTo("#insFile");
+    parent.parent.smartPopResize(document.body.clientHeight);
+}
+function file_save(){
+    var frm = document.frm1;
+    frm.action = "/nomuMnu.do";
+    frm.sdo.value = "공통_첨부파일저장"; 
+    frm.target = "ifrm_work";
+    frm.submit();
+    div_disable();
+}
+function file_down(sub) {
+    div_disable();
+    ifrm_work.location.href = "nomuWork.do?sdo=공통_파일다운로드&id_typ=1002&seq=&sub="+sub;
+    window.setTimeout(function() { div_enable(); }, 5000);
+}
+function del_file(sub) {
+    div_disable();
+    ifrm_work.location.href = "nomuMnu.do?sdo=공통_첨부파일저장&fseq=&del="+sub;
+}
+function div_disable() {
+    $("#div_dis1").attr("disabled", true);
+    $("#div_dis1 a").attr("disabled", true);
+    $("#div_dis2 input").attr("disabled", true);
+}
+function div_enable() {
+    $("#div_dis1").removeAttr("disabled");
+    $("#div_dis1 a").removeAttr("disabled");
+    $("#div_dis2 input").removeAttr("disabled");
+}
+</script>
+
+</head>
+<body>
+    
+    <div class="tableTop">
+        <div class="tcenter">
+        
+            <p><img src="images/txt/txt_title10.gif" alt="첨부파일"></p>
+            
+        </div>
+    </div>
+    <form id="form" name="frm1" method="post" onsubmit="return false;" enctype="multipart/form-data">
+    <input type="hidden" name="or_no" value="19271">
+    <input type="hidden" name="bill_month" value="202003">
+    <input type="hidden" name="bill_or_com_cd" value="87990">
+    <input type="hidden" name="seq" value="0">
+    <input type="hidden" name="fseq" value="">
+    <input type="hidden" name="typ" value="">
+    <input type="hidden" name="sdo">
+    <div class="BorderTb" id="div_dis1">
+        <table summary="파일업로드" class="Type1" border="1" cellspacing="0" id="insList">
+        <caption>파일업로드</caption>
+        <colgroup>
+            <col width="*">
+        </colgroup>
+    
+        <tbody><tr>
+    
+            <td id="insFile">
+    
+            <span>
+                <input type="file" name="att_file1" class="Popup_200" value="">
+    <!--			
+                <input type="button" class="pointer" onclick="javascript:add_file();" value="파일추가">
+    -->
+                <a href="javascript:add_file();">파일추가</a>
+            </span>
+            </td>
+    
+        </tr>
+        </tbody></table>
+    </div>
+    <br>
+    </form>
+    
+    <!--
+    <span class="red_txt" style="padding-left:25px">양식업로드 시 기존 데이터는 삭제되고, 업로드된 데이터만 저장됩니다.</span>
+    -->
+    <!-- 버튼영역 시작 -->
+    <div class="btnArea" id="div_dis2">
+        <div class="pCenter">
+            <ul>
+                <li>
+    
+                    <input type="button" class="saveBtn pointer" onclick="javascript:file_save();" alt="저장">
+                    
+                    <input type="button" class="closeBtn pointer" onclick="javascript:parent.smartPopClose();" alt="취소">
+                    
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div style="height:20px;clear:both"></div>
+    <!-- //버튼영역 끝 -->
+    <iframe id="ifrm_work" name="ifrm_work" border="0" width="0" height="0"></iframe>    
+</body>
+</html>

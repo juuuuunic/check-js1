@@ -1,0 +1,42 @@
+html {
+    color: #2b323f;
+    background: #FFF;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    font-family: "Noto Sans Korean";
+    color: #5f5f5f; 
+    line-height: 1;
+    box-sizing: border-box; }
+    html *,
+    html *::before,
+    html *::after {
+      -webkit-box-sizing: inherit;
+      -moz-box-sizing: inherit;
+      box-sizing: inherit; }
+  th {
+    font-style: normal;
+    font-weight: normal; }
+  div,
+  li,
+  ol,
+  th,
+  td {
+    line-height: 1;
+    font-size: 13px; }
+  body {
+    font-family: "Noto Sans Korean";
+    color: #5f5f5f; }
+  
+  select, input[type="text"], input[type="file"], input[type="password"] {
+    font-family: "Noto Sans Korean";
+    border: 1px solid #c4c5c9;
+    background: #fff;
+    color: #333;
+    height: 34px;
+  //  line-height: 34px;
+    padding-left: 10px;
+    width: 100%; }
+  
+  input[type="button"] {
+    font-family: "Noto Sans Korean";
+    color: #5f5f5f; }

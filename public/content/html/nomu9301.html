@@ -1,0 +1,1138 @@
+
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+<head>
+<title>노무비_도입기업: 9301(로그인 후)</title>
+<meta http-equiv='Content-Type' content='text/html; charset=euc-kr'>
+
+<link rel='stylesheet' href=css/default.css type='text/css' />
+<link rel='stylesheet' href=css/default_add.css type='text/css' />
+<link rel='stylesheet' href=css/libs/jquery.bxslider.css type='text/css' />
+<link rel='stylesheet' href=css/smartPop.css type='text/css' />
+<link rel='stylesheet' href= type='text/css' />
+<style>
+
+.quick_size1{width:94px;height:auto;border:3px solid #61adde;box-sizing:content-box; }
+.quick_size{}
+
+
+.footer select {
+  border: 1px solid #c4c5c9;
+  background: #fff;
+  color: #333;
+  height: 34px;
+  line-height: 34px;
+  padding-left: 10px;
+  width: 100%; 
+}
+.footer select, .footer option {
+  font-family: "Noto Sans Korean";
+  color: #5f5f5f;
+}
+</style>
+<script language='javascript' charset='euc-kr' src=js/jquery-1.7.1.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/libs/jquery.easing.1.3.js></script>
+<script language='javascript' charset='euc-kr' src=js/common.js></script>
+<script language='javascript' charset='euc-kr' src=js/libs/jquery.placeholder.js></script>
+<script language='javascript' charset='euc-kr' src=js/floating.js></script>
+<script language='javascript' charset='euc-kr' src=js/smartPop.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomua.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomu.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery-ui-1.8.22.custom.min.js></script>
+<script language='javascript' charset='euc-kr' src=http://www.gstatic.com/charts/loader.js></script>
+<script language='javascript' charset='euc-kr' src=js/common_add.js></script>
+<script language='javascript'>
+
+var setAccTimeOut = null;
+var accTime = 3601;
+$().ready(function() {
+	
+	setAccTimeOut = window.setInterval(runAccTimeOut, 1000);
+	
+	accTime = 3601;
+	$(".gnb li").each(function(i){
+      $(this).removeClass("active");
+	});
+	
+});
+function runAccTimeOut() {
+	accTime--;
+	if(accTime==0) {
+		$("#acc_time").html("0:00");
+//		alert('입력시간 초과입니다.');
+		window.clearTimeout(setAccTimeOut);
+		self.location = "/logout.do?fr=login.do";
+	} else {
+		mm = Math.floor(accTime / 60);
+		ss = accTime % 60;
+		mmss = mm + ":"+(ss<10?"0":"")+ss;
+		$("#acc_time").html(mmss);
+	}
+}
+function resetAcc() {
+	accTime = 3601;
+}
+
+function view_alert() {
+	alert('로그인후 이용가능합니다.');
+}
+
+
+function moveDetl() {
+	var posLeft = event.x + document.documentElement.scrollLeft - 40;
+	if(posLeft>$(window).width()-230) posLeft = $(window).width()-230; 
+	helpbox.style.posLeft = posLeft;
+
+	helpbox.style.posTop  = event.y + 18;
+
+}
+function viewDetl_krcon(nm1, tel1, hp1, email1, nm2, tel2, hp2, email2) {
+	helpbox.innerHTML = "<table width=210 border=0 cellpadding=0 cellspacing=0><colgroup><col width=1><col width=*><col width=2></colgroup><tr><td height=1 colspan=3 bgcolor=#a6b4c1></td></tr><tr><td bgcolor=#a6b4c1></td>"+
+		"<td bgcolor=#FFFFFF style='padding-top:4px;padding-left:4px;'>"+
+		"1차승인권자<br>담당자명 : "+nm1+"<br>전화번호 : "+tel1+"<br>email : "+email1+"<br><br>"+
+		"2차승인권자<br>담당자명 : "+nm2+"<br>전화번호 : "+tel2+"<br>email : "+email2+
+		"</td><td bgcolor=#a6b4c1></td></tr><tr><td height=2 colspan=3 bgcolor=#a6b4c1></td></tr></table>";
+}
+function viewDetl_hdec(nm1, tel1, hp1, email1, nm2, tel2, hp2, email2, nm3, tel3, hp3, email3) {
+	helpbox.innerHTML = "<table width=210 border=0 cellpadding=0 cellspacing=0><colgroup><col width=1><col width=*><col width=2></colgroup><tr><td height=1 colspan=3 bgcolor=#a6b4c1></td></tr><tr><td bgcolor=#a6b4c1></td>"+
+		"<td bgcolor=#FFFFFF style='padding-top:4px;padding-left:4px;'>"+
+		"1차승인권자<br>담당자명 : "+nm1+"<br>전화번호 : "+tel1+"<br>email : "+email1+"<br><br>"+
+		"2차승인권자<br>담당자명 : "+nm2+"<br>전화번호 : "+tel2+"<br>email : "+email2+"<br><br>"+
+		"최종승인권자<br>담당자명 : "+nm3+"<br>전화번호 : "+tel3+"<br>email : "+email3+
+		"</td><td bgcolor=#a6b4c1></td></tr><tr><td height=2 colspan=3 bgcolor=#a6b4c1></td></tr></table>";
+}
+function viewDetl_hec(nm1, tel1, email1, nm2, tel2, email2) {
+	helpbox.innerHTML = "<table width=210 border=0 cellpadding=0 cellspacing=0><colgroup><col width=1><col width=*><col width=2></colgroup><tr><td height=1 colspan=3 bgcolor=#a6b4c1></td></tr><tr><td bgcolor=#a6b4c1></td>"+
+		"<td bgcolor=#FFFFFF style='padding-top:4px;padding-left:4px;'>"+
+		"1차승인권자<br>"+nm1+"<br>전화번호 : "+tel1+"<br>email : "+email1+"<br><br>"+
+		"2차승인권자<br>"+nm2+"<br>전화번호 : "+tel2+"<br>email : "+email2+
+		"</td><td bgcolor=#a6b4c1></td></tr><tr><td height=2 colspan=3 bgcolor=#a6b4c1></td></tr></table>";
+}
+function viewDetl(tel, email) {
+	helpbox.innerHTML = "<table width=210 border=0 cellpadding=0 cellspacing=0><colgroup><col width=1><col width=*><col width=2></colgroup><tr><td height=1 colspan=3 bgcolor=#a6b4c1></td></tr><tr><td bgcolor=#a6b4c1></td>"+
+		"<td bgcolor=#FFFFFF style='padding-top:4px;padding-left:4px;'>전화번호 : "+tel+"<br>email : "+email+"</td>"+
+		"<td bgcolor=#a6b4c1></td></tr><tr><td height=2 colspan=3 bgcolor=#a6b4c1></td></tr></table>";
+}
+function viewDetl_cs_n(tel) {
+	if(tel=='') return;
+	w = 108;
+	var html = "<table width="+w+" border=0 cellpadding=0 cellspacing=0><colgroup><col width=1><col width=*><col width=2></colgroup><tr><td height=1 colspan=3 bgcolor=#a6b4c1></td></tr><tr><td bgcolor=#a6b4c1></td>"+
+		"<td bgcolor=#FFFFFF style='padding-top:4px;padding-left:4px;'>"+tel;
+	html = html+"</td><td bgcolor=#a6b4c1></td></tr><tr><td height=2 colspan=3 bgcolor=#a6b4c1></td></tr></table>";
+	helpbox.innerHTML = html;
+}
+function viewDetl_cs(tel1, tel2, tel3) {
+	if(tel1.length>12)
+		w = 180
+	else
+		w = 150
+	var html = "<table width="+w+" border=0 cellpadding=0 cellspacing=0><colgroup><col width=1><col width=*><col width=2></colgroup><tr><td height=1 colspan=3 bgcolor=#a6b4c1></td></tr><tr><td bgcolor=#a6b4c1></td>"+
+		"<td bgcolor=#FFFFFF>전화번호1 : "+tel1;
+	if(tel2!="")
+		html = html	+"<br>전화번호2 : "+tel2;
+	if(tel3!="")
+		html = html	+"<br>전화번호3 : "+tel3;
+	html = html+"</td><td bgcolor=#a6b4c1></td></tr><tr><td height=2 colspan=3 bgcolor=#a6b4c1></td></tr></table>";
+	helpbox.innerHTML = html;
+}
+function viewDetls(str) {
+	helpbox.innerHTML = "<table width=210 border=0 cellpadding=0 cellspacing=0><colgroup><col width=1><col width=*><col width=2></colgroup><tr><td height=1 colspan=3 bgcolor=#a6b4c1></td></tr><tr><td bgcolor=#a6b4c1></td>"+
+		"<td bgcolor=#FFFFFF>"+str+"</td>"+
+		"<td bgcolor=#a6b4c1></td></tr><tr><td height=2 colspan=3 bgcolor=#a6b4c1></td></tr></table>";
+}
+function hideDetl() {
+	helpbox.innerHTML = "";
+}
+
+
+$().ready(function() {
+	
+	todo_lst.style.display = "";
+	new Floating(document.getElementById("todo_lst"), -100, 210, 20, 10);
+	
+});
+function toggle_body() {
+	if(todo_body.style.display=="") 
+		todo_body.style.display = "none";
+	else
+		todo_body.style.display = "";
+}
+function close_body() {
+	if(confirm('재로그인 전 까지 To do List 를 삭제 하시겠습니까?')) {
+		$.ajax({type:"get", url: "/nomuMnu.do", data:"sdo=원도_TODO", dataType:"json",
+			success : function(data) {},
+			//error : function(request,error) { alert('처리중 에러가 발생하였습니다.'); }
+		});
+	}
+	todo_lst.style.display = "none";
+}
+function todo_0() {
+	if(confirm('공사참여를 승인해 주시면, 협력업체는 청구내역서를 작성할수 있습니다. 공사참여 승인을 위해 "현장관리" 메뉴로 이동하시겠습니까?')) {
+		self.location.href = "nomu3101.do";
+	}
+}
+function todo_1() {
+//	if(confirm('현재 협력업체로부터 수신한 청구내역서 중 확인하지 않은 건이 존재합니다. "내역서 확인" 메뉴로 이동하시겠습니까?')) {
+		
+			self.location = "nomu3709.do";
+//			self.location = "nomu3200.do?page_type=hasu";
+		
+//	}
+}
+function todo_2_sms() {
+	if(confirm('협력업체에게 노무비를 지급한 직후 협력업체가 고용한 근로자들에게 문자메시지를 발송하여, 곧 임금이 지급될 예정임을 알릴 수 있습니다. "SMS" 메뉴로 이동하시겠습니까?')) {
+		self.location = "nomu3401.do";
+	}
+}
+function todo_2() {
+//	if(confirm('협력업체에게 노무비를 지급한 직후 협력업체가 고용한 근로자들에게 문자메시지를 발송하여, 곧 임금이 지급될 예정임을 알릴 수 있습니다. "SMS" 메뉴로 이동하시겠습니까?')) {
+		self.location = "nomu3702.do";
+//	}
+}
+function todo_3() {
+	self.location = "/nomuMnu.do?sdo=원도_모니터링";
+}
+function todo_5() {
+	self.location = "/nomuMain.do?sdo=원도_결제내역_m&stl_flag=1";
+}
+function todo_6() {
+//	self.location = "nomuMnu.do?sdo=원도_모니터링&mtyp=premium";
+//	self.location = "nomu3701.do?mtyp=premium";
+
+	alert('서비스 예정입니다.');
+	
+}
+$().ready(function() {
+    $('.todo_close_btn').click(function(){
+      close_body();
+    });
+});
+
+
+
+var p_year = 2020;
+var p_month = 4;
+
+var malert_o = [
+	'',
+	'노무비닷컴 이용 수수료가 결제되지 않았습니다.\n결제 진행 부탁드립니다.',
+	'노무비닷컴 이용 수수료가 결제되지 않았습니다.\n장기 미결제 시, 내역서 승인 기능이 제한될 수 있습니다.',
+	'노무비닷컴 이용 수수료가 장기 미결제 되어,\n내역서 승인 기능이 제한되었습니다.\n이용 수수료 결제 후 내역서 승인이 가능하며,\n관련하여 노무비닷컴 운영팀으로 문의주시기 바랍니다.\nTel. 1670-1970',
+];
+var malert = [
+	'',
+	'(안내) 이용 수수료 결제 안내\n노무비닷컴을 정상적으로 이용하시어,\n이용 수수료 결제 안내 드립니다\n문의 : 1670-1970(노무비닷컴 운영팀)',
+	'(공지) 이용 수수료 결제 안내\n노무비닷컴을 정상적으로 이용하셨으나,\n아직 이용 수수료가 결제되지 않아 안내 드립니다.\n이용 수수료 장기 미결제 시, 내역서 승인기능이 제한될 수 있습니다.\n문의 : 1670-1970(노무비닷컴 운영팀)',
+	'(긴급) 수수료 결제 안내\n노무비닷컴 이용 수수료가 결제되지 않아,\n내역서 승인기능이 제한되었습니다.\n우측상단 결제 내역에서 수수료 결제 후 재로그인 시,\n정상적으로 노무비닷컴을 이용하실 수 있습니다.\n문의 : 1670-1970(노무비닷컴 운영팀)'
+];
+$(document).ready(function(){
+	viewMonth($('#month').val());
+// searchList();
+	$('#pre_m').click(function (event){ p_month--; if(p_month==0) { p_month=12; p_year--; } $('.pd_date').text(p_year); $('#pym').text(p_year+'.'+p_month); viewMonth(); });
+	$('#next_m').click(function (event){ p_month++; if(p_month==13) { p_month=1; p_year++; } $('.pd_date').text(p_year); $('#pym').text(p_year+'.'+p_month); viewMonth(); });
+	$('.pd_inner .pre').click(function (event){ p_year--;  $('.pd_date').text(p_year); $('#pym').text(p_year+'.'+p_month); viewMonth(); });
+	$('.pd_inner .next').click(function (event){ p_year++;  $('.pd_date').text(p_year); $('#pym').text(p_year+'.'+p_month); viewMonth(); });
+	$('.date_popup_contents ol li').click(function(){
+		p_month = eval($(this).attr("mon"));
+		$('#pym').text(p_year+'.'+p_month);
+		$('.date_popup').hide();
+		viewMonth();  
+	});
+
+
+//	popup_open('/popup/20180702/pop01.html', 'p20180702_01', '635', '595', '0');
+
+
+	google.charts.load('current', {'packages':['corechart']});
+	google.charts.setOnLoadCallback(drawChart);
+	//ifrm1_go(); // 협력기업 신용위험 모니터링 지표
+	//ifrm2_go(1); // 미지급 실시간 모니터링
+
+});   
+function setCookie(name, value, expire) {;
+// document.cookie = name + "=" + escape(value) + "; expires=" + expire.toGMTString( );
+	document.cookie = name + "=" + escape(value) + ";";
+}
+function searchList(pg) {
+	if(pg==null) pg = '';
+	$.ajax({type:"get", url: '/nomuMnu.do?sdo=원도_모니터링메인&curPage='+pg, dataType:'json',
+	
+		success : function(data) { $('#t_body').html(data.t_body); $('#d_page').html(data.d_page); },
+		//error : function(request,error) { alert('처리중 에러가 발생하였습니다.'); }
+	});
+}
+function viewMonth() {
+	month = p_year*100+p_month; 
+	$.ajax({type:"get", url: '/nomuMnu.do?bill_month='+month+'&sdo=원도_메인총괄현황', dataType:'json',
+		beforeSend : function() { $(".table_loading").css("display", ""); },
+		complete : function() { $(".table_loading").css("display", "none"); },
+		success : function(data) {
+$('#billCnt').html(data.cnt[0]);
+$('#hadoCnt').html(data.cnt[1]);
+			$('#nomuCnt').html(data.cnt[2]);
+			$('#billSum').html(data.cnt[3]);
+			$('#paySum').html(data.cnt[4]);
+			try {
+				ctData3[0][1] = data.ac_typ[0];  			
+				ctData3[1][1] = data.ac_typ[1];  			
+				ctData3[2][1] = data.ac_typ[2];  			
+				ctData3[3][1] = data.ac_typ[3];  			
+				ctData3[0][2] = "노무비\n"+data.ac_typ1[0]+"백만원 ("+data.ac_typ2[0]+" %)";  			
+				ctData3[1][2] = "장비비\n"+data.ac_typ1[1]+"백만원 ("+data.ac_typ2[1]+" %)";  			
+				ctData3[2][2] = "자재비\n"+data.ac_typ1[2]+"백만원 ("+data.ac_typ2[2]+" %)";  			
+				ctData3[3][2] = "기타기성\n"+data.ac_typ1[3]+"백만원 ("+data.ac_typ2[3]+" %)";  			
+
+				chart3(ctData3);
+//				chart1(data.chart1);
+//				chart2(data.chart2);
+//				chart4(data.chart4);
+			} catch(e) {}
+//			viewDetail(0);
+		},
+		//error : function(request,error) { alert('처리중 에러가 발생하였습니다.'); }
+	});
+}
+function viewMonitor(or_cd){
+	$.smartPop.open({ width:650, height:620, url: 'nomu3704.do?or_cd='+or_cd});
+}
+function go(obj, sub) {
+	var tr_obj = $(obj).parent().parent();
+	var param = tr_obj.find('input[name=url]').val();
+	var t_url;
+	if(sub==0) 
+		t_url = '/nomu3201.do?';
+	else {
+		t_url = '/nomu3703.do?sub='+sub+'&';
+	}
+	self.location.href = t_url+param;
+}
+function more() {
+	$(".login_tab li").each(function(i){
+		if($(this).hasClass("active"))
+			location.href = $(this).attr("href");
+	});
+}
+var ctData1 = [ // 현장수
+
+  ['2019.05', 4],
+  ['2019.06', 3],
+  ['2019.07', 1],
+  ['2019.08', 0],
+  ['2019.09', 0],
+  ['2019.10', 0],
+  ['2019.11', 3],
+  ['2019.12', 2],
+  ['2020.01', 0],
+  ['2020.02', 2],
+  ['2020.03', 1],
+  ['2020.04', 1]
+
+];
+var ctData2 = [// 평균지급기일
+  ['2019.05', , '2019.05\n귀사:일', 15.3, '2019.05\n전체:15.3일'],
+  ['2019.06', 4.00, '2019.06\n귀사:4.00일', 16.1, '2019.06\n전체:16.1일'],
+  ['2019.07', 161.00, '2019.07\n귀사:161.00일', 17.2, '2019.07\n전체:17.2일'],
+  ['2019.08', , '2019.08\n귀사:일', 18.0, '2019.08\n전체:18.0일'],
+  ['2019.09', , '2019.09\n귀사:일', 19.0, '2019.09\n전체:19.0일'],
+  ['2019.10', , '2019.10\n귀사:일', 12.3, '2019.10\n전체:12.3일'],
+  ['2019.11', 33.86, '2019.11\n귀사:33.86일', 11.5, '2019.11\n전체:11.5일'],
+  ['2019.12', 7.70, '2019.12\n귀사:7.70일', 11.4, '2019.12\n전체:11.4일'],
+  ['2020.01', , '2020.01\n귀사:일', 12.3, '2020.01\n전체:12.3일'],
+  ['2020.02', , '2020.02\n귀사:일', 11.3, '2020.02\n전체:11.3일'],
+  ['2020.03', , '2020.03\n귀사:일', 13.2, '2020.03\n전체:13.2일'],
+  ['2020.04', , '2020.04\n귀사:일', 14.3, '2020.04\n전체:14.3일']
+];
+var ctData3 = [
+  ['노무비',30.4,''],
+  ['장비비',10.3,''],
+  ['자재비',10.2,''],
+  ['기타기성',10.1,''],
+
+];
+var ctData4 = [ // 지급액
+  ['2019.05', 0],
+  ['2019.06', 0],
+  ['2019.07', 0],
+  ['2019.08', 0],
+  ['2019.09', 0],
+  ['2019.10', 0],
+  ['2019.11', 0],
+  ['2019.12', 0],
+  ['2020.01', 0],
+  ['2020.02', 0],
+  ['2020.03', 0],
+  ['2020.04', 0]
+];
+function drawChart() {
+	chart1(ctData1);
+	chart2(ctData2);
+	chart3(ctData3);
+	chart4(ctData4);
+}
+function chart1(ctData) {
+  // Create the data table.
+  var data = new google.visualization.DataTable();
+  data.addColumn('string', '청구년월');
+
+//  data.addColumn('number', '누적현장수');
+  data.addColumn('number', '이용현장수');
+
+  data.addRows(ctData);
+
+  var options = {
+	 seriesType: 'line',
+	 legend:'none',
+	 width:480, height:380,
+//	 chartArea:{left:100,top:20,width:'50%',height:'90%'}
+	 chartArea:{left:60,top:30,width:'66%',height:'80%'}
+  };
+
+  var chart = new google.visualization.LineChart(document.getElementById('chart1'));
+  chart.draw(data, options);
+}   
+function chart2(ctData) {
+  // Create the data table.
+  var data = new google.visualization.DataTable();
+  data.addColumn('string', '청구년월');
+  data.addColumn('number', '귀사');
+  data.addColumn({type:'string', role:'tooltip'});
+  data.addColumn('number', '전체');
+  data.addColumn({type:'string', role:'tooltip'});
+  data.addRows(ctData);
+
+  var options = {
+	 seriesType: 'line',
+	 legend:'none',
+	 width:480, height:336,
+	 chartArea:{left:60,top:30,width:'66%',height:'80%'}
+  };
+
+  var chart = new google.visualization.LineChart(document.getElementById('chart2'));
+  chart.draw(data, options);
+}   
+function chart3_() {
+  var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Work',     11],
+          ['Eat',      2],
+          ['Commute',  2],
+          ['Watch TV', 2],
+          ['Sleep',    7]
+  ]);
+
+  var options = {
+     title: 'My Daily Activities'
+  };
+
+  var chart = new google.visualization.PieChart(document.getElementById('chart3'));
+  chart.draw(data, options);
+}
+function chart3(ctData) {
+  // Create the data table.
+  var data = new google.visualization.DataTable();
+  data.addColumn('string', '기성구분');
+  data.addColumn('number', '비율');
+  data.addColumn({type:'string', role:'tooltip'});
+  data.addRows(ctData);
+
+  var options = {
+//	 seriesType: 'pie',
+	 legend:'none',
+//	 sliceVisibilityThreshold: .2,
+	 width:480, height:380,
+//	 chartArea : {backgroundColor:'blue'}
+//	 pieSliceText : 'value'
+//	Slices:{{},{},{},{}}
+//	 pieSliceText:'none',
+  };
+
+  var chart = new google.visualization.PieChart(document.getElementById('chart3'));
+  chart.draw(data, options);
+}   
+function drawChart3x() {
+  // Create the data table.
+  var data = new google.visualization.DataTable();
+  data.addColumn('string', '기성구분');
+  data.addColumn('number', '비율');
+  data.addRows([
+//	 ['기성구분', '비율'],
+    ['노무비',30.4],
+    ['장비비',10.3],
+    ['자재비',10.2],
+    ['기타기성',10.1],
+  ]);
+
+  var options = {
+//	 seriesType: 'pie',
+	 legend:'none',
+//	 sliceVisibilityThreshold: .2,
+	 width:480, height:380,
+//	 chartArea : {backgroundColor:'blue'}
+//	 pieSliceText : 'value'
+//	Slices:{{},{},{},{}}
+//	 pieSliceText:'none',
+  };
+
+  var chart = new google.visualization.PieChart(document.getElementById('chart3x'));
+  chart.draw(data, options);
+}   
+function chart4(ctData) {
+  // Create the data table.
+  var data = new google.visualization.DataTable();
+  data.addColumn('string', 'Topping');
+  data.addColumn('number', '지급금액');
+  data.addRows(ctData);
+
+  var options = {
+	 legend:'none',
+	 width:480, height:380,
+	 chartArea:{left:60,top:30,width:'66%',height:'80%'}
+  };
+  var chart = new google.visualization.ColumnChart(document.getElementById('chart4'));
+  chart.draw(data, options);
+}   
+function view_grd(grd) {
+/*
+	$.smartPop.open({ width:600, height:320, url: 'http://interface.nicedata.co.kr/ndaIfc.do?sdo=노무_기업등급&target=http://www.nomubi.com&first_com=0&grd='+grd});
+	
+*/
+//	$.smartPop.open({ width:560, height:320, url: '/nomuMnu.do?sdo=원도_모니터링현장&com_cd=1'});
+	$.smartPop.open({ width:600, height:320, url: 'http://interface.nicedata.co.kr/ndaIfc.do?sdo=노무_기업등급&target=http://www.nomubi.com&first_com=107-87-08207&grd='+grd});
+	
+}
+function view_ord(com_cd) {
+	$.smartPop.open({ width:560, height:320, url: '/nomuMnu.do?sdo=원도_모니터링현장&com_cd='+com_cd});
+}
+function view_remain(com_cd) {
+	$.smartPop.open({ width:600, height:320, url: '/nomuMnu.do?sdo=원도_모니터링미지급&com_cd='+com_cd});
+}
+function popResize(p_height) {
+//	alert('aaa');
+	smartPopResize(p_height);
+}
+function openDetail_s2() {
+	var openwin = window.open('http://www.creport.co.kr/popup/pop_grade.jsp', 'creditWin','width=740,height=542'); 
+	openwin.focus();
+}
+function ifrm1_go() {
+	$.ajax({type:"get", url: "/nomuMnu.do", data:"sdo=nomuNda&job=등급분포&popen=true", dataType:"text",
+		success : function(data) { 
+			frm = document.ifrm_frm1;
+			frm.target = "ifrm1";
+			frm.jval.value = data;
+			frm.target.value = "http://www.nomubi.com";
+			frm.action = "http://interface.nicedata.co.kr/ndaIfc.do";
+			frm.submit();
+		},
+		//error : function(request,error) { alert('처리중 에러가 발생하였습니다.'); }
+	});
+}
+function ifrm2_go(pg) {
+	$.ajax({
+        type:"get",
+        url: "/nomuMnu.do", 
+        data:"sdo=nomuNda&job=모니터링&popen=true&curPage="+pg, 
+        dataType:"text",
+		success : function(data) { 
+			frm = document.ifrm_frm2;
+			frm.target = "ifrm2";
+			frm.jval.value = data;
+			frm.target.value = "http://www.nomubi.com";
+			frm.action = "http://interface.nicedata.co.kr/ndaIfc.do";
+			frm.submit();
+		},
+		//error : function(request,error) { alert('처리중 에러가 발생하였습니다.'); }
+	});
+}
+</script>
+
+</head>
+<body>
+
+<prnoff>
+    <div class="wrap login">
+
+        <div class="header">
+        <div class="header_top_wrap">
+            <div class="header_top">
+            <p class="company_phone">나이스디앤알 (107-87-08207)</p>
+            <ul class="header_quick_menu">
+            
+                <li class="time_color" id="acc_time">
+                60:00
+                </li>
+                <li class="time_color">
+                <a href="javascript:resetAcc()">연장</a>
+                </li>
+                <li>
+                <a href="logout.do">로그아웃</a>
+                </li>
+                <li>
+
+                <a href="nomu6401.do">기업정보수정</a>
+
+                </li>
+                <li><a href="/nomuMain.do?sdo=원도_결제내역_m"><img src="images/common/blink_text1.gif" alt="결제내역"></a></li>          
+            </ul>
+            </div>
+        </div>
+        <div class="header_bottom_wrap">
+            <div class="header_bottom">
+            <div class="logo_wrap">
+                <h1><a href="/">노무비닷컴</a></h1>
+                <p class="slogun">체불없는 세상을 위한 모두의 한걸음</p>
+            </div>
+            <ul class="gnb">
+                <!-- GNB 페이지 유지시 class명 active붙이기(depth1에서만 적용) -->
+                
+                <li id=gnb21 class="active"><a href="nomu3101.do">현장관리</a></li>
+                <li id=gnb22><a href="nomu3201.do">내역서확인</a></li>
+                <li id=gnb23><a href="nomu3401.do">SMS</a></li>
+
+            </ul>
+            </div>
+        </div>
+        </div>
+
+        <div id="warp" style='padding-top:30px'>
+            <div id="content">	
+            
+                <div id="helpbox" style="position:absolute; left:0px; top:0px; width:300px; height:0px; border-width:0px; z-index:1;"></div>
+
+                <div id='todo_lst' class="quick_size" style="position:absolute;z-index:1;left:1000px;top:210px;display:none;">
+                <!--div style='position:absolute;top:0px;width:12px;height:12px;right:-1px;' -->
+                    <div class="to-do-list">
+                        <div class="title">
+                        <p>To Do List</p>
+                        <div class="todo_close_btn"></div>
+                        </div>
+                        <ul>
+                        <li>
+                            <a href="javascript:todo_0()">
+                            <div class="todo-inner-left">
+                                <p>공사참여<br>미승인</p>
+                            </div>
+                            <div class="todo-inner-right">
+                                1
+                            </div>
+                            </a>
+                        </li>
+                        <li class="accent">
+                            <a href="javascript:todo_1()">
+                            <div class="todo-inner-left">
+                                <p>내역서<br>미승인</p>
+                            </div>
+                            <div class="todo-inner-right">
+                                9
+                            </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:todo_3()">
+                            <div class="todo-inner-left">
+                                <p>미지급<br>실시간<br>모니터링</p>
+                            </div>
+                            <div class="todo-inner-right">
+                                29
+                            </div>
+                            </a>
+                        </li>
+                        <li class="accent">
+                            <a href="javascript:todo_5()">
+                            <div class="todo-inner-left">
+                                <p>노무비닷컴<br>이용수수료<br>미결제현황</p>
+                            </div>
+                            <div class="todo-inner-right">
+                                3
+                            </div>
+                            </a>
+                        </li>
+
+                        </ul>
+                    </div>
+                <!-- /div -->      
+                </div>      
+
+                <div class="wrap login">
+                    <div class="login-container">
+                    <div class="contents_wrap">
+                        <div class="contents">
+                            <div class="colum_wrap">
+                                <div class="colum_left">
+                                    <p class="colum_title">이용 상세 현황</p>
+                                    <div class="date_wrap">
+                                        <div class="date_inner">
+                                            <div class="arrow pre" id=pre_m></div>
+                                            <div class="date" id=pym>
+                                                2020.4
+                                            </div>
+                                            <div class="arrow next" id=next_m></div>
+                                        </div>
+                                        <div class="date_popup">
+                                        <div class="date_popup_header">
+                                            <div class="date_close_btn">닫기</div>
+                                            <div class="out_arrow"></div>
+                                            <div class="pd_wrap">
+                                                <div class="pd_inner">
+                                                    <div class="pd_arrow pre"></div>
+                                                    <div class="pd_date">2017</div>
+                                                    <div class="pd_arrow next"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="date_popup_contents">
+                                            <ol>
+                                                <li mon=1 class="active"><span>01월</span></li>
+                                                <li mon=2><span>02월</span></li>
+                                                <li mon=3><span>03월</span></li>
+                                                <li mon=4 class="lr"><span>04월</span></li>
+                                                <li mon=5><span>05월</span></li>
+                                                <li mon=6><span>06월</span></li>
+                                                <li mon=7><span>07월</span></li>
+                                                <li mon=8 class="lr"><span>08월</span></li>
+                                                <li mon=9 class="lb"><span>09월</span></li>
+                                                <li mon=10 class="lb"><span>10월</span></li>
+                                                <li mon=11 class="lb"><span>11월</span></li>
+                                                <li mon=12 class="lb lr"><span>12월</span></li>
+                                            </ol>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="table_wrap2">
+                                        <div class="table_loading" style="display:none;">
+                                            <div class="inner_contents">
+                                                <div class="loading">
+                                                    <img src="images/main/table_loading.gif" alt="loading">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <table class="nomubi_base_table2" summary="이용 상세 현황이 청구내역서, 협력기업수, 지급예정액, 지급총액 순으로 되어있다.">
+                                            <caption>이용 상세 현황</caption>
+                                            <col width="20%;">
+                                            <col width="20%;">
+                                            <col width="20%;">
+                                            <col width="20%;">
+                                            <col width="20%;">
+                                            <thead>
+                                                <tr>
+
+                                                <th scope="col">이용현장수<span>(현장수)</span></th>
+
+                                                <th scope="col">협력기업수<span>(업체)</span></th>
+                                                <th scope="col">지급보호건수<span>(업체수)</span></th>
+                                                <th scope="col">지급예정액<span>(백만원)</span></th>
+                                                <th scope="col">지급총액<span>(백만원)</span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                <td id=billCnt>0</td>
+                                                <td id=hadoCnt>0</td>
+                                                <td id=nomuCnt>0</td>
+                                                <td id=billSum>0</td>
+                                                <td id=paySum>0</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="chart_tab_wrap">
+                                        <div class="chart_tab_header">
+                                            <ul class="chart_tab">
+                                                <li class="active">
+                                                    <span>이용 상세 현황</span>
+                                                </li>
+                                                <li>
+                                                    <span>지급소요일 추이</span>
+                                                </li>
+                                                <li>
+                                                    <span>기성종류별 지급현황</span>
+                                                </li>
+                                                <li>
+                                                    <span>지급금액</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                        <!--                
+                                        <div class="chart_tab_contents">
+                                            <div class="chart_tab_cont" id=chart1>
+                                                <p class="sample_text">chart1</p>
+                                            </div>
+                                            <div class="chart_tab_cont" id=chart2>
+                                                <p class="sample_text">chart2</p>
+                                            </div>
+                                            <div class="chart_tab_cont" id=chart3>
+                                                <p class="sample_text">chart3</p>
+                                            </div>
+                                            <div class="chart_tab_cont" id=chart4>
+                                                <p class="sample_text">chart4</p>
+                                            </div>
+                                        </div>
+                        -->                
+                                        <div class="chart_tab_contents">
+                                        <div class="chart_tab_cont">
+                                            <div class="chart_legend">
+                                                <ul>
+
+                            <!--
+                                                    <li>
+                                                    <div class="cl_icon icon1"></div>
+                                                    <div class="text">누적현장수</div>
+                                                    </li>
+                            -->                        
+                                                    <li>
+                                                        <div class="cl_icon icon1"></div>
+                                                        <div class="text">이용현장수</div>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                            <div id=chart1></div>
+                                        </div>
+                                        <div class="chart_tab_cont">
+                                            <div class="chart_legend">
+                                                <ul>
+                                                    <li>
+                                                        <div class="cl_icon icon1"></div>
+                                                        <div class="text">귀사평균</div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="cl_icon icon2"></div>
+                                                        <div class="text">전체평균</div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div style="width:380px;color:red;padding-top:8px;padding-left:30px;line-height:16px;font-size:10px;">* 지급소요일은 협력기업이 근로자에게 노임을 지급하기까지 걸린 총 소요일자 평균</div>
+                                            <div id=chart2></div>
+                                        </div>
+                                        <div class="chart_tab_cont">
+                                            <div class="chart_legend">
+                                                <ul style="width:84px">
+                                                    <li>
+                                                        <div class="cl_icon icon3"></div>
+                                                        <div class="text">노무비</div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="cl_icon icon4"></div>
+                                                        <div class="text">장비비</div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="cl_icon icon5"></div>
+                                                        <div class="text">자재비</div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="cl_icon icon6"></div>
+                                                        <div class="text">기타기성</div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div id=chart3></div>
+                                        </div>
+                                        <div class="chart_tab_cont">
+                                            <div class="chart_legend">
+                                            <ul>
+                                                <li>
+                                                <div class="cl_icon icon3"></div>
+                                                <div class="text">지급금액<br>(백만원)</div>
+                                                </li>
+                                            </ul>
+                                            </div>
+                                            <div id=chart4></div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="colum_right">
+                                    <p class="colum_title">미지급 실시간 모니터링</p>
+                                    <div class="monitoring_icon">
+                                        <ul class="paid_wrap">
+                                        <li>정상지급</li>
+                                        <li>미지급</li>
+                                        </ul>
+                                        <div class="btn_wrap">
+                                        <a href="nomu9303.do"><img src="images/img/full_view.gif" alt="전체보기"></a>
+                                        </div>
+                                    </div>
+                                    <div class="iframe_wrap">
+                                        <iframe name="ifrm2" style="height:624px" src="nomuMnu_93012.html"></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contents_wrap full_width_bg">
+                        <div class="contents">
+                        <div class="colum_wrap">
+                            <div class="colum_left">
+                            <div class="tab_wrap">
+                                <div class="tab_header">
+                                <ul class="login_tab">
+                                    <li class="active" href="nomu5101.do">공지사항</li>
+                                    <li href="nomu5201.do">소식란</li>
+                                    <li href="nomu5301.do">자료실</li>
+                                    <li href="nomu5501.do">FAQ</li>
+                                </ul>
+                                <div class="more">
+                                    <a href="javascript:more()">더보기</a>
+                                </div>
+                                </div>
+                                <div class="tab_contents">
+                                <div class="login_tab_cont">
+                                    <ul class="tab_contents_list notice">
+
+                                <li>
+                                    <a href="/nomu5102.do?no_no=2748">
+                                    <p class="title">(공지) 웹 페이지 메시지 차단 해제 방법</p>
+                                    <p class="date">2019-07-24</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/nomu5102.do?no_no=2648">
+                                    <p class="title">(공지) 인터넷 익스플로러 업데이트 매뉴얼</p>
+                                    <p class="date">2019-05-21</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/nomu5102.do?no_no=2293">
+                                    <p class="title">(공지) 체불제로확인서 발급 서비스 오픈</p>
+                                    <p class="date">2018-07-03</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/nomu5102.do?no_no=2128">
+                                    <p class="title">(중요) 「건설업자간 상호협력에 관한 권장사항 및 평가기준」개정고시 공 ...</p>
+                                    <p class="date">2018-05-02</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/nomu5102.do?no_no=2028">
+                                    <p class="title">(협력기업) 이체운영수수료 인하 프로모션 적용 안내</p>
+                                    <p class="date">2018-02-27</p>
+                                    </a>
+                                </li>
+                                
+                                    </ul>
+                                </div>
+                                <div class="login_tab_cont">
+                                    <ul class="tab_contents_list notice">
+
+                                <li>
+                                    <a href="/nomu5202.do?ne_no=2928">
+                                    <p class="title">국토부 "임금체불 없애고 건설안전 높인다"</p>
+                                    <p class="date">2020-01-13</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/nomu5202.do?ne_no=2588">
+                                    <p class="title">[정책 인터뷰] 국토부 이성해 건설정책국장 "글로벌 경쟁력 선진화 정책 추 ...</p>
+                                    <p class="date">2019-04-12</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/nomu5202.do?ne_no=2308">
+                                    <p class="title">건설기계보증 "더 간편하게 해제"</p>
+                                    <p class="date">2018-08-24</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/nomu5202.do?ne_no=2208">
+                                    <p class="title">내년 상호협력평가 ‘대금지급시스템’ 쓰면 최대 3점 가점</p>
+                                    <p class="date">2018-05-23</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/nomu5202.do?ne_no=1690">
+                                    <p class="title">건설노동자들 "건설 민생법안 입법하라"</p>
+                                    <p class="date">2017-09-22</p>
+                                    </a>
+                                </li>
+                                
+                                    </ul>
+                                </div>
+                                <div class="login_tab_cont">
+                                    <ul class="tab_contents_list notice">
+
+                                <li>
+                                    <a href="/nomu5302.do?da_no=2568">
+                                    <p class="title">계약예규 전문(시행 2019.1.1.) - 기획재정부</p>
+                                    <p class="date">2019-03-27</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/nomu5302.do?da_no=2134">
+                                    <p class="title">건설업자간 상호협력에 관한 권장사항 및 평가기준(개정 2018.3.14., 시행  ...</p>
+                                    <p class="date">2018-05-03</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/nomu5302.do?da_no=40">
+                                    <p class="title">건설근로자의 고용개선 등에 관한 법률 개정안 입법예고(2012.09.03) - 고 ...</p>
+                                    <p class="date">2013-02-04</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/nomu5302.do?da_no=39">
+                                    <p class="title">지방자치단체입찰 및 계약집행기준(예규 제437호)(2012.12.24) - 행정안전 ...</p>
+                                    <p class="date">2013-02-04</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/nomu5302.do?da_no=38">
+                                    <p class="title">공사근로자 노무비 구분관리 및 지급확인제 실무요령(안)(2012.05.23) - 행 ...</p>
+                                    <p class="date">2013-02-04</p>
+                                    </a>
+                                </li>
+                                
+                                    </ul>
+                                </div>
+                                <div class="login_tab_cont">
+                                    <ul class="tab_contents_list notice">
+
+                                <li>
+                                    <a href="/nomu55010.do?mu_no=212">
+                                    <p class="title">2. 전용계좌 개설 및 등록절차는 어떻게 되나요?</p>
+                                    <p class="date">2017-10-19</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/nomu55010.do?mu_no=211">
+                                    <p class="title">3. 현장등록 및 관리 절차는 어떻게 되나요?</p>
+                                    <p class="date">2017-10-19</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/nomu55010.do?mu_no=210">
+                                    <p class="title">4. 내역서 작성 및 승인 절차는 어떻게 되나요?</p>
+                                    <p class="date">2017-10-19</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/nomu55010.do?mu_no=209">
+                                    <p class="title">5. 대금지급 절차는 어떻게 되나요?</p>
+                                    <p class="date">2017-10-19</p>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/nomu55010.do?mu_no=208">
+                                    <p class="title">6. 미지급 내역서 관리미지급 모니터링 절차는 어떻게 되나요?</p>
+                                    <p class="date">2017-10-19</p>
+                                    </a>
+                                </li>
+                                
+                                    </ul>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="colum_right">
+                            <p class="title">협력기업 신용위험 모니터링 지표<a href="javascript:openDetail_s2()" class="btn">지표정의</a></p>
+                            <div class="iframe_wrap">
+                                <iframe name="ifrm1" allowTransparency="true" src="nomuMnu_93011.html"></iframe>
+                            </div>
+                <!--              
+                            <p class="iframe_comment_text">국내 최대 금융인프라기업인 NICE에 집적된 신용정보(재무, 금융연체, 세금체납, 법정관리 등)를 바탕으로 자동으로 산출된 협력기업 신용위험 모니터링 지표 입니다. <span style="color:red;text-decoration:underline;">본 지표는 수집되는 신용정보에 따라 수시 변동되며, 평가기관, 평가방법에 따라 상이할 수 있습니다.</span></p>
+                -->
+                            <p class="iframe_comment_text">
+                                "신용지표"는 국내 최대 금융인프라기업인 NICE에 집적된 신용정보(재무, 금융연체, 세금체납, 법정관리 등)를 바탕으로 자동으로 산출된 협력기업 신용위험 모니터링 지표입니다. <br>
+                                본 지표는 수집되는 <strong>신용정보에 따라 수시 변동</strong>되며, <strong>평가기관 및 평가방법에 따라 상이</strong>할 수 있습니다.
+                            </p>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>    
+                <form name="ifrm_frm1" method="post" onSubmit="return false;">
+                <input type=hidden name=sdo value='노무_등급분포n'>
+                <input type=hidden name=target>
+                <input type=hidden name=jval>
+                </form>
+                <form name="ifrm_frm2" method="post" onSubmit="return false;">
+
+                <input type=hidden name=sdo value='노무_모니터링'>
+                <input type=hidden name=target>
+                <input type=hidden name=jval>
+                </form>
+                <iframe class="autoHeight_" name="cross_ifrm" frameborder="0" width="0" height="0"></iframe>
+
+            </div>
+        </div>
+
+        <div id="content_work"></div>
+        <iframe id="ifrm_work" name="ifrm_work" border=0 width=0 height=0></iframe>
+    </div>
+
+    <div class="footer_wrap sub_tamplate ">
+    <div class="footer">
+        <div class="family_site_wrap">
+        <div class="family_site_service">
+            <select name="familySite" id="familySite" onchange="if(this.value) window.open(this.value);">
+            <option value="" selected>FAMILY SITE</option>
+            <option value="http://www.nicednr.co.kr">NICE디앤알</option>
+            <option value="http://www.nice.co.kr">NICE홀딩스</option>
+            <option value="http://www.nicednb.com">NICE디앤비</option>
+            <option value="http://www.niceinfo.co.kr">NICE평가정보</option>
+            <option value="http://www.nicerating.com">NICE신용평가</option>
+            <option value="http://www.nicevan.co.kr">NICE정보통신</option>
+            <option value="http://www.kisvan.co.kr">KIS정보통신</option>
+            <option value="http://www.nicetcm.co.kr">한국전자금융</option>
+            </select>
+        </div>
+        <div class="family_site_service">
+            <select name="familyService" id="familyService" onchange="if(this.value) window.open(this.value);">
+            <option value="" selected>FAMILY SERVICE</option>
+            <option value="http://www.nicewinc.co.kr">동반성장지원 서비스</option>
+            <option value="http://www.nicedocu.com">전자계약/입찰 서비스</option>
+            <option value="http://www.nicesoho.co.kr">소상공인지원 서비스</option>
+            <option value="http://www.g2brating.co.kr">공공입찰 기업신용평가</option>
+            <option value="http://clipq.co.kr">협력업체 기업신용평가</option>
+            <option value="http://biz.ntcb.co.kr">기술 신용평가 서비스</option>
+            <option value="http://www.creport.co.kr">기업정보 서비스</option>
+            <option value="http://global.nicednb.com">글로벌 서비스</option>
+            </select>
+        </div>
+        </div>
+        <ul class="footer_menu">
+        <li>
+            <a href="nomu7201.do">이용약관</a>
+        </li>
+        <li>
+            <a href="nomu7301.do">개인정보처리방침</a>
+        </li>
+        <li>
+            <a href="nomu7401.do">이메일무단수집거부</a>
+        </li>
+        </ul>
+        <ul class="address">
+        <li>서울특별시 서대문구 충정로 36 NICE디앤알(주)</li>
+        <li>대표자 : 강용구</li>
+        <li>TEL : 1670-1970</li>
+        <li>FAX : 02-6442-2383</li>
+        </ul>
+        <ul class="address">
+            <li>사업자등록번호 : 107-87-08207</li>
+            <li>통신판매업 신고번호 : 제2012-서울구로-1033호</li>
+        </ul>
+        <p class="copyright">copyrightⓒ NICE Data&Research, Inc All Rights Reserved.</p>
+    </div>
+    </div>
+</prnoff>
+
+
+</body>
+</html>

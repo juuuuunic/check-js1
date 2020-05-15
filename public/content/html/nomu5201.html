@@ -1,0 +1,470 @@
+
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+<head>
+<title>노무비: 소식란(5102)</title>
+<meta http-equiv='Content-Type' content='text/html; charset=euc-kr'>
+<link rel='stylesheet' href=css/style.css type='text/css' />
+<link rel='stylesheet' href=css/jquery-ui-1.8.22.custom.css type='text/css' />
+<link rel='stylesheet' href=css/nomua.css type='text/css' />
+<link rel='stylesheet' href=css/default.css type='text/css' />
+<style>
+
+.footer select {
+  border: 1px solid #c4c5c9;
+  background: #fff;
+  color: #333;
+  height: 34px;
+  line-height: 34px;
+  padding-left: 10px;
+  width: 100%; 
+}
+.footer select, .footer option {
+  font-family: "Noto Sans Korean";
+  color: #5f5f5f;
+}
+</style>
+<script language='javascript' charset='euc-kr' src=js/jquery-1.7.1.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery.alphanumeric.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomu.js></script>
+<script language='javascript' charset='euc-kr' src=mlrpt/mlrpt.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/javascript.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery-ui-1.8.22.custom.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomuAction.js></script>
+<script language='javascript' charset='euc-kr' src=js/smartPop.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomuCal.js></script>
+<script language='javascript' charset='euc-kr' src=js/floating.js></script>
+<script language='javascript' charset='euc-kr' src=js/common_add.js></script>
+<script language='javascript'>
+
+var setAccTimeOut = null;
+var accTime = 3601;
+$().ready(function() {
+	
+	accTime = 3601;
+	$(".gnb li").each(function(i){
+      $(this).removeClass("active");
+	});
+	
+});
+function runAccTimeOut() {
+	accTime--;
+	if(accTime==0) {
+		$("#acc_time").html("0:00");
+//		alert('입력시간 초과입니다.');
+		window.clearTimeout(setAccTimeOut);
+		self.location = "/logout.do?fr=login.do";
+	} else {
+		mm = Math.floor(accTime / 60);
+		ss = accTime % 60;
+		mmss = mm + ":"+(ss<10?"0":"")+ss;
+		$("#acc_time").html(mmss);
+	}
+}
+function resetAcc() {
+	accTime = 3601;
+}
+
+function view_alert() {
+	alert('로그인후 이용가능합니다.');
+}
+
+
+
+	function openwindow(url){
+		window.open('http://'+url, '', 'scrollbars=yes,toolbar=yes,menubar=yes,location=yes,resizable=yes');
+	}
+
+	function searchList(){
+		var frm = document.frm1;
+		frm.action = "?";
+		frm.submit();
+	}
+</script>
+
+</head>
+<body>
+
+<prnoff>
+<div class="wrap login">
+
+    <div class="header">
+      <div class="header_top_wrap">
+        <div class="header_top">
+          <p class="company_phone">&nbsp;</p>
+          <ul class="header_quick_menu">
+        
+            <li>
+              <a href="login.do">로그인</a>
+            </li>
+            <li>
+              <a href="nomu6201.do">회원가입</a>
+            </li>
+          
+          </ul>
+        </div>
+      </div>
+      <div class="header_bottom_wrap">
+        <div class="header_bottom">
+          <div class="logo_wrap">
+            <h1><a href="/">노무비닷컴</a></h1>
+            <p class="slogun">체불없는 세상을 위한 모두의 한걸음</p>
+          </div>
+          <ul class="gnb">
+            <!-- GNB 페이지 유지시 class명 active붙이기(depth1에서만 적용) -->
+
+            <li class="active">
+              <a href="#">소개</a>
+              <ul class="depth2">
+                <li><a href="nomu1401.do">서비스 소개</a></li>
+                <li><a href="nomu1402.do">서비스 특장점</a></li>
+                <li><a href="nomu1403.do">서비스 이용 프로세스</a></li>
+<!--                 <li><a href="nomu1404.do">서비스 도입 시행절차</a></li> -->
+              </ul>
+            </li>
+            <li>
+              <a href="#">발주기관</a>
+<!--              
+              <ul class="depth2">
+                <li><a href="javascript:view_alert()">현장조회</a></li>
+                <li><a href="javascript:view_alert()">대금지급계획 확인</a></li>
+                <li><a href="javascript:view_alert()">대금지급모니터링</a></li>
+              </ul>
+-->              
+            </li>
+            <li>
+              <a href="#">도입기업</a>
+              <ul class="depth2">
+                <li><a href="javascript:view_alert()">현장관리</a></li>
+                <li><a href="javascript:view_alert()">내역서확인</a></li>
+                <li><a href="javascript:view_alert()">SMS</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">협력기업</a>
+              <ul class="depth2">
+                <li><a href="javascript:view_alert()">현장등록</a></li>
+                <li><a href="javascript:view_alert()">내역서작성</a></li>
+                <li><a href="javascript:view_alert()">대금 지급</a></li>
+              </ul>
+            </li>
+
+            <li id=gnb41>
+            	<a href="#">고객센터</a>
+               <ul class="depth2">
+                 <li><a href="nomu5101.do">공지사항</a></li>
+                 <li><a href="nomu5201.do">소식란</a></li>
+                 <li><a href="nomu5301.do">자료실</a></li>
+                 <li><a href="nomu5501.do">FAQ</a></li>
+                 <li><a href="nomu5401.do">Q&A(1:1문의)</a></li>
+               </ul>
+           	</li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+<div id="warp" style='padding-top:30px'>
+	<div id="content">	
+	
+
+				<div id="location">
+					<div id="locationNavi">
+						<h1><img src="images/title/title520.gif" alt="소식란" /></h1>
+					</div>
+					<ol>
+						<li>HOME&nbsp;&gt;&nbsp;</li>
+						<li class="png24">고객센터>&nbsp;&gt;&nbsp;</li>
+						<li class="last png24">소식란</li>
+					</ol>
+				</div>
+				<br/>
+
+				<div class="tableTop">
+						<div class="tLeft">
+							<h3><img src="images/txt/txt_board27.gif" alt="소식란" /></h3>
+						  </div>
+
+						  <form id = "form" name = "frm1" method = "post" onSubmit="return false;">
+						  <fieldset>
+						  <legend>검색</legend>
+						  <div class="tRight">
+							<ul>
+								<li>
+									<select name="search" style="width:100px;">
+									<option value="">전체</option>
+									<option value="T">제목</option>
+									<option value="W">작성자</option>
+								</select>
+							</li>
+							<li class="p4"><input type="text" class="cal" id="keyword" name="keyword" value="" style="width:150px;" maxlength="20"/></li>
+							<li class="p4"><input type="image" onclick="javascript:searchList();" src="images/btn/btn_views.gif" alt="검색"/></li>
+						</ul>
+					</div>
+					</fielset>
+				</div>
+
+				<!-- //Table 상단끝 -->
+
+				<div class="BorderTb">
+						<table summary="소식란" class="Type5" border="1" cellspacing="0" >
+						<colgroup>
+							<col width="60" />
+							<col width="*" />
+							<col width="150" />
+									 <col width="150" />
+									 <col width="100" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th class="list" scope="col">순번</th>
+								<th class="list" scope="col">제목</th>
+								<th class="list" scope="col">작성자</th>
+										  <th class="list" scope="col">등록일</th>
+										  <th class="list" scope="col">첨부</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+								<tr>
+									<td class="list">43</td>
+									<td class="list_con">
+										
+										<a href="/nomu5202.do?ne_no=2928" class="under">국토부 "임금체불 없애고 건설안전 높인다"</a>
+									</td>
+									<td class="list">관리자</td>
+											  <td class="list">2020-01-13</td>
+											  <td class="list">
+												 
+												</td>
+								</tr>
+							
+								<tr>
+									<td class="list">42</td>
+									<td class="list_con">
+										
+										<a href="/nomu5202.do?ne_no=2588" class="under">[정책 인터뷰] 국토부 이성해 건설정책국장 "글로벌 경쟁력 선진화 정책 추진"</a>
+									</td>
+									<td class="list">관리자</td>
+											  <td class="list">2019-04-12</td>
+											  <td class="list">
+												 
+												</td>
+								</tr>
+							
+								<tr>
+									<td class="list">41</td>
+									<td class="list_con">
+										
+										<a href="/nomu5202.do?ne_no=2308" class="under">건설기계보증 "더 간편하게 해제"</a>
+									</td>
+									<td class="list">관리자</td>
+											  <td class="list">2018-08-24</td>
+											  <td class="list">
+												 
+												</td>
+								</tr>
+							
+								<tr>
+									<td class="list">40</td>
+									<td class="list_con">
+										
+										<a href="/nomu5202.do?ne_no=2208" class="under">내년 상호협력평가 ‘대금지급시스템’ 쓰면 최대 3점 가점</a>
+									</td>
+									<td class="list">관리자</td>
+											  <td class="list">2018-05-23</td>
+											  <td class="list">
+												 
+												</td>
+								</tr>
+							
+								<tr>
+									<td class="list">39</td>
+									<td class="list_con">
+										
+										<a href="/nomu5202.do?ne_no=1690" class="under">건설노동자들 "건설 민생법안 입법하라"</a>
+									</td>
+									<td class="list">관리자</td>
+											  <td class="list">2017-09-22</td>
+											  <td class="list">
+												 
+												</td>
+								</tr>
+							
+								<tr>
+									<td class="list">38</td>
+									<td class="list_con">
+										
+										<a href="/nomu5202.do?ne_no=1689" class="under">최근 5년간 임금체불 7조원 육박</a>
+									</td>
+									<td class="list">관리자</td>
+											  <td class="list">2017-09-22</td>
+											  <td class="list">
+												 
+												</td>
+								</tr>
+							
+								<tr>
+									<td class="list">37</td>
+									<td class="list_con">
+										
+										<a href="/nomu5202.do?ne_no=1688" class="under">문화예술계 불공정행위 신고건수 갈수록 늘어…임금체불이 가장 높아</a>
+									</td>
+									<td class="list">관리자</td>
+											  <td class="list">2017-09-22</td>
+											  <td class="list">
+												 
+												</td>
+								</tr>
+							
+								<tr>
+									<td class="list">36</td>
+									<td class="list_con">
+										
+										<a href="/nomu5202.do?ne_no=1428" class="under">‘레 미제라블’마저… 공연계 임금체불, 변한 게 없다</a>
+									</td>
+									<td class="list">관리자</td>
+											  <td class="list">2017-07-26</td>
+											  <td class="list">
+												 
+												</td>
+								</tr>
+							
+								<tr>
+									<td class="list">35</td>
+									<td class="list_con">
+										
+										<a href="/nomu5202.do?ne_no=1328" class="under">(아시아투데이) 공연 취소로 파행 우려 낳았던 뮤지컬 ‘햄릿’, 지방공연 순항할까</a>
+									</td>
+									<td class="list">관리자</td>
+											  <td class="list">2017-07-11</td>
+											  <td class="list">
+												 
+												</td>
+								</tr>
+							
+								<tr>
+									<td class="list">34</td>
+									<td class="list_con">
+										
+										<a href="/nomu5202.do?ne_no=990" class="under">임금체불 사업장 작년 13만여곳… 사상최대 1조4200억</a>
+									</td>
+									<td class="list">관리자</td>
+											  <td class="list">2017-04-26</td>
+											  <td class="list">
+												 
+												</td>
+								</tr>
+							
+
+						</tbody>
+					</table>
+					 </div>
+					 <br/>
+
+				<div class="paging_center">
+<input type="button" onclick="javascript:goList('1')" alt="처음" class="prev1">
+<img src='images/board/btn_prev.gif' alt='이전' />&nbsp;<span class="vline_sel">1</span>
+&nbsp;&nbsp;<span class="vline"><a href="javascript:goList('2')">2</a></span>
+&nbsp;&nbsp;<span class="vline"><a href="javascript:goList('3')">3</a></span>
+&nbsp;&nbsp;<span class="vline"><a href="javascript:goList('4')">4</a></span>
+&nbsp;&nbsp;<span class="vline"><a href="javascript:goList('5')">5</a></span>
+&nbsp;<img src='images/board/btn_next.gif' alt='다음' />&nbsp;<input type="button" onclick="javascript:goList('5')" alt="마지막" class="next2">
+</div>
+
+<input type=hidden id=curPage 	name=curPage 	value="1">
+<input type=hidden id=pageDataCnt name=pageDataCnt value="10">
+<script>
+function goList(curPage){
+var frm = document.frm1;
+frm.curPage.value=curPage;
+frm.action="?";
+frm.submit();
+}
+</script>
+
+				<!-- 버튼영역 시작 -->
+				
+					 <!-- 버튼영역 끝 -->
+
+				</form>
+
+							<!--   <div class="tipbox mt_30">
+									 <span class="btn"><a href="javascript:doInsert();">소식 등록</a></span>
+								</div> -->
+
+				<br/><br/><br/><br/><br/>
+
+<script>
+$("select[name='search'] > option[value='']").attr("selected", "true")
+</script>
+
+	</div>
+</div>
+
+<div id="content_work"></div>
+<iframe id="ifrm_work" name="ifrm_work" border=0 width=0 height=0></iframe>
+</div>
+
+<div class="footer_wrap sub_tamplate ">
+  <div class="footer">
+    <div class="family_site_wrap">
+      <div class="family_site_service">
+        <select name="familySite" id="familySite" onchange="if(this.value) window.open(this.value);">
+          <option value="" selected>FAMILY SITE</option>
+          <option value="http://www.nicednr.co.kr">NICE디앤알</option>
+          <option value="http://www.nice.co.kr">NICE홀딩스</option>
+          <option value="http://www.nicednb.com">NICE디앤비</option>
+          <option value="http://www.niceinfo.co.kr">NICE평가정보</option>
+          <option value="http://www.nicerating.com">NICE신용평가</option>
+          <option value="http://www.nicevan.co.kr">NICE정보통신</option>
+          <option value="http://www.kisvan.co.kr">KIS정보통신</option>
+          <option value="http://www.nicetcm.co.kr">한국전자금융</option>
+        </select>
+      </div>
+      <div class="family_site_service">
+        <select name="familyService" id="familyService" onchange="if(this.value) window.open(this.value);">
+          <option value="" selected>FAMILY SERVICE</option>
+          <option value="http://www.nicewinc.co.kr">동반성장지원 서비스</option>
+          <option value="http://www.nicedocu.com">전자계약/입찰 서비스</option>
+          <option value="http://www.nicesoho.co.kr">소상공인지원 서비스</option>
+          <option value="http://www.g2brating.co.kr">공공입찰 기업신용평가</option>
+          <option value="http://clipq.co.kr">협력업체 기업신용평가</option>
+          <option value="http://biz.ntcb.co.kr">기술 신용평가 서비스</option>
+          <option value="http://www.creport.co.kr">기업정보 서비스</option>
+          <option value="http://global.nicednb.com">글로벌 서비스</option>
+        </select>
+      </div>
+    </div>
+    <ul class="footer_menu">
+      <li>
+        <a href="nomu7201.do">이용약관</a>
+      </li>
+      <li>
+        <a href="nomu7301.do">개인정보처리방침</a>
+      </li>
+      <li>
+        <a href="nomu7401.do">이메일무단수집거부</a>
+      </li>
+    </ul>
+    <ul class="address">
+      <li>서울특별시 서대문구 충정로 36 NICE디앤알(주)</li>
+      <li>대표자 : 강용구</li>
+      <li>TEL : 1670-1970</li>
+      <li>FAX : 02-6442-2383</li>
+    </ul>
+    <ul class="address">
+    	<li>사업자등록번호 : 107-87-08207</li>
+    	<li>통신판매업 신고번호 : 제2012-서울구로-1033호</li>
+    </ul>
+    <p class="copyright">copyrightⓒ NICE Data&Research, Inc All Rights Reserved.</p>
+  </div>
+</div>
+
+</prnoff>
+
+
+</body>
+</html>

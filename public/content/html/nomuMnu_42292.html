@@ -1,0 +1,460 @@
+<html>
+<head>
+<title>노무비_협력기업: 내역서작성(4201>4229>위임장일괄청구)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<link rel="stylesheet" href="css/jquery-ui-1.8.22.custom.css" type="text/css">
+<link rel="stylesheet" href="jqgrid/css/ui.jqgrid.css" type="text/css">
+<style>
+table { font-family:돋움, Dotum; font-size:12px; }
+td { color:#70787a; }
+th { color:#0580ca; }
+</style>
+<script language="javascript" charset="euc-kr" src="js/jquery-1.7.1.min.js"></script>
+<script language="javascript" charset="euc-kr" src="jqgrid/js/jquery.jqGrid.min.js"></script>
+<script language="javascript">
+$(document).ready(function() {   
+    test();
+});
+/*
+- clear
+$grid.jqGrid('clearGridData');
+- reload
+$grid.trigger('reloadGrid');
+- get id
+var ids    = $grid.jqGrid('getDataIDs');
+var rowIds = $grid.getDataIDs();
+- get data []
+var rowDatas = $grid.jqGird('getRowData')
+var rowDatas = $grid.getRowData();
+- get data {}
+var obj = $grid.jqGird('getRowData', rowid)
+var obj = $gird.getRowData(rowid);
+- add
+$grid.jqGrid('addRowData', row.id, data);
+$grid.addRowData(rowid, data, position, srcrowid)
+$grid.addRowData(rowid, data)
+- update
+$grid.jqGrid('setRowData', rowid, data, {cssProp});
+$grid.setRowData(rowId, data, {cssProp})
+- delete
+$grid.jqGird('delRowData', rowid)
+$grid.delRowData(rowid)
+- getGridParam
+var selRowId = $Grid.getGridParam('selrow');
+var selRowIds = $Grid.getGridParam('selarrrow');
+var selRowId = $Grid.jqGrid('getGridParam','selrow');
+var selRowIds = $Grid.jqGrid('getGridParam','selarrrow');
+var postData = $Grid.jqGrid('getGridParam','postData');
+- setGridParam
+$Grid.setGridParam({'postData' : postData}).trigger('reloadGrid');
+$Grid.jqGrid('setGridParam', {'postData' : postData}).trigger('reloadGrid');
+- setSelection(rowid, onSelectRowEvent)
+$Grid.setSelection('001', false);
+$Grid.jqGrid('setSelection', '001', false);
+- resetSelection()
+$Grid.resetSelection();
+$Grid.jqGrid('resetSelection');
+*/
+function test() {
+    var colNames = ['순번','선택', '성명', '연락처', '지급예정액','예금주','계좌검증','위임장 등','비고', 'no_bill_cd', 'seq', 'tr_obj'];
+    var colMode = [ {name:'inc_num', width:50, align:'center'},
+                    {name:'chk', width:34, formatter:'checkbox', editoptions:{value:'1:0'}, align:'center'},
+                    {name:'no_bill_name', width:100, align:'center'},
+                    {name:'no_tel', width:80, align:"right"},
+//					{name:'no_sc_pay_money',width:80, align:"right",formatter:"currency",formatoptions:{thousandsSeparator:','}},
+                    {name:'no_sc_pay_money',width:80, align:"right"},
+                    {name:'no_acc_name',width:100, align:'center'},
+                    {name:'no_ac_chk_s',width:80,align:"center"},
+                    {name:'no_mand_file',width:80,align:"center"},
+                    {name:'memo',width:140},
+                    {name:'no_bill_cd', hidden:true},
+                    {name:'seq', hidden:true},
+                    {name:'tr_obj', hidden:true}
+                ];
+    if(Array.isArray(parent.ac_obj)) {
+        colNames.splice(7, 1);
+        colMode.splice(7, 1);
+        colNames.splice(2, 0, '구분');
+        colMode.splice(2, 0, {name:'ac_typ', width:80, align:'center'});
+    }
+
+    jQuery("#list2").jqGrid(
+//	{url:'nomuMnu.do?sdo=하도_위임장업로드jq&or_com_cd=87990&bill_month=202003&seq=0', datatype: "json",
+    {datatype:'local',
+        colNames : colNames,
+        colModel : colMode,
+        height:460,
+        rowNum:-1,
+//		rowList:[20,20,30],
+//		editable:false,
+//		pager: '#pager2',
+//		sortname: 'id',
+//		viewrecords: false,
+//		sortorder: "desc",
+//		multiselect:true,
+//		caption:"JSON Example"
+        });
+//	jQuery("#list2").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false});
+    load_all();
+}
+var tr_obj = new Array();
+function load_all() {
+    tr_obj = new Array();
+    if(Array.isArray(parent.ac_obj)) {
+        var add_seq = 0;
+        add_seq += load(parent.ac_obj[0], '노무비', add_seq);
+        add_seq += load(parent.ac_obj[1], '장비비', add_seq);
+        add_seq += load(parent.ac_obj[2], '자재비', add_seq);
+        load(parent.ac_obj[3], '기타기성', add_seq);
+    } else
+        load(parent.ac_obj, '노무비', 0);
+}
+function load(obj, ac_typ, add_seq) {	
+    var jq = $('#list2');
+    var idx = 1;
+    obj.find("tr").each(function(seq, this_item) {
+        no_mand_file = $(this).find("input[name=no_mand_file]").val();
+        if(no_mand_file=="0")
+            no_mand_file = "";
+        if(parent.ed) {
+            no_bill_name = $(this).find("td").eq(1).text();
+            tel = $(this).find("td").eq(6).text();
+            memo = $(this).find("td").eq(14).text();
+        } else {
+            no_bill_name = $(this).find("input[name=no_bill_name]").val();
+            tel = $(this).find("input[name=no_tel]").val();
+            memo = $(this).find("input[name=memo]").val();
+        }
+        no_acc_name = $(this).find("td").eq(10).text();
+        no_mand_chk = $(this).find("td").eq(13).text();
+        if(no_mand_chk!='-' && no_mand_file=='') {
+            jq.addRowData(idx+add_seq, {
+                inc_num : idx+add_seq, 
+                no_bill_name : no_bill_name,
+                no_tel :tel,
+                no_sc_pay_money : $(this).find("td").eq(5).text(),
+                no_acc_name : no_acc_name,
+                no_ac_chk_s : $(this).find("td").eq(11).text(),
+                no_mand_file : $(this).find("td").eq(16).text(),
+                memo : memo,
+                ac_typ : ac_typ,
+                no_bill_cd : $(this).find("input[name=no_bill_cd]").val(),
+                seq : seq,
+                tr_obj : this_item
+            });
+            idx++;
+            tr_obj.push($(this));
+        }
+    });
+    return obj.find("tr").length;
+}
+var chk = new Array();
+function save_fin_old(seq, nm) {
+//	for(var i=chk.length-1;i>=0;i--)  {
+    for(var i=0;i<chk.length;i++) { 
+        var r = jQuery("#list2").jqGrid('getRowData', chk[i]);
+        var tro = parent.ac_obj.find("tr").eq(r.seq);
+        alert(tro.html());
+        tro.find('input[name=no_mand_file]').val(seq);
+        var imgo = tro.find("#img2");
+        imgo.attr("nm", nm);
+        imgo.css("display", "");
+        $("#list2").delRowData(chk[i]);
+    }
+    var iid = jQuery("#list2").jqGrid('getDataIDs');
+    for(var i=0;i<iid.length;i++) 
+        jQuery("#list2").jqGrid('setRowData', iid[i], {inc_num:i+1});
+    parent.saved = false;
+}
+function save() {
+    var iid = jQuery("#list2").jqGrid('getDataIDs');
+    chk = new Array();
+    no_bill_cd = new Array();
+    for(var i=0;i<iid.length;i++) {
+        var r = jQuery("#list2").jqGrid('getRowData', iid[i]);
+        if(r.chk=='1') {
+//			chk.push(iid[i]);
+//			chk.push(r.tr_obj);
+//			alert(r.tr_obj);
+//			v = r.tr_obj;
+//			alert($(v).find("td").html());
+            chk.push(i);
+            if(r.no_bill_cd!="")
+                no_bill_cd.push(r.no_bill_cd);
+//			console.log(r.no_bill_cd+" "+r.inc_num);
+        }
+    }
+//	alert(frm1.att_file1.value);
+// alert(chk);
+    if(frm1.no_file.value=='') {
+        alert('업로드할 파일을 선택하세요.');
+    } else if(chk.length==0) {
+        alert('선택된 노무자가 없습니다.');
+    } else {
+        frm1.target = "ifrm_work";
+        frm1.no_bill_cd.value = no_bill_cd;
+        frm1.submit();
+    }
+}
+function save_fin(seq, f_nm) {
+    for(var i=0;i<chk.length;i++) {
+        var tro = tr_obj[chk[i]];
+//		alert(tro.html());
+        var imgo = tro.find("#img2");
+        imgo.attr("nm", f_nm);
+        imgo.css("display", "");
+        tro.find("input[name=no_mand_file]").val(seq);
+    }
+    parent.saved = false;
+    jQuery("#list2").jqGrid('clearGridData');
+    load_all();
+    alert('저장되었습니다.');
+}
+function buttonEvent() {
+//	tro.find('input[name=no_mand_file]').val(seq);
+//	var iid = jQuery("#list2").jqGrid('getGridParam','selarrrow');
+    var iid = jQuery("#list2").jqGrid('getDataIDs');
+    var chk = array();
+    for(var i=0;i<iid.length;i++) {
+        var r = jQuery("#list2").jqGrid('getRowData', iid[i]);
+        if(r.chk=='1')
+            chkbill_cd += r.no_bill_cd+',';
+    }
+    if(bill_cd=='')
+        alert('선택된 노무자가 없습니다.');
+    else {
+        frm1.target = "ifrm_work";
+        frm1.submit();
+    }
+}
+
+function addData() {
+    $('#testGrid').addRowData(1+i,localdata[i]);
+}
+
+function setData() {
+    $("#testGrid").setRowData(addingNumber, 
+        {id:addingNumber, 
+            name:$('#item'+addingNumber).val(),
+            memo:$('#memoInsert'+addingNumber).val()}, 
+        {color:'red'});
+}
+function delData() {
+    $("#testGrid").delRowData(removingData[i]);
+}
+</script>
+
+</head>
+<body>
+
+    <!--
+    word-wrap:break-word
+    word-wrap:normal
+    overflow:hidden; text-overflow:ellipsis;
+    -->
+    <div style="padding-top:20px;">
+        ※ <span class="red_txt">계좌검증 완료 후</span> 
+        예금주와 성명 간 
+        <span class="red_txt">불일치</span> 
+        건에 대해서 위임장을 일괄첨부 하실 수가 있습니다.
+    </div>
+    <div style="padding-top:4px;padding-bottom:4px;">
+    <form id="form" name="frm1" method="post" onsubmit="return false;" enctype="multipart/form-data">
+        <b>파일선택 </b><input type="file" name="no_file" class="Popup_200" value="">
+        <input type="hidden" name="or_com_cd" value="87990">
+        <input type="hidden" name="bill_month" value="202003">
+        <input type="hidden" name="seq" value="0">
+        <input type="hidden" name="sdo" value="하도_위임장저장">
+        <input type="hidden" name="no_bill_cd">
+        <input type="hidden" name="multi" value="true">
+        <img src="images/btn/btn_dgray6.gif" alt="저장" style="height:20px;cursor:pointer;" onclick="save()">
+        <!-- <b class="txt_btn w120 pointer" onClick="save()" style="display:normal">저장</b> -->
+    </form>
+    </div>
+    <!--div class="bline2 mt_8"></div -->
+    <div class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" id="gbox_list2" dir="ltr" style="width: 789px;">
+        <div class="jqgrid-overlay ui-widget-overlay" id="lui_list2"></div>
+        <div class="loading ui-state-default ui-state-active" id="load_list2" style="display: none;">undefined</div>
+        <div class="ui-jqgrid-view " role="grid" id="gview_list2" style="width: 789px;">
+            <div class="ui-jqgrid-titlebar ui-jqgrid-caption ui-widget-header ui-corner-top ui-helper-clearfix" style="display: none;">
+                <a role="link" class="ui-jqgrid-titlebar-close HeaderButton ui-corner-all" title="" style="right: 0px;">
+                    <span class="ui-jqgrid-headlink ui-icon ui-icon-circle-triangle-n"></span>
+                </a>
+                <span class="ui-jqgrid-title"></span>
+            </div>
+            
+            <div class="ui-jqgrid-hdiv ui-state-default ui-corner-top" style="width: 789px;">
+                <div class="ui-jqgrid-hbox">
+                    <table class="ui-jqgrid-htable ui-common-table " style="width:771px" role="presentation" aria-labelledby="gbox_list2">
+                        <thead>
+                            <tr class="ui-jqgrid-labels" role="row">
+                                <th id="list2_inc_num" role="columnheader" class="ui-th-column ui-th-ltr ui-state-default" style="width: 49px;">
+                                    <span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span>
+                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_list2_inc_num">순번
+                                        <span class="s-ico" style="display:none">
+                                            <span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-n"></span>
+                                            <span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-s"></span>
+                                        </span>
+                                    </div>
+                                </th>
+                                <th id="list2_chk" role="columnheader" class="ui-th-column ui-th-ltr ui-state-default" style="width: 33px;">
+                                    <span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span>
+                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_list2_chk">선택
+                                        <span class="s-ico" style="display:none">
+                                            <span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-n"></span>
+                                            <span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-s"></span>
+                                        </span>
+                                    </div>
+                                </th>
+                                <th id="list2_ac_typ" role="columnheader" class="ui-th-column ui-th-ltr ui-state-default" style="width: 78px;">
+                                    <span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span>
+                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_list2_ac_typ">구분<span class="s-ico" style="display:none">
+                                        <span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-n"></span>
+                                        <span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-s"></span></span>
+                                    </div>
+                                </th>
+                                <th id="list2_no_bill_name" role="columnheader" class="ui-th-column ui-th-ltr ui-state-default" style="width: 98px;">
+                                    <span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span>
+                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_list2_no_bill_name">성명
+                                        <span class="s-ico" style="display:none">
+                                            <span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-n"></span>
+                                            <span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-s"></span>
+                                        </span>
+                                    </div>
+                                </th>
+                                <th id="list2_no_tel" role="columnheader" class="ui-th-column ui-th-ltr ui-state-default" style="width: 78px;">
+                                    <span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span>
+                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_list2_no_tel">연락처
+                                        <span class="s-ico" style="display:none">
+                                            <span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-n"></span>
+                                            <span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-s"></span>
+                                        </span>
+                                    </div>
+                                </th>
+                                <th id="list2_no_sc_pay_money" role="columnheader" class="ui-th-column ui-th-ltr ui-state-default" style="width: 78px;">
+                                    <span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span>
+                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_list2_no_sc_pay_money">지급예정액
+                                        <span class="s-ico" style="display:none">
+                                            <span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-n"></span>
+                                            <span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-s"></span>
+                                        </span>
+                                    </div>
+                                </th>
+                                <th id="list2_no_acc_name" role="columnheader" class="ui-th-column ui-th-ltr ui-state-default" style="width: 98px;">
+                                    <span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span>
+                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_list2_no_acc_name">예금주
+                                        <span class="s-ico" style="display:none">
+                                            <span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-n"></span>
+                                            <span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-s"></span>
+                                        </span>
+                                    </div>
+                                </th>
+                                <th id="list2_no_ac_chk_s" role="columnheader" class="ui-th-column ui-th-ltr ui-state-default" style="width: 78px;">
+                                    <span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span>
+                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_list2_no_ac_chk_s">계좌검증
+                                        <span class="s-ico" style="display:none">
+                                            <span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-n"></span>
+                                            <span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-s"></span>
+                                        </span>
+                                    </div>
+                                </th>
+                                <th id="list2_memo" role="columnheader" class="ui-th-column ui-th-ltr ui-state-default" style="width: 136px;">
+                                    <span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span>
+                                    <div class="ui-th-div ui-jqgrid-sortable" id="jqgh_list2_memo">비고
+                                        <span class="s-ico" style="display:none">
+                                            <span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-n"></span>
+                                            <span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-sort-ltr ui-state-disabled ui-icon ui-icon-triangle-1-s"></span>
+                                        </span>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="ui-jqgrid-bdiv" style="height: 460px; width: 789px;">
+                <div style="position:relative;">
+                    <div></div>
+                    <!-- <table id="list2" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; overflow-wrap: normal; width: 771px;" tabindex="0" role="presentation" aria-multiselectable="false" aria-labelledby="gbox_list2" class="ui-jqgrid-btable ui-common-table">
+                        <tbody>
+                            <tr class="jqgfirstrow" role="row">
+                                <td role="gridcell" style="height:0px;width:49px;"></td>
+                                <td role="gridcell" style="height:0px;width:33px;"></td>
+                                <td role="gridcell" style="height:0px;width:78px;"></td>
+                                <td role="gridcell" style="height:0px;width:98px;"></td>
+                                <td role="gridcell" style="height:0px;width:78px;"></td>
+                                <td role="gridcell" style="height:0px;width:78px;"></td>
+                                <td role="gridcell" style="height:0px;width:98px;"></td>
+                                <td role="gridcell" style="height:0px;width:78px;"></td>
+                                <td role="gridcell" style="height:0px;width:136px;"></td>
+                                <td role="gridcell" style="height:0px;width:150px;display:none;"></td>
+                                <td role="gridcell" style="height:0px;width:150px;display:none;"></td>
+                                <td role="gridcell" style="height:0px;width:150px;display:none;"></td>
+                            </tr>
+                            <tr role="row" id="1" tabindex="-1" class="jqgrow ui-row-ltr ui-widget-content">
+                                <td role="gridcell" style="text-align:center;" title="1" aria-describedby="list2_inc_num">1</td>
+                                <td role="gridcell" style="text-align:center;" title="" aria-describedby="list2_chk">
+                                    <input type="checkbox" value="&nbsp;" offval="no">
+                                </td>
+                                <td role="gridcell" style="text-align:center;" title="노무비" aria-describedby="list2_ac_typ">노무비</td>
+                                <td role="gridcell" style="text-align:center;" title="홍길동" aria-describedby="list2_no_bill_name">홍길동</td>
+                                <td role="gridcell" style="text-align:right;" title="010-1111-2222" aria-describedby="list2_no_tel">010-1111-2222</td>
+                                <td role="gridcell" style="text-align:right;" title="5" aria-describedby="list2_no_sc_pay_money">5</td>
+                                <td role="gridcell" style="text-align:center;" title="김남류" aria-describedby="list2_no_acc_name">김남류</td>
+                                <td role="gridcell" style="text-align:center;" title="성명확인" aria-describedby="list2_no_ac_chk_s">성명확인</td>
+                                <td role="gridcell" style="" title="18층 공사" aria-describedby="list2_memo">18층 공사</td>
+                                <td role="gridcell" style="display:none;" title="24489451" aria-describedby="list2_no_bill_cd">24489451</td>
+                                <td role="gridcell" style="display:none;" title="1" aria-describedby="list2_seq">1</td>
+                                <td role="gridcell" style="display:none;" title="[object HTMLTableRowElement]" aria-describedby="list2_tr_obj">[object HTMLTableRowElement]</td>
+                            </tr>
+                            <tr role="row" id="2" tabindex="-1" class="jqgrow ui-row-ltr ui-widget-content">
+                                <td role="gridcell" style="text-align:center;" title="2" aria-describedby="list2_inc_num">2</td>
+                                <td role="gridcell" style="text-align:center;" title="" aria-describedby="list2_chk">
+                                    <input type="checkbox" value="&nbsp;" offval="no">
+                                </td>
+                                <td role="gridcell" style="text-align:center;" title="노무비" aria-describedby="list2_ac_typ">노무비</td>
+                                <td role="gridcell" style="text-align:center;" title="김철수" aria-describedby="list2_no_bill_name">김철수</td>
+                                <td role="gridcell" style="text-align:right;" title="010-1234-5678" aria-describedby="list2_no_tel">010-1234-5678</td>
+                                <td role="gridcell" style="text-align:right;" title="2" aria-describedby="list2_no_sc_pay_money">2</td>
+                                <td role="gridcell" style="text-align:center;" title="김남류" aria-describedby="list2_no_acc_name">김남류</td>
+                                <td role="gridcell" style="text-align:center;" title="성명확인" aria-describedby="list2_no_ac_chk_s">성명확인</td>
+                                <td role="gridcell" style="" title="" aria-describedby="list2_memo">&nbsp;</td>
+                                <td role="gridcell" style="display:none;" title="24489452" aria-describedby="list2_no_bill_cd">24489452</td>
+                                <td role="gridcell" style="display:none;" title="2" aria-describedby="list2_seq">2</td>
+                                <td role="gridcell" style="display:none;" title="[object HTMLTableRowElement]" aria-describedby="list2_tr_obj">[object HTMLTableRowElement]</td>
+                            </tr>
+                            <tr role="row" id="4" tabindex="-1" class="jqgrow ui-row-ltr ui-widget-content">
+                                <td role="gridcell" style="text-align:center;" title="4" aria-describedby="list2_inc_num">4</td>
+                                <td role="gridcell" style="text-align:center;" title="" aria-describedby="list2_chk">
+                                    <input type="checkbox" value="&nbsp;" offval="no">
+                                </td>
+                                <td role="gridcell" style="text-align:center;" title="장비비" aria-describedby="list2_ac_typ">장비비</td>
+                                <td role="gridcell" style="text-align:center;" title="나이스장비" aria-describedby="list2_no_bill_name">나이스장비</td>
+                                <td role="gridcell" style="text-align:right;" title="010-4545-6798" aria-describedby="list2_no_tel">010-4545-6798</td>
+                                <td role="gridcell" style="text-align:right;" title="10" aria-describedby="list2_no_sc_pay_money">10</td>
+                                <td role="gridcell" style="text-align:center;" title="김남류" aria-describedby="list2_no_acc_name">김남류</td>
+                                <td role="gridcell" style="text-align:center;" title="성명확인" aria-describedby="list2_no_ac_chk_s">성명확인</td>
+                                <td role="gridcell" style="" title="" aria-describedby="list2_memo">&nbsp;</td>
+                                <td role="gridcell" style="display:none;" title="24489453" aria-describedby="list2_no_bill_cd">24489453</td>
+                                <td role="gridcell" style="display:none;" title="0" aria-describedby="list2_seq">0</td>
+                                <td role="gridcell" style="display:none;" title="[object HTMLTableRowElement]" aria-describedby="list2_tr_obj">[object HTMLTableRowElement]</td>
+                            </tr>
+                        </tbody>
+                    </table> -->
+                </div>
+            </div>
+        </div>
+        <div class="ui-jqgrid-resize-mark" id="rs_mlist2">&nbsp;</div>
+
+    </div>
+    <div id="pager2"></div>
+    <div style="padding-top:30px"></div>
+
+
+
+
+</body>
+</html>

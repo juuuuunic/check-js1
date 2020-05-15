@@ -1,0 +1,1414 @@
+
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+<head>
+<title>노무비_협력기업: 내역서작성(4201>청구/지급내역총괄현황>청구내역서>수정하기)</title>
+<meta http-equiv='Content-Type' content='text/html; charset=euc-kr'>
+
+<link rel='stylesheet' href=css/style.css type='text/css' />
+<link rel='stylesheet' href=css/jquery-ui-1.8.22.custom.css type='text/css' />
+<link rel='stylesheet' href=css/default.css type='text/css' />
+<style>
+
+.ani-btn-wrap {
+	position: relative;
+	overflow: hidden;
+	display: inline-block; }
+.ani-btn-wrap .ani-btn {
+	color: #fff;
+	width: 130px;
+	height: 28px;
+	display: inline-block;
+	background: url(images/common/ani_btn_bg.png);
+	padding: 0 5px;
+	text-align: center;
+	text-indent: -9999px;
+	border-radius: 3px 3px 3px 3px;
+	-moz-border-radius: 3px 3px 3px 3px;
+	-webkit-border-radius: 3px 3px 3px 3px; }
+.ani-btn-wrap .pulse-button {
+	left: -40px;
+	top: 50%;
+	margin-top: -15px;
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	border: none;
+	-webkit-box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+	box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+	border-radius: 50%;
+	background-color: #7b97df;
+	background-size: cover;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	-webkit-animation-name: btnAction1;
+	-moz-animation-name: btnAction1;
+	-ms-animation-name: btnAction1;
+	animation-name: btnAction1;
+	-webkit-animation-duration: 5s;
+	-moz-animation-duration: 5s;
+	-ms-animation-duration: 5s;
+	animation-duration: 5s;
+	-webkit-animation-iteration-count: infinite;
+	-moz-animation-iteration-count: infinite;
+	-ms-animation-iteration-count: infinite;
+	animation-iteration-count: infinite;
+	-webkit-animation-timing-function: cubic-bezier(0.66, 0, 0, 1);
+	-moz-animation-timing-function: cubic-bezier(0.66, 0, 0, 1);
+	-ms-animation-timing-function: cubic-bezier(0.66, 0, 0, 1);
+	animation-timing-function: cubic-bezier(0.66, 0, 0, 1); }
+@-webkit-keyframes btnAction1 {
+  to {
+	 -webkit-box-shadow: 0 0 0 300px rgba(123, 151, 223, 0);
+	 box-shadow: 0 0 0 300px rgba(123, 151, 223, 0); } }
+@-moz-keyframes btnAction1 {
+  to {
+	 box-shadow: 0 0 0 300px rgba(123, 151, 223, 0); } }
+@-ms-keyframes btnAction1 {
+  to {
+	 box-shadow: 0 0 0 300px rgba(123, 151, 223, 0); } }
+@keyframes btnAction1 {
+  to {
+	 -webkit-box-shadow: 0 0 0 300px rgba(123, 151, 223, 0);
+	 box-shadow: 0 0 0 300px rgba(123, 151, 223, 0); } }
+
+
+  .to-do-list .quick-bottom {
+    border: solid 3px #132c6b;
+    position: relative; }
+    .to-do-list .quick-bottom .img-wrap img {
+      width: 100%; }
+    .to-do-list .quick-bottom .btn-wrap a {
+      display: block;
+      line-height: 30px;
+      text-align: center;
+      color: #fff;
+      font-size: 12px;
+      background: #132c6b; }
+    .to-do-list .quick-bottom .todo_bottom_close {
+      width: 10px;
+      height: 10px;
+      position: absolute;
+      cursor: pointer;
+      top: 3px;
+      right: 3px;
+      background: no-repeat right bottom url(../images/common/to_do_list_close_btn.gif); }
+
+
+.footer select {
+  border: 1px solid #c4c5c9;
+  background: #fff;
+  color: #333;
+  height: 34px;
+  line-height: 34px;
+  padding-left: 10px;
+  width: 100%; 
+}
+.footer select, .footer option {
+  font-family: "Noto Sans Korean";
+  color: #5f5f5f;
+}
+</style>
+<script language='javascript' charset='euc-kr' src=js/jquery-1.7.1.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery.alphanumeric.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomu.js></script>
+<script language='javascript' charset='euc-kr' src=mlrpt/mlrpt.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/javascript.js></script>
+<script language='javascript' charset='euc-kr' src=js/jquery-ui-1.8.22.custom.min.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomuAction.js></script>
+<script language='javascript' charset='euc-kr' src=js/smartPop.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomuCal.js></script>
+<script language='javascript' charset='euc-kr' src=js/nomua.js></script>
+<script language='javascript' charset='euc-kr' src=js/floating.js></script>
+<script language='javascript' charset='euc-kr' src=js/common_add.js></script>
+<script language='javascript'>
+
+var setAccTimeOut = null;
+var accTime = 3601;
+$().ready(function() {
+	
+	setAccTimeOut = window.setInterval(runAccTimeOut, 1000);
+	
+	accTime = 3601;
+	$(".gnb li").each(function(i){
+      $(this).removeClass("active");
+	});
+	
+});
+function runAccTimeOut() {
+	accTime--;
+	if(accTime==0) {
+		$("#acc_time").html("0:00");
+//		alert('입력시간 초과입니다.');
+		window.clearTimeout(setAccTimeOut);
+		self.location = "/logout.html?fr=login.html";
+	} else {
+		mm = Math.floor(accTime / 60);
+		ss = accTime % 60;
+		mmss = mm + ":"+(ss<10?"0":"")+ss;
+		$("#acc_time").html(mmss);
+	}
+}
+function resetAcc() {
+	accTime = 3601;
+}
+
+function view_alert() {
+	alert('로그인후 이용가능합니다.');
+}
+
+
+var nosend = false;
+var saved = true;
+var ed = false;
+$().ready(function() {
+	var data = "sdo=공통_청구내역&or_cd=19271&or_com_cd=87990&bill_month=202003&seq=0";
+	$.ajax({type:"post", url: '/nomuMnu.html', data:data, dataType:"json",
+		success : function(data) {
+			var ac_type = ['ac_01', 'ac_03', 'ac_04', 'ac_07', 'ac_05', 'ac_06', 'ac_08'];
+			var ac_data = [data.ac_01, data.ac_03, data.ac_04, data.ac_07, data.ac_05, data.ac_06, data.ac_08];
+			var alert_view = true;
+			ed = data.ed;
+			for(i=0;i<7;i++) {
+				var div_o = $('#'+ac_type[i]);
+				div_o.find("tbody").html(ac_data[i].t_body);
+				div_o.find('#bill_sum').html(ac_data[i].bill_sum);
+				div_o.find('#pay_sum').html(ac_data[i].pay_sum);
+				if(ac_data[i].blank) div_o.find('#del_ac').css('display', '');
+				if(ed) {
+					div_o.find('tbody label').click(function(ev) {
+						var tro = $(this).parent().parent();
+						var tr_seq = tro.index();
+						var _ac_type = tro.parent().parent().attr('id').substring(10,12);
+						var _url = 'nomuMnu.html?sdo=공통_실근무자수정&or_cd=19271&or_com_cd=87990&bill_month=202003&seq=0&ac_type='+_ac_type+'&tr_seq='+tr_seq+'&dsme=true';
+						_url += '&no_bill_cd='+tro.find('input[name=no_bill_cd]').val();
+						_url += '&no_pay_file='+tro.find('input[name=no_pay_file]').val();
+						_url += '&no_mand_file='+tro.find('input[name=no_mand_file]').val();
+						$.smartPop.open({ width:520, height:490, url: _url});
+					});
+				}
+				add_event(ac_type[i]); 
+			}
+			if(ed) {
+				$('#billSave').css('display', 'none');
+				if(alert_view) { alert('최좌측열의 순번을 클릭하면 해당 근로자의 정보를 수정할 수 있습니다.'); alert_view = false; }
+			} else {
+				$('#billSave').css('display', '');
+			}
+			nosend = data.nosend;
+		},
+		//error : function(request,error) { alert('처리중 에러가 발생하였습니다.'); }
+	});
+});
+
+function set_nomu(data) {
+	var div_o = $('#ac_'+data.ac_type);
+	var tro;
+	if(data.tr_seq=='') {
+		tro = $("#insList_s_"+data.ac_type+" tbody tr:last").clone(true);
+		tro.appendTo("#insList_s_"+data.ac_type);
+		tro.find('label').text('NEW');
+		tro.find("input[name=no_bill_cd]").val(data.no_bill_cd);
+	} else 
+		tro = $("#insList_s_"+data.ac_type+" tbody tr").eq(data.tr_seq);
+	tro.find("td").eq(1).text(data.no_bill_name);
+	tro.find("td").eq(2).text(data.no_no);
+	tro.find("td").eq(3).text(data.no_bill_money);
+	tro.find("td").eq(4).text(data.no_de_money);
+	tro.find("td").eq(5).text(data.no_sc_pay_money);
+	tro.find("td").eq(6).text(data.no_tel);
+	if(data.no_bill_hyun_yn=='N')
+		tro.find("td").eq(7).text('No');
+	else		
+		tro.find("td").eq(7).text('Yes');
+	tro.find("td").eq(8).text(data.no_bank_name_st);
+	tro.find("td").eq(9).text(data.no_bank_no);
+	tro.find("td").eq(10).text(data.no_acc_name);
+	tro.find("td").eq(11).html(data.no_ac_chk_st);
+	tro.find("td").eq(12).html(data.no_pay_file_st);
+	tro.find("td").eq(13).html(data.no_mand_file_st);
+	tro.find("td").eq(14).html(data.memo);
+
+	tro.find("td").eq(15).html(data.send);
+	
+	tro.find("input[name=no_pay_file]").val(data.no_pay_file);
+	tro.find("input[name=no_mand_file]").val(data.no_mand_file);
+	div_o.find('#bill_sum').html(data.bill_sum);
+	div_o.find('#pay_sum').html(data.pay_sum);
+	add_event(); 
+}
+
+function add_event(ac_typ) {
+	$('#t_실근무등록_'+ac_typ+' a').click(function(ev) { ev.preventDefault();
+		var typ = $(this).attr('href');
+		if(typ.length>1) typ = typ.substring(typ.length-1);
+		var tro = $(this).parent().parent();
+		var tr_seq = tro.index();
+		var imgo = tro.find('#img'+typ);
+		var nm = imgo.attr('nm');
+		var _url = 'nomuMnu.html?typ='+typ+'&nm='+nm+'&sdo=공통_위임장업로드&or_cd=19271&or_com_cd=87990&bill_month=202003&tr_seq='+tr_seq;
+		_url += '&no_bill_cd='+tro.find('input[name=no_bill_cd]').val();
+		if(typ=='1')
+			_url += '&seq='+tro.find('input[name=no_pay_file]').val();
+		else 
+			_url += '&seq='+tro.find('input[name=no_mand_file]').val();
+		_url += '&ac_type='+tro.find('input[name=ac_type]').val();
+		$.smartPop.open({ width:320, height:240, url: _url});
+	});
+	$('#t_실근무등록_'+ac_typ+' img').click(function(ev) {
+		ev.preventDefault();
+		var tro = $(this).parent().parent();
+		var typ = $(this).attr('id').substring(3,4);
+		if(typ=='1')
+			seq = tro.find('input[name=no_pay_file]').val();
+		else 
+			seq = tro.find('input[name=no_mand_file]').val();
+		ifrm_work.location.href = "nomuMnu.html?sdo=공통_파일다운로드&id_typ=1001&seq="+seq;
+	});
+}
+
+/* 사용하지 않음
+function pre_bill() { // 전월청구내역 불러오기
+	
+	alert("이전에 등록 된 청구내역이 없습니다");
+	
+}
+*/
+function file_set(ac_type, typ, tr_seq, seq, nm) {
+	var tro = $("#ac_"+ac_type+" tr:eq("+(tr_seq+1)+")");
+	var imgo = tro.find("#img"+typ);
+	imgo.attr("nm", nm);
+	if(seq==0)
+		imgo.css("display", "none");
+	else
+		imgo.css("display", "");
+
+	if(typ==1)
+		tro.find("input[name=no_pay_file]").val(seq);
+	else 
+		tro.find("input[name=no_mand_file]").val(seq);
+	saved = false;
+	$.smartPop.close();
+}
+
+function bill_save(){
+	var frm = document.f_실근무등록;
+	var nm_check = true;
+	if(document.getElementsByName("no_bill_name").length<1) {
+		alert('저장할 내용이 없습니다.');
+		return;
+	}
+	var bank_alert = '';
+	var pp = null;
+	var ii = 1;
+	
+	
+	for(i=0;i<document.getElementsByName("no_bill_name").length;i++){
+		var pp0 = $(document.getElementsByName("no_bill_name")[i]).parent().parent().parent().parent().parent().parent().attr("ids");
+		if(pp0!=pp) {
+			pp = pp0;
+			ii = 0;
+		}
+		ii++;
+/*
+		if(document.getElementsByName("no_bill_day")[i].value==''){
+			alert("청구일자를 입력하세요.");
+			return;
+		}
+*/		
+		if(document.getElementsByName("no_bill_name")[i].value==''){
+			alert("성명을 입력하세요.");
+			return;
+		}
+/*		
+		if(document.getElementsByName("no_birthday")[i].value!=''){
+			if(!isDate(document.getElementsByName("no_birthday")[i].value)){
+				alert('날짜를 정확하게 입력해주세요.');
+				return;
+			}
+		}
+*/
+		if(document.getElementsByName("no_bill_money")[i].value==''){
+			alert("청구액을 입력하세요.");
+			return;
+		}
+		if(document.getElementsByName("no_de_money")[i].value==''){
+			alert("공제액을 입력하세요.");
+			return;
+		}
+		if(document.getElementsByName("no_bank_name")[i].value==''){
+//			alert("은행명을 선택하세요.");
+//			return;
+			bank_alert += "순번: "+pp0+(ii+0)+", 성명:" +document.getElementsByName("no_bill_name")[i].value+"\n";
+		}
+/*		
+		if(document.getElementsByName("no_acc_name")[i].value==''){
+			alert("예금주를 입력하세요.");
+			return;
+		}
+*/
+		if(document.getElementsByName("no_bank_no")[i].value==''){
+			alert("계좌번호를 입력하세요.");
+			return;
+		}
+/*		
+//		var tdo = $('#t_실근무등록 tr:eq('+i+')').find('#td_위임장');
+		if(document.getElementsByName("no_bill_name")[i].value!=document.getElementsByName("no_acc_name")[i].value) {
+//			if(tdo.html().length<10)
+//				tdo.html('<a href=2>첨부</a><br><img src="images/bul/ico_txt.gif" id=img2 class="pointer" alt="첨부파일 이미지" nm="" style="display:none"/>');
+			nm_check = false;
+		} else {
+//			tdo.text('-');
+		}
+*/		
+	}
+	if(bank_alert!='') {
+		alert("청구내역서 상에 확인되지 않는 은행명이 존재합니다.\n은행지정 오류 내역을 확인하시고 은행명을 선택, 재지정하여 주시기 바랍니다.\n\n<은행지정 오류 내역>\n"+bank_alert);
+		return false;
+	}
+	if(nm_check==false) {
+		if(confirm('(선택사항) 근로자명과 예금주가 다른 건이 존재합니다. 이 경우 해당 근로자로부터 타인명의 계좌로 임금이체 받는다는 사실에 대해 확인을 받은 문서를 "위임장"란에 첨부합니다.')==false) return;
+	}	
+	if(frm.pay_due_day_01!=null && frm.pay_due_day_01.value==''){
+		alert("노무비 이체약속일자를 입력하세요.");
+		frm.pay_due_day_01.focus();
+		return;
+	}
+	if(frm.pay_due_day_03!=null && frm.pay_due_day_03.value==''){
+		alert("이체약속일자를 입력하세요.");
+		frm.pay_due_day_03.focus();
+		return;
+	}
+	if(frm.pay_due_day_04!=null && frm.pay_due_day_04.value==''){
+		alert("이체약속일자를 입력하세요.");
+		frm.pay_due_day_04.focus();
+		return;
+	}
+	if(frm.pay_due_day_05!=null && frm.pay_due_day_05.value==''){
+		alert("이체약속일자를 입력하세요.");
+		frm.pay_due_day_05.focus();
+		return;
+	}
+	if(frm.pay_due_day_06!=null && frm.pay_due_day_06.value==''){
+		alert("이체약속일자를 입력하세요.");
+		frm.pay_due_day_06.focus();
+		return;
+	}
+	if(frm.pay_due_day_07!=null && frm.pay_due_day_07.value==''){
+		alert("이체약속일자를 입력하세요.");
+		frm.pay_due_day_07.focus();
+		return;
+	}
+	if(frm.pay_due_day_08!=null && frm.pay_due_day_08.value==''){
+		alert("이체약속일자를 입력하세요.");
+		frm.pay_due_day_08.focus();
+		return;
+	}
+	file_up = false;
+	 // cms사용시
+		if(confirm("저장하시겠습니까?\n(계좌검증을 위해 시간이 다소 소요될 수 있습니다.)"))
+	
+	{
+		alert('저장 후 계좌검증이 완료되면, 반드시 "청구하기" 버튼을 클릭하여 주십시요.');
+		$('#billSave').attr('disabled', 'disabled'); 
+		$('#billView').attr('disabled', 'disabled'); 
+		$('#billConf').attr('disabled', 'disabled'); 
+		$('#f_실근무등록 input[name=zzz]').attr('disabled', 'disabled');
+
+		frm.sdo.value = '공통_청구내역저장';
+		$.ajax({type:"post", url: "/nomuMnu.html", data:$("#f_실근무등록").serialize(), dataType: "json",
+			success : function(data) {
+				self.location = "/nomuMnu.html?sdo=하도_청구내역저장&or_com_cd="+frm.or_com_cd.value+"&or_cd="+frm.or_cd.value+"&bill_month="+frm.bill_month.value+"&seq="+frm.seq.value; 
+			},
+			//error : function(request,error) { alert('처리중 에러가 발생하였습니다.'); }
+		});
+/*
+		frm.sdo.value = '하도_청구내역저장';
+		frm.action = "nomuMain.html";
+		frm.submit();
+*/		
+	}
+}
+function ins_add(ac_type) {
+	if(ed) {
+		var _url = 'nomuMnu.html?sdo=공통_실근무자수정&or_cd=19271&or_com_cd=87990&bill_month=202003&seq=0&ac_type='+ac_type+'&dsme=true';
+		$.smartPop.open({ width:520, height:490, url: _url});
+	} else {
+		var add_tr = $("#insList_s_"+ac_type+" tbody tr:last").clone(true);
+		add_tr.find("input[type=text]").each(function(){ $(this).val('');	});
+		add_tr.find("input[type=hidden]").each(function(){ $(this).val(''); });
+		add_tr.find("input[name=ac_type]").val(ac_type);
+		add_tr.find("#no_bill_hyun_yn").val('N');
+		add_tr.find("#no_bank_name").val('');
+		add_tr.find("#no_acc_name").text('');
+		add_tr.find('label').text('NEW');
+		add_tr.find('#td_지급예정액').text('');
+		add_tr.find('#td_계좌검증').text('');
+		add_tr.find('#td_위임장').text('');
+		add_tr.find('#td_send').text('');
+		add_tr.appendTo("#insList_s_"+ac_type);
+		saved = false;
+	}
+}
+function ins_del_unuse(){
+	var del_tr = $("#insList_s tbody tr:last");
+	if(del_tr.find('label').text()=='NEW') del_tr.remove();
+}
+function ins_del_xxx() {
+	var obj_cd = document.getElementsByName("no_bill_cd");
+	var obj_zzz = document.getElementsByName("zzz");
+	var del_lst = '';
+	if(ed) del_lst = '&or_com_cd=87990&bill_month=202003'; 
+	var empty = true;
+	for(var i=0;i<obj_cd.length;i++) {
+		if(obj_zzz[i].checked) {
+			if(obj_cd[i].value!='') del_lst += "&no_bill_cd="+obj_cd[i].value; 
+			$("#f_실근무등록 tr:eq("+(i+1)+")").remove();
+			i--;
+			empty = false;
+		}
+	}
+	if(empty)
+		alert('삭제할 행을 선택 후, "행삭제" 버튼을 클릭하여 주시기바랍니다.');
+	else 
+		ifrm_work.location.href="/nomuWork.html?sdo=공통_청구내역서행삭제"+del_lst;
+}
+function ins_del(div_ac) {
+	var obj_cd = $('#ac_'+div_ac).find("input[name=no_bill_cd]");
+	var obj_zzz = $('#ac_'+div_ac).find("input[name=zzz]");
+	var tr_obj = $("#insList_s_"+div_ac+" tbody tr");
+	var del_lst = ''; 
+	var empty = true;
+	for(var i=0;i<obj_cd.length;i++) {
+		if(obj_zzz[i].checked) {
+			if(obj_cd[i].value!='') del_lst += "&no_bill_cd="+obj_cd[i].value;
+			tr_obj.eq(i).remove();
+			empty = false;
+		}
+	}
+	if(empty) alert('삭제할 행을 선택 후, "행삭제" 버튼을 클릭하여 주시기바랍니다.');
+	if(del_lst!='') {
+		var _url = "/nomuMnu.html?sdo=공통_청구내역서행삭제"+del_lst;
+//		if(ed) { 
+			_url += '&or_cd=19271&or_com_cd=87990&bill_month=202003&ac_type='+div_ac+'&seq=0';
+			ifrm_work.location.href = _url;
+//		} // 일반삭제는 저장할때 삭제됨.
+	}
+}
+function today() {
+	td = new Date();
+	year = td.getFullYear();
+	month = td.getMonth()+1;
+	day = td.getDate();
+	month = month < 10 ? "0"+month : ""+month;
+	day = day < 10 ? "0"+day : ""+day;
+	return year+"-"+month+"-"+day;
+}
+function save_pay_day(obj) {
+//	if(ed) {
+		var ac_type = $(obj).attr('name').substring(12,14);
+		if($(obj).val()<today()) {
+			alert("이체 약속일은 과거 날짜로 지정할 수 없습니다. 노무비닷컴에서 실제 이체 하려는 날짜를 지정하여 주십시오.");
+			$(obj).val("");
+		} else
+			ifrm_work.location.href = '/nomuMnu.html?sdo=공통_이체예정일저장&or_cd=19271&or_com_cd=87990&bill_month=202003&seq=0&ac_type='+ac_type+'&pay_due_day='+$(obj).val();
+//	}
+}
+
+//var excel_seq = 4;
+//var excel_seq = 6;
+//var excel_seq = 6;
+
+var excel_seq = 6;
+
+function FormDown() { // 엑셀다운
+	ifrm_work.location.href = "nomuMnu.html?sdo=공통_파일다운로드&id_typ=9001&seq="+excel_seq;
+}
+function FormUp() { // 엑셀 업로드
+	var data = "sdo=공통_엑셀업로드창&or_cd=19271&or_com_cd=87990&bill_month=202003&excel_seq="+excel_seq;
+//	$.smartPop.open({ width:450, height:220, url: "/nomu4503.html?"+data});
+	$.smartPop.open({ width:450, height:220, url: "/nomuMnu.html?"+data});
+}
+function updown() { // 엑셀 업로드
+	var data = "sdo=공통_엑셀업로드창&or_cd=19271&or_com_cd=87990&bill_month=202003&excel_seq="+excel_seq;
+//	$.smartPop.open({ width:450, height:220, url: "/nomu4503.html?"+data});
+	$.smartPop.open({ width:450, height:220, url: "nomuMnu_42293.html"});
+}
+function upload_excel() { // 엑셀업로드된 데이타 reload
+	$.smartPop.close();
+	var data = "sdo=공통_엑셀업로드&or_cd=19271&or_com_cd=87990&bill_month=202003&seq=0";
+	$.ajax({type:"get", url: "/nomuMnu.html", data:data, dataType: "json",
+		success : function(data) { 
+			saved = false; 
+			$('#billSave').css('display', '');
+			var ac_type = ['ac_01', 'ac_03', 'ac_04', 'ac_07', 'ac_05', 'ac_06', 'ac_08'];
+			var ac_data = [data.ac_01, data.ac_03, data.ac_04, data.ac_07, data.ac_05, data.ac_06, data.ac_08];
+			for(i=0;i<7;i++) {
+				var div_o = $('#'+ac_type[i]);
+				div_o.find("tbody").html(ac_data[i].t_body);
+				div_o.find('#bill_sum').html(ac_data[i].bill_sum);
+				div_o.find('#pay_sum').html(ac_data[i].pay_sum);
+			}
+			document.f_실근무등록.excel_up.value = true;
+			add_event();
+			alert('양식이 정상적으로 업로드 되었습니다. 선지급 혹은 현금직불 건이 있을 경우, 선지급 입력란에 "Yes"를 선택하여 주시기 바랍니다. 관련 문의사항은 02-788-9089 으로 연락 주시기 바랍니다.'); 
+		},
+		//error : function(request,error) { alert('처리중 에러가 발생하였습니다.'); }
+	});
+}
+function view1(list_size){ //레이어 팝업열기(청구내역서 보기 팝업)
+	if(ed==false && saved==false) {
+		alert("저장한후에 이용해주세요.");
+		return;
+	}
+	if($('#ac_01').find("label").text()=='NEW'){
+		alert('노무비 청구내역이 없을경우 "청구내역없음"을 체크하시기 바랍니다.');
+		$('#ac_01').find("del_ac").focus();
+		return;
+	}
+	if($('#ac_03').find("label").text()=='NEW'){
+		alert('장비비 청구내역이 없을경우 "청구내역없음"을 체크하시기 바랍니다.');
+		$('#ac_03').find("del_ac").focus();
+		return;
+	}
+	if($('#ac_04').find("label").text()=='NEW'){
+		alert('자재비 청구내역이 없을경우 "청구내역없음"을 체크하시기 바랍니다.');
+		$('#ac_04').find("del_ac").focus();
+		return;
+	}
+	if($('#ac_05').find("label").text()=='NEW'){
+		alert('기타기성 청구내역이 없을경우 "청구내역없음"을 체크하시기 바랍니다.');
+		$('#ac_05').find("del_ac").focus();
+		return;
+	}
+	if($('#ac_06').find("label").text()=='NEW'){
+		alert('선급금 청구내역이 없을경우 "청구내역없음"을 체크하시기 바랍니다.');
+		$('#ac_06').find("del_ac").focus();
+		return;
+	}
+	if($('#ac_07').find("label").text()=='NEW'){
+		alert('경비 청구내역이 없을경우 "청구내역없음"을 체크하시기 바랍니다.');
+		$('#ac_07').find("del_ac").focus();
+		return;
+	}
+	if($('#ac_08').find("label").text()=='NEW'){
+		alert('어음발행 청구내역이 없을경우 "청구내역없음"을 체크하시기 바랍니다.');
+		$('#ac_08').find("del_ac").focus();
+		return;
+	}
+	//$.smartPop.open({ width:820, height:620, url: 'nomuMnu.html?sdo=하도_청구내역서&or_cd=19271&or_com_cd=87990&bill_month=202003&seq=0&key=1'});
+	$.smartPop.open({ width:820, height:620, url: 'nomuMnu_42294.html'});
+}
+function bill_confirm(save){
+//	if(saved==false || save != 1 ){
+	if(ed==false && saved==false) {
+		alert('저장한 후에 청구하여 주시기 바랍니다.');
+		return;
+	}
+	if(nosend=='true') {
+		alert('전용계좌는 입력할수 없습니다.\n작성내역을 다시 한번 확인해 주시기 바랍니다.');
+		return;
+	}
+	if($('#ac_01').find("label").text()=='NEW'){
+		alert('노무비 청구내역이 없을경우 "청구내역없음"을 체크하시기 바랍니다.');
+		$('#ac_01').find("del_ac").focus();
+		return;
+	}
+	if($('#ac_03').find("label").text()=='NEW'){
+		alert('장비비 청구내역이 없을경우 "청구내역없음"을 체크하시기 바랍니다.');
+		$('#ac_03').find("del_ac").focus();
+		return;
+	}
+	if($('#ac_04').find("label").text()=='NEW'){
+		alert('자재비 청구내역이 없을경우 "청구내역없음"을 체크하시기 바랍니다.');
+		$('#ac_04').find("del_ac").focus();
+		return;
+	}
+	if($('#ac_05').find("label").text()=='NEW'){
+		alert('기타기성 청구내역이 없을경우 "청구내역없음"을 체크하시기 바랍니다.');
+		$('#ac_05').find("del_ac").focus();
+		return;
+	}
+	if($('#ac_06').find("label").text()=='NEW'){
+		alert('선급금 청구내역이 없을경우 "청구내역없음"을 체크하시기 바랍니다.');
+		$('#ac_06').find("del_ac").focus();
+		return;
+	}
+	if($('#ac_07').find("label").text()=='NEW'){
+		alert('경비 청구내역이 없을경우 "청구내역없음"을 체크하시기 바랍니다.');
+		$('#ac_07').find("del_ac").focus();
+		return;
+	}
+	if($('#ac_08').find("label").text()=='NEW'){
+		alert('어음발행 청구내역이 없을경우 "청구내역없음"을 체크하시기 바랍니다.');
+		$('#ac_08').find("del_ac").focus();
+		return;
+	}
+//	if(confirm("청구하시겠습니까?")){
+        //$.smartPop.open({ width:850, height:420, url: "/nomuMnu.html?sdo=하도_청구내역서확인&or_cd=19271&or_com_cd=87990&bill_month=202003&seq=0"});
+        $.smartPop.open({ width:850, height:420, url: "nomuMnu_42294.html"});
+//		ifrm_work.location.href = 'nomuMnu.html?sdo=하도_청구내역서청구&or_cd=19271&or_com_cd=87990&bill_month=202003';
+//	}
+}
+function saveSuccess(){
+	parent.location.reload();
+}
+function showSucces(){
+	parent.location.replace("nomu32001.html?or_no=&no_or_com_cd=&bill_month=&seq=0&year=&month=&yn_key=1&page_type=one");
+}
+function showfail(){
+	parent.location.reload();
+}
+function change_nm(obj) {
+	var obj_tr = $(obj.parentElement.parentElement);
+	var tdo = obj_tr.find('#td_위임장:eq(1)');
+	if(obj_tr.find("input[name=no_bill_name]").val()!=obj_tr.find("input[name=no_acc_name]").val()) {
+//		if(tdo.html().length<10)
+//			tdo.html('<a href=#2>첨부</a><br><img src="images/bul/ico_txt.gif" id=img2 class="pointer" alt="첨부파일 이미지" nm="" style="display:none"/>');
+	} else {
+		tdo.text('-');
+	}
+	add_event();
+}
+function change(obj) {
+	var obj_tr = $(obj.parentElement.parentElement);
+	var tdo = obj_tr.find('#td_위임장:eq(0)');
+	if(obj_tr.find("select[name=no_bill_hyun_yn]").val()=='Y') {
+//		alert('(선택사항) 청구내역서 작성 전 특정 근로자에게 노임을 선지급하였다면, 해당 근로자로부터 노임을 정상적으로 잘 지급받았다는 증빙서류인 "수령인"을 서명받아 이를 "선지급수령인"란에 첨부합니다.\n이 때 계좌정보란에는 귀사의 계좌정보를 입력합니다.\n자세한 문의사항은 02-788-9089 으로 연락주시기 바랍니다.');
+		alert('노무비닷컴 외에서 근로자(장비/자재업자 등)에게 임금(대금)을 선지급하였다면, 해당 지급내역 증빙서류를 "선지급수령인"란에 첨부하여 주시기 바랍니다.\n\n※ 증빙서류 첨부는 우측 하단의 “저장” 버튼 클릭 이후에 가능합니다.\n\n이 때 계좌번호란에는 귀사의 일반 계좌번호(노무비닷컴 전용계좌 X)를 입력하여 주시기 바랍니다.\n\n관련 문의사항은 시스템운영팀으로 연락주시기 바랍니다.');
+
+
+//		if(tdo.html().length<10)
+//			tdo.html('<a href=#1>첨부</a><br><img src="images/bul/ico_txt.gif" id=img1 class="pointer" alt="첨부파일 이미지" nm="" style="display:none"/>');
+//		obj_tr.find("select[name=no_bank_name]").val('');
+//		obj_tr.find("input[name=no_acc_name]").val('');
+//		obj_tr.find("input[name=no_bank_no]").val('');
+		obj_tr.find("input[name=no_bank_no]").focus();
+	} else {
+		obj_tr.find("select[name=no_bank_name]").focus();
+		tdo.text('-');
+	}
+	add_event();
+}
+
+function del_div(ac_type, ac_nm) {
+	if(confirm(ac_nm+' 청구내역을 삭제합니다.')) {
+		$.ajax({type:"get", url: "/nomuMnu.html", data:"sdo=공통_청구내역삭제&or_cd=19271&or_com_cd=87990&bill_month=202003&seq=0&ac_type="+ac_type, dataType:"json",
+			success : function(data) { 
+				$('#ac_'+ac_type).remove();
+				alert('삭제되었습니다.');
+			},
+			//error : function(request,error) { alert('처리중 에러가 발생하였습니다.'); }
+		});
+	}
+}
+function attachUp(attach_file) { // 첨부문서 업로드
+	var data = "sdo=공통_첨부파일업로드&or_cd=19271&bill_or_com_cd=87990&bill_month=202003&seq=0&attach_file="+attach_file;
+	//$.smartPop.open({ width:450, height:220, url: "/nomuMnu.html?"+data});
+	$.smartPop.open({ width:450, height:220, url: "nomuMnu_42291.html"});
+}
+function infileUp(file_add) { // 입금증 업로드
+	var data = "sdo=공통_첨부파일업로드&or_cd=19271&bill_or_com_cd=87990&bill_month=202003&seq=0&typ=add&attach_file="+file_add;
+	$.smartPop.open({ width:450, height:220, url: "/nomuMnu.html?"+data});
+}
+function taxUp() { // 세금계산서 발행일자
+	var data = "sdo=공통_세금계산서&or_cd=19271&or_com_cd=87990&bill_month=202003&seq=0";
+	$.smartPop.open({ width:820, height:620, url: "/nomuMnu.html?"+data});
+}
+var ac_obj;
+$(document).ready(function() {
+	
+	ac_obj = [$('#t_실근무등록_ac_01'), $('#t_실근무등록_ac_03'), $('#t_실근무등록_ac_04'), $('#t_실근무등록_ac_07'), $('#t_실근무등록_ac_05'), $('#t_실근무등록_ac_06'), $('#t_실근무등록_ac_08')];
+	
+});   
+function batchUp() {
+	// var data = "sdo=하도_위임장업로드&or_cd=19271&or_com_cd=87990&bill_month=202003&seq=0";
+	// $.smartPop.open({ width:820, height:585, url: "/nomuMnu.html?"+data});
+	$.smartPop.open({ width:820, height:585, url: "nomuMnu_42292.html"});
+}
+var ino_yn = '';
+function check_excel() {
+	if(ino_yn!='Y')
+		alert('SK건설 시연용 현장 현장은 노무비닷컴에서 제공하는 현장출입관리시스템이 설치된 현장이 아닙니다.\n노무비닷컴에 문의하여 주시기 바랍니다.\n(Tel. 02-788-9088, 02-788-9071)');
+	else
+		excel_down('공통_출역데이타&or_cd=19271&bill_month=202003')
+}
+function bill_check(or_cd, or_com_cd, bill_month, seq) {
+	if(ino_yn=='Y')
+		$.smartPop.open({ width:890, height:600, url: 'nomu47051.html?or_cd='+or_cd+'&or_com_cd='+or_com_cd+'&bill_month='+bill_month+'&seq='+seq});
+	else
+		open_win("../popup/20190321/pop.html", "bill_check", 1310, 812);
+	return;
+}
+function moveDetl() {
+	var posLeft = event.x + document.htmlcumentElement.scrollLeft - 40;
+	if(posLeft>$(window).width()-230) posLeft = $(window).width()-230; 
+	helpbox.style.posLeft = posLeft;
+
+	helpbox.style.posTop  = event.y + 18;
+
+}
+function viewDetl() {
+	helpbox.innerHTML = "<table width=210 border=0 cellpadding=0 cellspacing=0><colgroup><col width=1><col width=*><col width=2></colgroup><tr><td height=1 colspan=3 bgcolor=#a6b4c1></td></tr><tr><td bgcolor=#a6b4c1></td>"+
+		"<td bgcolor=#FFFFFF style='padding-top:4px;padding-left:4px;'>※ 입금계좌에 출금계좌의 예금주가 아닌 다른 적요를 기입하는 기능(예: 물량팀명 등)</td>"+
+		"<td bgcolor=#a6b4c1></td></tr><tr><td height=2 colspan=3 bgcolor=#a6b4c1></td></tr></table>";
+}
+function hideDetl() {
+	helpbox.innerHTML = "";
+}
+
+
+$().ready(function() {
+	quick.style.display = "";
+//**//	new Floating(document.getElementById("quick"), -100, 210, 20, 10);
+	new Floating(document.getElementById("quick"), -100, 110, 20, 10);
+//	new Floating(document.getElementById("quick"), -114, 210, 20, 10);
+//	new Floating(document.getElementById("quick"), -114, 110, 20, 10);
+    $('.todo_bottom_close').click(function(){
+      $('#quick').hide();
+    });
+});
+</script>
+
+</head>
+<body>
+
+<prnoff>
+<div class="wrap login">
+
+    <div class="header">
+      <div class="header_top_wrap">
+        <div class="header_top">
+          <p class="company_phone">(주)나이스토건 (107-86-24873)</p>
+          <ul class="header_quick_menu">
+        
+            <li class="time_color" id="acc_time">
+              60:00
+            </li>
+            <li class="time_color">
+              <a href="javascript:resetAcc()">연장</a>
+            </li>
+            <li>
+              <a href="logout.html">로그아웃</a>
+            </li>
+            <li>
+
+              <a href="nomu6401.html">기업정보수정</a>
+
+            </li>
+<li><a href="/nomuMain.html?sdo=하도_결제내역_m">결제내역</a></li>          
+          </ul>
+        </div>
+      </div>
+      <div class="header_bottom_wrap">
+        <div class="header_bottom">
+          <div class="logo_wrap">
+            <h1><a href="/">노무비닷컴</a></h1>
+            <p class="slogun">체불없는 세상을 위한 모두의 한걸음</p>
+          </div>
+          <ul class="gnb">
+            <!-- GNB 페이지 유지시 class명 active붙이기(depth1에서만 적용) -->
+
+            <li id=gnb31 class="active"><a href="nomu4101.html">현장등록</a></li>
+            <li id=gnb32><a href="nomu4201.html">내역서작성</a></li>
+            <li id=gnb33><a href="nomu4301.html">대금지급</a></li>
+				<li id=gnb33><a href="nomu45051.html">확인서발급</a></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+<div id="warp_w1" style='padding-top:30px'>
+	<div id="content_w1">	
+	
+<div id="location">
+	<div id="locationNavi">
+
+		<h1 style='float:left'><img src="images/title/title420.gif" alt="내역서작성" /></h1>
+<span class="navi_or_name">SK건설 시연용 현장</span>
+	</div>
+	<ol style='line-height:1.5'>
+		<li>HOME&nbsp;&gt;&nbsp;</li>
+		<li class="png24">협력기업&nbsp;&gt;&nbsp;</li>
+		<li class="last png24" id="pg_navi">청구내역서 작성</li>
+	</ol>
+</div>
+
+<script language=javascript>
+function help(scr_id) {
+//	ifrm_work.location.href = "nomuWork.html?sdo=공통_파일다운로드&id_typ=9003&seq="+scr_id;
+//	ifrm_work.src = "nomuWork.html?sdo=공통_파일다운로드&id_typ=9003&seq="+scr_id;
+	window.open("nomuWork.html?sdo=공통_파일다운로드&view=true&id_typ=9003&seq="+scr_id, "_blank");
+}
+function help_talk() {
+//	open_win("https://talk.naver.com/WCD8I5", "helptalk", 420, 540);
+	var _new_win= window.open("https://talk.naver.com/WCD8I5", "help","left=0,top=0,width=508,height=808");
+	_new_win.focus();
+}
+</script>
+
+<div style="float:right;padding-top:4px;"><a href=javascript:help_talk()><img src='images/img/help_talk.gif'></a> <img src='images/img/help_tel.gif'> <a href=javascript:help('109')><img src='images/img/help_no.gif'></a></div>
+
+<div style="clear:both;"></div>
+
+<div class="tableTop">
+	<div class="tLeft">
+		<h3><img src="images/txt/txt_board17.gif" alt="내 계좌정보" /></h3>
+	</div>
+</div>
+<div class="BorderTb">
+	<table summary="내 계좌정보" class="Type1" border="1" cellspacing="0" >
+		<colgroup>
+		<col width="150" />
+		<col width="150" />
+		<col width="170" />
+		<col width="170" />
+		<col width="160" />
+		<col width="160" />
+		</colgroup>
+		<thead>
+		<tr>
+			<th scope="col">구분</th>
+			<th scope="col">은행</th>
+			<th scope="col">예금주</th>
+			<th scope="col">계좌번호</th>
+			<th scope="col">잔고(원)</th>
+			<th scope="col">출금가능액(원)</th>
+		</tr>
+		</thead>
+		<tbody>
+
+		<tr>
+			<td>노무비 전용계좌</td>
+			<td>부산은행</td>
+			<td>테스트</td>
+			<td>11320114030**</td>
+			<td>0</td>
+			<td>0</td>
+		</tr>
+
+		<tr>
+			<td>장비비 전용계좌</td>
+			<td>부산은행</td>
+			<td>테스트</td>
+			<td>11320114030**</td>
+			<td>0</td>
+			<td>0</td>
+		</tr>
+
+		<tr>
+			<td>기타 기성 전용계좌</td>
+			<td>부산은행</td>
+			<td>테스트</td>
+			<td>11320114030**</td>
+			<td>0</td>
+			<td>0</td>
+		</tr>
+
+		</tbody>
+	</table>
+</div>
+
+<br/><br/>
+
+<div id="helpbox" style="position:absolute; left:0px; top:0px; width:300px; height:0px; border-width:0px; z-index:1;"></div>
+<form id="f_실근무등록" name="f_실근무등록" method="post" onSubmit="return false;">
+<input type="hidden" name=sdo>
+<input type="hidden" name=excel_up>
+<input type="hidden" name="or_cd" value="19271"/>
+<input type="hidden" name="or_com_cd" value="87990"/>
+<input type="hidden" name="bill_month" value="202003"/>
+<input type="hidden" name="seq" value="0"/>
+<div class="tableTop">
+	<div class="tLeft">
+		<h3><img src="images/txt/txt_board23.gif" alt="청구내역서 작성" /></h3>
+	</div>
+	
+	<div class="tLeft">
+		
+	</div>
+	
+	
+	<div class="tRight" style="min-height:28px">
+		<ul>
+<!--		
+			<li>
+				<input type="image" onclick="javascript:pre_bill()" src="images/btn/btn_import.gif" alt="전월 청구내역 불러오기">
+			</li>
+-->
+
+<!--			
+			<li>
+				<input type="button" onclick="javascript:batchUp()" class="pointer" alt="위임장 일괄 업로드" style="background:url(/images/btn/btn_fileup.gif);width:132px;height:22px;border:none;" />
+			</li>
+-->			
+			<li><img src="images/btn/btn_fileup_n.gif" onclick="javascript:batchUp()" class="pointer" alt="위임장 일괄 업로드" /></li>
+
+			<li>
+				<img src="images/btn/btn_3.gif" onclick="javascript:attachUp('')" class="pointer" alt="첨부문서 업로드" />
+<!--			
+				<input type="button" onclick="javascript:attachUp('')" class="pointer" alt="첨부문서 업로드" style="background:url(/images/btn/btn_1.gif);width:87px;height:22px;border:none;" />
+				<span id=oo>파일1</span><input type="button" onclick="javascript:attachUp('')" class="pointer" alt="첨부문서 업로드" style="background:url(/images/btn/btn_btn2.gif);width:87px;height:22px;border:none;" />
+-->				
+			</li>
+
+			<li><img src="images/btn/btn_indata.gif" onclick="javascript:check_excel()" class="pointer" alt="출역DATA" /></li>
+
+			<li><img src="images/btn/btn_updown.gif" onclick="javascript:updown()" class="pointer" alt="양식UP/DOWN" /></li>
+<!--
+			<li>
+				<input type="button" onclick="javascript:FormDown()" class="downBtn pointer" alt="양식 다운로드"/>
+			</li>
+			<li>
+				<input type="button" onclick="javascript:FormUp();" class="upBtn pointer" alt="양식 업로드"/>
+			</li>
+-->
+		</ul>
+	</div>
+	
+	
+</div>
+<!--
+
+<div style='float:right'>
+	※ 입금적요 기능 안내 : 입금계좌에 출금계좌의 예금주가 아닌 다른 적요를 기입하는 기능
+< !--	(단, 출금계좌가 우리은행 계좌일 경우 추후 적용 예정) -- >
+</div>
+
+-->
+
+<div id=ac_01 ids="노무비">
+<div class="tableTop" style="padding-top:0px">
+	<div class="tLeft">
+		<div style="height:8px;"></div>
+		<img src="images/txt/txt1_01.png" alt="노무비" style='padding-top:3px'/>
+		<img src="images/txt/txt1_10.png" alt="이체약속일" style='padding-top:3px'/><input type="text" name="pay_due_day_01" class="cal iput_70" id="startDay01" value="2020-04-30" readonly onchange='save_pay_day(this)' />
+		<img src="images/txt/txt1_01_e.png" alt="노무비" style='padding-top:3px'/>
+		
+		<span id=del_ac style='display:none'>
+			<input type=checkbox onclick="del_div('01', '노무비')"><img src="images/txt/txt1_11.png" alt="청구내역없음" style='padding-top:3px'/>
+		</span>
+		
+	</div>
+
+</div>
+
+<div class="BorderTb">
+	<table summary="현장관리" class="Type1" border="1" cellspacing="0" id="insList_s_01">
+	<caption>현장관리</caption>
+		<colgroup>
+
+			<col width="33"/><!--순번-->
+			<col width="67"/><!--성명-->
+			<col width="95"/><!--생년월일-->
+			<col width="68"/><!--청구액-->
+			<col width="58"/><!--공제액-->
+			<col width="69"/><!--지급예정액-->
+			<col width="88"/><!--연락처-->
+			<col width="52"/><!--선지급-->
+			<col width="94"/><!--은행-->
+			<col width="94"/><!--계좌번호-->
+			<col width="79"/><!--예금주-->
+			<col width="64"/><!--계좌검증-->
+			<col width="44"/><!--선지급수령인-->
+			<col width="44"/><!--위임장-->
+			<col width="95"/><!--메모-->
+
+			<col width="75"/><!--물량팀명-->
+			
+			<col width="35"/><!--삭제-->
+
+		</colgroup>
+	<thead>
+	<tr>
+		<th scope="col">순번 </th>
+<!--		
+		<th scope="col">해당월</th>
+-->		
+
+		<th scope="col">성명</th>
+		<th scope="col">생년월일</th>
+		
+		<th scope="col">청구액<br>(원)</th>
+		<th scope="col">공제액<br>(원)</th>
+		<th scope="col">지급예정액<br>(원)</th>
+		<th scope="col">연락처</th>
+		<th scope="col">선지급</th>
+		<th scope="col">은행</th>
+		<th scope="col">계좌번호</th>
+		<th scope="col">예금주</th>
+
+		<th scope="col">계좌검증</th>
+		<th scope="col">선지급<br>수령인</th>
+		<th scope="col">위임장 등</th>
+
+		<th scope="col">비고</th>
+
+		<th scope="col" onMouseMove="moveDetl();" onMouseOver="viewDetl(this, 1);" onMouseOut="hideDetl();" class="pointer">입금적요</th>
+	
+		<th scope="col">삭제</th>
+	</tr>
+	</thead>
+	<tbody id=t_실근무등록_ac_01></tbody>
+	</table>
+</div>
+<div class="tableTop" style='padding-top:0px'>
+	<div class="btnArea">
+		<div style="float:left;padding-top:10px;width:400px;font-weight:bold;">
+			<ul>
+				<li>
+					청구액 합계 : <span class="tot_money" id=bill_sum>0</span> &nbsp;&nbsp;
+					지급예정액 합계 : <span class="tot_money" id=pay_sum>0</span>
+				</li>
+			</ul>
+		</div>
+		<div class="tRight">
+			<ul>
+				<li>
+					<input type="button" onclick="javascript:ins_add('01')" class="caddBtn pointer" alt="행추가"/>
+				</li>
+				<li>
+					<input type="button" onclick="javascript:ins_del('01')" class="cdeleteBtn pointer" alt="행삭제"/>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+</div>
+
+<div id=ac_03 ids="장비비">
+<div class="tableTop" style="padding-top:0px">
+	<div class="tLeft">
+		<div style="height:8px;"></div>
+		<img src="images/txt/txt1_03.png" alt="장비비" style='padding-top:3px'/>
+		<img src="images/txt/txt1_10.png" alt="이체약속일" style='padding-top:3px'/><input type="text" name="pay_due_day_03" class="cal iput_70" id="startDay03" value="2020-04-23" readonly onchange='save_pay_day(this)' />
+		<img src="images/txt/txt1_03_e.png" alt="장비비" style='padding-top:3px'/>
+		
+		<span id=del_ac style='display:none'>
+			<input type=checkbox onclick="del_div('03', '장비비')"><img src="images/txt/txt1_11.png" alt="청구내역없음" style='padding-top:3px'/>
+		</span>
+		
+	</div>
+
+</div>
+
+<div class="BorderTb">
+	<table summary="현장관리" class="Type1" border="1" cellspacing="0" id="insList_s_03">
+	<caption>현장관리</caption>
+		<colgroup>
+
+			<col width="33"/><!--순번-->
+			<col width="67"/><!--성명-->
+			<col width="95"/><!--생년월일-->
+			<col width="68"/><!--청구액-->
+			<col width="58"/><!--공제액-->
+			<col width="69"/><!--지급예정액-->
+			<col width="88"/><!--연락처-->
+			<col width="52"/><!--선지급-->
+			<col width="94"/><!--은행-->
+			<col width="94"/><!--계좌번호-->
+			<col width="79"/><!--예금주-->
+			<col width="64"/><!--계좌검증-->
+			<col width="44"/><!--선지급수령인-->
+			<col width="44"/><!--위임장-->
+			<col width="95"/><!--메모-->
+
+			<col width="75"/><!--물량팀명-->
+			
+			<col width="35"/><!--삭제-->
+
+		</colgroup>
+	<thead>
+	<tr>
+		<th scope="col">순번 </th>
+<!--		
+		<th scope="col">해당월</th>
+-->		
+
+		<th scope="col">회사명</th>
+		<th scope="col">사업자번호</th>
+		
+		<th scope="col">청구액<br>(원)</th>
+		<th scope="col">공제액<br>(원)</th>
+		<th scope="col">지급예정액<br>(원)</th>
+		<th scope="col">연락처</th>
+		<th scope="col">선지급</th>
+		<th scope="col">은행</th>
+		<th scope="col">계좌번호</th>
+		<th scope="col">예금주</th>
+
+		<th scope="col">계좌검증</th>
+		<th scope="col">선지급<br>수령인</th>
+		<th scope="col">위임장 등</th>
+
+		<th scope="col">비고</th>
+
+		<th scope="col" onMouseMove="moveDetl();" onMouseOver="viewDetl(this, 1);" onMouseOut="hideDetl();" class="pointer">입금적요</th>
+	
+		<th scope="col">삭제</th>
+	</tr>
+	</thead>
+	<tbody id=t_실근무등록_ac_03></tbody>
+	</table>
+</div>
+<div class="tableTop" style='padding-top:0px'>
+	<div class="btnArea">
+		<div style="float:left;padding-top:10px;width:400px;font-weight:bold;">
+			<ul>
+				<li>
+					청구액 합계 : <span class="tot_money" id=bill_sum>0</span> &nbsp;&nbsp;
+					지급예정액 합계 : <span class="tot_money" id=pay_sum>0</span>
+				</li>
+			</ul>
+		</div>
+		<div class="tRight">
+			<ul>
+				<li>
+					<input type="button" onclick="javascript:ins_add('03')" class="caddBtn pointer" alt="행추가"/>
+				</li>
+				<li>
+					<input type="button" onclick="javascript:ins_del('03')" class="cdeleteBtn pointer" alt="행삭제"/>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+</div>
+
+<div id=ac_05 ids="기타 기성">
+<div class="tableTop" style="padding-top:0px">
+	<div class="tLeft">
+		<div style="height:8px;"></div>
+		<img src="images/txt/txt1_05.png" alt="기타 기성" style='padding-top:3px'/>
+		<img src="images/txt/txt1_10.png" alt="이체약속일" style='padding-top:3px'/><input type="text" name="pay_due_day_05" class="cal iput_70" id="startDay05" value="2020-04-30" readonly onchange='save_pay_day(this)' />
+		<img src="images/txt/txt1_05_e.png" alt="기타 기성" style='padding-top:3px'/>
+		
+		<span id=del_ac style='display:none'>
+			<input type=checkbox onclick="del_div('05', '기타 기성')"><img src="images/txt/txt1_11.png" alt="청구내역없음" style='padding-top:3px'/>
+		</span>
+		
+	</div>
+
+</div>
+
+<div class="BorderTb">
+	<table summary="현장관리" class="Type1" border="1" cellspacing="0" id="insList_s_05">
+	<caption>현장관리</caption>
+		<colgroup>
+
+			<col width="33"/><!--순번-->
+			<col width="67"/><!--성명-->
+			<col width="95"/><!--생년월일-->
+			<col width="68"/><!--청구액-->
+			<col width="58"/><!--공제액-->
+			<col width="69"/><!--지급예정액-->
+			<col width="88"/><!--연락처-->
+			<col width="52"/><!--선지급-->
+			<col width="94"/><!--은행-->
+			<col width="94"/><!--계좌번호-->
+			<col width="79"/><!--예금주-->
+			<col width="64"/><!--계좌검증-->
+			<col width="44"/><!--선지급수령인-->
+			<col width="44"/><!--위임장-->
+			<col width="95"/><!--메모-->
+
+			<col width="75"/><!--물량팀명-->
+			
+			<col width="35"/><!--삭제-->
+
+		</colgroup>
+	<thead>
+	<tr>
+		<th scope="col">순번 </th>
+<!--		
+		<th scope="col">해당월</th>
+-->		
+
+		<th scope="col">회사명</th>
+		<th scope="col">사업자번호</th>
+		
+		<th scope="col">청구액<br>(원)</th>
+		<th scope="col">공제액<br>(원)</th>
+		<th scope="col">지급예정액<br>(원)</th>
+		<th scope="col">연락처</th>
+		<th scope="col">선지급</th>
+		<th scope="col">은행</th>
+		<th scope="col">계좌번호</th>
+		<th scope="col">예금주</th>
+
+		<th scope="col">계좌검증</th>
+		<th scope="col">선지급<br>수령인</th>
+		<th scope="col">위임장 등</th>
+
+		<th scope="col">비고</th>
+
+		<th scope="col" onMouseMove="moveDetl();" onMouseOver="viewDetl(this, 1);" onMouseOut="hideDetl();" class="pointer">입금적요</th>
+	
+		<th scope="col">삭제</th>
+	</tr>
+	</thead>
+	<tbody id=t_실근무등록_ac_05></tbody>
+	</table>
+</div>
+<div class="tableTop" style='padding-top:0px'>
+	<div class="btnArea">
+		<div style="float:left;padding-top:10px;width:400px;font-weight:bold;">
+			<ul>
+				<li>
+					청구액 합계 : <span class="tot_money" id=bill_sum>0</span> &nbsp;&nbsp;
+					지급예정액 합계 : <span class="tot_money" id=pay_sum>0</span>
+				</li>
+			</ul>
+		</div>
+		<div class="tRight">
+			<ul>
+				<li>
+					<input type="button" onclick="javascript:ins_add('05')" class="caddBtn pointer" alt="행추가"/>
+				</li>
+				<li>
+					<input type="button" onclick="javascript:ins_del('05')" class="cdeleteBtn pointer" alt="행삭제"/>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+</div>
+
+</form>
+
+<div class="btnArea">
+   <div class="ani-btn-wrap">
+      <div class="pulse-button"></div>
+      <a href="javascript:bill_check('19271','87990','202003','0')" class="ani-btn">내역서 검증</a>
+   </div>
+<!--
+   <a href="" class="btn-action2">내역서 검증</a>
+-->
+	<div class="bRight">
+		<ul>
+			<li>
+ 				<input type="button" id="billSave" onclick="bill_save()" class="saveBtn pointer" alt="저장하기">
+				<input type="image" id="billView" onclick="view1()" src="images/btn/btn_dgray16.gif" alt="청구서 미리보기"/>
+				<input type="image" id="billConf" onclick="bill_confirm('')" src="images/btn/btn_dgray12.gif" alt="청구하기"/>
+			</li>
+		</ul>
+	</div>
+</div>
+<br>
+
+	</div>
+</div>
+
+<div id=quick style="width:120px;position:absolute;z-index:1;left:1200px;top:0px;display:none;">
+<div>
+<a href="https://aff.g2brating.co.kr/#MENUCM0300?param=NOMUBI" target=_blank>
+<img src="images/page/nomubi_banner1_101_200.jpg" alt="">
+</a>
+</div>
+<!--
+<div>
+<a href="https://www.nicers.co.kr" target=_blank>
+<img src="images/page/nomubi_banner2_101_200.jpg" alt="">
+</a>
+</div>
+<div>
+<a href="https://nicewel.co.kr/?act=user.user_join_info&r=nomubi" target=_blank>
+<img src="images/page/nomubi_banner4_101_200.jpg" alt="">
+</a>
+</div>
+-->
+<div>
+	<a href="https://www.niceabc.co.kr/ingress/main?aid=nomubi" target=_blank>
+	<img src="images/page/nomubi_02.jpg" alt="">
+	</a>
+</div>
+<div>
+	<a href="/nomu4505.html">
+	<img src="images/page/7.101x200.jpg" alt="">
+	</a>
+</div>
+<!--
+-->
+<!--
+      <div class="to-do-list">
+        <div class="quick-bottom inner-quick">
+          <div class="img-quick">
+            <div class="todo_bottom_close"></div>
+            <div class="img-wrap">
+              <img src="images/common/quick_banner.gif" alt="">
+            </div>
+            <div class="btn-wrap">
+              <a href="/nomu45051.html">발급바로가기</a>
+            </div>
+          </div>
+        </div>
+		</div>
+-->
+</div>
+
+<div id="content_work"></div>
+<iframe id="ifrm_work" name="ifrm_work" border=0 width=0 height=0></iframe>
+</div>
+
+<div class="footer_wrap sub_tamplate ">
+  <div class="footer">
+    <div class="family_site_wrap">
+      <div class="family_site_service">
+        <select name="familySite" id="familySite" onchange="if(this.value) window.open(this.value);">
+          <option value="" selected>FAMILY SITE</option>
+          <option value="http://www.nicednr.co.kr">NICE디앤알</option>
+          <option value="http://www.nice.co.kr">NICE홀딩스</option>
+          <option value="http://www.nicednb.com">NICE디앤비</option>
+          <option value="http://www.niceinfo.co.kr">NICE평가정보</option>
+          <option value="http://www.nicerating.com">NICE신용평가</option>
+          <option value="http://www.nicevan.co.kr">NICE정보통신</option>
+          <option value="http://www.kisvan.co.kr">KIS정보통신</option>
+          <option value="http://www.nicetcm.co.kr">한국전자금융</option>
+        </select>
+      </div>
+      <div class="family_site_service">
+        <select name="familyService" id="familyService" onchange="if(this.value) window.open(this.value);">
+          <option value="" selected>FAMILY SERVICE</option>
+          <option value="http://www.nicewinc.co.kr">동반성장지원 서비스</option>
+          <option value="http://www.nicedocu.com">전자계약/입찰 서비스</option>
+          <option value="http://www.nicesoho.co.kr">소상공인지원 서비스</option>
+          <option value="http://www.g2brating.co.kr">공공입찰 기업신용평가</option>
+          <option value="http://clipq.co.kr">협력업체 기업신용평가</option>
+          <option value="http://biz.ntcb.co.kr">기술 신용평가 서비스</option>
+          <option value="http://www.creport.co.kr">기업정보 서비스</option>
+          <option value="http://global.nicednb.com">글로벌 서비스</option>
+        </select>
+      </div>
+    </div>
+    <ul class="footer_menu">
+      <li>
+        <a href="nomu7201.html">이용약관</a>
+      </li>
+      <li>
+        <a href="nomu7301.html">개인정보처리방침</a>
+      </li>
+      <li>
+        <a href="nomu7401.html">이메일무단수집거부</a>
+      </li>
+    </ul>
+    <ul class="address">
+      <li>서울특별시 서대문구 충정로 36 NICE디앤알(주)</li>
+      <li>대표자 : 강용구</li>
+      <li>TEL : 1670-1970</li>
+      <li>FAX : 02-6442-2383</li>
+    </ul>
+    <ul class="address">
+    	<li>사업자등록번호 : 107-87-08207</li>
+    	<li>통신판매업 신고번호 : 제2012-서울구로-1033호</li>
+    </ul>
+    <p class="copyright">copyrightⓒ NICE Data&Research, Inc All Rights Reserved.</p>
+  </div>
+</div>
+
+</prnoff>
+
+
+</body>
+</html>
