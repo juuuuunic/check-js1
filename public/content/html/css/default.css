@@ -2601,7 +2601,7 @@ input[type="checkbox"], input[type="radio"] {
           line-height: 15px;
           color: #656565; }
           .wrap .header .header_top_wrap .header_top .header_quick_menu li a:hover {
-            color: #2b2b2b; }
+            }
         .wrap .header .header_top_wrap .header_top .header_quick_menu li.time_color {
           border-right: solid 1px #cf5653;
           color: #cf5653; }
@@ -2633,7 +2633,7 @@ input[type="checkbox"], input[type="radio"] {
       	padding-top:1px;
         display: inline; }
       .wrap .header .header_top_wrap .header_top .header_quick_menu li a:hover {
-        color: #2b2b2b; }
+        }
     .wrap .header .header_top_wrap .header_top .header_quick_menu li.time_color {
       border-right: solid 1px #cf5653;
       color: #cf5653; }
@@ -6921,111 +6921,61 @@ input[type="checkbox"], input[type="radio"] {
 
 
 /** 200507 이준희 추가: A-RM서비스 **/
-
-@font-face { 
-  font-family: 'Noto Sans KR'; 
-  font-style: normal; 
-  font-weight: 100; 
-  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff2) format('woff2'), 
-      url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff) format('woff'), 
-      url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.otf) format('opentype'); 
-} 
-
-@font-face { 
-  font-family: 'Noto Sans KR'; 
-  font-style: normal; 
-  font-weight: 300; 
-  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff2) format('woff2'), 
-      url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff) format('woff'), 
-      url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.otf) format('opentype'); 
-} 
-
-@font-face { 
-  font-family: 'Noto Sans KR'; 
-  font-style: normal; 
-  font-weight: 400; 
-  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff2) format('woff2'), 
-        url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff) format('woff'), 
-        url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.otf) format('opentype'); 
- } 
-
-@font-face { 
-  font-family: 'Noto Sans KR'; 
-  font-style: normal; 
-  font-weight: 500; 
-  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff2) format('woff2'), 
-        url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff) format('woff'), 
-        url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.otf) format('opentype'); 
- } 
-
-@font-face { 
-  font-family: 'Noto Sans KR'; 
-  font-style: normal; 
-  font-weight: 700; 
-  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff2) format('woff2'), 
-        url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff) format('woff'), 
-        url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.otf) format('opentype'); 
- } 
-
-@font-face { 
-  font-family: 'Noto Sans KR'; 
-  font-style: normal; 
-  font-weight: 900; 
-  src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff2) format('woff2'), 
-        url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff) format('woff'), 
-        url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.otf) format('opentype'); 
- } 
-
-
-.table {border-top: 2px solid #555; border-bottom: 2px solid #555;}
+.login-container .contents_wrap .contents .colum_wrap .colum_right .monitoring_icon {position: relative;}
+.login-container .contents_wrap .contents .colum_wrap .colum_right .monitoring_icon .btn_wrap a:first-child {position: absolute; left: 0; bottom: 0;}
+/* #arm_contents.wrap {font-family: 'Noto Sans KR', 고딕, san-serif, IcoMoon,dashicons, FontAwesome !important; font-size: 100%;  font-weight: normal; font-style: normal; font: inherit;} */
+#arm_contents.wrap {font-family: "Noto Sans Korean", 고딕, san-serif, IcoMoon,dashicons, FontAwesome !important; font-size: 100%;  font-weight: normal; font-style: normal; font: inherit;}
+#arm_contents #location ol {margin-top: 25px; margin-bottom: 56px;}
+#arm_contents .sub-visual-title {height: 310px;}
+.table { border-top: 2px solid #555; border-bottom: 2px solid #555;}
 .table caption {visibility: hidden; height: 0; }
-.table th, .table td {color: #333; text-align: center;}
-
+.table th, .table td {font-size: 13px; text-align: center;}
 .table thead {border-bottom: 1px solid #555;}
-.table thead th {font-size: 13px; color: #353535; letter-spacing: -0.5px; border-top: 1px solid #ccc;}
-.table thead th+th {border-left: solid 1px #ccc;}
-.table tbody th, .table tbody td {letter-spacing: -0.5px; border-bottom: solid 1px #ccc; border-right: solid 1px #ccc;}
+.table thead tr:first-child th {font-weight: bold;} 
+.table thead th {font-size: 13px; font-weight: normal; color: #353535; border-top: 1px solid #ececec;}
+.table thead th+th {border-left: solid 1px #ececec;}
+.table tbody th, .table tbody td {border-bottom: solid 1px #ececec; border-right: solid 1px #ececec;}
 .table tbody td {font-size: 13px;}
 .table tbody td:last-child {border-right: none;}
-.table_type1 th, .table_type1 td {line-height: 2.5;}
+.table_type1 th, .table_type1 td {height: 40px;}
 .table_type1 th:first-child {border-right: 1px solid #555;}
 .table_type2 th, .table_type2 td {height: 60px;}
-.login-container .contents_wrap .arm_contents em {font-weight: bold;}
+.table_type2 th em {color: #153b9a;}
 
-.login .sub-visual-title .inner-contents p {font-size: 30px; line-height: 1.3;}
-.login .sub-visual-title .inner-tab {display: table; margin: 13px auto 0;}
-.login .sub-visual-title .inner-tab::after {content: ''; display: table; clear: both;}
-.login .sub-visual-title .inner-tab li {width: 300px; float: left; font-size: 15px; color: #fff; line-height: 50px; text-align: center; letter-spacing: -1px; background-color: rgba(19, 44, 107, 0.5); cursor: pointer;}
-.login .sub-visual-title .inner-tab li.active {color: #132c6b; background-color: #fff;}
-.login-container .contents_wrap .arm_contents #location {height: auto; border-bottom: 0;}
-.login-container .contents_wrap .arm_contents #location li {line-height: 30px; margin-right: 10px;}
-.login-container .contents_wrap .arm_contents #location li:nth-child(even) {color: #ccc;}
-.login-container .contents_wrap .arm_contents .table_filter::after {content: ''; display: table; clear: both;}
-.login-container .contents_wrap .arm_contents .table_filter li {position: relative; float: left; width: 42%; margin-bottom: 8px;}
-.login-container .contents_wrap .arm_contents .table_filter li:last-child {float: right; width: 55%;}
-.login-container .contents_wrap .arm_contents .table_filter .table_option {background-color: #f1f1f1;}
-.login-container .contents_wrap .arm_contents .table_filter .table_option::after {content: ''; display: table; clear: both;}
-.login-container .contents_wrap .arm_contents .table_filter .table_option select,
-.login-container .contents_wrap .arm_contents .table_filter .table_option fieldset input[type="text"]  {height: 25px; font-size: 13px; border: solid 1px #dfdfdf; padding-left: 5px; margin-bottom: 15px; margin-left: 10px; outline: 0;}
-.login-container .contents_wrap .arm_contents .table_filter .table_option select {float: left; width: 120px;}
-.login-container .contents_wrap .arm_contents .table_filter .table_option select:nth-child(4) {margin-bottom: 0;}
-.login-container .contents_wrap .arm_contents .table_filter .table_option select option {outline: none;}
-.login-container .contents_wrap .arm_contents .table_filter .table_option fieldset input {float: left;}
-.login-container .contents_wrap .arm_contents .table_filter .table_option fieldset input[type="text"] {width: 200px; margin-right: 10px;}
-.login-container .contents_wrap .arm_contents .table_filter .table_option fieldset input[type="button"] {appearance: none; -webkit-appearance: none; background: none; border: solid 1px #dfdfdf; border-radius: 0; width: 40px; height: 25px; outline: 0; cursor: pointer;}
-.login-container .contents_wrap .arm_contents .table_filter .arm_table1 > p {margin-bottom: 10px;}
-.login-container .contents_wrap .arm_contents .table_filter .arm_table1 > p::before {content: ''; display: inline-block; width: 3px; height: 13px; background-color: #132c6b; margin-right: 5px; vertical-align: bottom;}
-.login-container .contents_wrap .arm_contents .table_filter .table_type1 tbody .tr_grades td+td,
-.login-container .contents_wrap .arm_contents .table_filter .table_type1 tbody .credits td {cursor: pointer;}
+.sub-visual-title.sub04 {background: no-repeat center top url(../images/sub/sub04_visual.jpg); background-size: cover;}
+.sub-visual-title {position: relative;}
+.sub-visual-title .inner-contents p {font-size: 30px; line-height: 1.3;}
+.sub-visual-title .inner-tab {position: absolute; display: flex; width: 800px; left: 50%; bottom: 0; transform: translateX(-50%); -webkit-transform: translateX(-50%); -moz-transform: translateX(-50%); -o-transform: translateX(-50%);}
+.sub-visual-title .inner-tab li {flex: 1; color: #fff; line-height: 70px; text-align: center; letter-spacing: -1px; background-color: rgba(19, 44, 107, .5); cursor: pointer;}
+.sub-visual-title .inner-tab li.active {color: #132c6b; background-color: #fff;}
+#warp_w #content_w #location {height: auto; border-bottom: 0;}
+#warp_w #content_w #location li {font-size: 13px; line-height: 17px; padding-right: 15px;}
+#warp_w #content_w #location li+li {padding-left: 15px; border-left: 1px solid #dbdbdb;}
+#warp_w #content_w .table_filter::after {content: ''; display: table; clear: both;}
+#warp_w #content_w .table_filter li {position: relative; float: left; width: auto; margin-bottom: 60px;}
+#warp_w #content_w .table_filter li:last-child {float: right; width: 54%;}
+#warp_w #content_w .table_filter .table_option {padding: 25px 27px 0; background-color: #f5f6f6;}
+#warp_w #content_w .table_filter .table_option::after {content: ''; display: table; clear: both;}
+#warp_w #content_w .table_filter .table_option select,
+#warp_w #content_w .table_filter .table_option fieldset input {font-size: 14px; color: #2d2d2d; height: 44px; border: solid 1px #dcdcdc; padding-left: 9px; margin-bottom: 15px; margin-bottom: 10px; outline: 0; box-sizing: border-box;}
+#warp_w #content_w .table_filter .table_option select {float: left; margin-right: 10px;}
+#warp_w #content_w .table_filter .table_option select:nth-child(3n) {margin-right: 0;}
+#warp_w #content_w .table_filter .table_option select option {outline: none;}
+#warp_w #content_w .table_filter .table_option fieldset input[type="button"] {appearance: none; -webkit-appearance: none; background: none; border-radius: 0; width: 113px; color: #fff; background-color: #132c6b; outline: 0; cursor: pointer; padding: 0;}
+#warp_w #content_w .table_filter .arm_table1 > p {margin-bottom: 22px;}
+#warp_w #content_w .table_filter .arm_table1 > p::before {content: ''; display: inline-block; width: 3px; height: 16px; background-color: #132c6b; margin-right: 5px; vertical-align: middle;}
+#warp_w #content_w .table_filter .table_type1 tbody .tr_grades td+td,
+#warp_w #content_w .table_filter .table_type1 tbody .credits td {cursor: pointer;}
 
-.login-container .contents_wrap .arm_contents .table_header ul::after {content: ''; display: table; clear: both;}
-.login-container .contents_wrap .arm_contents .table_header ul > li {float: left; line-height: 22px; margin-right: 8px;}
-.login-container .contents_wrap .arm_contents .table_header .drop_tab {position: relative; width: 22px; height: 22px; border-radius: 50px; -webkit-border-radius: 50px; background-color: #132c6b; cursor: pointer; margin-bottom: 8px;}
-.login-container .contents_wrap .arm_contents .table_header .drop_tab::after {
+#warp_w #content_w .table_header {position: relative; margin-bottom: 18px;}
+#warp_w #content_w .table_header ul::after {content: ''; display: table; clear: both;}
+#warp_w #content_w .table_header ul > li {float: left; line-height: 22px; margin-right: 8px;}
+#warp_w #content_w .table_header .drop_tab {position: relative; width: 19px; height: 19px; border-radius: 50px; -webkit-border-radius: 50px; background-color: #132c6b; cursor: pointer;}
+#warp_w #content_w .table_header .drop_tab::after {
   content: ''; 
   position: absolute; 
-  top: 7px; 
-  left: 2px; 
+  top: 6px; 
+  left: 1px; 
   width: 7px; 
   height: 7px; 
   border-left: 2px solid #fff; 
@@ -7041,20 +6991,18 @@ input[type="checkbox"], input[type="radio"] {
   transition: transform 0.2s ease-out, 
   -webkit-transform 0.2s ease-out;
 }
-.login-container .contents_wrap .arm_contents .table_header .drop_tab.active::after {transform: rotate(-45deg); -webkit-transform: rotate(-45deg);}
-.login-container .contents_wrap .arm_contents .table_header .exelBtn {width: 51px; height: 22px; background: url(../images/btn/btn_exel.gif) no-repeat; cursor: pointer;}
-.login-container .contents_wrap .arm_contents .table_header .drop_down li {margin-bottom: 3px;}
+#warp_w #content_w .table_header .drop_tab.active::after {transform: rotate(-45deg); -webkit-transform: rotate(-45deg);}
+#warp_w #content_w .table_header .exelBtn {position: absolute; right: 0; bottom: 0; cursor: pointer;}
+#warp_w #content_w .table_header .drop_down {font-size: 13px; line-height: 1.5; margin-top: 19px; }
 
-.login-container .contents_wrap .arm_contents .arm_table2 .table_type2 td:nth-child(2),
-.login-container .contents_wrap .arm_contents .arm_table2 .table_type2 td:nth-child(3),
-.login-container .contents_wrap .arm_contents .arm_table2 .table_type2 td:nth-child(4),
-.login-container .contents_wrap .arm_contents .arm_table2 .table_type2 td:nth-child(5),
-.login-container .contents_wrap .arm_contents .arm_table2 .table_type2 td:nth-child(14),
-.login-container .contents_wrap .arm_contents .arm_table2 .table_type2 td:nth-child(15),
-.login-container .contents_wrap .arm_contents .arm_table2 .table_type2 td:nth-child(16),
-.login-container .contents_wrap .arm_contents .arm_table2 .table_type2 td:nth-child(17),
-.login-container .contents_wrap .arm_contents .arm_table2 .table_type2 td:nth-child(18) {cursor: pointer;}
+#warp_w #content_w .arm_table2 .table_type2 td:nth-child(2),
+#warp_w #content_w .arm_table2 .table_type2 td:nth-child(3),
+#warp_w #content_w .arm_table2 .table_type2 td:nth-child(4),
+#warp_w #content_w .arm_table2 .table_type2 td:nth-child(5),
+#warp_w #content_w .arm_table2 .table_type2 td:nth-child(14),
+#warp_w #content_w .arm_table2 .table_type2 td:nth-child(15),
+#warp_w #content_w .arm_table2 .table_type2 td:nth-child(16),
+#warp_w #content_w .arm_table2 .table_type2 td:nth-child(17),
+#warp_w #content_w .arm_table2 .table_type2 td:nth-child(18) {cursor: pointer;}
 
-
-.login-container .contents_wrap .arm_contents .table_filter .tr_grades td {font-weight: bold;}
 
