@@ -28,8 +28,7 @@
 
   <script language="javascript">
     $(document).ready(function(){
-      creditColor();
-      toggleView();
+      selectBox();
       word_cut();
 
       // todo_lst
@@ -38,19 +37,31 @@
       $('.todo_close_btn').click(function(){
         close_body();
       });
- 
-      // 크래포트 등급정의 팝업 실행
-      var array = ['A1', 'A2', 'A3', 'B1', 'B2', 'B3', 'C1', 'C2', 'C3', 'D', 'NG'];
-      $.each(array, function(element) {
-        $('.arm_contents td').on('click', function() {
-          if($(this).text() == array[element]) open_creport();
-          else return false;
-        });    
+
+      // 크래포트 신용등급 팝업 실행
+      $('#warp_w td:has(img)').on('click', function() {
+        open_creport(740, 445);
+      }); 
+      
+      // 크래포트 기업정보 호출
+      $('.biz_info').on('click', function() {
+        open_bizInfo(740, 445);
+      });
+      
+      // 크래포트 신용정보 호출
+      $('.credit_info').on('click', function() {
+        open_creditInfo(740, 445);
+      });
+
+      // A-RM 서비스 설명 토글
+      $('.table_header .drop_tab').on('click', function() {
+        $(this).stop().toggleClass('active').parent('ul').siblings('.drop_down').stop().slideToggle('fast');
       });
 
       // tooltip
       $('.arm_table2 tbody td:not(.no_tip)').addClass('td_tooltip');
       var options = {
+        contentCloning: true,
         minWidth : 740,
         maxWidth : 740,
         contentAsHTML: true,
@@ -60,35 +71,11 @@
         offsetY: -12
       };
       $(".tooltip").tooltipster($.extend({}, options));
-      // $('.td_tooltip').on('mouseenter', function(){
-      //   var index = $(this).index();
-      //   var content = [
-      //     '-', 
-      //     '-', 
-      //     '-',
-      //     '최근 36개월간 해당 협력기업 대상 <br/>노무비닷컴을 적용하고 있는 원청사 수(귀사 포함)',
-      //     '최근 36개월간 해당 협력기업 대상 <br/>노무비닷컴을 적용하고 있는 현장 수(귀사 포함)',
-      //     '최근 36개월간 노무비닷컴을 통한 정상지급건수. <br/>협력기업이 작성한 청구내역서(=대금지급계획서) 상 모든 건(노무비, 장비비, 자재비 등)을 <br/>이체완료하였을 때 정상지급으로 분류함',
-      //     '최근 36개월간 노무비닷컴을 통한 정상지급금액(백만원). <br/>협력기업이 작성한 청구내역서(=대금지급계획서) 상 모든 건(노무비, 장비비, 자재비 등)을 <br/>이체완료하였을 때 정상지급으로 분류함',
-      //     '최근 3개월간 노무비닷컴을 통한 미지급건수. <br/>협력기업이 작성한 청구내역서(=대금지급계획서) 상 이체약속일이 지났음에도 <br/>현재까지 이체하지 않은 건이 존재할 경우 미지급으로 분류함',
-      //     '최근 12개월간 노무비닷컴을 통한 미지급건수. <br/>협력기업이 작성한 청구내역서(=대금지급계획서) 상 이체약속일이 지났음에도 <br/>현재까지 이체하지 않은 건이 존재할 경우 미지급으로 분류함',
-      //     '최근 36개월간 노무비닷컴을 통한 미지급건수. <br/>협력기업이 작성한 청구내역서(=대금지급계획서) 상 이체약속일이 지났음에도 <br/>현재까지 이체하지 않은 건이 존재할 경우 미지급으로 분류함',
-      //     '최근 3개월간 노무비닷컴을 통한 미지급금액(백만원). <br/>협력기업이 작성한 청구내역서(=대금지급계획서) 상 이체약속일이 지났음에도 <br/>현재까지 이체하지 않은 건이 존재할 경우 미지급으로 분류함',
-      //     '최근 12개월간 노무비닷컴을 통한 미지급금액(백만원). <br/>협력기업이 작성한 청구내역서(=대금지급계획서) 상 이체약속일이 지났음에도 <br/>현재까지 이체하지 않은 건이 존재할 경우 미지급으로 분류함',
-      //     '최근 36개월간 노무비닷컴을 통한 미지급금액(백만원). <br/>협력기업이 작성한 청구내역서(=대금지급계획서) 상 이체약속일이 지났음에도 <br/>현재까지 이체하지 않은 건이 존재할 경우 미지급으로 분류함',
-      //     '[신용지표]는 국내 최대 금융인프라기업인 NICE에 집적된 신용정보(재무, 금융연체, 세금체납, 법정관리 등)를 바탕으로 <br/>자동으로 산출된 협력기업 신용위험 모니터링 지표입니다. <br/>본 지표는 수집되는 신용정보에 따라 수시 변동되며, 신용정보기관 및 평가방법에 따라 상이할 수 있습니다',
-      //     '클릭 시, 해당 협력기업의 금융권 연체 정보 등을 조회할 수 있습니다. <br/>본 신용정보는 한국신용정보원 또는 신용정보회사에서 제공받은 정보로 <br/>조회 시점에 따라 실제 정보와의 차이가 발생할 수 있습니다',
-      //     '클릭 시, 해당 협력기업의 국세, 지방세 연체 등의 정보를 조회할 수 있습니다. <br/>본 신용정보는 한국신용정보원 또는 신용정보회사에서 제공받은 정보로 <br/>조회 시점에 따라 실제 정보와의 차이가 발생할 수 있습니다',
-      //     '클릭 시, 해당 협력기업의 산재, 고용보험료 연체 정보 등을 조회할 수 있습니다.<br/> 본 신용정보는 한국신용정보원 또는 신용정보회사에서 제공받은 정보로 <br/>조회 시점에 따라 실제 정보와의 차이가 발생할 수 있습니다',
-      //     '클릭 시, 해당 협력기업의 약속어음 연체 등의 정보를 조회할 수 있습니다. <br/>당좌거래정지정보는 금융결제원에서 제공되는 정보로, <br/>신용도판단정보(한국신용정보원)와 중복 제공될 수 있습니다'
-      //   ]
-      //   $(this)
-      //     .tooltipster($.extend({}, options, ({content: content[index]})));
-      // });
-      var contents = [
-          '-', 
-          '-', 
-          '-',
+      $('table').on('mouseover mouseenter', '.td_tooltip', function(){
+        var title = [
+          '순번', 
+          '사업자번호', 
+          '회사명',
           '최근 36개월간 해당 협력기업 대상 <br/>노무비닷컴을 적용하고 있는 원청사 수(귀사 포함)',
           '최근 36개월간 해당 협력기업 대상 <br/>노무비닷컴을 적용하고 있는 현장 수(귀사 포함)',
           '최근 36개월간 노무비닷컴을 통한 정상지급건수. <br/>협력기업이 작성한 청구내역서(=대금지급계획서) 상 모든 건(노무비, 장비비, 자재비 등)을 <br/>이체완료하였을 때 정상지급으로 분류함',
@@ -99,49 +86,38 @@
           '최근 3개월간 노무비닷컴을 통한 미지급금액(백만원). <br/>협력기업이 작성한 청구내역서(=대금지급계획서) 상 이체약속일이 지났음에도 <br/>현재까지 이체하지 않은 건이 존재할 경우 미지급으로 분류함',
           '최근 12개월간 노무비닷컴을 통한 미지급금액(백만원). <br/>협력기업이 작성한 청구내역서(=대금지급계획서) 상 이체약속일이 지났음에도 <br/>현재까지 이체하지 않은 건이 존재할 경우 미지급으로 분류함',
           '최근 36개월간 노무비닷컴을 통한 미지급금액(백만원). <br/>협력기업이 작성한 청구내역서(=대금지급계획서) 상 이체약속일이 지났음에도 <br/>현재까지 이체하지 않은 건이 존재할 경우 미지급으로 분류함',
-          '[신용지표]는 국내 최대 금융인프라기업인 NICE에 집적된 신용정보(재무, 금융연체, 세금체납, 법정관리 등)를 바탕으로 <br/>자동으로 산출된 협력기업 신용위험 모니터링 지표입니다. <br/>본 지표는 수집되는 신용정보에 따라 수시 변동되며, 신용정보기관 및 평가방법에 따라 상이할 수 있습니다',
+          '[신용지표]는 국내 최대 금융인프라기업인 NICE에 집적된 <br/>신용정보(재무, 금융연체, 세금체납, 법정관리 등)를 바탕으로 자동으로 산출된 <br/>협력기업 신용위험 모니터링 지표입니다. 본 지표는 수집되는 신용정보에 따라 <br/>수시 변동되며, 신용정보기관 및 평가방법에 따라 상이할 수 있습니다',
           '클릭 시, 해당 협력기업의 금융권 연체 정보 등을 조회할 수 있습니다. <br/>본 신용정보는 한국신용정보원 또는 신용정보회사에서 제공받은 정보로 <br/>조회 시점에 따라 실제 정보와의 차이가 발생할 수 있습니다',
           '클릭 시, 해당 협력기업의 국세, 지방세 연체 등의 정보를 조회할 수 있습니다. <br/>본 신용정보는 한국신용정보원 또는 신용정보회사에서 제공받은 정보로 <br/>조회 시점에 따라 실제 정보와의 차이가 발생할 수 있습니다',
           '클릭 시, 해당 협력기업의 산재, 고용보험료 연체 정보 등을 조회할 수 있습니다.<br/> 본 신용정보는 한국신용정보원 또는 신용정보회사에서 제공받은 정보로 <br/>조회 시점에 따라 실제 정보와의 차이가 발생할 수 있습니다',
           '클릭 시, 해당 협력기업의 약속어음 연체 등의 정보를 조회할 수 있습니다. <br/>당좌거래정지정보는 금융결제원에서 제공되는 정보로, <br/>신용도판단정보(한국신용정보원)와 중복 제공될 수 있습니다'
         ]
-        // $('.td_tooltip').tooltipster({
-        //     functionInit: function(instance, helper){
-
-        //         // parse the content
-        //         var content = instance.content(),
-        //             people = JSON.parse(content),
-        //             // and use it to make a sentence
-        //             newContent = 'We have ' + people.length + ' people today. Say hello to ' + people.join(', ');
-                
-        //         // save the edited content
-        //         instance.content(newContent);
-        //     }
-        // });
-        $('.td_tooltip').tooltipster({
-          functionInit: function(instance, helper){
-            var content = instance.content(),
-            // and use it to make a sentence
-            newContent = 'We have';
-            
-            // save the edited content
-            instance.content(newContent);
-          }
+        var index = $(this).index();
+        $(this).tooltipster($.extend({}, options, ({content: title[index]})));
+        $(this).tooltipster('show');
       });
-      console.log($('.td_tooltip').tooltipster('content'));
-        // $(".td_tooltip").tooltipster({
-        //   functionBefore: function(instance, helper){
-        //       var index = instance.index();
-        //       var ss = contents[index]
-        //   }
-        // });
 
-    });  
+
+    }); 
+    
+    // 협력기업 신용위험 모니터링 지표 팝업
+    function openLayer_monitering(){
+      $.smartPop.open({ width:476, height:436, url: 'nomuMnu_arm01.html', title : 'smartPop'});
+    } 
+
+    // 이용현황_원청사수 팝업
+    function openLayer_useBiz(){
+      $.smartPop.open({ width:476, height:368, url: 'nomuMnu_arm02.html'});
+    } 
+    
+    // 이용현황_현장수 팝업
+    function openLayer_usePlace(){
+      $.smartPop.open({ width:476, height:368, url: 'nomuMnu_arm03.html'});
+    } 
+
+ 
     // 크래포트 등급정의 팝업
-    function open_creport() {
-      var w = 740;
-      var h = 445;
-      
+    function open_creport(w,h) {
       var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
       var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
     
@@ -150,7 +126,7 @@
     
       var left = ((width / 2) - (w / 2)) + dualScreenLeft;
       var top = ((height / 2) - (h / 2)) + dualScreenTop;
-      
+
       var newPop = window.open("https://www.creport.co.kr/popup/pop_grade.jsp", 'downPop', 'width='+ w + ', height='+ h + ',menubar=no,resizable=no,scrollbars=yes,status=no,toolbar=no, top=' + top + ', left=' + left);
       
       if(window.focus){
@@ -159,51 +135,50 @@
         }, 1000);
       }
     }
+
+    // 크래포트 기업정보
+    function open_bizInfo(w,h) {
+      var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
+      var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
     
-    // 신용지표 팝업
-    function openLayer_monitering(){
-      $.smartPop.open({ width:600, height:400, url: 'nomuMnu_arm.html'});
-    } 
-
-    // 이용현황_원청사수 팝업
-    function openLayer_useBiz(){
-      $.smartPop.open({ width:400, height:400, url: 'nomuMnu_useBiz.html'});
-    } 
+      var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+      var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
     
-    // 이용현황_현장수 팝업
-    function openLayer_usePlace(){
-      $.smartPop.open({ width:600, height:400, url: 'nomuMnu_usePlace.html'});
-    } 
+      var left = ((width / 2) - (w / 2)) + dualScreenLeft;
+      var top = ((height / 2) - (h / 2)) + dualScreenTop;
 
-    // 신용등급 색상
-    function creditColor() {
-      var array = ['A1', 'A2', 'A3', 'B1', 'B2', 'B3', 'C1', 'C2', 'C3', 'D', 'NG'];
-      var target = $('.table').find('td');
-      $.each(array, function(element) {
-          target.each(function() {
-            if($(this).text() == array[element]) {
-              $(this).css('font-weight', 'bold');
-              if (element < 3)  $(this).css({'color':'#4ca87c', 'background-color':'#f0fdeb'});               
-              else if (element < 6)  $(this).css({'color':'#fea700', 'background-color':'#fff6df'});
-              else if (element < 8)  $(this).css({'color':'#f87d19', 'background-color':'#ffe3d3'});
-              else if (element < 10)  $(this).css({'color':'#da1b1b', 'background-color':'#f7d7d8'});
-              else if (element < 12)  $(this).css({'color':'#646363', 'background-color':'#f5f5f5 '});
-              else return false;
-            }
-          });
-      });
-    };
+      var newPop = window.open("https://www.creport.co.kr/", 'downPop', 'width='+ w + ', height='+ h + ',menubar=no,resizable=no,scrollbars=yes,status=no,toolbar=no, top=' + top + ', left=' + left);
+      
+      if(window.focus){
+        setTimeout(function(){
+          //newPop.focus();
+        }, 1000);
+      }
+    }
 
-    // A-RM 서비스 설명 토글
-    function toggleView() {
-      $('.table_header .drop_tab').on('click', function() {
-        $(this).stop().toggleClass('active').parent('ul').siblings('.drop_down').stop().slideToggle('fast');
-      });
+    // 크래포트 신용정보
+    function open_creditInfo(w,h) {
+      var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
+      var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
+    
+      var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+      var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+    
+      var left = ((width / 2) - (w / 2)) + dualScreenLeft;
+      var top = ((height / 2) - (h / 2)) + dualScreenTop;
+
+      var newPop = window.open("https://www.creport.co.kr/", 'downPop', 'width='+ w + ', height='+ h + ',menubar=no,resizable=no,scrollbars=yes,status=no,toolbar=no, top=' + top + ', left=' + left);
+      
+      if(window.focus){
+        setTimeout(function(){
+          //newPop.focus();
+        }, 1000);
+      }
     }
 
     // 테이블 회사명 글자수
     function word_cut(){
-        $('.arm_table2 table td.biz_name u').each(function(){
+        $('.arm_table2 table td.biz_info u').each(function(){
             var length = 8;//표시할 글자수 정하기
             if( $(this).text().length > length ){
                 $(this).text($(this).text().substr(0,length)+'...');//지정한 글자수 이후 표시할 텍스트(...)
@@ -211,23 +186,33 @@
         });
     }
 
+    // 검색 옵션 셀렉트박스
+    function selectBox() {
+      $('.drop_option').click(function () {
+        $(this).attr('tabindex', 1).focus();
+        $(this).toggleClass('active');
+        $(this).find('.select_list').slideToggle(200);
+      });
+      $('.drop_option').focusout(function () {
+          $(this).removeClass('active');
+          $(this).find('.select_list').slideUp(300);
+      });
+      $('.drop_option .select_list li').click(function () {
+          $(this).parents('.drop_option').find('span').text($(this).text());
+          $(this).parents('.drop_option').find('input').attr('value', $(this).attr('id'));
+      });
+    }
+
   </script>
 
   <style>
-    body, h1, h2, h3, h4, h5, h6, input, select, textarea, a, optgroup, button {font-size: 18px; color: #2b2b2b; font-weight: normal; line-height: 1;}
-    .tooltipster-base .tooltipster-content {
-      background: #fff;
-      border: 1px solid #132c6b;
-      min-height: 50px;
-      color: #555 !important;
-      line-height: 1.3 !important;
-      padding: 20px;
-    }    
+    .sub-visual-title .inner-contents p {font-size: 33px; line-height: 1.3;}
   </style>
+
 </head>
-<body>
+<body class="wrap_type02">
   <prnoff>
-  <div id="arm_contents" class="wrap login">
+  <div class="wrap login">
     <!-- header -->
     <div class="header">
       <div class="header_top_wrap">
@@ -280,7 +265,7 @@
       </div>
 
       <ul class="inner-tab">
-        <li>미지급 모니터링</li>
+        <li>미지급 실시간 모니터링</li>
         <li class="active">
           A-RM 서비스 (Advanced Risk Monitoring)
         </li>
@@ -290,116 +275,135 @@
     <!-- container -->
     <div id="warp_w" style='padding-top:30px'>
       <div id="content_w">
-          <div class="contents">
+        
 
-            <!-- location -->
-            <div id="location">
-              <ol id="locationNavi">
-                <li><img src="images/sub/sub_breadcrumb_first_bk.png" alt="메인"/></li>
-                <li class="png24">도입기업</li>
-                <li class="last png24">A-RM 서비스</li>
-              </ol>
-            </div>
-            <!-- //location -->
+          <!-- location -->
+          <div id="location">
+            <ol id="locationNavi">
+              <li><img src="images/sub/sub_breadcrumb_first_bk.png" alt="메인"/></li>
+              <li class="png24">도입기업</li>
+              <li class="last png24">A-RM 서비스</li>
+            </ol>
+          </div>
+          <!-- //location -->
 
-            <div id='todo_lst' class="quick_size" style="position:absolute;z-index:1;left:1000px;top:210px;display:none;">
-              <!--div style='position:absolute;top:0px;width:12px;height:12px;right:-1px;' -->
-                  <div class="to-do-list">
-                      <div class="title">
-                      <p>To Do List</p>
-                      <div class="todo_close_btn"></div>
-                      </div>
-                      <ul>
-                      <li>
-                          <a href="javascript:todo_0()">
-                          <div class="todo-inner-left">
-                              <p>공사참여<br>미승인</p>
-                          </div>
-                          <div class="todo-inner-right">
-                              1
-                          </div>
-                          </a>
-                      </li>
-                      <li class="accent">
-                          <a href="javascript:todo_1()">
-                          <div class="todo-inner-left">
-                              <p>내역서<br>미승인</p>
-                          </div>
-                          <div class="todo-inner-right">
-                              10
-                          </div>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="javascript:todo_3()">
-                          <div class="todo-inner-left">
-                              <p>미지급<br>실시간<br>모니터링</p>
-                          </div>
-                          <div class="todo-inner-right">
-                              29
-                          </div>
-                          </a>
-                      </li>
-                      <li class="accent">
-                          <a href="javascript:todo_5()">
-                          <div class="todo-inner-left">
-                              <p>노무비닷컴<br>이용수수료<br>미결제현황</p>
-                          </div>
-                          <div class="todo-inner-right">
-                              3
-                          </div>
-                          </a>
-                      </li>
+          <!-- todo_lst -->
+          <div id='todo_lst' class="quick_size" style="position:absolute;z-index:1;left:1000px;top:210px;display:none;">
+            <!--div style='position:absolute;top:0px;width:12px;height:12px;right:-1px;' -->
+                <div class="to-do-list">
+                    <div class="title">
+                    <p>To Do List</p>
+                    <div class="todo_close_btn"></div>
+                    </div>
+                    <ul>
+                    <li>
+                        <a href="javascript:todo_0()">
+                        <div class="todo-inner-left">
+                            <p>공사참여<br>미승인</p>
+                        </div>
+                        <div class="todo-inner-right">
+                            1
+                        </div>
+                        </a>
+                    </li>
+                    <li class="accent">
+                        <a href="javascript:todo_1()">
+                        <div class="todo-inner-left">
+                            <p>내역서<br>미승인</p>
+                        </div>
+                        <div class="todo-inner-right">
+                            10
+                        </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:todo_3()">
+                        <div class="todo-inner-left">
+                            <p>미지급<br>실시간<br>모니터링</p>
+                        </div>
+                        <div class="todo-inner-right">
+                            29
+                        </div>
+                        </a>
+                    </li>
+                    <li class="accent">
+                        <a href="javascript:todo_5()">
+                        <div class="todo-inner-left">
+                            <p>노무비닷컴<br>이용수수료<br>미결제현황</p>
+                        </div>
+                        <div class="todo-inner-right">
+                            3
+                        </div>
+                        </a>
+                    </li>
 
-                      </ul>
-                  </div>
-              <!-- /div -->      
-            </div>      
-
+                    </ul>
+                </div>
+            <!-- /div -->      
+          </div>      
+          <!-- //todo_lst -->
+          <div id="arm_service">
 
             <!-- table_filter -->
             <ul class="table_filter">
               <!-- select -->
-              <li class="table_option">
+              <li class="table_option outer">
                 <div class="inner">
-                  <select style="width: 132px;">
-                    <option value="none" selected>신용위험지표</option>
-                    <option value="A1">A1</option>
-                    <option value="A2">A2</option>
-                    <option value="A3">A3</option>
-                    <option value="B1">B1</option>
-                    <option value="B2">B2</option>
-                    <option value="B3">B3</option>
-                    <option value="C1">C1</option>
-                    <option value="C2">C2</option>
-                    <option value="C3">C3</option>
-                    <option value="D">D</option>
-                    <option value="NG">NG</option>
-                  </select>
-  
-                  <select style="width: 132px;">
-                    <option value="none" selected>연체정보여부</option>
-                    <option value="금융권연체">금융권연체</option>
-                    <option value="세금체납">세금체납</option>
-                    <option value="공공기록">공공기록</option>
-                    <option value="당좌정지">당좌정지</option>
-                    <option value="연체존재">연체존재</option>
-                    <option value="연체미존재">연체미존재</option>
-                  </select>
-  
-                  <select style="width: 132px;">
-                    <option value="none" selected>미지급여부</option>
-                    <option value="미지급존재">미지급존재</option>
-                    <option value="미지급미존재">미지급미존재</option>
-                  </select>
+                  <div class="drop_option" style="width: 132px;">
+                    <div class="select">
+                      <span>신용위험지표</span>
+                    </div>
+                    <input type="hidden" name="신용위험지표">
+                    <ul class="select_list">
+                      <li id="A1">A1</li>
+                      <li id="A2">A2</li>
+                      <li id="A3">A3</li>
+                      <li id="B1">B1</li>
+                      <li id="B2">B2</li>
+                      <li id="B3">B3</li>
+                      <li id="C1">C1</li>
+                      <li id="C2">C2</li>
+                      <li id="C3">C3</li>
+                      <li id="D">D</li>
+                      <li id="NG">NG</li>
+                    </ul>
+                  </div>
+                  <div class="drop_option" style="width: 132px;">
+                    <div class="select">
+                      <span>연체정보여부</span>
+                    </div>
+                    <input type="hidden" name="연체정보여부">
+                    <ul class="select_list">
+                      <li id="금융권연체">금융권연체</li>
+                      <li id="세금체납">세금체납</li>
+                      <li id="공공기록">공공기록</li>
+                      <li id="당좌정지">당좌정지</li>
+                      <li id="연체존재">연체존재</li>
+                      <li id="연체미존재">연체미존재</li>
+                    </ul>
+                  </div>
+                  <div class="drop_option" style="width: 132px;">
+                    <div class="select">
+                      <span>미지급여부</span>
+                    </div>
+                    <input type="hidden" name="미지급여부">
+                    <ul class="select_list">
+                      <li id="미지급존재">미지급존재</li>
+                      <li id="미지급미존재">미지급미존재</li>
+                    </ul>
+                  </div>
                   <br />
-                  <select style="width: 132px;">
-                    <option value="협력기업명" selected>협력기업명</option>
-                    <option value="사업자번호">사업자번호</option>
-                    <option value="대표자명">대표자명</option>
-                    <option value="현장명">현장명</option>
-                  </select>
-  
+                  <div class="drop_option" style="width: 132px;">
+                    <div class="select">
+                      <span>협력기업명</span>
+                    </div>
+                    <input type="hidden" name="협력기업명">
+                    <ul class="select_list">
+                      <li id="사업자번호">사업자번호</li>
+                      <li id="대표자명">대표자명</li>
+                      <li id="현장명">현장명</li>
+                    </ul>
+                  </div>
                   <fieldset>
                     <input type="text" placeholder="" style="width: 274px;"/>
                     <input type="button" class="btn_check" value="조회"/>
@@ -407,15 +411,15 @@
                         A-RM 서비스 미이용 회사일 경우 disabled 추가
                         <input type="button" class="btn_check" value="조회" disabled/>
                     -->
-                  </fieldset>
-                </div>                 
+                  </fieldset>  
+                </div>    
               </li>
               <!-- //select -->
 
               <!-- table -->
               <li class="arm_table1">
                 <p>협력기업 신용위험 모니터링 지표 분포</p>
-                <table class="table table_type1" width="100%">
+                <table class="table Type6" width="100%">
                   <thead>
                     <tr>
                       <th>구분</th>
@@ -429,23 +433,23 @@
                   </thead>
                   <tbody>
                     <colgroup>
-                      <col width="10%">
+                      <col width="9%">
                       <col width="*">
                     </colgroup>
-                    <tr class="tr_grades">
+                    <tr class="tr_rank">
                       <th>등급</th>
                       <td>-</td>
-                      <td>A1</td>
-                      <td>A2</td>
-                      <td>A3</td>
-                      <td>B1</td>
-                      <td>B2</td>
-                      <td>B3</td>
-                      <td>C1</td>
-                      <td>C2</td>
-                      <td>C3</td>
-                      <td>D</td>
-                      <td>NG</td>
+                      <td><img src="images/rank/bg_rank_a1.jpg" alt="크래프트 신용등급 A1" /></td>
+                      <td><img src="images/rank/bg_rank_a2.jpg" alt="크래프트 신용등급 A2" /></td>
+                      <td><img src="images/rank/bg_rank_a3.jpg" alt="크래프트 신용등급 A3" /></td>
+                      <td><img src="images/rank/bg_rank_b1.jpg" alt="크래프트 신용등급 B1" /></td>
+                      <td><img src="images/rank/bg_rank_b2.jpg" alt="크래프트 신용등급 B2" /></td>
+                      <td><img src="images/rank/bg_rank_b3.jpg" alt="크래프트 신용등급 B3" /></td>
+                      <td><img src="images/rank/bg_rank_c1.jpg" alt="크래프트 신용등급 C1" /></td>
+                      <td><img src="images/rank/bg_rank_c2.jpg" alt="크래프트 신용등급 C2" /></td>
+                      <td><img src="images/rank/bg_rank_c3.jpg" alt="크래프트 신용등급 C3" /></td>
+                      <td><img src="images/rank/bg_rank_d.jpg" alt="크래프트 신용등급 D" /></td>
+                      <td><img src="images/rank/bg_rank_ng.jpg" alt="크래프트 신용등급 NG" /></td>
                     </tr>
                     <tr class="credits">
                       <th>기업수</th>
@@ -494,16 +498,14 @@
                 <li>※ 본 모니터링 현황은 일 단위로 업데이트 됩니다.</li>
                 <li>※ 정상지급 : 협력기업이 작성한 청구내역서(=대금지급계획서) 상 모든 건(노무비, 장비비, 자재비 등)을 이체완료하였을 때 정상지급으로 분류합니다.</li>
                 <li>※ 미지급 : 협력기업이 작성한 청구내역서(=대금지급계획서) 상 이체약속일이 지났음에도 현재까지 이체하지 않은 건이 존재할 경우 미지급으로 분류합니다.</li>
-               
               </dl>
               <div class="exelBtn"><img src="images/btn/btn_exel2.gif" alt="엑셀다운로드" /></div>
-              
             </div>
             <!-- //table_header -->
 
             <!-- arm_table2 -->
             <div class="arm_table2">
-              <table class="table table_type2" width="100%">
+              <table class="table Type7" width="100%">
                 <caption>확인서 신청 내역</caption>
                 <thead>
                   <tr>
@@ -511,13 +513,13 @@
                     <th rowspan="3" style="width: 8%;">사업자번호</th>
                     <th rowspan="3" style="width: 8%;">회사명</th>
                     <th rowspan="1" colspan="10" class="tooltip" title="협무비닷컴 내 모든 사용현황을 총괄한 통합 모니터링 정보 입니다.<br/>귀사의 협력기업이 타 기업과의 거래에서 미지급이 발생했다면, <br/>이는 귀사와의 거래에도 영향을 미칠 수 있습니다"><em>A</em>dvanced <em>R</em>isk <em>M</em>onitoring</th>
-                    <th rowspan="1" colspan="5" class="tooltip" title="국내 최대 금융인프라기관인 NICE에 집적된 신용정보를 바탕으로 협력기업의 신용위험도를 모니터링 합니다. <br/>본 정보는 한국신용정보원, 금융결제원 등으로부터 수집됩니다">신용위험 모니터링 지표</th>
+                    <th rowspan="1" colspan="5" class="tooltip" title="국내 최대 금융인프라기관인 NICE에 집적된 신용정보를 바탕으로 <br/>협력기업의 신용위험도를 모니터링 합니다. <br/>본 정보는 한국신용정보원, 금융결제원 등으로부터 수집됩니다">신용위험 모니터링 지표</th>
                   </tr>
                   <tr>
                     <th rowspan="1" colspan="2" class="tooltip" title="최근 36개월간 해당 협력기업 대상 노무비닷컴을 <br/>적용하고 있는 원청사 및 현장 수(귀사 포함)">이용현황</th>
                     <th rowspan="1" colspan="2" class="tooltip" title="최근 36개월간 노무비닷컴을 통한 정상지급건수 및 정상지급금액(백만원). <br/>협력기업이 작성한 청구내역서(=대금지급계획서) 상 모든 건(노무비, 장비비, 자재비 등)을 <br/>이체완료하였을 때 정상지급으로 분류함">정상지급 현황</th>
                     <th rowspan="1" colspan="6" class="tooltip" title="최근 3개월, 12개월, 36개월간 노무비닷컴을 통한 미지급건수 및 미지급금액(백만원). <br/>협력기업이 작성한 청구내역서(=대금지급계획서) 상 이체약속일이 지났음에도 <br/>현재까지 이체하지 않은 건이 존재할 경우 미지급으로 분류함">미지급 현황</th>
-                    <th rowspan="2" class="tooltip" title="[신용지표]는 국내 최대 금융인프라기업인 NICE에 집적된 신용정보(재무, 금융연체, 세금체납, 법정관리 등)를 바탕으로 <br/>자동으로 산출된 협력기업 신용위험 모니터링 지표입니다. <br/>본 지표는 수집되는 신용정보에 따라 수시 변동되며, 신용정보기관 및 평가방법에 따라 상이할 수 있습니다">신용<br />위험<br />지표</th>
+                    <th rowspan="2" class="tooltip" title="[신용지표]는 국내 최대 금융인프라기업인 NICE에 집적된 <br/>신용정보(재무, 금융연체, 세금체납, 법정관리 등)를 바탕으로 자동으로 산출된 <br/>협력기업 신용위험 모니터링 지표입니다. 본 지표는 수집되는 신용정보에 따라 <br/>수시 변동되며, 신용정보기관 및 평가방법에 따라 상이할 수 있습니다">신용<br />위험<br />지표</th>
                     <th rowspan="2" class="tooltip" title="클릭 시, 해당 협력기업의 금융권 연체 정보 등을 조회할 수 있습니다. <br/>본 신용정보는 한국신용정보원 또는 신용정보회사에서 제공받은 정보로 <br/>조회 시점에 따라 실제 정보와의 차이가 발생할 수 있습니다">금융권<br />연체</th>
                     <th rowspan="2" class="tooltip" title="클릭 시, 해당 협력기업의 국세, 지방세 연체 등의 정보를 조회할 수 있습니다. <br/>본 신용정보는 한국신용정보원 또는 신용정보회사에서 제공받은 정보로 <br/>조회 시점에 따라 실제 정보와의 차이가 발생할 수 있습니다">세금<br />체납</th>
                     <th rowspan="2" class="tooltip" title="클릭 시, 해당 협력기업의 산재, 고용보험료 연체 정보 등을 조회할 수 있습니다.<br/> 본 신용정보는 한국신용정보원 또는 신용정보회사에서 제공받은 정보로 <br/>조회 시점에 따라 실제 정보와의 차이가 발생할 수 있습니다">공공<br />기록</th>
@@ -559,8 +561,8 @@
                   </colgroup>
                   <tr>
                     <td class="no_tip">11</td>
-                    <td class="no_tip"><u>130-86-04029</u></td>
-                    <td class="no_tip biz_name"><u>(주)성원토건</u></td>
+                    <td class="no_tip biz_info"><u>130-86-04029</u></td>
+                    <td class="no_tip biz_info"><u>(주)성원토건</u></td>
                     <td onclick="javascript:openLayer_useBiz();">3</td>
                     <td onclick="javascript:openLayer_usePlace();">7</td>
                     <td>7</td>
@@ -571,7 +573,7 @@
                     <td>11</td>
                     <td>3</td>
                     <td>273</td>
-                    <td class="td_grades">A1</td>
+                    <td class="td_rank"><img src="images/rank/u_rank_a1.png" alt="크래프트 신용등급 A1" /></td>
                     <td class="credit_info"><u>1</u></td>
                     <td class="credit_info"><u>1</u></td>
                     <td class="credit_info"><u>2</u></td>
@@ -579,8 +581,8 @@
                   </tr>
                   <tr>
                     <td class="no_tip">10</td>
-                    <td class="no_tip"><u>220-81-14806</u></td>
-                    <td class="no_tip biz_name"><u>삼호개발(주)</u></td>
+                    <td class="no_tip biz_info"><u>220-81-14806</u></td>
+                    <td class="no_tip biz_info"><u>삼호개발(주)</u></td>
                     <td onclick="javascript:openLayer_useBiz();">2</td>
                     <td onclick="javascript:openLayer_usePlace();">6</td>
                     <td>8</td>
@@ -591,7 +593,7 @@
                     <td>21</td>
                     <td>2</td>
                     <td>154</td>
-                    <td class="td_grades">A2</td>
+                    <td class="td_rank"><img src="images/rank/u_rank_a2.png" alt="크래프트 신용등급 A1" /></td>
                     <td class="credit_info"><u>2</u></td>
                     <td class="credit_info"><u>1</u></td>
                     <td class="credit_info"><u>2</u></td>
@@ -599,8 +601,8 @@
                   </tr>
                   <tr>
                     <td class="no_tip">9</td>
-                    <td class="no_tip"><u>120-81-86465</u></td>
-                    <td class="no_tip biz_name"><u>(주)디엠엔지니어링</u></td>
+                    <td class="no_tip biz_info"><u>120-81-86465</u></td>
+                    <td class="no_tip biz_info"><u>(주)디엠엔지니어링</u></td>
                     <td onclick="javascript:openLayer_useBiz();">5</td>
                     <td onclick="javascript:openLayer_usePlace();">11</td>
                     <td>11</td>
@@ -611,7 +613,7 @@
                     <td>78</td>
                     <td>1</td>
                     <td>78</td>
-                    <td class="td_grades">A3</td>
+                    <td class="td_rank"><img src="images/rank/u_rank_a3.png" alt="크래프트 신용등급 A3" /></td>
                     <td class="credit_info"><u>1</u></td>
                     <td class="credit_info"><u>1</u></td>
                     <td class="credit_info"><u>0</u></td>
@@ -619,8 +621,8 @@
                   </tr>
                   <tr>
                     <td class="no_tip">8</td>
-                    <td class="no_tip"><u>224-81-26570</u></td>
-                    <td class="no_tip biz_name"><u>대상이앤씨(주)</u></td>
+                    <td class="no_tip biz_info"><u>224-81-26570</u></td>
+                    <td class="no_tip biz_info"><u>대상이앤씨(주)</u></td>
                     <td onclick="javascript:openLayer_useBiz();">6</td>
                     <td onclick="javascript:openLayer_usePlace();">14</td>
                     <td>12</td>
@@ -631,7 +633,7 @@
                     <td>0</td>
                     <td>-</td>
                     <td>-</td>
-                    <td class="td_grades">B1</td>
+                    <td class="td_rank"><img src="images/rank/u_rank_b1.png" alt="크래프트 신용등급 B1" /></td>
                     <td class="credit_info"><u>2</u></td>
                     <td class="credit_info"><u>0</u></td>
                     <td class="credit_info"><u>0</u></td>
@@ -639,8 +641,8 @@
                   </tr>
                   <tr>
                     <td class="no_tip">7</td>
-                    <td class="no_tip"><u>224-81-26570</u></td>
-                    <td class="no_tip biz_name"><u>이엔이건설(주</u>)</td>
+                    <td class="no_tip biz_info"><u>224-81-26570</u></td>
+                    <td class="no_tip biz_info"><u>이엔이건설(주</u>)</td>
                     <td onclick="javascript:openLayer_useBiz();">2</td>
                     <td onclick="javascript:openLayer_usePlace();">7</td>
                     <td>5</td>
@@ -651,7 +653,7 @@
                     <td>0</td>
                     <td>-</td>
                     <td>-</td>
-                    <td class="td_grades">B2</td>
+                    <td class="td_rank"><img src="images/rank/u_rank_b2.png" alt="크래프트 신용등급 B2" /></td>
                     <td class="credit_info"><u>3</u></td>
                     <td class="credit_info"><u>0</u></td>
                     <td class="credit_info"><u>0</u></td>
@@ -659,8 +661,8 @@
                   </tr>
                   <tr>
                     <td class="no_tip">6</td>
-                    <td class="no_tip"><u>215-86-87199</u></td>
-                    <td class="no_tip biz_name"><u>한국씨네텍(주)</u></td>
+                    <td class="no_tip biz_info"><u>215-86-87199</u></td>
+                    <td class="no_tip biz_info"><u>한국씨네텍(주)</u></td>
                     <td onclick="javascript:openLayer_useBiz();">4</td>
                     <td onclick="javascript:openLayer_usePlace();">6</td>
                     <td>6</td>
@@ -671,7 +673,7 @@
                     <td></td>
                     <td>-</td>
                     <td>-</td>
-                    <td class="td_grades">B3</td>
+                    <td class="td_rank"><img src="images/rank/u_rank_b3.png" alt="크래프트 신용등급 B3" /></td>
                     <td class="credit_info"><u>7</u></td>
                     <td class="credit_info"><u>0</u></td>
                     <td class="credit_info"><u>0</u></td>
@@ -679,8 +681,8 @@
                   </tr>
                   <tr>
                     <td class="no_tip">5</td>
-                    <td class="no_tip"><u>215-86-87199</u></td>
-                    <td class="no_tip biz_name"><u>명인건설(주)</u></td>
+                    <td class="no_tip biz_info"><u>215-86-87199</u></td>
+                    <td class="no_tip biz_info"><u>명인건설(주)</u></td>
                     <td onclick="javascript:openLayer_useBiz();">5</td>
                     <td onclick="javascript:openLayer_usePlace();">19</td>
                     <td>7</td>
@@ -691,7 +693,7 @@
                     <td></td>
                     <td>-</td>
                     <td>-</td>
-                    <td class="td_grades">C1</td>
+                    <td class="td_rank"><img src="images/rank/u_rank_c1.png" alt="크래프트 신용등급 C1" /></td>
                     <td class="credit_info"><u>8</u></td>
                     <td class="credit_info"><u>0</u></td>
                     <td class="credit_info"><u>0</u></td>
@@ -699,8 +701,8 @@
                   </tr>
                   <tr>
                     <td class="no_tip">4</td>
-                    <td class="no_tip"><u>416-81-47626</u></td>
-                    <td class="no_tip biz_name"><u>(주)디라직</u></td>
+                    <td class="no_tip biz_info"><u>416-81-47626</u></td>
+                    <td class="no_tip biz_info"><u>(주)디라직</u></td>
                     <td onclick="javascript:openLayer_useBiz();">8</td>
                     <td onclick="javascript:openLayer_usePlace();">21</td>
                     <td>14</td>
@@ -711,7 +713,7 @@
                     <td></td>
                     <td>-</td>
                     <td>-</td>
-                    <td class="td_grades">C2</td>
+                    <td class="td_rank"><img src="images/rank/u_rank_c2.png" alt="크래프트 신용등급 C2" /></td>
                     <td class="credit_info"><u>5</u></td>
                     <td class="credit_info"><u>0</u></td>
                     <td class="credit_info"><u>0</u></td>
@@ -719,8 +721,8 @@
                   </tr>
                   <tr>
                     <td class="no_tip">3</td>
-                    <td class="no_tip"><u>229-81-34357</u></td>
-                    <td class="no_tip biz_name"><u>신용통신(주)</u></td>
+                    <td class="no_tip biz_info"><u>229-81-34357</u></td>
+                    <td class="no_tip biz_info"><u>신용통신(주)</u></td>
                     <td onclick="javascript:openLayer_useBiz();">9</td>
                     <td onclick="javascript:openLayer_usePlace();">18</td>
                     <td>17</td>
@@ -731,7 +733,7 @@
                     <td></td>
                     <td>-</td>
                     <td>-</td>
-                    <td class="td_grades">C3</td>
+                    <td class="td_rank"><img src="images/rank/u_rank_c3.png" alt="크래프트 신용등급 C3" /></td>
                     <td class="credit_info"><u>3</u></td>
                     <td class="credit_info"><u>0</u></td>
                     <td class="credit_info"><u>0</u></td>
@@ -739,8 +741,8 @@
                   </tr>
                   <tr>
                     <td class="no_tip">2</td>
-                    <td class="no_tip"><u>107-81-62397</u></td>
-                    <td class="no_tip biz_name"><u>(주)삼우이엠씨</u></td>
+                    <td class="no_tip biz_info"><u>107-81-62397</u></td>
+                    <td class="no_tip biz_info"><u>(주)삼우이엠씨</u></td>
                     <td onclick="javascript:openLayer_useBiz();">11</td>
                     <td onclick="javascript:openLayer_usePlace();">23</td>
                     <td>1</td>
@@ -751,16 +753,16 @@
                     <td></td>
                     <td>-</td>
                     <td>-</td>
-                    <td class="td_grades">D</td>
-                    <td class="credit_info">3</td>
-                    <td class="credit_info">1</td>
-                    <td class="credit_info">0</td>
-                    <td class="credit_info">0</td>
+                    <td class="td_rank"><img src="images/rank/u_rank_d.png" alt="크래프트 신용등급 D" /></td>
+                    <td class="credit_info"><u>3</u></td>
+                    <td class="credit_info"><u>1</u></td>
+                    <td class="credit_info"><u>0</u></td>
+                    <td class="credit_info"><u>0</u></td>
                   </tr>
                   <tr>
                     <td class="no_tip">1</td>
-                    <td class="no_tip"><u>416-81-09559</u></td>
-                    <td class="no_tip biz_name"><u>상원사업(주)</u></td>
+                    <td class="no_tip biz_info"><u>416-81-09559</u></td>
+                    <td class="no_tip biz_info"><u>상원사업(주)</u></td>
                     <td onclick="javascript:openLayer_useBiz();">2</td>
                     <td onclick="javascript:openLayer_usePlace();">5</td>
                     <td>3</td>
@@ -771,7 +773,7 @@
                     <td></td>
                     <td>-</td>
                     <td>-</td>
-                    <td class="td_grades">NG</td>
+                    <td class="td_rank"><img src="images/rank/u_rank_ng.png" alt="크래프트 신용등급 NG" /></td>
                     <td class="credit_info"><u>0</u></td>
                     <td class="credit_info"><u>0</u></td>
                     <td class="credit_info"><u>0</u></td>
@@ -783,33 +785,16 @@
             <!-- //arm_table2 -->
             
             <!-- paging -->
-            <div class="paginate_wrap">
-                  <div class="paginate">
-                  <p class="first arrow">
-                      <span class="icon"></span>
-                      <span class="text">처음으로</span>
-                  </p>
-                  <p class="pre arrow">
-                      <span class="icon"></span>
-                      <span class="text">이전</span>
-                  </p>
-                  <ol class="number">
-                      <li class="active"><a href="#">1</a></li>
-                      <li><a href="#">2</a></li>
-                      <li><a href="#">3</a></li>
-                      <li><a href="#">4</a></li>
-                      <li><a href="#">5</a></li>
-                      <li><a href="#">6</a></li>
-                  </ol>
-                  <p class="next arrow">
-                      <span class="icon"></span>
-                      <span class="text">다음</span>
-                  </p>
-                  <p class="last arrow">
-                      <span class="icon"></span>
-                      <span class="text">마지막으로</span>
-                  </p>
-                  </div>
+            <div class="page page_type02" id="d_page">
+              <span class="pg_lst">
+                  <a class="first angle" href="javascript:searchList(1)"><span class="hidden">처음으로</span></a>
+                  <a class="prev angle" href=""><span class="hidden">이전</span></a>
+                  <a class="active" href="javascript:searchList(1)">1</a>  
+                  <a href="javascript:searchList(2)">2</a>  
+                  <a href="javascript:searchList(3)">3</a>
+                  <a class="next angle" href=""><span class="hidden">다음</span></a>
+                  <a class="last angle" href="javascript:searchList(7)"><span class="hidden">마지막</span></a>
+              </span>
             </div>
             <!-- //paging -->
           </div>

@@ -39,3 +39,5 @@
 #smartPop2_close_wrap {position:absolute;}
 #smartPop2_close {position:absolute; width:25px; height:25px; background:url(./images/pop/btn_popclose.gif); right:25px; top:25px; cursor:pointer;}
 #smartPop2_loading {position:relative; margin:10px auto 0 auto; width:16px; height:16px; background:url(./img/loading.gif); cursor:wait;}
+
+#smartPop3_overlay {}

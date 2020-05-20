@@ -32,11 +32,11 @@
 </head>
 <body>
     
-    <div class="tableTop">
-        <div class="tcenter2">
-            <p>이용현황_원청사수</p>
-        </div>
-    </div>
+    <div class="lp_type01">
+        <header>
+            <h1 class="title">이용현황_현장수</h1>
+        </header>
+
     <!-- form -->
     <form id="frm_acc" name="frm_acc" method="post" onsubmit="return false;">
     <input type="hidden" name="" value="">
@@ -48,82 +48,82 @@
     <input type="hidden" name="" value="">
     <input type="hidden" name="">
 
-        <!-- table -->
-        <div class="BorderTb">
-            <colcgroup></colcgroup>
-            <table summary="이용현황 원청사수" class="Type1" border="1" cellspacing="0" id="insList">
-                <caption>이용현황_원청사수</caption>
+        <section>
+            <!-- table -->
+            <table summary="노무비 이용현황 현장수" class="table Type8" border="1" cellspacing="0" width="100%">
+                <caption>이용현황_현장수</caption>
                 <colgroup>
-                    <col width="35%">
+                    <col width="30%">
+                    <col width="50%">
+                    <col width="50%">
+                    <col width="60%">
                     <col width="*">
                 </colgroup>
                 <thead>
                     <tr>
                         <th scope="col">순번</th>
+                        <th scope="col">최초 적용월</th>
+                        <th scope="col">최근 적용월</th>
                         <th scope="col">원청사명</th>
+                        <th scope="col">현장명</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>10</td>
+                        <td>2015/01</td>
+                        <td>2020/05</td>
                         <td>(주)센코어테크</td>
+                        <td>힐스테이트 동탄</td>
                     </tr>
                     <tr>
                         <td>9</td>
+                        <td>2015/01</td>
+                        <td>2020/04</td>
                         <td>(주)태성자동문</td>
+                        <td>나이스그룹 신사옥 현장</td>
                     </tr>
                     <tr>
                         <td>8</td>
+                        <td>2015/01</td>
+                        <td>2020/05</td>
                         <td>(주)금화피에스시</td>
+                        <td>푸르지오 현장</td>
                     </tr>
                     <tr>
                         <td>7</td>
+                        <td>2015/01</td>
+                        <td>2020/01</td>
                         <td>(주)한국가스기술공사</td>
+                        <td>힐스테이트 동탄</td>
                     </tr>
                     <tr>
                         <td>6</td>
+                        <td>2015/01</td>
+                        <td>2019/08</td>
                         <td>(주)에스원</td>
+                        <td>힐스테이트 동탄</td>
                     </tr>
                 </tbody>
             </table>
-        </div>
-        <!-- //table -->
-        <!-- paging -->
-        <div class="paginate_wrap">
-            <div class="paginate">
-            <p class="pre arrow">
-                <span class="icon"></span>
-                <span class="text">이전</span>
-            </p>
-            <ol class="number">
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">6</a></li>
-            </ol>
-            <p class="next arrow">
-                <span class="icon"></span>
-                <span class="text">다음</span>
-            </p>
+            <!-- //table -->
+
+            <!-- paging -->
+            <div class="page page_type02" id="d_page">
+              <span class="pg_lst">
+                  <a class="first angle" href="javascript:searchList(1)"><span class="hidden">처음으로</span></a>
+                  <a class="prev angle" href=""><span class="hidden">이전</span></a>
+                  <a class="active" href="javascript:searchList(1)">1</a>  
+                  <a href="javascript:searchList(2)">2</a>  
+                  <a href="javascript:searchList(3)">3</a>
+                  <a class="next angle" href=""><span class="hidden">다음</span></a>
+                  <a class="last angle" href="javascript:searchList(7)"><span class="hidden">마지막</span></a>
+              </span>
             </div>
-        </div>
-        <!-- //paging -->
+            <!-- //paging -->
+        </section>
     </form>
     <!-- //form -->
-
-    <!-- btnArea -->
-    <div class="btnArea">
-        <div class="pCenter">
-            <ul>
-                <li>
-                    <input type="button" onclick="parent.smartPopClose();" class="closeBtn pointer" alt="취소">
-                </li>
-            </ul>
-        </div>
-    </div>
-    <!-- //btnArea -->
     
 </body>
 </html>

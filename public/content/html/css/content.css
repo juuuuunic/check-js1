@@ -388,3 +388,16 @@ span.no_save{color:#ff0000;}
 .text_style ul li{padding:10px 20px 10px 20px; width:456px;background-color:#dcdcdc;border-width:0 10px 10px 0;border-color:#ffffff;border-style:none solid solid none;}
 .boxTb td.left_td{line-height:20px;padding:10px 20px 10px 20px; width:486px;background-color:#dcdcdc;border-width:0 10px 10px 0;border-color:#ffffff;border-style:none solid solid none;}
 .boxTb td.right_td{line-height:20px;padding:10px 20px 10px 20px;width:486px;background-color:#dcdcdc;border-width:0 0 10px 0;border-color:#ffffff;border-style:none none solid none;}
+
+
+/** 이준희 추가 **/
+.Type6 th, .Type6 td {height: 40px;}
+.Type6 th:first-child {border-right: 1px solid #555;}
+.Type7 th, .Type7 td {height: 60px;}
+.Type7 th em {color: #153b9a;}
+.Type8 table {border-top: 2px solid #555; border-bottom: 1px solid #555;}
+.Type8 thead tr {width: 100%; height: 50px; border-bottom: 1px solid #555; background-color: #f6f6f6;}
+.Type8 tbody tr {width: 100%; height: 40px; border-bottom: 1px solid #ececec;}
+.Type8 th {font-weight: bold;}
+.Type8 th, .Type8 td {width: 100%; border: 0 !important;}
+
