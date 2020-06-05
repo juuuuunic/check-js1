@@ -23,17 +23,67 @@
     </script>
     
     <script type="text/javascript">
+        // document.referer
         // Con AutoComplete
+        var filter_cd, filter_nm;
+
+        function filter_fin() {
+            if (filter_cd == null) {
+                history.back();
+                return;
+            }
+            $.ajax({
+                type: "get",
+                url: "9.con_main_filter_1.html",
+                data: {
+                    org: "fth",
+                    or_cd: filter_cd,
+                    or_name: filter_nm
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data.url == null || filter_cd == null)
+                        history.back();
+                    else
+                        self.location = data.url;
+                },
+                error: function (request, error) {
+                    alert('처리중 에러가 발생하였습니다.');
+                }
+            });
+        }
+        
         function autocomplete() {
             var termTemplate = "<span class='ui-autocomplete-term'>%s</span>";
 
             // Seaech Place
             $('#autoPlace').autocomplete({
-                source: ['합성동 APT현장', '합성동 AZ현장', '합성동 AD현장', '합성동 AQ현장', '합성동 AB현장'],
+                source: [{
+                    "value": "반월자이 에뜨 현장",
+                    "or_cd": 292
+                }, {
+                    "value": "GS건설 위례자이 현장",
+                    "or_cd": 299
+                }, {
+                    "value": "GSC No.4 PX Project",
+                    "or_cd": 301
+                }, {
+                    "value": "사우디대사관및대사관저신축공사(서울)",
+                    "or_cd": 303
+                }, {
+                    "value": "(GS건설) 노무비닷컴 미적용 현장 기성대금 청구용",
+                    "or_cd": 304
+                }],
                 open: function(e,ui) {
                     var
                         acData = $(this).data('autocomplete'),
                         styledTerm = termTemplate.replace('%s', acData);
+                },
+                select: function (event, ui) {
+                    filter_cd = ui.item.or_cd;
+                    filter_nm = ui.item.value;
+                    filter_fin();
+                    //	        alert(JSON.stringify(ui.item));
                 }
             });
         }
@@ -45,7 +95,8 @@
         <header>
             <div class="inner">                
                 <!-- 뒤로가기/닫기 -->         
-                <a class="btnClose" href="javascript:history.back();"></a>
+               <!--                 <a class="btnClose" href="javascript:history.back();"></a> -->
+               <a class="btnClose" href="javascript:filter_fin();"></a>
                 <!-- end: 뒤로가기/닫기 -->  
 
                 <h1 class="HeadTitleName tit_black">현장명</h1>
