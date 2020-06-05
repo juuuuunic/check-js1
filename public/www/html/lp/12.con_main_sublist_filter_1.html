@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="copyright"   content="copyrights NICE 000" />
+    <meta name="author"      content="NICE 000" />
+    <title>12.con_main_sublist_filter_1</title>
+
+    <link rel="stylesheet" type="text/css" href="../../css/lib/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="../../css/lib/picker.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/layout.css">
+
+    <script type="text/javascript" src="../../js/lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../../js/lib/jquery-ui.js"></script>
+    <script type="text/javascript" src="../../js/lib/picker.min.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
+    
+    <script type="text/javascript">
+         $(document).ready(function() {
+            dateDefault();
+            dateInput(30,0); // default값 1개월
+
+            // 날짜 직접 선택시 옵션 탭 해제
+            $("input[type='text'].js-date-picker").change(function(){ // 날짜에 변화가 있다면,
+                $('.tab_calendar > div').removeClass('active')
+            });
+            
+        });
+    </script>
+
+
+    <script type="text/javascript">
+
+        // 날짜선택기
+        var date = new Date();// 오늘 날짜, 시간 가져오기
+        function dateDefault() {            
+            new Picker(document.querySelector('.dateForm'), {
+                format: 'YYYY/MM',
+                text: {
+                    cancel: '취소',
+                    confirm: '확인'
+                }
+            });
+
+            new Picker(document.querySelector('.dateTo'), {
+                format: 'YYYY/MM',
+                text: {
+                    cancel: '취소',
+                    confirm: '확인'
+                }
+            });
+
+        };
+
+        // 날짜 옵션
+        function dateInput(n,m){
+            //console.log("n: "+n)
+            //console.log("m: "+m)
+            var start = new Date(Date.parse(date) - n * 1000 * 60 * 60 * 24);
+            var today = new Date(Date.parse(date) - m * 1000 * 60 * 60 * 24); 
+            var yyyy = start.getFullYear(); // 연도 모두 가져오기
+            var mm = start.getMonth()+1; // 월 가져오기(0부터 시작이기 때문에 +1)
+            
+            mm = mm >=10 ? mm:'0'+mm
+            
+            var t_yyyy = today.getFullYear(); //오늘년도
+            var t_mm = today.getMonth()+1; //오늘월
+            
+            t_mm = t_mm >=10 ? t_mm:'0'+t_mm
+            
+            document.querySelector('.dateForm').value = '';
+            document.querySelector('.dateTo').value = '';
+            document.querySelector('.dateForm').value = yyyy + "/" + mm;
+            document.querySelector('.dateTo').value = t_yyyy + "/" + t_mm;
+        } 
+    
+        
+
+    </script>
+
+
+    <style>
+        .grid1 {margin-bottom: 50px !important;}
+    </style>
+
+</head>
+<body>
+    <div class="lp_content">
+        <!-- header -->
+        <header>
+            <div class="inner">       
+                <!-- 뒤로가기/닫기 -->         
+                <a class="btnClose" href="javascript:history.back();"></a>
+                <!-- end: 뒤로가기/닫기 -->  
+
+                <h1 class="HeadTitleName tit_black">필터</h1>
+            </div>
+        </header>
+        <!-- end: header -->
+
+        <!-- section -->
+        <section>
+            <div class="brick-vowel">
+                <!-- grid: 현장명 -->
+                <div class="grid1">
+                    <h3 class="title">현장명</h3>
+                    <ul class="border_b">
+                        <li class="tab_option clearfix">
+                            <div class="active all_place">전체 현장</div>
+                            <div>특정 현장</div>
+                        </li>
+                        <li class="autocomplete" onclick="location.href='./10.con_filter_place.html'">                                
+                            <!-- 자동완성 -->
+                            <form autocomplete="off">
+                                <input id="autoPlace" class="autoBar" type="text" name="place" placeholder="현장을 선택해 주세요.">
+                            </form>
+                            <div class="autoClose"></div>
+                            <!-- end: 자동완성 -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- end: 현장명 -->
+
+                <!-- grid: 계좌등록 상태 -->
+                <div class="grid1">
+                    <h3 class="title">계좌등록 상태</h3>
+                    <ul class="border_b">
+                        <li>
+                            <form class="checkbox">
+                                <label><input type="checkbox" id="account01" checked><label for="account01">미등록</label>
+                                <label><input type="checkbox" id="account02" checked><label for="account02">등록완료</label>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+                <!-- end: 계좌등록 상태 -->
+
+                <!-- grid: 등록연월 -->
+                <div class="grid1">
+                    <h3 class="title">등록연월</h3>
+                    <ul class="border_b">
+                        <li class="tab_option tab_calendar clearfix">
+                            <div class="active" onclick="dateInput(30,0)">전체</div>
+                            <div onclick="dateInput(90,0)">최근 3개월</div>
+                            <div onclick="dateInput(365,0)">최근 1년</div>
+                        </li>
+
+                        <!-- 날짜선택기 -->
+                        <li class="clearfix date-picker">
+                            <div><input type="text" class="js-date-picker dateForm" value="그언제"></div>
+                            <div>~</div>
+                            <div><input type="text" class="js-date-picker dateTo" value="최근에"></div>
+                        </li>
+                        <!-- end: 날짜선택기 -->
+                    </ul>
+                </div>
+                <!-- end: 등록연월 -->
+            </div>
+        </section>
+        <!-- end: section -->
+    </div>
+        
+    <input type="button" id="btnSel" class="btnApply setPosition" value="적용">
+    
+</body>
+</html>

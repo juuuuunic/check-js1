@@ -40,17 +40,17 @@
 
       // 크래포트 신용등급 팝업 실행
       $('#warp_w td:has(img)').on('click', function() {
-        openSite_option(740, 445);
+        open_creport(740, 445);
       }); 
       
       // 크래포트 기업정보 호출
       $('.biz_info').on('click', function() {
-        open_bizInfo(740, 445);
+        open_bizInfo(1000, 600);
       });
       
       // 크래포트 신용정보 호출
       $('.credit_info').on('click', function() {
-        open_creditInfo(740, 445);
+        open_creditInfo(1000, 600);
       });
 
       // A-RM 서비스 설명 토글
@@ -115,7 +115,8 @@
       $.smartPop.open({ width:476, height:368, url: 'nomuMnu_arm03.html'});
     } 
 
-    function openSite_option(w,h) {
+    // 사이트 오픈 포지션
+    function openSite_position(w,h) {
       var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
       var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
     
@@ -127,70 +128,32 @@
 
       return {left:left, top:top};
     }
-    console.log(openSite_option(740,443))
+
     // 크래포트 등급정의 팝업
-    function open_creport() {
-      var position = openSite_option();
+    function open_creport(w, h) {
+      var position = openSite_position(w,h);
       var left = position.left;
       var top = position.top;
-      
+
       var newPop = window.open("https://www.creport.co.kr/popup/pop_grade.jsp", 'downPop', 'width='+ w + ', height='+ h + ',menubar=no,resizable=no,scrollbars=yes,status=no,toolbar=no, top=' + top + ', left=' + left);
-      
-      if(window.focus){
-        setTimeout(function(){
-          //newPop.focus();
-        }, 1000);
-      }
     }
 
     // 크래포트 기업정보
     function open_bizInfo(w,h) {
-      var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
-      var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
-    
-      var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
-      var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
-    
-      var left = ((width / 2) - (w / 2)) + dualScreenLeft;
-      var top = ((height / 2) - (h / 2)) + dualScreenTop;
+      var position = openSite_position(w,h);
+      var left = position.left;
+      var top = position.top;
 
       var newPop = window.open("https://www.creport.co.kr/", 'downPop', 'width='+ w + ', height='+ h + ',menubar=no,resizable=no,scrollbars=yes,status=no,toolbar=no, top=' + top + ', left=' + left);
-      
-      if(window.focus){
-        setTimeout(function(){
-          //newPop.focus();
-        }, 1000);
-      }
     }
 
     // 크래포트 신용정보
     function open_creditInfo(w,h) {
-      var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
-      var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
-    
-      var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
-      var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
-    
-      var left = ((width / 2) - (w / 2)) + dualScreenLeft;
-      var top = ((height / 2) - (h / 2)) + dualScreenTop;
+      var position = openSite_position(w,h);
+      var left = position.left;
+      var top = position.top;
 
       var newPop = window.open("https://www.creport.co.kr/", 'downPop', 'width='+ w + ', height='+ h + ',menubar=no,resizable=no,scrollbars=yes,status=no,toolbar=no, top=' + top + ', left=' + left);
-      
-      if(window.focus){
-        setTimeout(function(){
-          //newPop.focus();
-        }, 1000);
-      }
-    }
-
-    // 테이블 회사명 글자수
-    function word_cut(){
-        $('.arm_table2 table td.biz_info u').each(function(){
-            var length = 8;//표시할 글자수 정하기
-            if( $(this).text().length > length ){
-                $(this).text($(this).text().substr(0,length)+'...');//지정한 글자수 이후 표시할 텍스트(...)
-            }
-        });
     }
 
     // 검색 옵션 셀렉트박스
@@ -207,6 +170,16 @@
       $('.drop_option .select_list li').click(function () {
           $(this).parents('.drop_option').find('span').text($(this).text());
           $(this).parents('.drop_option').find('input').attr('value', $(this).attr('id'));
+      });
+    }
+
+    // 테이블 회사명 글자수
+    function word_cut(){
+      $('.arm_table2 table td.biz_info u').each(function(){
+          var length = 8;//표시할 글자수 정하기
+          if( $(this).text().length > length ){
+              $(this).text($(this).text().substr(0,length)+'...');//지정한 글자수 이후 표시할 텍스트(...)
+          }
       });
     }
 

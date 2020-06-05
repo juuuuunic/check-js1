@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="copyright"   content="copyrights NICE 000" />
+    <meta name="author"      content="NICE 000" />
+    <title>19,20,21,22.con_report_5,6,7,8</title>
+
+    <link rel="stylesheet" type="text/css" href="../css/lib/jquery-ui.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/layout.css">
+
+    <script type="text/javascript" src="../js/lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery-ui.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+    <script type="text/javascript">
+         $(document).ready(function() {
+            tapDrop();
+
+            $('.dropItem').each(function () {
+                $(this).on('click', function() {
+                    if($(this).text() == 'O')
+                    alert('성명: ○(일치), 연락처: ○(일치), 생년월일: ○(일치), 일단가: 000,000원(지급예정액/출역일수)')
+                });
+            });
+         });
+
+    </script>
+</head>
+<body>
+    <div id="content" class="HeightAuto">
+        <!-- header -->
+        <header>
+            <div class="inner">        
+                <!-- 뒤로가기 -->
+                <a href="javascript:history.back();" class="btnBack"></a> 
+                <!-- end: 뒤로가기 -->
+
+                <h1 class="HeadTitleName">청구내역서</h1>
+
+                <div class="toolbar clearfix">
+                    <!-- qmark -->
+                    <a class="btnQmark"></a>
+                    <!-- end: qmark -->
+                </div>
+            </div>
+        </header>
+        <!-- end: header -->
+
+        <!-- section -->
+        <section class="back_white back_radius">
+            <div class="brick-vowel">
+                <h2 class="selectedTitle">내역서 검증 결과</h2>
+                <!-- grid: 검증완료 -->
+                <div class="grid1">
+                    <h3 class="title">검증완료 (내역서 O / 출근데이터 O)</h3>
+                    
+                    <!-- 검증 데이터 -->
+                    <ul>
+                        <li>
+                            <table summary="내역서 검증 완료 테이블" class="border_b" width="100%">
+                                <caption>내역서 검증 완료</caption>
+                                <colgroup>
+                                    <col width="22%">
+                                    <col width="22%">
+                                    <col width="25%">
+                                    <col width="*">
+                                </colgroup>
+                                <thead class="thead">
+                                    <tr>
+                                        <th scope="col">검증결과</th>
+                                        <th scope="col">검증대상<br />(건)</th>
+                                        <th scope="col">지급예정액<br />(원)</th>
+                                        <th scope="col">평균지급예정액<br />(원)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th class="dropItem tit_blue">일치</th><!--탭하는 곳 -->
+                                        <th>105</th>
+                                        <th>30,0000,000</th>
+                                        <th>1,238,095</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                    </ul>
+                    <!-- end: 검증 데이터 -->
+
+                    <!-- 검증완료 상세 -->
+                    <ul class="dropList">
+                        <li>
+                            <table summary="내역서 검증완료 상세 테이블" class="table__03" width="100%">
+                                <caption>내역서 검증완료 상세</caption>
+                                <colgroup>
+                                    <col width="15%">
+                                    <col width="20%">
+                                    <col width="*">
+                                    <col width="20%">
+                                    <col width="20%">
+                                </colgroup>
+                                <thead class="thead">
+                                    <tr>
+                                        <th scope="col">순번</th>
+                                        <th scope="col">성명</th>
+                                        <th scope="col">지급예정액<br />(원)</th>
+                                        <th scope="col">출역일수</th>
+                                        <th scope="col">검증결과</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>1</th>
+                                        <th>장정현</th>
+                                        <th>135,000</th>
+                                        <th>13</th>
+                                        <th class="tabTarget tit_blue">O</th>
+                                    </tr>
+                                    <tr>
+                                        <th>2</th>
+                                        <th>김남류</th>
+                                        <th>205,000</th>
+                                        <th>12</th>
+                                        <th class="tabTarget tit_blue">O</th>
+                                    </tr>
+                                    </tr>
+                                    <tr>
+                                        <th>3</th>
+                                        <th>장현정</th>
+                                        <th>135,000</th>
+                                        <th>15</th>
+                                        <th class="tabTarget tit_blue">O</th>
+                                    </tr>
+                                    <tr>
+                                        <th>4</th>
+                                        <th>장췐</th>
+                                        <th>1200,000</th>
+                                        <th>10</th>
+                                        <th class="tabTarget tit_blue">O</th>
+                                    </tr>
+                                    <tr>
+                                        <th>5</th>
+                                        <th>장정현</th>
+                                        <th>135,000</th>
+                                        <th>13</th>
+                                        <th class="tabTarget tit_blue">O</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <ul class="clearfix table_paging">
+                                <li class="page_prev"><a href="#" class="fa fa-angle-left" aria-hidden="true"></a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li class="page_next"><a href="#" class="fa fa-angle-right" aria-hidden="true"></a></li>
+                            </ul>
+                        </li>
+
+                        <!-- 상세접기 -->
+                        <li class="dropClose">접기</l>
+                        <!-- // 상세접기 -->
+                    </ul>
+                    <!-- end: 검증완료 상세 -->
+
+                </div>
+                <!-- end: 검증완료 -->
+
+                <!-- grid: 출근데이터 미검증 -->
+                <div class="grid1">
+                    <h3 class="title">미검증 (내역서 O / 출근데이터 X)</h3>
+                    
+                    <!-- 검증 데이터 -->
+                    <ul>
+                        <li>
+                            <table summary="내역서 미검증(출근데이터 X) 테이블" class="border_b" width="100%">
+                                <caption>내역서 미검증(출근데이터 X)</caption>
+                                <colgroup>
+                                    <col width="22%">
+                                    <col width="22%">
+                                    <col width="25%">
+                                    <col width="*">
+                                </colgroup>
+                                <thead class="thead">
+                                    <tr>
+                                        <th scope="col">검증결과</th>
+                                        <th scope="col">검증대상<br />(건)</th>
+                                        <th scope="col">지급예정액<br />(원)</th>
+                                        <th scope="col">평균지급예정액<br />(원)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th class="dropItem tit_blue">불일치</th><!--탭하는 곳 -->
+                                        <th>105</th>
+                                        <th>30,0000,000</th>
+                                        <th>1,238,095</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                    </ul>
+                    <!-- end: 검증 데이터 -->
+                    
+                    <!-- 출근데이터 상세 -->
+                    <ul class="dropList">
+                        <li>
+                            <table summary="내역서 미검증(출근데이터 X) 상세 테이블" class="table__03" width="100%">
+                                <caption>내역서 미검증(출근데이터 X) 상세</caption>
+                                <colgroup>
+                                    <col width="15%">
+                                    <col width="20%">
+                                    <col width="*">
+                                    <col width="20%">
+                                    <col width="20%">
+                                </colgroup>
+                                <thead class="thead">
+                                    <tr>
+                                        <th scope="col">순번</th>
+                                        <th scope="col">성명</th>
+                                        <th scope="col">지급예정액<br />(원)</th>
+                                        <th scope="col">출석일수</th>
+                                        <th scope="col">검증결과</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>1</th>
+                                        <th>장정현</th>
+                                        <th>135,000</th>
+                                        <th>13</th>
+                                        <th class="tit_blue">X</th>
+                                    </tr>
+                                    <tr>
+                                        <th>2</th>
+                                        <th>김남류</th>
+                                        <th>205,000</th>
+                                        <th>12</th>
+                                        <th class="tit_blue">X</th>
+                                    </tr>
+                                    </tr>
+                                    <tr>
+                                        <th>3</th>
+                                        <th>장현정</th>
+                                        <th>135,000</th>
+                                        <th>15</th>
+                                        <th class="tit_blue">X</th>
+                                    </tr>
+                                    <tr>
+                                        <th>4</th>
+                                        <th>장췐</th>
+                                        <th>1200,000</th>
+                                        <th>10</th>
+                                        <th class="tit_blue">X</th>
+                                    </tr>
+                                    <tr>
+                                        <th>5</th>
+                                        <th>장정현</th>
+                                        <th>135,000</th>
+                                        <th>13</th>
+                                        <th class="tit_blue">X</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <ul class="clearfix table_paging">
+                                <li class="page_prev"><a href="#" class="fa fa-angle-left" aria-hidden="true"></a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li class="page_next"><a href="#" class="fa fa-angle-right" aria-hidden="true"></a></li>
+                            </ul>
+                        </li>
+
+                        <!-- 상세 접기 -->
+                        <li class="dropClose">접기</li>
+                        <!-- 상세 접기 -->
+                    </ul>
+                    <!-- end: 출근데이터 상세 -->
+
+                </div>
+                <!-- end: 출근데이터 미검증 -->
+
+                <!-- grid: 내역서 미검증 -->
+                <div class="grid1">
+                    <h3 class="title">미검증 (내역서 X / 출근데이터 O)</h3>
+                    
+                    <!-- 검증 데이터 -->
+                    <ul>
+                        <li>
+                            <table summary="내역서 미검증(내역서 X) 테이블" class="border_b" width="100%">
+                                <caption>내역서 미검증(내역서 X)</caption>
+                                <colgroup>
+                                    <col width="22%">
+                                    <col width="22%">
+                                    <col width="25%">
+                                    <col width="*">
+                                </colgroup>
+                                <thead class="thead">
+                                    <tr>
+                                        <th scope="col">검증결과</th>
+                                        <th scope="col">검증대상<br />(건)</th>
+                                        <th scope="col">출역일수<br />(일)</th>
+                                        <th scope="col">평균출역일<br />(일)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th class="dropItem tit_blue">불일치</th><!--탭하는 곳 -->
+                                        <th>10</th>
+                                        <th>154</th>
+                                        <th>15.4</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                    </ul>
+                    <!-- end: 검증 데이터 -->
+                    
+                    <!-- 내역서 상세 -->
+                    <ul class="dropList">
+                        <li>
+                            <table class="table__03" width="100%">
+                                <colgroup>
+                                    <col width="15%">
+                                    <col width="20%">
+                                    <col width="*">
+                                    <col width="20%">
+                                    <col width="20%">
+                                </colgroup>
+                                <thead class="thead">
+                                    <tr>
+                                        <th scope="col">순번</th>
+                                        <th scope="col">성명</th>
+                                        <th scope="col">지급예정액<br />(원)</th>
+                                        <th scope="col">출석일수</th>
+                                        <th scope="col">검증결과</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>1</th>
+                                        <th>장정현</th>
+                                        <th>-</th>
+                                        <th>13</th>
+                                        <th class="tit_blue">X</th>
+                                    </tr>
+                                    <tr>
+                                        <th>2</th>
+                                        <th>김남류</th>
+                                        <th>-</th>
+                                        <th>12</th>
+                                        <th class="tit_blue">X</th>
+                                    </tr>
+                                    </tr>
+                                    <tr>
+                                        <th>3</th>
+                                        <th>장현정</th>
+                                        <th>-</th>
+                                        <th>15</th>
+                                        <th class="tit_blue">X</th>
+                                    </tr>
+                                    <tr>
+                                        <th>4</th>
+                                        <th>장췐</th>
+                                        <th>-</th>
+                                        <th>10</th>
+                                        <th class="tit_blue">X</th>
+                                        <tr>
+                                            <th>5</th>
+                                            <th>장정현</th>
+                                            <th>135,000</th>
+                                            <th>13</th>
+                                            <th class="tit_blue">X</th>
+                                        </tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <ul class="clearfix table_paging">
+                                <li class="page_prev"><a href="#" class="fa fa-angle-left" aria-hidden="true"></a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li class="page_next"><a href="#" class="fa fa-angle-right" aria-hidden="true"></a></li>
+                            </ul>
+                        </li>
+
+                        <!-- 상세 접기 -->
+                        <li class="dropClose">접기</li>
+                        <!-- 상세 접기 -->
+                    </ul>
+                    <!-- end: 내역서 상세 -->
+                </div>
+                <!-- end: 내역서 미검증 -->
+
+            </div>
+            
+        </section>
+        <!-- end: section -->
+    </div>
+
+    <!-- nav -->
+    <nav>
+        <ul class="clearfix">
+            <li class="active"><a href="./13.con_report_1.html" target="_self">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico01_sel.png" class="img" alt="내역서관리"/>
+                </div>
+                내역서관리
+            </a></li>
+            <li><a href="./23.con_delay_1.html" target="_self">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico02_dim.png" class="img" alt="체불관리"/>
+                </div>
+                체불관리
+            </a></li>
+            <li><a href="./28.con_alert_1.html" target="_self">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico03_dim.png" class="img" alt="알림조회"/>
+                    <div class="tooltip">10</div>
+                </div>
+                알림조회
+            </a></li>
+            <li><a href="./31.con_noti_1.html" target="_self">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico04_dim.png" class="img" alt="공지사항"/>
+                </div>
+                공지사항
+                
+            </a></li>
+            <li><a href="./33,34.con_extra_1,2.html" target="_self">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico05_dim.png" class="img" alt="더보기"/>
+                </div>
+                더보기
+            </a></li>
+        </ul>
+    </nav>
+    <!-- end: nav -->
+    
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="copyright"   content="copyrights NICE 000" />
+    <meta name="author"      content="NICE 000" />
+    <title>55.subon_alert_1</title>
+
+    <link rel="stylesheet" type="text/css" href="../css/lib/jquery-ui.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/layout.css">
+
+    <script type="text/javascript" src="../js/lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery-ui.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+
+    <script type="text/javascript">
+         $(document).ready(function() {
+        });
+
+
+    </script>
+</head>
+<body>
+    <div id="content" class="HeightAuto">
+         <!-- header -->
+         <header>
+            <div class="inner">            
+                <!-- 뒤로가기 -->
+                <a href="javascript:history.back();" class="btnBack"></a> 
+                <!-- end: 뒤로가기 -->
+
+                <h1 class="HeadTitleName tit_grey">
+                    <em class="active" onclick="window.location.href='./55.subcon_alert_1.html'">알림조회</em>
+                    <em onclick="window.location.href='./56.subcon_alert_2.html'">이력조회</em>
+                </h1>
+
+                <div class="toolbar clearfix">
+                    <!-- filter: 마스터, 부문별 계정시 활성화 -->
+                    <a class="btnFilter" onclick="location.href='./lp/14.con_report_filter_1.html'"></a>
+                    <!-- end: filter -->
+
+                    <!-- qmark -->
+                    <a class="btnQmark"></a>
+                    <!-- end: qmark -->
+                </div>
+            </div>
+        </header>
+        <!-- end: header -->
+        <!-- section -->
+        <section class="back_white back_radius">
+            <div class="brick-vowel">
+                <!-- grid: 긴급확인 -->
+                <div class="grid1">
+                    <h1 class="selectedTitle" style="margin-bottom: 13px;">전체</h1>
+                    <h3 class="title tit_red">긴급확인</h3>
+                    <ul>
+                        <li>
+                            <table class="table__05 border_b" width="100%">
+                                <colgroup>
+                                    <col width="80%;">
+                                    <col width="20%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr class="check_urg" onclick="window.location.href='./16, 17, 18.con_report_2,3,4.html'"><!-- urgency -->
+                                        <th>
+                                            독산동 공동주택 아파트 현장
+                                            <span class="tit_red">내역서 반려! (2019/10, (주)롯데건설)</span>
+                                        </th>
+                                        <th>
+                                            2019-01-21<br />
+                                            10:57 am
+                                        </th>
+                                    </tr>
+                                    <tr class="check_urg" onclick="window.location.href='./16, 17, 18.con_report_2,3,4.html'"><!-- urgency -->
+                                        <th>
+                                            합성동 APT현장
+                                            <span class="tit_red">장기체불발생! (약속일 : 2019-09-21)</span>
+                                        </th>
+                                        <th>
+                                            2019-01-21<br />
+                                            10:57 am
+                                        </th>
+                                    </tr>
+                                    <tr class="check_urg" onclick="window.location.href='./19,20,21,22.con_report_5,6,7,8.html'"><!-- urgency -->
+                                        <th>
+                                            서울시 서대문구 공동주택...
+                                            <span class="tit_red">지급처리 요청! (2019/09, (주)대림...</span>
+                                        </th>
+                                        <th>
+                                            2019-01-21<br />
+                                            10:57 am
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                    </ul>
+                </div>
+                <!-- end: 긴급확인 -->
+
+                <!-- grid: 확인요청 -->
+                <div class="grid1">
+                    <h3 class="title">확인요청</h3>
+                    <ul>
+                        <li>
+                            <table class="table__05 border_b" width="100%">
+                                <colgroup>
+                                    <col width="80%;">
+                                    <col width="20%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr class="check_req" onclick="window.location.href='./16, 17, 18.con_report_2,3,4.html'"><!-- request  -->
+                                        <th>
+                                            독산동 공동주택 아파트 현장
+                                            <span >내역서 승인(2019/10, (주)롯데건설)</span>
+                                        </th>
+                                        <th>
+                                            2019-01-21<br />
+                                            10:57 am
+                                        </th>
+                                    </tr>
+                                    <tr class="check_req" onclick="window.location.href='./19,20,21,22.con_report_5,6,7,8.html'"><!-- request  -->
+                                        <th>
+                                            동대문 DDP 리모델링 현장
+                                            <span>내역서 승인(2019/10, (주)삼성물산)</span>
+                                        </th>
+                                        <th>
+                                            2019-01-21<br />
+                                            10:57 am
+                                        </th>
+                                    </tr>
+                                    <tr class="check_req" onclick="window.location.href='./19,20,21,22.con_report_5,6,7,8.html'"><!-- request  -->
+                                        <th>
+                                            나이스디앤알 신사옥 현장
+                                            <span>체불발생(약속일:2019-10-18)</span>
+                                        </th>
+                                        <th>
+                                            2019-01-21<br />
+                                            10:57 am
+                                        </th>
+                                    </tr>
+                                    <tr class="check_req" onclick="window.location.href='./19,20,21,22.con_report_5,6,7,8.html'"><!-- request  -->
+                                        <th>
+                                            나이스디앤알 제2신사옥 현장
+                                            <span>체불발생(약속일:2019-10-18)</span>
+                                        </th>
+                                        <th>
+                                            2019-01-21<br />
+                                            10:57 am
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                    </ul>
+                </div>
+                <!-- end: 확인요청 -->
+            </div>
+            
+        </section>
+        <!-- end: section -->
+        
+    </div>
+
+    <!-- nav -->
+    <nav>
+        <ul class="clearfix">
+            <li><a href="./41.subcon_main_1.html">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico01_dim.png" class="img" alt="내역서관리"/>
+                </div>
+                내역서관리
+            </a></li>
+            <li><a href="./50.subcon_delay_1.html">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico02_dim.png" class="img" alt="미지급관리"/>
+                </div>
+                미지급관리
+            </a></li>
+            <li class="active"><a href="./55.subcon_alert_1.html">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico03_sel.png" class="img" alt="알림조회"/>
+                    <div class="tooltip">10</div>
+                </div>
+                알림조회
+            </a></li>
+            <li><a href="./31.con_noti_1.html">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico04_dim.png" class="img" alt="공지사항"/>
+                </div>
+                공지사항
+                
+            </a></li>
+            <li><a href="./57.58.subcon_extra_1,2.html">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico05_dim.png" class="img" alt="더보기"/>
+                </div>
+                더보기
+            </a></li>
+        </ul>
+    </nav>
+    <!-- end: nav -->
+        
+    
+</body>
+</html>

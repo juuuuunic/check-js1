@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="copyright"   content="copyrights NICE 000" />
+    <meta name="author"      content="NICE 000" />
+    <title>45.subcon_report_1</title>
+
+    <link rel="stylesheet" type="text/css" href="../css/lib/jquery-ui.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/layout.css">
+
+    <script type="text/javascript" src="../js/lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery-ui.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+    <script type="text/javascript">
+         $(document).ready(function() {
+            // Confirm Button
+            $('.btnConfirms > a.active').on('click',function() {
+                if($(this).hasClass('btnApprov')) {
+                    var result = confirm("미승인 내역 5건에 대해 이체를 독려합니다.");
+                    if(result) alert("미승인 내역 5건 중 4건에 대해 이체독려를 하였습니다.(24시간 내 이체독려 1건 알림제한)");
+                    else alert("미승인 내역 5건에 대해 이체를 독려를 취소합니다.");
+                    return;
+                }
+            })
+
+            $('.placeName').each(function(i) {
+                $(this).on('click', function(e) {
+                    e.preventDefault();
+                    var placeName = $(this).text()
+                    var result = '현장명: ' +  placeName + ', 협력기업명: ㅇㅇㅇ,' + '사업자 번호: 02-000-0000, 현장관리명: ㅇㅇㅇ, 전화번호: 02-000-0000, 이메일: asdf@asdf.com'
+
+                    alert(result);
+
+                });
+            });
+
+            $('.bizCondition').on('click', function() {
+                var url = window.location.href='./47,48.subcon_report_2,3.html';
+                $(this).attr('href', url);
+            });
+
+
+        });
+    </script>
+
+</head>
+<body>
+    <div id="content" class="HeightAuto">
+        <!-- header -->
+        <header>
+            <div class="inner">      
+                <!-- 뒤로가기 -->
+                <a href="javascript:history.back();" class="btnBack"></a> 
+                <!-- end: 뒤로가기 -->
+                <h1 class="HeadTitleName">내역서 관리</h1>
+                <div class="toolbar clearfix">
+                    <!-- btnFilter: 마스터, 부문별 계정시 활성화 -->
+                    <a class="btnFilter" onclick="location.href='./lp/46.subcon_report_filter_1.html'"></a>
+                    <!-- //btnFilter -->
+
+                    <!-- btnQmark -->
+                    <a class="btnQmark"></a>
+                    <!-- //btnQmark -->
+                </div>
+            </div>
+        </header>
+        <!-- //header -->
+
+        <!-- section -->
+        <section class="back_white back_radius">
+            <div class="brick-vowel">
+                <!-- grid: 내역서 관리 -->
+                <div class="grid1">
+                    <select class="titleSelctor selectedTitle">
+                        <option value="" selected="selected">전체</option>
+                        <option value="">최근 3개월</option>
+                        <option value="">최근 1년</option>
+                        <option value="">필터적용</option>
+                    </select>
+
+                    <ul>
+                        <!-- Confirm Button - active X: 비활성화 -->
+                        <li class="clearfix btnConfirms">
+                            <a href="#none" class="btnApprov active">미승인</a>
+                        </li>
+                        <!-- end: Confirm Button -->
+                        <!-- table -->
+                        <li>
+                            <table class="border_b" width="100%">
+                                <col width="10%;">
+                                <col width="15%">
+                                <col width="*%">
+                                <col width="12%">
+                                <thead class="thead">
+                                    <tr class="tit_b">
+                                        <th scope="col">순번</th>
+                                        <th scope="col">해당월</th>
+                                        <th scope="col">현장명</th>
+                                        <th scope="col">상태</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>7</th>
+                                        <th>2019/10</th>
+                                        <th class="placeName tit_blue">나이스디앤알</th>
+                                        <th class="bizCondition tit_red">미승인</th>
+                                    </tr>
+                                    <tr>
+                                        <th>6</th>
+                                        <th>2019/10</th>
+                                        <th class="placeName tit_blue">주식회사 전문걸설업체</th>
+                                        <th class="bizCondition tit_red">미승인</th>
+                                    </tr>
+                                    <tr>
+                                        <th>5</th>
+                                        <th>2019/10</th>
+                                        <th class="placeName tit_blue">나이스토건(주)</th>
+                                        <th class="bizCondition tit_red">작성중</th>
+                                    </tr>
+                                    <tr>
+                                        <th>4</th>
+                                        <th>2019/10</th>
+                                        <th class="placeName tit_blue">나이스공기(주)</th>
+                                        <th class="bizCondition tit_red">작성중</th>
+                                    </tr>
+                                    <tr>
+                                        <th>3</th>
+                                        <th>2019/10</th>
+                                        <th class="placeName tit_blue">대한전문건설(주)</th>
+                                        <th class="bizCondition tit_blue">승인</th>
+                                    </tr>
+                                    <tr>
+                                        <th>2</th>
+                                        <th>2019/10</th>
+                                        <th class="placeName tit_blue">대한전문건설(주)</th>
+                                        <th class="bizCondition tit_blue">승인</th>
+                                    </tr>
+                                    <tr>
+                                        <th>1</th>
+                                        <th>2019/10</th>
+                                        <th class="placeName tit_blue">대한전문건설(주)</th>
+                                        <th class="bizCondition tit_blue">승인</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                        <!-- end: table -->
+
+                        <!-- paging -->
+                        <li class="table_paging">
+                            <ul class="clearfix">
+                                <li class="page_prev"><a href="#" class="fa fa-angle-left" aria-hidden="true"></a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li class="page_next"><a href="#" class="fa fa-angle-right" aria-hidden="true"></a></li>
+                                </ul>
+                        </li>
+                        <!-- end: paging -->
+                    </ul>
+                </div>
+                <!-- end: 내역서 관리 -->
+            </div>
+            
+        </section>
+        <!-- end: section -->
+    </div>
+    
+    <!-- nav -->
+    <nav>
+        <ul class="clearfix">
+            <li class="active"><a href="./41.subcon_main_1.html">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico01_sel.png" class="img" alt="내역서관리"/>
+                </div>
+                내역서관리
+            </a></li>
+            <li><a href="./50.subcon_delay_1.html">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico02_dim.png" class="img" alt="미지급관리"/>
+                </div>
+                미지급관리
+            </a></li>
+            <li><a href="./55.subcon_alert_1.html">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico03_dim.png" class="img" alt="알림조회"/>
+                    <div class="tooltip">10</div>
+                </div>
+                알림조회
+            </a></li>
+            <li><a href="./31.con_noti_1.html">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico04_dim.png" class="img" alt="공지사항"/>
+                </div>
+                공지사항
+                
+            </a></li>
+            <li><a href="./57.58.subcon_extra_1,2.html">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico05_dim.png" class="img" alt="더보기"/>
+                </div>
+                더보기
+            </a></li>
+        </ul>
+    </nav>
+    <!-- //nav -->
+</body>
+</html>

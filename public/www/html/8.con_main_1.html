@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="copyright"   content="copyrights NICE 000" />
+    <meta name="author"      content="NICE 000" />
+    <title>8.con_main_1</title>
+
+    <link rel="stylesheet" type="text/css" href="../css/lib/jquery-ui.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/layout.css">
+
+
+    <script type="text/javascript" src="../js/lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery-ui.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+
+    <script type="text/javascript">
+         $(document).ready(function() {
+            backAlert();
+
+            // 현시점 상세보기
+            $('.btnView').on('click', function() {
+                alert('추후 확인하실 수 있습니다.')
+            });
+            
+            // HeadTitleName 넓이
+            $('.HeadTitleName').css('width' ,  $('header > .inner').innerWidth()-$('.toolbar').innerWidth()-1 );
+            $(window).resize(function() {
+                $('.HeadTitleName').css('width' ,  $('header > .inner').innerWidth()-$('.toolbar').innerWidth()-1 );
+            });
+
+            // 반응형에 따른 back_white 높이 처리
+            $('.back_white ').css('height' ,  $('section').height()-$('.brick-vowel').height() );
+            $(window).resize(function() {
+                $('.back_white ').css('height' ,  $('section').height()-$('.brick-vowel').height() );
+            });
+        });
+    </script>
+
+</head>
+<body>
+    <div id="content" class="HeightAuto">
+        <!-- header -->
+        <header>
+            <div class="inner">
+                <!-- 선택기 -->
+                <select class="HeadSelector HeadTitleName">
+                    <option value="" selected="selected">합성동 APT 현장</option>
+                    <option value="">합성동 AZ 현장</option>
+                </select>
+                <!-- end: 선택기 -->
+
+                <div class="toolbar clearfix">
+                    <!-- qmark -->
+                    <a class="btnQmark"></a>
+                    <!-- end: qmark -->
+                </div>
+            </div>
+        </header>
+        <!-- end: header -->
+
+        <!-- section -->
+        <section>
+            <!-- brick -->
+            <div class="brick-vowel">
+                <!-- grid: 내역서/체불 관리 -->
+                <div class="grid1">
+                    <ul>
+                        <!-- 내역서 관리 -->
+                        <li>
+                            <table summary="내역서 관리" sum class="table__01" width="100%">
+                                <caption>내역서 관리</caption>
+                                <colgroup>
+                                    <col width="46%;">
+                                    <col width="*%">
+                                    <col width="20%">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th class="title">내역서 관리</th>
+                                    </tr>
+                                    <tr>
+                                        <th>내역서 긴급확인</th>
+                                        <th class="list_cnt">3건<span></span></th>
+                                        <th><input type="button" class="btn_index" value="승인하기" title="승인하기 버튼"></th>
+                                    </tr>
+                                    <tr>
+                                        <th>수신된 내역서</th>
+                                        <th class="list_cnt">3건</th>
+                                        <th><input type="button" class="btn_index" value="승인하기" title="승인하기 버튼"></th>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                        <!-- end: 내역서 관리 -->
+
+                        <!-- 체불 관리 -->
+                        <li style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.2);">
+                            <table summary="체불관리" class="table__01" width="100%">
+                                <caption>체불관리</caption>
+                                <colgroup>
+                                    <col width="46%;">
+                                    <col width="*%">
+                                    <col width="20%">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th class="title">체불 관리</th>
+                                    </tr>
+                                    <tr>
+                                        <th>장기체불 내역</th>
+                                        <th class="list_cnt">3건<span></span></th>
+                                        <th><input type="button" class="btn_index" value="이체독려" title="이체독려 버튼"></th>
+                                    </tr>
+                                    <tr>
+                                        <th>전체체불 내역</th>
+                                        <th class="list_cnt">3건</th>
+                                        <th><input type="button" class="btn_index" value="이체독려" title="이체독려 버튼"></th>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                        <!-- end: 체불 관리 -->
+                    </ul>
+                </div>
+                <!-- end: 내역서/체불 관리 -->
+            </div>
+            <!-- end: brick -->
+
+            <!-- brick -->
+            <div class="brick-vowel back_white back_radius" style="width: 100%;">
+                
+                <div class="inner">
+                
+                    <!-- grid: 월별 관리현황 -->
+                    <div class="grid1">
+                        <h3 class="title tit_blue" style="font-weight: normal;">
+                            월별 관리현황
+                            <input ype="button" id="btnSel" class="btn_index btnView" value="상세보기" title="상세보기 버튼" />
+                        </h3>
+                        <ul>
+                            <li class="table__02_tab clearfix">
+                                <span class="tab_prev fa fa-angle-left" aria-hidden="true"></span>
+                                <span class="today tit_b">2019.10</span>
+                                <span class="tab_next fa fa-angle-right" aria-hidden="true"></span>
+                            </li>
+                            <li>
+                                <table summary="월별 관리현황 테이블" class="table__02 border_b" width="100%">
+                                    <caption>월별 관리현황</caption>
+                                    <colgroup>
+                                        <col width="20%">
+                                        <col width="20%">
+                                        <col width="20%">
+                                        <col width="20%">
+                                        <col width="20%">
+                                    </colgroup>
+                                    <thead class="thead">
+                                        <tr>
+                                            <th>청구내역서<br/>(건)</th>
+                                            <th>협력기업수<br/>(업체)</th>
+                                            <th>지급보호수<br/>(업체수)</th>
+                                            <th>지급예정액<br/>(백만원)</th>
+                                            <th>지급총액<br/>(백만원)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th class="tit_blue">000,000</th>
+                                            <th class="tit_blue">000,000</th>
+                                            <th class="tit_blue">000,000</th>
+                                            <th class="tit_blue">000,000</th>
+                                            <th class="tit_blue">000,000</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- end: 월별 관리현황 -->
+    
+                    <!-- grid: 협력기업수 -->
+                    <div class="grid1">
+                        <a class="bizCnt" href="./11.con_main_sublist_1.html" target="_self">협력기업수(누적) <strong>35개사</strong></a>
+                    </div>
+                    <!-- end: 협력기업수 -->
+
+                </div>
+            </div>
+            <!-- end: brick -->
+            
+        </section>
+        <!-- //section -->
+    </div>
+    
+    <!-- nav -->
+    <nav>
+        <ul class="clearfix">
+            <li><a href="./13.con_report_1.html" target="_self">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico01_dim.png" class="img" alt="내역서관리"/>
+                </div>
+                내역서관리
+            </a></li>
+            <li><a href="./23.con_delay_1.html" target="_self">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico02_dim.png" class="img" alt="체불관리"/>
+                </div>
+                체불관리
+            </a></li>
+            <li><a href="./28.con_alert_1.html" target="_self">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico03_dim.png" class="img" alt="알림조회"/>
+                    <div class="tooltip">10</div>
+                </div>
+                알림조회
+            </a></li>
+            <li><a href="./31.con_noti_1.html" target="_self">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico04_dim.png" class="img" alt="공지사항"/>
+                </div>
+                공지사항
+                
+            </a></li>
+            <li><a href="./33,34.con_extra_1,2.html" target="_self">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico05_dim.png" class="img" alt="더보기"/>
+                </div>
+                더보기
+            </a></li>
+        </ul>
+    </nav>
+    <!-- //nav -->
+
+
+    <!-- lp -->
+    <div class="back_alert">
+		<div class="alert_contents">
+            <p>'뒤로'버튼을 한 번 더 누르시면 종료됩니다.</p>
+		</div>
+    </div>
+    <!-- // lp -->
+</body>
+</html>

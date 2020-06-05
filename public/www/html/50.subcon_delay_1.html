@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="copyright"   content="copyrights NICE 000" />
+    <meta name="author"      content="NICE 000" />
+    <title>50.subcon_delay_1</title>
+
+    <link rel="stylesheet" type="text/css" href="../css/lib/jquery-ui.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/layout.css">
+
+    <script type="text/javascript" src="../js/lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery-ui.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+
+    <!-- onload -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $('.placeName').each(function(i) {
+                $(this).on('click', function(e) {
+                    e.preventDefault();
+                    var placeName = $(this).text()
+                    var result = '현장명: ' +  placeName + ', 협력기업명: ㅇㅇㅇ,' + '사업자 번호: 02-000-0000, 현장관리명: ㅇㅇㅇ, 전화번호: 02-000-0000, 이메일: asdf@asdf.com'
+
+                    alert(result);
+
+                });
+            });
+
+        });
+
+
+                
+    </script>
+
+    <!-- function -->
+    <script type="text/javascript">
+            
+    </script>
+
+</head>
+<body>
+    <div id="content" class="HeightAuto">
+        <!-- header -->
+        <header>
+            <div class="inner">                
+                <!-- 뒤로가기 -->
+                <a href="javascript:history.back();" class="btnBack"></a> 
+                <!-- end: 뒤로가기 -->
+                <h1 class="HeadTitleName">미지급 관리</h1>
+                <div class="toolbar clearfix">
+                    <!-- btnFilter: 마스터, 부문별 계정시 활성화 -->
+                    <a class="btnFilter" onclick="location.href='./lp/51.subcon_delay_filter_1.html'"></a>
+                    <!-- end: btnFilter -->
+
+                    <!-- btnQmark -->
+                    <a class="btnQmark"></a>
+                    <!-- end: btnQmark -->
+                </div>
+            </div>
+        </header>
+        <!-- end: header -->
+
+        <!-- section -->
+        <section class="back_white back_radius">
+            <div class="brick-vowel">
+                <!-- grid: 미지급 관리 -->
+                <div class="grid1">
+                
+                    <!-- 기간선택 -->
+                    <select class="titleSelctor selectedTitle">
+                        <option value="" selected="selected">전체</option>
+                        <option value="">최근 3개얼</option>
+                        <option value="">최근 1년</option>
+                        <option value="">필터적용</option>
+                    </select>
+                    <!-- end: 기간선택 -->
+                    
+                    <ul>
+                        <!-- table -->
+                        <li>
+                            <table class="border_b" width="100%">
+                                <col width="10%;">
+                                <col width="15%">
+                                <col width="*%">
+                                <col width="25%">
+                                <col width="12%">
+                                <thead class="thead">
+                                    <tr class="tit_b">
+                                        <th scope="col">순번</th>
+                                        <th scope="col">해당월</th>
+                                        <th scope="col">현장</th>
+                                        <th scope="col">이체약속일</th>
+                                        <th scope="col">상태</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>7</th>
+                                        <th>2019/10</th>
+                                        <th class="placeName tit_blue">독산동 공동주택 신축공사 현장</th>
+                                        <th>2019-11-15</th>
+                                        <th class="tit_red btnView">장기</th>
+                                    </tr>
+                                    <tr>
+                                        <th>6</th>
+                                        <th>2019/10</th>
+                                        <th class="placeName tit_blue">나이스디앤알 신사옥 건축 현장</th>
+                                        <th>2019-11-15</th>
+                                        <th class="tit_red btnView">장기</th>
+                                    </tr>
+                                    <tr>
+                                        <th>5</th>
+                                        <th>2019/10</th>
+                                        <th class="placeName tit_blue">나이스 5사옥 건축 현장</th>
+                                        <th>2019-11-15</th>
+                                        <th class="tit_red btnView">장기</th>
+                                    </tr>
+                                    <tr>
+                                        <th>4</th>
+                                        <th>2019/10</th>
+                                        <th class="placeName tit_blue">서대문구 주택조합 건축 현장</th>
+                                        <th>2019-11-15</th>
+                                        <th class="tit_red btnView">체불</th>
+                                    </tr>
+                                    <tr>
+                                        <th>3</th>  
+                                        <th>2019/10</th>                                          
+                                        <th class="placeName tit_blue">영등포 자이 신축공사 현장</th>
+                                        <th>2019-11-15</th>
+                                        <th>예정</th>
+                                    </tr>
+                                    <tr>
+                                        <th>2</th>
+                                        <th>2019/10</th>
+                                        <th class="placeName tit_blue">포스코 제철소 2공장 보수공사 현장</th>
+                                        <th>2019-11-15</th>
+                                        <th>예정</th>
+                                    </tr>
+                                    <tr>
+                                        <th>1</th>
+                                        <th>2019/10</th>
+                                        <th class="placeName tit_blue">영등포 자이 신축공사 현장</th>
+                                        <th>2019-11-15</th>
+                                        <th>예정</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                        <!-- // table -->
+
+                        <!-- paging -->
+                        <li class="table_paging">
+                            <ul class="clearfix">
+                                <li class="page_prev"><a href="#" class="fa fa-angle-left" aria-hidden="true"></a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li class="page_next"><a href="#" class="fa fa-angle-right" aria-hidden="true"></a></li>
+                                </ul>
+                        </li>
+                        <!-- // paging -->
+                    </ul>
+                </div>
+                <!-- end: 미지급 관리 -->
+            </div>
+            
+        </section>
+        <!-- end: section -->
+    </div>
+    
+    <!-- nav -->
+    <nav>
+        <ul class="clearfix">
+            <li><a href="./41.subcon_main_1.html">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico01_dim.png" class="img" alt="내역서관리"/>
+                </div>
+                내역서관리
+            </a></li>
+            <li class="active"><a href="./50.subcon_delay_1.html">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico02_sel.png" class="img" alt="미지급관리"/>
+                </div>
+                미지급관리
+            </a></li>
+            <li><a href="./55.subcon_alert_1.html">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico03_dim.png" class="img" alt="알림조회"/>
+                    <div class="tooltip">10</div>
+                </div>
+                알림조회
+            </a></li>
+            <li><a href="./31.con_noti_1.html">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico04_dim.png" class="img" alt="공지사항"/>
+                </div>
+                공지사항
+                
+            </a></li>
+            <li><a href="./57.58.subcon_extra_1,2.html">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico05_dim.png" class="img" alt="더보기"/>
+                </div>
+                더보기
+            </a></li>
+        </ul>
+    </nav>
+    <!-- end: nav -->
+</body>
+</html>

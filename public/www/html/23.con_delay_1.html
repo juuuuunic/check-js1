@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="copyright"   content="copyrights NICE 000" />
+    <meta name="author"      content="NICE 000" />
+    <title>23.con_delay_1</title>
+
+    <link rel="stylesheet" type="text/css" href="../css/lib/jquery-ui.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/layout.css">
+
+    <script type="text/javascript" src="../js/lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery-ui.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+
+    <!-- onload -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            // Confirm Button
+            $('.btnConfirms > a.active').on('click',function() {
+
+                // 전체 이체독려
+                if($(this).hasClass('btnAll')) {
+                    var result = confirm("장기/체불 내역 5건에 대해 이체를 독려합니다.");
+                    if(result) alert("장기/체불 내역 5건 중 4건에 대해 이체독려를 하였습니다.(24시간 내 이체독려 1건 알림제한)");
+                    else alert("장기/체불 내역 5건에 대해 이체를 독려를 취소합니다.");
+                    return;
+                }
+
+                // 장기 이체독려
+                else if($(this).hasClass('btnExtend')) {
+                    var result = confirm("장기 내역 2건에 대해 이체를 독려합니다.");
+                    if(result) alert("장기 내역 2건에 대해 이체독려를 하였습니다.");
+                    else alert("장기 내역 2건에 대해 이체를 독려를 취소합니다.");
+                    return;
+                }
+
+                // 체불 이체독려
+                else {
+                    var result = confirm("체불 내역 3건에 대해 이체를 독려합니다.");
+                    if(result) alert("체불 내역 3건 중 2건에 대해 이체독려를 하였습니다.(24시간 내 이체독려 1건 알림제한)");
+                    else alert("체불 내역 3건에 대해 이체를 독려를 취소합니다.");
+                    return;
+                }
+            })
+
+            // Tab Button
+            $('.bizName').each(function(i) {
+                $(this).on('click', function(e) {
+                    e.preventDefault();
+                    var placeName = $(this).parents().siblings('select').find('option:selected').text()
+                    var bizName = $(this).text()
+                    var result = '현장명: ' + placeName + ', 협력기업명: ' +  bizName + ', 사업자 번호: 02-000-0000, 주 담당자 정보: 노무비/02-000-0000/nomubi@nicednr.co.kr'
+
+                    alert(result);
+
+                });
+            });
+
+           // 장기/체불 페이지 이동
+            $('.bizCondition').on('click', function() {
+                if($('.bizCondition').text() == '장기', '체불') {
+                var url = window.location.href='./25,26,27.con_delay_2,3,4.html';
+                $('.bizCondition').attr('href', url);
+                }
+               
+            });
+        });
+
+        
+
+                
+    </script>
+
+    <!-- function -->
+    <script type="text/javascript">
+            
+    </script>
+
+</head>
+<body>
+    <div id="content" class="HeightAuto">
+        <!-- header -->
+        <header>
+            <div class="inner">        
+                <!-- 뒤로가기 -->
+                <a href="javascript:history.back();" class="btnBack"></a> 
+                <!-- end: 뒤로가기 -->
+
+                <h1 class="HeadTitleName">체불관리</h1>
+
+                <div class="toolbar clearfix">
+                    <!-- qmark -->
+                    <a class="btnQmark"></a>
+                    <!-- end: qmark -->
+                </div>
+            </div>
+        </header>
+        <!-- end: header -->
+
+        <!-- section -->
+        <section class="back_white back_radius">
+            <div class="brick-vowel">
+                <!-- grid: 체불 관리 -->
+                <div class="grid1">
+                    <!-- select: 현장계정 시 활성화 -->
+                    <select class="titleSelctor selectedTitle">
+                        <option value="" selected="selected">경남 창원 합성동 APT 현장</option>
+                        <option value="">경남 창원 합성동 AZ 현장</option>
+                    </select>
+                    
+                    <!-- h1: 마스터, 부문별 계정시 활성화 -->
+                    <!-- <h1 class="selectedTitle">합성동 APT 현장</h1> -->
+                    
+                    <ul>
+                        <!-- Confirm Button - active X: 비활성화 -->
+                        <li class="clearfix btnConfirms">
+                            <a href="#none" class="btnAll active">전체</a>
+                            <a href="#none" class="btnExtend active">장기</a>
+                            <a href="#none" class="btnDelay active">체불</a>
+                        </li>
+                        <!-- // Confirm Button -->
+
+                        <!-- table -->
+                        <li>
+                            <table summary="체불관리 테이블" class="border_b" width="100%">
+                                <caption>체불관리</caption>
+                                <colgroup>
+                                <col width="10%;">
+                                <col width="15%">
+                                <col width="*%">
+                                <col width="25%">
+                                <col width="12%">
+                                </colgroup>
+                                <thead class="thead">
+                                    <tr class="tit_b">
+                                        <th scope="col">순번</th>
+                                        <th scope="col">해당월</th>
+                                        <th scope="col">협력기업명</th>
+                                        <th scope="col">이체약속일</th>
+                                        <th scope="col">상태</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>7</th>
+                                        <th>2019/10</th>
+                                        <th class="bizName tit_blue">나이스공기(주)</th>
+                                        <th>2019-11-15</th>
+                                        <th class="bizCondition tit_red">장기</th>
+                                    </tr>
+                                    <tr>
+                                        <th>6</th>
+                                        <th>2019/10</th>
+                                        <th class="bizName tit_blue">대한전문건설(주)</th>
+                                        <th>2019-11-15</th>
+                                        <th class="bizCondition tit_red">장기</th>
+                                    </tr>
+                                    <tr>
+                                        <th>5</th>
+                                        <th>2019/10</th>
+                                        <th class="bizName tit_blue">(주)나이스디앤알</th>
+                                        <th>2019-11-15</th>
+                                        <th class="bizCondition tit_red">장기</th>
+                                    </tr>
+                                    <tr>
+                                        <th>4</th>
+                                        <th>2019/10</th>
+                                        <th class="bizName tit_blue">주식회사 전문건설업체</th>
+                                        <th>2019-11-15</th>
+                                        <th class="bizCondition tit_red">체불</th>
+                                    </tr>
+                                    <tr>
+                                        <th>3</th>
+                                        <th>2019/10</th>
+                                        <th class="bizName tit_blue">나이스토건(주)</th>
+                                        <th>2019-11-15</th>
+                                        <th class="bizCondition tit_red">체불</th>
+                                    </tr>
+                                    <tr>
+                                        <th>2</th>
+                                        <th>2019/10</th>
+                                        <th class="bizName tit_blue">나이스공기(주)</th>
+                                        <th>2019-11-15</th>
+                                        <th class="bizCondition tit_red">체불</th>
+                                    </tr>
+                                    <tr>
+                                        <th>1</th>
+                                        <th>2019/10</th>
+                                        <th class="bizName tit_blue">대한전문건설(주)</th>
+                                        <th>2019-11-15</th>
+                                        <th class="bizCondition">완료</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                        <!-- // table -->
+
+                        <!-- paging -->
+                        <li class="table_paging">
+                            <ul class="clearfix">
+                                <li class="page_prev"><a href="#" class="fa fa-angle-left" aria-hidden="true"></a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li class="page_next"><a href="#" class="fa fa-angle-right" aria-hidden="true"></a></li>
+                            </ul>
+                        </li>
+                        <!-- // paging -->
+                    </ul>
+                </div>
+                <!-- end: 체불 관리 -->
+            </div>
+            
+        </section>
+        <!-- end: section -->
+    </div>
+    
+    <!-- nav -->
+    <nav>
+        <ul class="clearfix">
+            <li><a href="./13.con_report_1.html" target="_self">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico01_dim.png" class="img" alt="내역서관리"/>
+                </div>
+                내역서관리
+            </a></li>
+            <li class="active"><a href="./23.con_delay_1.html" target="_self">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico02_sel.png" class="img" alt="체불관리"/>
+                </div>
+                체불관리
+            </a></li>
+            <li><a href="./28.con_alert_1.html" target="_self">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico03_dim.png" class="img" alt="알림조회"/>
+                    <div class="tooltip">10</div>
+                </div>
+                알림조회
+            </a></li>
+            <li><a href="./31.con_noti_1.html" target="_self">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico04_dim.png" class="img" alt="공지사항"/>
+                </div>
+                공지사항
+                
+            </a></li>
+            <li><a href="./33,34.con_extra_1,2.html" target="_self">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico05_dim.png" class="img" alt="더보기"/>
+                </div>
+                더보기
+            </a></li>
+        </ul>
+    </nav>
+    <!-- end: nav -->
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="copyright"   content="copyrights NICE 000" />
+    <meta name="author"      content="NICE 000" />
+    <title>15.con_filter_subname_1</title>
+
+    <link rel="stylesheet" type="text/css" href="../../css/lib/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="../../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/layout.css">
+
+    <script type="text/javascript" src="../../js/lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../../js/lib/jquery-ui.js"></script>
+    <script type="text/javascript" src="../../js/common.js"></script>
+    <script type="text/javascript">
+         $(document).ready(function() {
+            autocomplete();
+        });
+    </script>
+
+    <script type="text/javascript">
+         // Con AutoComplete
+         function autocomplete() {
+            var termTemplate = "<span class='ui-autocomplete-term'>%s</span>";
+            
+            // Seaech Bussiniss
+            $('#autoBiz').autocomplete({
+                source: ['한성건설(주) (000-00-00000)','한성건설(주) (000-00-00000)', '(주)나이스디앤알 (000-00-00000)', '주식회사 나이스디앤알 (000-00-00000)'],
+                open: function(e,ui) {
+                    var
+                        acData = $(this).data('autocomplete'),
+                        styledTerm = termTemplate.replace('%s', acData);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="lp_content">
+        <!-- header -->
+        <header>
+            <div class="inner">                
+                <!-- 뒤로가기/닫기 -->         
+                <a class="btnClose" href="javascript:history.back();"></a>
+                <!-- end: 뒤로가기/닫기 -->  
+
+                <h1 class="HeadTitleName tit_black">협력기업명</h1>
+            </div>
+        </header>
+        <!-- end: header -->
+
+        <!-- section -->
+        <section>
+            <div class="brick-vowel">
+                <div class="grid1">
+                    <ul>
+                        <li class="autocomplete">                                
+                            <!-- 자동완성 -->
+                            <form autocomplete="off">
+                                <input id="autoBiz" class="autoBar" type="text" name="Biz" placeholder="협력기업을 선택해 주세요." autocomplete="off">
+                            </form>
+                            <div class="autoClose"></div>
+                            <!-- end: 자동완성 -->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+        </section>
+        <!-- end: section -->
+    </div>
+    
+</body>
+</html>

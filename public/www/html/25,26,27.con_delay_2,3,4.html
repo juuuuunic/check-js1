@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="copyright"   content="copyrights NICE 000" />
+    <meta name="author"      content="NICE 000" />
+    <title>25,26,27.con_delay_2,3,4</title>
+
+    <link rel="stylesheet" type="text/css" href="../css/lib/jquery-ui.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/layout.css">
+
+    <script type="text/javascript" src="../js/lib/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../js/lib/jquery-ui.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+    <script type="text/javascript">
+         $(document).ready(function() {
+            tapDrop();
+
+             // Tab Alert
+             $('.paidName').each(function() {
+                $(this).on('click', function(e) {
+                    e.preventDefault();
+                    var paidName = $(this).text();
+                    var inputName = $(this).siblings('.inputName').text();
+                    var countName = "(주)동반성장"
+                    var countNum = "농협중앙회: *****12345"
+                   if(paidName == '일치') {
+                        var result = '입력된 근로자명(회사명)과 수신한 예금주가 일치합니다. ●근로자명(회사명): ' + inputName + ', ●예금주명: ' + countName + ', ●' + countNum;
+                        alert(result)
+
+                        return;
+                   } else if (paidName == '불일치') {
+                        var result = '입력된 근로자명(회사명)과 수신한 예금주가 상이합니다. ●근로자명(회사명): ' + inputName + ', ●예금주명: ' + countName + ', ●' + countNum;
+                        alert(result)
+
+                        return;
+                   }
+
+                });
+            });
+
+            // 연락처 보기
+            $('.inputNum').each(function() {
+                $(this).on('click', function() { 
+                    var inputName = $(this).siblings('.inputName').text();
+                    alert('<입력된 연락처> 근로자명(회사명) : ' + inputName + ', 입력된 연락처 : 010-3176-4406”'); 
+                })
+            });
+
+            // 비고 보기
+            $('.notes').each(function() {
+                $(this).on('click', function() { alert('<비고> 텍스트텍스트텍스트')})
+            });
+
+            // Button Alert
+            // 이체독려하기
+            var bizName = $('.bizName').text();
+            var bizNum = $('.bizNum').text();
+            var bizMonth = $('.bizMonth').text();
+
+            $('#btnSel').on('click', function() {
+
+                var result = confirm( bizName + '의 ' + bizMonth + ' 내역서에 대해 이체를 독려합니다.' );
+                if (result == true)  alert(bizName + '의 ' + bizMonth + ' 내역서에 대해 이체를 독려하였습니다.(24시간 내 1회 발송가능)');
+                else if (result == false)  alert('내역서에 대해 이체독려를 취소합니다.'); return;
+            });
+               
+
+        });
+
+
+    </script>
+</head>
+<body>
+    <div id="content" class="HeightAuto">
+         <!-- header -->
+         <header>
+            <div class="inner">        
+                <!-- 뒤로가기 -->
+                <a href="javascript:history.back();" class="btnBack"></a> 
+                <!-- end: 뒤로가기 -->
+
+                <h1 class="HeadTitleName">체불 내역서</h1>
+
+                <div class="toolbar clearfix">
+                    <!-- qmark -->
+                    <a class="btnQmark"></a>
+                    <!-- end: qmark -->
+                </div>
+            </div>
+        </header>
+        <!-- end: header -->
+
+        <!-- section -->
+        <section class="back_white back_radius">
+            <div class="brick-vowel">
+                <h2 class="selectedTitle">합성동 APT 현장</h2>
+                <!-- grid: 내역서 개요 -->
+                <div class="grid1">
+                    <h3 class="title">내역서 개요</h3>
+                    <ul>
+                        <li>
+                            <table summary="체불내역서 개요 테이블" class="border_b" width="100%">
+                                <caption>체불내역서 개요</caption>
+                                <colgroup>
+                                    <col width="25%;">
+                                    <col width="75%;">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <th class="thead">협력기업명</th>
+                                        <th>(주)나이스디앤알</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="thead">사업자번호</th>
+                                        <th>123-45-67890</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="thead">해당월</th>
+                                        <th class="bizMonth">2019/10</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="thead">청구일자</th>
+                                        <th class="bizDemand">2019-11-15</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                    </ul>
+                </div>
+                <!-- end: 내역서 개요 -->
+
+                <!-- grid: 내역서 요약 -->
+                <div class="grid1">
+                    <h3 class="title">내역서 요약</h3>
+                    <ul>
+                        <li>
+                            <table summary="체불내역서 요약 테이블" class="border_b" width="100%">
+                                <caption>체불내역서 요약</caption>
+                                <colgroup>
+                                    <col width="20%">
+                                    <col width="20%">
+                                    <col width="*%">
+                                    <col width="25%">
+                                </colgroup>
+                                <thead class="thead">
+                                    <tr>
+                                        <th scope="col">비목</th>
+                                        <th scope="col">미지급건<br />(건)</th>
+                                        <th scope="col">미지급액<br />(원)</th>
+                                        <th scope="col">이체약속일<br />(연월일)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th class="dropItem tit_red">노무비</th><!-- 탭하는 곳 -->
+                                        <th>105</th>
+                                        <th>30,0000,000</th>
+                                        <th>2019-11-15</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="dropItem tit_blue">장비비</th><!-- 탭하는 곳 -->
+                                        <th>13</th>
+                                        <th>30,0000,000</th>
+                                        <th>2019-11-30</th>
+                                    </tr>
+                                    </tr>
+                                    <tr>
+                                        <th class="dropItem tit_blue">자재비</th><!-- 탭하는 곳 -->
+                                        <th>2</th>
+                                        <th>30,0000,000</th>
+                                        <th>2019-11-30</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="dropItem tit_red">기타기성</th><!-- 탭하는 곳 -->
+                                        <th>1</th>
+                                        <th>150,0000,000</th>
+                                        <th>2019-11-30</th>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr class="total tit_b">
+                                        <th>합계</th>
+                                        <th>121</th>
+                                        <th>340,000,000</th>
+                                        <th>-</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </li>
+                    </ul>
+
+                    <!-- 내역서 상세 -->
+                    <ul class="dropList">
+
+                        <!-- 노무비 상세 -->
+                        <li>
+                            <h3 class="title">노무비 상세</h3>
+
+                            <table summary="체불내역서 노무비 상세 테이블" class="border_b" width="100%">
+                                <caption>체불내역서 노무비 상세 테이블</caption>
+                                <colgroup>
+                                    <col width="15%">
+                                    <col width="20%">
+                                    <col width="*%">
+                                    <col width="15%">
+                                    <col width="15%">
+                                    <col width="15%">
+                                </colgroup>
+                                <thead class="thead">
+                                    <tr>
+                                        <th scope="col">순번</th>
+                                        <th scope="col">성명</th>
+                                        <th scope="col">미지급액<br />(원)</th>
+                                        <th scope="col">예금주</th>
+                                        <th scope="col">연락처</th>
+                                        <th scope="col">비고</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>1</th>
+                                        <th class="inputName">장정현</th>
+                                        <th>135,000</th>
+                                        <th class="paidName tit_blue">일치</th>
+                                        <th class="inputNum tit_blue">보기</th>
+                                        <th class="notes tit_blue">보기</th>
+                                    </tr>
+                                    <tr>
+                                        <th>2</th>
+                                        <th class="inputName">김남류</th>
+                                        <th>205,000</th>
+                                        <th class="paidName tit_blue">일치</th>
+                                        <th class="inputNum tit_blue">보기</th>
+                                        <th class="notes tit_blue">보기</th>
+                                    </tr>
+                                    </tr>
+                                    <tr>
+                                        <th>3</th>
+                                        <th class="inputName">장현정</th>
+                                        <th>135,000</th>
+                                        <th class="paidName tit_blue">일치</th>
+                                        <th class="inputNum tit_blue">보기</th>
+                                        <th class="notes tit_blue">보기</th>
+                                    </tr>
+                                    <tr>
+                                        <th>4</th>
+                                        <th class="inputName">장췐</th>
+                                        <th>1200,000</th>
+                                        <th class="paidName tit_blue">일치</th>
+                                        <th class="inputNum tit_blue">보기</th>
+                                        <th class="notes tit_blue">보기</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <ul class="clearfix table_paging">
+                                <li class="page_prev"><a href="#" class="fa fa-angle-left" aria-hidden="true"></a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li class="page_next"><a href="#" class="fa fa-angle-right" aria-hidden="true"></a></li>
+                            </ul>
+                        </li>
+                        <!-- end: 노무비 상세 -->
+
+                        <!-- 장비비 상세 -->
+                        <li>
+                            <h3 class="title">장비비 상세</h3>
+                            <table summary="체불내역서 장비비 상세 테이블" class="border_b" width="100%">
+                                <caption>체불내역서 장비비 상세</caption>
+                                <colgroup>
+                                    <col width="15%">
+                                    <col width="20%">
+                                    <col width="*%">
+                                    <col width="15%">
+                                    <col width="15%">
+                                    <col width="15%">
+                                </colgroup>
+                                <thead class="thead">
+                                    <tr>
+                                        <th scope="col">순번</th>
+                                        <th scope="col">성명</th>
+                                        <th scope="col">미지급액<br />(원)</th>
+                                        <th scope="col">예금주</th>
+                                        <th scope="col">연락처</th>
+                                        <th scope="col">비고</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>1</th>
+                                        <th class="inputName">장정현</th>
+                                        <th>135,000</th>
+                                        <th class="paidName tit_blue">일치</th>
+                                        <th class="inputNum tit_blue">보기</th>
+                                        <th class="notes tit_blue">보기</th>
+                                    </tr>
+                                    <tr>
+                                        <th>2</th>
+                                        <th class="inputName">김남류</th>
+                                        <th>205,000</th>
+                                        <th class="paidName tit_blue">일치</th>
+                                        <th class="inputNum tit_blue">보기</th>
+                                        <th class="notes tit_blue">보기</th>
+                                    </tr>
+                                    </tr>
+                                    <tr>
+                                        <th>3</th>
+                                        <th class="inputName">장현정</th>
+                                        <th>135,000</th>
+                                        <th class="paidName tit_blue">일치</th>
+                                        <th class="inputNum tit_blue">보기</th>
+                                        <th class="notes tit_blue">보기</th>
+                                    </tr>
+                                    <tr>
+                                        <th>4</th>
+                                        <th class="inputName">장췐</th>
+                                        <th>1200,000</th>
+                                        <th class="paidName tit_blue">일치</th>
+                                        <th class="inputNum tit_blue">보기</th>
+                                        <th class="notes tit_blue">보기</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <ul class="clearfix table_paging">
+                                <li class="page_prev"><a href="#" class="fa fa-angle-left" aria-hidden="true"></a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li class="page_next"><a href="#" class="fa fa-angle-right" aria-hidden="true"></a></li>
+                            </ul>
+                        </li>
+                        <!-- end: 장비비 상세 -->
+
+                        <!-- 자재비 상세 -->
+                        <li>
+                            <h3 class="title">자재비 상세</h3>
+                            <table summary="체불내역서 장비비 상세 테이블" class="border_b" width="100%">
+                                <caption>체불내역서 장비비 상세</caption>
+                                <colgroup>
+                                    <col width="15%">
+                                    <col width="20%">
+                                    <col width="*%">
+                                    <col width="15%">
+                                    <col width="15%">
+                                    <col width="15%">
+                                </colgroup>
+                                <thead class="thead">
+                                    <tr>
+                                        <th scope="col">순번</th>
+                                        <th scope="col">성명</th>
+                                        <th scope="col">미지급액<br />(원)</th>
+                                        <th scope="col">예금주</th>
+                                        <th scope="col">연락처</th>
+                                        <th scope="col">비고</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>1</th>
+                                        <th class="inputName">장정현</th>
+                                        <th>135,000</th>
+                                        <th class="paidName tit_blue">일치</th>
+                                        <th class="inputNum tit_blue">보기</th>
+                                        <th class="notes tit_blue">보기</th>
+                                    </tr>
+                                    <tr>
+                                        <th>2</th>
+                                        <th class="inputName">김남류</th>
+                                        <th>205,000</th>
+                                        <th class="paidName tit_blue">일치</th>
+                                        <th class="inputNum tit_blue">보기</th>
+                                        <th class="notes tit_blue">보기</th>
+                                    </tr>
+                                    </tr>
+                                    <tr>
+                                        <th>3</th>
+                                        <th class="inputName">장현정</th>
+                                        <th>135,000</th>
+                                        <th class="paidName tit_blue">일치</th>
+                                        <th class="inputNum tit_blue">보기</th>
+                                        <th class="notes tit_blue">보기</th>
+                                    </tr>
+                                    <tr>
+                                        <th>4</th>
+                                        <th class="inputName">장췐</th>
+                                        <th>1200,000</th>
+                                        <th class="paidName tit_blue">일치</th>
+                                        <th class="inputNum tit_blue">보기</th>
+                                        <th class="notes tit_blue">보기</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <ul class="clearfix table_paging">
+                                <li class="page_prev"><a href="#" class="fa fa-angle-left" aria-hidden="true"></a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li class="page_next"><a href="#" class="fa fa-angle-right" aria-hidden="true"></a></li>
+                            </ul>
+                        </li>
+                        <!-- end: 자재비 상세 -->
+
+                        <!-- 기타기성 상세 -->
+                        <li>
+                            <h3 class="title">기타기성 상세</h3>
+                            <table summary="체불내역서 기타기성 상세 테이블" class="border_b" width="100%">
+                                <caption>체불내역서 기타기성 상세</caption>
+                                <colgroup>
+                                    <col width="15%">
+                                    <col width="20%">
+                                    <col width="*%">
+                                    <col width="15%">
+                                    <col width="15%">
+                                    <col width="15%">
+                                </colgroup>
+                                <thead class="thead">
+                                    <tr>
+                                        <th scope="col">순번</th>
+                                        <th scope="col">성명</th>
+                                        <th scope="col">미지급액<br />(원)</th>
+                                        <th scope="col">예금주</th>
+                                        <th scope="col">연락처</th>
+                                        <th scope="col">비고</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>1</th>
+                                        <th class="inputName">장정현</th>
+                                        <th>135,000</th>
+                                        <th class="paidName tit_blue">일치</th>
+                                        <th class="inputNum tit_blue">보기</th>
+                                        <th class="notes tit_blue">보기</th>
+                                    </tr>
+                                    <tr>
+                                        <th>2</th>
+                                        <th class="inputName">김남류</th>
+                                        <th>205,000</th>
+                                        <th class="paidName tit_blue">일치</th>
+                                        <th class="inputNum tit_blue">보기</th>
+                                        <th class="notes tit_blue">보기</th>
+                                    </tr>
+                                    </tr>
+                                    <tr>
+                                        <th>3</th>
+                                        <th class="inputName">장현정</th>
+                                        <th>135,000</th>
+                                        <th class="paidName tit_blue">일치</th>
+                                        <th class="inputNum tit_blue">보기</th>
+                                        <th class="notes tit_blue">보기</th>
+                                    </tr>
+                                    <tr>
+                                        <th>4</th>
+                                        <th class="inputName">장췐</th>
+                                        <th>1200,000</th>
+                                        <th class="paidName tit_blue">일치</th>
+                                        <th class="inputNum tit_blue">보기</th>
+                                        <th class="notes tit_blue">보기</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <ul class="clearfix table_paging">
+                                <li class="page_prev"><a href="#" class="fa fa-angle-left" aria-hidden="true"></a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li class="page_next"><a href="#" class="fa fa-angle-right" aria-hidden="true"></a></li>
+                            </ul>
+                        </li>
+                        <!-- end: 기타기성 상세 -->
+                        
+                    </ul>
+                    <!-- end: 내역서 상세 -->
+                </div>
+                <!-- end: 내역서 요약 -->
+                
+
+                <!-- grid: 버튼 -->
+                <div class="grid1">
+                    <ul class="btn_wrap clearfix">
+                        <li><input type="button" id="btnSel" class="btn_active" value="이체독려하기"></li>
+                        <!-- <li><input type="button" id="btnDim" class="btn_active" value="이체독려하기"></li> -->
+                    </ul>
+                </div>
+                <!-- end: 버튼 -->
+            </div>
+            
+        </section>
+        <!-- end: section -->
+    </div>
+
+     <!-- nav -->
+     <nav>
+        <ul class="clearfix">
+            <li><a href="./13.con_report_1.html" target="_self">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico01_dim.png" class="img" alt="내역서관리"/>
+                </div>
+                내역서관리
+            </a></li>
+            <li class="active"><a href="./23.con_delay_1.html" target="_self">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico02_sel.png" class="img" alt="체불관리"/>
+                </div>
+                체불관리
+            </a></li>
+            <li><a href="./28.con_alert_1.html" target="_self">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico03_dim.png" class="img" alt="알림조회"/>
+                    <div class="tooltip">10</div>
+                </div>
+                알림조회
+            </a></li>
+            <li><a href="./31.con_noti_1.html" target="_self">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico04_dim.png" class="img" alt="공지사항"/>
+                </div>
+                공지사항
+                
+            </a></li>
+            <li><a href="./33,34.con_extra_1,2.html" target="_self">
+                <div class="img_box">
+                    <img src="../images/common/nav_ico05_dim.png" class="img" alt="더보기"/>
+                </div>
+                더보기
+            </a></li>
+        </ul>
+    </nav>
+    <!-- end: nav -->
+    
+</body>
+</html>
