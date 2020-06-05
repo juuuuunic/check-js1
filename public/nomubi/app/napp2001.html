@@ -1,0 +1,131 @@
+<!DOCTYPE html
+    PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+
+<head>
+    <title> nomu </title>
+    <meta http-equiv='Content-Type' content='text/html; charset=euc-kr'>
+
+    <link rel='stylesheet' href=../app/css/common.css type='text/css' />
+    <link rel='stylesheet' href=../app/css/layout.css type='text/css' />
+    <link rel='stylesheet' href=../app/css/lib/jquery-ui.css type='text/css' />
+    <link rel='stylesheet' href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css
+        type='text/css' />
+
+
+    <script language='javascript' charset='euc-kr' src=../app/js/lib/jquery-1.11.1.min.js> </script> <script
+        language='javascript' charset='euc-kr' src=../app/js/lib/jquery-ui.js> </script> <script language='javascript'
+        charset='euc-kr' src=../app/js/common.js> </script> <script language='javascript' charset='euc-kr'
+        src=../app/js/nomua.js> </script> <script language='javascript'>
+        var pval = {
+            org: 'ft',
+            ors: 0,
+            or_cd: 0,
+            or_name: ''
+        };
+        $(document).ready(function () {
+            $('.btnApply').on('click', function () {
+                pval.ors = $('#ors > div.active').index();
+                $.ajax({
+                    type: "get",
+                    url: "../app/napp1900.html",
+                    data: $.param(pval),
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.url == null)
+                            history.back();
+                        else
+                            self.location = data.url;
+                    },
+                    error: function (request, error) {
+                        alert('처리중 에러가 발생하였습니다.');
+                    }
+                });
+            });
+            pmap();
+        });
+        // Aoto Bar Show
+        function tabShow() {
+            var target = $('.tab_option > div.active');
+            if (target.index() == 1) {
+                target.parents('li').siblings('.autocomplete').show();
+            } else {
+                target.parents('li').siblings('.autocomplete').hide();
+            }
+        }
+
+        function pmap() {
+            $('#ors > div').removeClass('active')
+            $('#ors div:nth-child(' + (pval.ors + 1) + ')').addClass('active')
+            if (pval.ors == 1) {
+                $('#ors').siblings('.autocomplete').show();
+                $('#autoPlace').val(pval.or_name);
+            } else
+                $('#ors').siblings('.autocomplete').hide();
+        }
+
+        function filter_or() {
+            pval.mon = $('.tab_calendar > div.active').index();
+            location.href = '../app/napp1201.html?' + $.param(pval)
+        }
+    </script>
+
+    <meta name="viewport"
+        content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+
+</head>
+
+<body>
+
+    <div class="lp_content">
+        <!-- header -->
+        <header>
+            <div class="inner">
+                <!-- 뒤로가기/닫기 -->
+                <a class="btnClose" href="javascript:history.back();"></a>
+                <!-- end: 뒤로가기/닫기 -->
+
+                <h1 class="HeadTitleName tit_black">필터</h1>
+            </div>
+        </header>
+        <!-- end: header -->
+
+        <!-- section -->
+        <section>
+            <div class="brick-vowel">
+                <!-- grid1 -->
+                <div class="grid1">
+                    <h3 class="title">현장명</h3>
+
+                    <ul class="border_b">
+                        <!-- tab -->
+                        <li class="tab_option clearfix" id=ors>
+                            <div class="active all_place">전체 현장</div>
+                            <div>특정 현장</div>
+                        </li>
+                        <!-- end: tab -->
+
+                        <!-- 자동완성 -->
+                        <li class="autocomplete" onclick="filter_or()">
+                            <form autocomplete="off">
+                                <input id="autoPlace" class="autoBar" type="text" name="place"
+                                    placeholder="현장을 선택해 주세요.">
+                            </form>
+                            <div class="autoClose"></div>
+                        </li>
+                        <!-- end: 자동완성 -->
+                    </ul>
+
+                </div>
+                <!-- end: grid1 -->
+            </div>
+        </section>
+        <!-- end: section -->
+    </div>
+
+    <input type="button" id="btnSel" class="btnApply setPosition" value="적용">
+
+
+</body>
+
+</html>

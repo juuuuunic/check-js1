@@ -1,42 +1,44 @@
-
-<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<!DOCTYPE html
+    PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
 <html>
+
 <head>
-<title> nomu </title>
-<meta http-equiv='Content-Type' content='text/html; charset=euc-kr'>
+    <title> nomu </title>
+    <meta http-equiv='Content-Type' content='text/html; charset=euc-kr'>
 
-<link rel='stylesheet' href=../app/css/common.css type='text/css' />
-<link rel='stylesheet' href=../app/css/layout.css type='text/css' />
-<link rel='stylesheet' href=../app/css/lib/jquery-ui.css type='text/css' />
-<link rel='stylesheet' href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css type='text/css' />
+    <link rel='stylesheet' href=../app/css/common.css type='text/css' />
+    <link rel='stylesheet' href=../app/css/layout.css type='text/css' />
+    <link rel='stylesheet' href=../app/css/lib/jquery-ui.css type='text/css' />
+    <link rel='stylesheet' href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css
+        type='text/css' />
 
 
-<script language='javascript' charset='euc-kr' src=../app/js/lib/jquery-1.11.1.min.js></script>
-<script language='javascript' charset='euc-kr' src=../app/js/lib/jquery-ui.js></script>
-<script language='javascript' charset='euc-kr' src=../app/js/common.js></script>
-<script language='javascript' charset='euc-kr' src=../app/js/nomua.js></script>
+    <script language='javascript' charset='euc-kr' src=../app/js/lib/jquery-1.11.1.min.js> </script> <script
+        language='javascript' charset='euc-kr' src=../app/js/lib/jquery-ui.js> </script> <script language='javascript'
+        charset='euc-kr' src=../app/js/common.js> </script> <script language='javascript' charset='euc-kr'
+        src=../app/js/nomua.js> </script> <script language='javascript'>
+        $(document).ready(function () {
+            $('.check_urg').on('click', function (e) {
+                window.location.href = '../app/napp2101.do?ky=' + $(this).attr("vv");
+            });
+            $('.check_req').on('click', function (e) {
+                window.location.href = '../app/napp2101.do?ky=' + $(this).attr("vv");
+            });
+        });
+    </script>
 
-<script language='javascript'>
-$(document).ready(function() {
-   $('.check_urg').on('click', function(e) {
-		window.location.href='../app/napp2101.do?ky='+$(this).attr("vv");
-   });
-   $('.check_req').on('click', function(e) {
-		window.location.href='../app/napp2101.do?ky='+$(this).attr("vv");
-   });
-});
-</script>
-
-<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+    <meta name="viewport"
+        content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
 
 </head>
+
 <body>
 
     <div id="content" class="HeightAuto">
         <!-- header -->
         <header>
-            <div class="inner">                
-                <a href="../app/napp2000.do" class="btnBack"></a> 
+            <div class="inner">
+                <a href="../app/napp2000.do" class="btnBack"></a>
                 <h1 class="HeadTitleName tit_grey">
                     <em class="active" onclick="window.location.href='../app/napp2300.do'">알림조회</em>
                     <em onclick="window.location.href='../app/napp2310.do'">이력조회</em>
@@ -58,23 +60,25 @@ $(document).ready(function() {
         <!-- section -->
         <section class="back_white back_radius">
             <div class="brick-vowel">
-                    <!-- 월별 관리현황 -->
-                    <div class="grid1">
+                <!-- 월별 관리현황 -->
+                <div class="grid1">
 
-                        <!-- h1: 마스터, 부문별 계정시 활성화 -->
-                        <h1 class="title"></h1>
+                    <!-- h1: 마스터, 부문별 계정시 활성화 -->
+                    <h1 class="title"></h1>
 
                     <h3 class="title tit_red">긴급확인</h3>
                     <ul>
                         <li>
                             <table class="table__05 border_b" width="100%">
+                                <colgroup>
+                                    <col width="80%;">
+                                    <col width="20%;">
+                                </colgroup>
                                 <tbody>
-                                    <colgroup>
-                                        <col width="80%;">
-                                        <col width="20%;">
-                                    </colgroup>
-
-                                    <tr class="check_req"><th>내역없음</th><th></th></tr>
+                                    <tr class="check_req">
+                                        <th>내역없음</th>
+                                        <th></th>
+                                    </tr>
 
                                 </tbody>
                             </table>
@@ -89,13 +93,19 @@ $(document).ready(function() {
                     <ul>
                         <li>
                             <table class="table__05 border_b" width="100%">
+                                
+                                <colgroup>
+                                    <col width="80%;">
+                                    <col width="20%;">
+                                </colgroup>
                                 <tbody>
-                                    <colgroup>
-                                        <col width="80%;">
-                                        <col width="20%;">
-                                    </colgroup>
-
-                                    <tr class="check_req"><th>내역없음</th><th></th></tr>
+                                    <tr class="check_urg">
+                                        <th>내역없음</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr class="check_urg">
+                                        <th></th>
+                                    </tr>
 
                                 </tbody>
                             </table>
@@ -107,56 +117,57 @@ $(document).ready(function() {
         </section>
         <!-- //section -->
 
-    <!-- nav -->
-    <nav>
-        <ul class="clearfix">
-            <li><a href="../app/napp2100.do" target="_self">
-                <div class="img_box">
-                    <img src="../app/images/common/nav_ico01_dim.png" class="img" alt="내역서관리"/>
-                </div>
-                내역서관리
-            </a></li>
-            <li><a href="../app/napp2200.do" target="_self">
-                <div class="img_box">
-                    <img src="../app/images/common/nav_ico02_dim.png" class="img" alt="체불관리"/>
-                </div>
-                체불관리
-            </a></li>
-            <li><a href="../app/napp2300.do" target="_self">
-                <div class="img_box">
-                    <img src="../app/images/common/nav_ico03_sel.png" class="img" alt="알림조회"/>
-                    <div class="tooltip">10</div>
-                </div>
-                알림조회
-            </a></li>
-            <li><a href="../app/napp1100.do" target="_self">
-                <div class="img_box">
-                    <img src="../app/images/common/nav_ico04_dim.png" class="img" alt="공지사항"/>
-                </div>
-                공지사항
-                
-            </a></li>
-            <li><a href="../app/napp2900.do" target="_self">
-                <div class="img_box">
-                    <img src="../app/images/common/nav_ico05_dim.png" class="img" alt="더보기"/>
-                </div>
-                더보기
-            </a></li>
-        </ul>
-    </nav>
-    <!-- //nav -->
+        <!-- nav -->
+        <nav>
+            <ul class="clearfix">
+                <li><a href="../app/napp2100.do" target="_self">
+                        <div class="img_box">
+                            <img src="../app/images/common/nav_ico01_dim.png" class="img" alt="내역서관리" />
+                        </div>
+                        내역서관리
+                    </a></li>
+                <li><a href="../app/napp2200.do" target="_self">
+                        <div class="img_box">
+                            <img src="../app/images/common/nav_ico02_dim.png" class="img" alt="체불관리" />
+                        </div>
+                        체불관리
+                    </a></li>
+                <li><a href="../app/napp2300.do" target="_self">
+                        <div class="img_box">
+                            <img src="../app/images/common/nav_ico03_sel.png" class="img" alt="알림조회" />
+                            <div class="tooltip">10</div>
+                        </div>
+                        알림조회
+                    </a></li>
+                <li><a href="../app/napp1100.do" target="_self">
+                        <div class="img_box">
+                            <img src="../app/images/common/nav_ico04_dim.png" class="img" alt="공지사항" />
+                        </div>
+                        공지사항
+
+                    </a></li>
+                <li><a href="../app/napp2900.do" target="_self">
+                        <div class="img_box">
+                            <img src="../app/images/common/nav_ico05_dim.png" class="img" alt="더보기" />
+                        </div>
+                        더보기
+                    </a></li>
+            </ul>
+        </nav>
+        <!-- //nav -->
 
 
-    <!-- lp -->
-<!--
+        <!-- lp -->
+        <!--
     <div class="back_alert">
 		<div class="alert_contents">
             <p>'뒤로'버튼을 한 번 더 누르시면 종료됩니다.</p>
 		</div>
     </div>
 -->
-    <!-- // lp -->
+        <!-- // lp -->
 
 
 </body>
+
 </html>

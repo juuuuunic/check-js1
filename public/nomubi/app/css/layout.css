@@ -104,18 +104,19 @@
         .accodianList > a::before {content: ''; display: inline-block; width: 6px; height: 6px; border-top: 1px solid #898989;; border-left: 1px solid #898989; transform: rotate(-90deg); margin-right: 12px;}
 
     /* table__05: 알림/이력 조회 */
-    .table__05 tbody tr {cursor: pointer; background-size: 12px;}
-    .table__05 tbody th:first-child {line-height: 0.4; text-align: left; padding-left: 25px;}
+    .table__05 tbody tr {cursor: pointer;}
+    .table__05 tbody th {background: none;}
+    .table__05 tbody th:first-child {line-height: 0.4; text-align: left; padding-left: 25px; background-size: 12px !important;}
     .table__05 tbody th:last-child {font-size: 10px; line-height: 1.5;}
     .table__05 tbody span {display: block; font-size: 10px; color: #9a9a9a; margin-top: 0.75rem;}
         /* table_urgent */
-        tr.check_urg::after, tr.check_req::after {content: '\f105'; width: 0.75rem; height: 10px; font-size: 15px; color: #bebebe; line-height: 45px;}
-        tr.check_urg {background: no-repeat url(../images/poiont_circle_ico.png) left center;}
-        tr.check_req {background: no-repeat url(../images/more_circle_ico.png) left center;}
-        tr.check_app {background: no-repeat url(../images/correct_bk_ico.png) left center;}
-        tr.check_get {background: no-repeat url(../images/point_bk_ico.png) left center;}
-        tr.check_ret {background: no-repeat url(../images/wrong_bk_ico.png) left center;}
-        tr.check_com {background: no-repeat url(../images/won_bk_ico.png) left center;}
+        tr.check_urg::after, tr.check_req::after {content: '\f105'; width: 0.75rem; height: 10px; font-size: 15px; color: #bebebe; line-height: 45px; -webkit-background: #fff; background: #fff; }
+        tr.check_urg th:first-child {background: url(../images/poiont_circle_ico.png); background-position: left; background-repeat: no-repeat;}
+        tr.check_req th:first-child {background-image: url(../images/more_circle_ico.png); background-repeat: no-repeat; background-position: left center; background-size: inherit;}
+        tr.check_app th:first-child {background: no-repeat url(../images/correct_bk_ico.png) left center;}
+        tr.check_get th:first-child {background: no-repeat url(../images/point_bk_ico.png) left center;}
+        tr.check_ret th:first-child {background: no-repeat url(../images/wrong_bk_ico.png) left center;}
+        tr.check_com th:first-child {background: no-repeat url(../images/won_bk_ico.png) left center;}
 
    
     /* bizData */

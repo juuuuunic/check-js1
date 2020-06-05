@@ -1,0 +1,590 @@
+<!DOCTYPE html
+    PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+
+<head>
+    <title> nomu </title>
+    <meta http-equiv='Content-Type' content='text/html; charset=euc-kr'>
+
+    <link rel='stylesheet' href=../app/css/common.css type='text/css' />
+    <link rel='stylesheet' href=../app/css/layout.css type='text/css' />
+    <link rel='stylesheet' href=../app/css/lib/jquery-ui.css type='text/css' />
+    <link rel='stylesheet' href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css
+        type='text/css' />
+
+
+    <script language='javascript' charset='euc-kr' src=../app/js/lib/jquery-1.11.1.min.js> </script> 
+    <script language='javascript' charset='euc-kr' src=../app/js/lib/jquery-ui.js> </script> 
+    <script language='javascript' charset='euc-kr' src=../app/js/common.js> </script> 
+    <script language='javascript' charset='euc-kr' src=../app/js/nomua.js> </script> 
+    <script language='javascript'>
+        $(document).ready(function () {
+            autocomplete();
+        });
+        // document.referer
+        // Con AutoComplete
+        var filter_cd, filter_nm;
+
+        function filter_fin() {
+            if (filter_cd == null) {
+                history.back();
+                return;
+            }
+            $.ajax({
+                type: "get",
+                url: "../app/napp1900.html",
+                data: {
+                    org: "fth",
+                    or_cd: filter_cd,
+                    or_name: filter_nm
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data.url == null || filter_cd == null)
+                        history.back();
+                    else
+                        self.location = data.url;
+                },
+                error: function (request, error) {
+                    alert('처리중 에러가 발생하였습니다.');
+                }
+            });
+        }
+
+        function autocomplete() {
+            var termTemplate = "<spanx class='ui-autocomplete-term'>%s</spanx>";
+            // Seaech Place
+            $('#autoPlace').autocomplete({
+                //        source: [{cd:1,value:'합성동 APT현장'}, {cd:2,value:'합성동 AZ현장'}, {cd:3,value:'합성동 AD현장'}, {cd:4,value:'합성동 AQ현장'}, {cd:5,value:'합성동 AB현장'}],
+                source: [{
+                    "value": "반월자이 에뜨 현장",
+                    "or_cd": 292
+                }, {
+                    "value": "GS건설 위례자이 현장",
+                    "or_cd": 299
+                }, {
+                    "value": "GSC No.4 PX Project",
+                    "or_cd": 301
+                }, {
+                    "value": "사우디대사관및대사관저신축공사(서울)",
+                    "or_cd": 303
+                }, {
+                    "value": "(GS건설) 노무비닷컴 미적용 현장 기성대금 청구용",
+                    "or_cd": 304
+                }, {
+                    "value": "창원시관내국도대체우회도로(귀곡~행암)공사(경남)",
+                    "or_cd": 310
+                }, {
+                    "value": "구리-포천고속도로민간투자사업건설공사7공구",
+                    "or_cd": 311
+                }, {
+                    "value": "경희궁자이(서울)",
+                    "or_cd": 312
+                }, {
+                    "value": "보령 LNG Terminal(1단계) 항만공사",
+                    "or_cd": 315
+                }, {
+                    "value": "보령 LNG Terminal Project(충남)",
+                    "or_cd": 320
+                }, {
+                    "value": "미사강변센트럴자이(경기)",
+                    "or_cd": 323
+                }, {
+                    "value": "대구시폐기물에너지화시설 BTO사업(대구)",
+                    "or_cd": 324
+                }, {
+                    "value": "서울역센트럴자이",
+                    "or_cd": 343
+                }, {
+                    "value": "광교산자이(경기)",
+                    "or_cd": 326
+                }, {
+                    "value": "행정중심복합도시자동크린넷(3-2차)시설공사(충남)",
+                    "or_cd": 340
+                }, {
+                    "value": "광명역파크자이(경기)",
+                    "or_cd": 344
+                }, {
+                    "value": "옥산오창고속도로민간투자사업(충북)",
+                    "or_cd": 351
+                }, {
+                    "value": "진천선수촌2단계1공구건립공사(충북)",
+                    "or_cd": 352
+                }, {
+                    "value": "당진4호기복합화력발전소및배수로건설공사(충남)",
+                    "or_cd": 355
+                }, {
+                    "value": "보문파크뷰자이(서울)",
+                    "or_cd": 359
+                }, {
+                    "value": "한강센트럴자이2단지신축공사(경기)",
+                    "or_cd": 548
+                }, {
+                    "value": "평택-당진항 관리부두(평택측) 축조공사",
+                    "or_cd": 42
+                }, {
+                    "value": "LG사이언스파크 서측부지(DP2) 신축공사",
+                    "or_cd": 890
+                }, {
+                    "value": "광교파크자이더테라스(경기)",
+                    "or_cd": 902
+                }, {
+                    "value": "고현-하동IC2 국도건설공사 (제2남해대교)",
+                    "or_cd": 923
+                }, {
+                    "value": "2018평창동계올림픽급수체계구축사업(상수도시설확충)",
+                    "or_cd": 950
+                }, {
+                    "value": "역삼자이",
+                    "or_cd": 952
+                }, {
+                    "value": "안양열병합발전소 2호기 건설공사",
+                    "or_cd": 981
+                }, {
+                    "value": "신분당선 연장(정자~광교) 복선전철 민간투자사업 4공구",
+                    "or_cd": 995
+                }, {
+                    "value": "서울숲리버뷰자이(150170)",
+                    "or_cd": 1008
+                }, {
+                    "value": "거제오션파크자이현장",
+                    "or_cd": 1017
+                }, {
+                    "value": "신동탄파크자이",
+                    "or_cd": 1020
+                }, {
+                    "value": "새만금 동서2축 도로건설공사(제1공구)",
+                    "or_cd": 1023
+                }, {
+                    "value": "동탄자이파밀리에",
+                    "or_cd": 1026
+                }, {
+                    "value": "동두천시 변전소-부처고개간(2공구)도로개설공사",
+                    "or_cd": 1034
+                }, {
+                    "value": "원주~강릉 철도건설 제7공구 노반신설 기타공사",
+                    "or_cd": 1035
+                }, {
+                    "value": "GS한강센트럴자이 1단지",
+                    "or_cd": 1039
+                }, {
+                    "value": "오산세교자이",
+                    "or_cd": 1041
+                }, {
+                    "value": "철도종합시험선로 건설공사",
+                    "or_cd": 1043
+                }, {
+                    "value": "상주~영천고속도로민간투자사업건설공사6공구",
+                    "or_cd": 1044
+                }, {
+                    "value": "삼척그린파워1,2호기 건설공사",
+                    "or_cd": 1054
+                }, {
+                    "value": "M2-Project(경기)",
+                    "or_cd": 1059
+                }, {
+                    "value": "P10-Project 현장",
+                    "or_cd": 1061
+                }, {
+                    "value": "서부간선지하도로 민간투자사업 건설공구(2공구)",
+                    "or_cd": 1296
+                }, {
+                    "value": "광주외곽순환고속도로2공구",
+                    "or_cd": 1341
+                }, {
+                    "value": "부천대학교 제2캠퍼스 1단계건립공사",
+                    "or_cd": 1327
+                }, {
+                    "value": "G16-Project(경북)",
+                    "or_cd": 1302
+                }, {
+                    "value": "평택진위2단지산업 부지조성사업(2공구)",
+                    "or_cd": 1304
+                }, {
+                    "value": "상도파크자이",
+                    "or_cd": 1306
+                }, {
+                    "value": "영보일반산업단지",
+                    "or_cd": 1308
+                }, {
+                    "value": "화성동탄(2)지구 도시시설물1공구 건설공사",
+                    "or_cd": 1310
+                }, {
+                    "value": "진주~광양 복선화 제5공구 노반건설공사",
+                    "or_cd": 1321
+                }, {
+                    "value": "주한미군시설사업 parcel 2B2",
+                    "or_cd": 1336
+                }, {
+                    "value": "인천지하철 2호선 205 공구",
+                    "or_cd": 1337
+                }, {
+                    "value": "여수BASFULTRASUN프로젝트",
+                    "or_cd": 1338
+                }, {
+                    "value": "동해선 포항-삼척철도건설 제5공구 노반건설",
+                    "or_cd": 1339
+                }, {
+                    "value": "광양시관내 국도대체우회도로(중군-진정)건설공사",
+                    "or_cd": 1342
+                }, {
+                    "value": "경의선(용문~문산)복선전철 제4공구 노반신설공사",
+                    "or_cd": 1343
+                }, {
+                    "value": "삼척동해3공구",
+                    "or_cd": 1348
+                }, {
+                    "value": "남부공공하수처리시설 시설개선사업",
+                    "or_cd": 1349
+                }, {
+                    "value": "P10 345KV변전소 공사현장",
+                    "or_cd": 1353
+                }, {
+                    "value": "345k군산-새만금송전선로 공사",
+                    "or_cd": 1355
+                }, {
+                    "value": "충남도청내포신도시하수처리시설건설공사(충남)",
+                    "or_cd": 1357
+                }, {
+                    "value": "김포감정1지구 도시개발사업",
+                    "or_cd": 1381
+                }, {
+                    "value": "거제1구역주택재개발사업비 모델하우스",
+                    "or_cd": 1363
+                }, {
+                    "value": "자이더익스프레스 3차",
+                    "or_cd": 1365
+                }, {
+                    "value": "방배 에코자이 견본주택",
+                    "or_cd": 1378
+                }, {
+                    "value": "신동탄 파크자이 2단지",
+                    "or_cd": 1395
+                }, {
+                    "value": "백련산파크자이 신축현장",
+                    "or_cd": 1403
+                }, {
+                    "value": "답십리파크자이",
+                    "or_cd": 1410
+                }, {
+                    "value": "수도권 고속철도 동탄-평택간 전력설비 신설공사",
+                    "or_cd": 1452
+                }, {
+                    "value": "GS칼텍스 제3제품부두 1선석 건설공사",
+                    "or_cd": 1467
+                }, {
+                    "value": "양주옥정 A-21BL",
+                    "or_cd": 1484
+                }, {
+                    "value": "파주LCD산업단지 폐수종말처리시설(3-2단계) 설치사업",
+                    "or_cd": 1486
+                }, {
+                    "value": "대연자이",
+                    "or_cd": 1489
+                }, {
+                    "value": "KT신사관광호텔개발사업",
+                    "or_cd": 1494
+                }, {
+                    "value": "P9 C Project 대응 전기공사",
+                    "or_cd": 1505
+                }, {
+                    "value": "신촌그랑자이",
+                    "or_cd": 1512
+                }, {
+                    "value": "명륜자이",
+                    "or_cd": 1520
+                }, {
+                    "value": "김해 율하 2지구 원메이저",
+                    "or_cd": 1533
+                }, {
+                    "value": "동탄레이크자이더테라스",
+                    "or_cd": 1562
+                }, {
+                    "value": "동천자이2차",
+                    "or_cd": 1568
+                }, {
+                    "value": "율하자이힐스테이트",
+                    "or_cd": 1578
+                }, {
+                    "value": "그랑시티자이",
+                    "or_cd": 1581
+                }, {
+                    "value": "보성~임성리 제7공구(영암~임성리간)철도 건설공사",
+                    "or_cd": 1093
+                }, {
+                    "value": "수도권고속철도(수서~평택)제9공구 건설공사",
+                    "or_cd": 1098
+                }, {
+                    "value": "화성동탄2 A-69블럭 전기공사 7공구현장",
+                    "or_cd": 1100
+                }, {
+                    "value": "포천열병합발전소건설공사",
+                    "or_cd": 1101
+                }, {
+                    "value": "동해선 포항~삼척 철도건설 제2공구 노반건설공사 현장",
+                    "or_cd": 1107
+                }, {
+                    "value": "동해선 포항~삼척 철도건설 제 13공구노반건설공사",
+                    "or_cd": 1108
+                }, {
+                    "value": "충주시티자이 현장",
+                    "or_cd": 1110
+                }, {
+                    "value": "에코시티자이",
+                    "or_cd": 1111
+                }, {
+                    "value": "강남순환도시고속도로6-1공구",
+                    "or_cd": 1112
+                }, {
+                    "value": "파르나스타워 증축공사",
+                    "or_cd": 1114
+                }, {
+                    "value": "포항자이",
+                    "or_cd": 1117
+                }, {
+                    "value": "낙성대~사당IC구간 4차로 확폭공사",
+                    "or_cd": 1120
+                }, {
+                    "value": "B-PROJECT 현장",
+                    "or_cd": 1123
+                }, {
+                    "value": "마포자이3차",
+                    "or_cd": 1138
+                }, {
+                    "value": "호남고속철도 제5-3공구 노반신설 기타공사",
+                    "or_cd": 1152
+                }, {
+                    "value": "마린시티자이 신축공사",
+                    "or_cd": 1156
+                }, {
+                    "value": "화성동탄(2)택지개발사업조성공사(2-1공구)(경기)",
+                    "or_cd": 1159
+                }, {
+                    "value": "천안 시티자이 현장",
+                    "or_cd": 1164
+                }, {
+                    "value": "파주 Module C\/R & Utility공사",
+                    "or_cd": 1166
+                }, {
+                    "value": "신반포자이현장",
+                    "or_cd": 1167
+                }, {
+                    "value": "구미시 하수처리수재이용시설(BTO)건설공사",
+                    "or_cd": 1169
+                }, {
+                    "value": "스카이시티자이현장",
+                    "or_cd": 1170
+                }, {
+                    "value": "LGD구미공장 C\/R & Utility공사(경북)",
+                    "or_cd": 1172
+                }, {
+                    "value": "부산항 신항 남컨테이너 항만배후단지(제3공구) 조성공사",
+                    "or_cd": 1174
+                }, {
+                    "value": "하남선(상일~검단산)복선전철3공구건설",
+                    "or_cd": 1179
+                }, {
+                    "value": "부산진해경제자유구역명지지구개발사업1공구",
+                    "or_cd": 1182
+                }, {
+                    "value": "대한유화  ONE Project",
+                    "or_cd": 1184
+                }, {
+                    "value": "미군기지이전시설사업통신센타건설공사",
+                    "or_cd": 1207
+                }, {
+                    "value": "방배 아트자이",
+                    "or_cd": 1209
+                }, {
+                    "value": "광명역파크자이2차(경기)",
+                    "or_cd": 1212
+                }, {
+                    "value": "서울-문산 고속도로 건설공사 3공구",
+                    "or_cd": 1213
+                }, {
+                    "value": "P9-project",
+                    "or_cd": 1218
+                }, {
+                    "value": "거제센트럴자이(부산)신축공사",
+                    "or_cd": 1222
+                }, {
+                    "value": "은평스카이뷰자이",
+                    "or_cd": 1224
+                }, {
+                    "value": "거제센트럴자이 모델하우스(부산)",
+                    "or_cd": 1238
+                }, {
+                    "value": "LGD구미 모듈동 신축공사현장(경북)",
+                    "or_cd": 1256
+                }, {
+                    "value": "백련산파크자이 견본주택",
+                    "or_cd": 1283
+                }, {
+                    "value": "답십리파크자이 견본주택",
+                    "or_cd": 1284
+                }, {
+                    "value": "동탄파크자이",
+                    "or_cd": 1285
+                }, {
+                    "value": "킨텍스 윈시티",
+                    "or_cd": 1307
+                }, {
+                    "value": "나인트리호텔명동Ⅱ(서울)",
+                    "or_cd": 506
+                }, {
+                    "value": "대구역센트럴자이(대구)",
+                    "or_cd": 508
+                }, {
+                    "value": "청라파크자이더테라스(인천)",
+                    "or_cd": 509
+                }, {
+                    "value": "거제석유비축기지수벽터널건설공사(경남)",
+                    "or_cd": 510
+                }, {
+                    "value": "신보령1,2호기기전공사(충남)",
+                    "or_cd": 520
+                }, {
+                    "value": "광주~원주(제2영동)고속도로민간투자사업5공구(경기)",
+                    "or_cd": 527
+                }, {
+                    "value": "수도권고속철도(수서-평택)제3-2공구건설공사(경기)",
+                    "or_cd": 528
+                }, {
+                    "value": "화순항2단계개발사업(제주)",
+                    "or_cd": 529
+                }, {
+                    "value": "미군기지이전사업의무여단병영시설건설공사(경기)",
+                    "or_cd": 537
+                }, {
+                    "value": "청주자이(충북)",
+                    "or_cd": 1157
+                }, {
+                    "value": "P8E C\/R & Utility공사(J\/V)",
+                    "or_cd": 565
+                }, {
+                    "value": "성거자이에뜨(충남)",
+                    "or_cd": 566
+                }, {
+                    "value": "미사강변리버뷰자이(경기)",
+                    "or_cd": 567
+                }, {
+                    "value": "당진바이오매스발전소건설공사(충남)",
+                    "or_cd": 573
+                }, {
+                    "value": "위례신도시A2-2블럭공공주택(경기)",
+                    "or_cd": 576
+                }, {
+                    "value": "지금 푸른물센터 건설공사",
+                    "or_cd": 586
+                }, {
+                    "value": "구미문성파크자이",
+                    "or_cd": 590
+                }, {
+                    "value": "성남판교복합단지PF사업6-3블럭신축공사(경기)",
+                    "or_cd": 591
+                }, {
+                    "value": "오산시티자이(경기)",
+                    "or_cd": 592
+                }, {
+                    "value": "왕십리자이(서울)",
+                    "or_cd": 593
+                }, {
+                    "value": "중랑물재생센터고도처리및시설현대화",
+                    "or_cd": 594
+                }, {
+                    "value": "하나금융그룹통합데이터센터구축공사(경기)",
+                    "or_cd": 595
+                }, {
+                    "value": "부천옥길자이",
+                    "or_cd": 617
+                }, {
+                    "value": "대전광역시 환경에너지종합타운조성 민간투자사업",
+                    "or_cd": 622
+                }, {
+                    "value": "남악신도시 복합쇼핑몰 신축공사",
+                    "or_cd": 654
+                }, {
+                    "value": "상동스카이뷰자이",
+                    "or_cd": 671
+                }, {
+                    "value": "자이더익스프레스1차",
+                    "or_cd": 674
+                }, {
+                    "value": "평택동삭2지구 도시개발사업 택지",
+                    "or_cd": 675
+                }, {
+                    "value": "광양아울렛 신축공사(전남)",
+                    "or_cd": 685
+                }, {
+                    "value": "해운대자이2차",
+                    "or_cd": 686
+                }, {
+                    "value": "자이더익스프레스 2차 현장",
+                    "or_cd": 1142
+                }, {
+                    "value": "동천자이",
+                    "or_cd": 1046
+                }],
+                open: function (e, ui) {
+                    var
+                        acData = $(this).data('autocomplete'),
+                        styledTerm = termTemplate.replace('%s', acData);
+                },
+                select: function (event, ui) {
+                    filter_cd = ui.item.or_cd;
+                    filter_nm = ui.item.value;
+                    filter_fin();
+                    //	        alert(JSON.stringify(ui.item));
+                }
+            });
+        }
+    </script>
+
+    <meta name="viewport"
+        content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+
+</head>
+
+<body>
+
+    <div class="lp_content">
+        <!-- header -->
+        <header>
+            <div class="inner">
+                <!-- 뒤로가기/닫기 -->
+                <!--                 <a class="btnClose" href="javascript:history.back();"></a> -->
+                <a class="btnClose" href="javascript:filter_fin();"></a>
+                <!-- end: 뒤로가기/닫기 -->
+
+                <h1 class="HeadTitleName tit_black">현장명</h1>
+            </div>
+        </header>
+        <!-- end: header -->
+
+        <!-- section -->
+        <section>
+            <div class="brick-vowel">
+
+                <!-- grid: 자동완성 -->
+                <div class="grid__01">
+                    <ul>
+                        <li class="autocomplete">
+                            <form autocomplete="off">
+                                <input id="autoPlace" class="autoBar" type="text" name="place"
+                                    placeholder="현장을 선택해 주세요.">
+                            </form>
+                            <div class="autoClose"></div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- end: 자동완성 -->
+            </div>
+
+        </section>
+        <!-- end: section -->
+    </div>
+
+
+</body>
+
+</html>
