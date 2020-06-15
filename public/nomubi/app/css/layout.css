@@ -28,9 +28,9 @@
 /* select */
     select {-webkit-appearance: none; -moz-appearance: none; -o-appearance: none; appearance: none; font-weight: bold; border: 0; border-radius: 0; cursor: pointer;}
     select::-ms-expand {display : none;}
-    select.HeadSelector {background: no-repeat url(../images/common/btnDrop_ico.png) right center /34px;}
+    select.HeadSelector {background: no-repeat url(/app/images/common/btnDrop_ico.png) right center /34px;}
     select.HeadSelector option {font-size: 0.5em; color: #545454;}
-    select.titleSelctor {width: auto; color: #333; letter-spacing: -1px; background: no-repeat url(../images/select_angle_ico.png) center right; background-size: 14px;  margin-bottom: 13px; padding-right: 29px;}
+    select.titleSelctor {width: auto; color: #333; letter-spacing: -1px; background: no-repeat url(/app/images/select_angle_ico.png) center right; background-size: 14px;  margin-bottom: 13px; padding-right: 29px;}
     select.titleSelctor option {font-size: 0.85em; font-weight: normal;}
 
 /** header **/
@@ -38,9 +38,9 @@
     header {padding-top: 59px; padding-bottom: 15px;}
     .toolbar {float: right;}
     .toolbar > a {float: left; width: 34px; height: 34px; margin-left: 11px; cursor: pointer;}
-    .btnFilter {background: no-repeat url(../images/common/btnFilter_ico.png) center /34px;}
-    .btnQmark {background: no-repeat url(../images/common/btnQmark_ico.png) center /34px;}
-    .btnQmark_bk {background: no-repeat url(../images/common/btnQmark_bk_ico.png) center /34px;} 
+    .btnFilter {background: no-repeat url(/app/images/common/btnFilter_ico.png) center /34px;}
+    .btnQmark {background: no-repeat url(/app/images/common/btnQmark_ico.png) center /34px;}
+    .btnQmark_bk {background: no-repeat url(/app/images/common/btnQmark_bk_ico.png) center /34px;} 
     a.btnClose {position: absolute; top: -30px;}
     a.btnClose:before {content: ''; display: inline-block; width: 1px; height: 20px; background-color: #222; transform: rotate(45deg); margin-left: 10px;}
     a.btnClose:after {content: ''; display: inline-block; width: 1px; height: 20px; background-color: #222; transform: rotate(-45deg);}
@@ -95,28 +95,26 @@
     .table__04 th .fa {line-height: 2.5; float: right;}
         /* accodian: extra */
         .accodian th::before {content: ''; display: inline-block; width: 13px; height: 13px; padding-left: 12px;}
-        .accodian th:first-child::before {background: no-repeat url(../images/common/nav_ico01_dim.png) left center; background-size: 13px;}
-        .accodian th:nth-child(2)::before {background: no-repeat url(../images/common/nav_ico02_dim.png) left center; background-size: 13px;}
-        .accodian th:nth-child(3)::before {background: no-repeat url(../images/common/nav_ico03_dim.png) left center; background-size: 13px;}
-        .accodian th:nth-child(4)::before {background: no-repeat url(../images/common/nav_ico05_dim.png) left center; background-size: 13px;}
-        .accodian th:last-child::before {background: no-repeat url(../images/etc_ico01.png) left center; background-size: 13px; border-bottom: 0;}
+        .accodian th:first-child::before {background: no-repeat url(/app/images/common/nav_ico01_dim.png) left center; background-size: 13px;}
+        .accodian th:nth-child(2)::before {background: no-repeat url(/app/images/common/nav_ico02_dim.png) left center; background-size: 13px;}
+        .accodian th:nth-child(3)::before {background: no-repeat url(/app/images/common/nav_ico03_dim.png) left center; background-size: 13px;}
+        .accodian th:nth-child(4)::before {background: no-repeat url(/app/images/common/nav_ico05_dim.png) left center; background-size: 13px;}
+        .accodian th:last-child::before {background: no-repeat url(/app/images/etc_ico01.png) left center; background-size: 13px; border-bottom: 0;}
         .accodianList > a {display: block; font-size: 13px; font-weight: normal; padding-left: 26px; border-top: 1px solid #dcdcdc;}
         .accodianList > a::before {content: ''; display: inline-block; width: 6px; height: 6px; border-top: 1px solid #898989;; border-left: 1px solid #898989; transform: rotate(-90deg); margin-right: 12px;}
 
     /* table__05: 알림/이력 조회 */
-    .table__05 tbody tr {cursor: pointer;}
-    .table__05 tbody th {background: none;}
     .table__05 tbody th:first-child {line-height: 0.4; text-align: left; padding-left: 25px; background-size: 12px !important;}
     .table__05 tbody th:last-child {font-size: 10px; line-height: 1.5;}
     .table__05 tbody span {display: block; font-size: 10px; color: #9a9a9a; margin-top: 0.75rem;}
         /* table_urgent */
-        tr.check_urg::after, tr.check_req::after {content: '\f105'; width: 0.75rem; height: 10px; font-size: 15px; color: #bebebe; line-height: 45px; -webkit-background: #fff; background: #fff; }
-        tr.check_urg th:first-child {background: url(../images/poiont_circle_ico.png); background-position: left; background-repeat: no-repeat;}
-        tr.check_req th:first-child {background-image: url(../images/more_circle_ico.png); background-repeat: no-repeat; background-position: left center; background-size: inherit;}
-        tr.check_app th:first-child {background: no-repeat url(../images/correct_bk_ico.png) left center;}
-        tr.check_get th:first-child {background: no-repeat url(../images/point_bk_ico.png) left center;}
-        tr.check_ret th:first-child {background: no-repeat url(../images/wrong_bk_ico.png) left center;}
-        tr.check_com th:first-child {background: no-repeat url(../images/won_bk_ico.png) left center;}
+        tr.check_urg::after, tr.check_req::after {content: '\f105'; width: 0.75rem; height: 10px; font-size: 15px; color: #bebebe; line-height: 45px;}
+        tr.check_urg th:first-child {background: no-repeat url(/app/images/poiont_circle_ico.png) left center;}
+        tr.check_req th:first-child {background: no-repeat url(/app/images/more_circle_ico.png) left center;}
+        tr.check_app th:first-child {background: no-repeat url(/app/images/correct_bk_ico.png) left center;}
+        tr.check_get th:first-child {background: no-repeat url(/app/images/point_bk_ico.png) left center;}
+        tr.check_ret th:first-child {background: no-repeat url(/app/images/wrong_bk_ico.png) left center;}
+        tr.check_com th:first-child {background: no-repeat url(/app/images/won_bk_ico.png) left center;}
 
    
     /* bizData */
@@ -136,9 +134,9 @@
     
     /* btnConfirms */
     .btnConfirms {float: right; margin-top: -4px; margin-bottom: 8px !important;}
-    .btnConfirms a {float: left; font-size: 11px; line-height: 11px; color: #bfbfbf; background: no-repeat url(../images/confirm_ico_dim.png) left bottom; background-size: 0.875rem; padding-left: 12px;}
+    .btnConfirms a {float: left; font-size: 11px; line-height: 11px; color: #bfbfbf; background: no-repeat url(/app/images/confirm_ico_dim.png) left bottom; background-size: 0.875rem; padding-left: 12px;}
     .btnConfirms a:not(:last-child)::after {content: ''; display: inline-block; width: 1px; height: 9px; background: #bfbfbf; margin: 0 7px;}
-    .btnConfirms a.active {color: #fd6f61; background: no-repeat url(../images/confirm_ico_sel.png) left center; background-size: 8px;}
+    .btnConfirms a.active {color: #fd6f61; background: no-repeat url(/app/images/confirm_ico_sel.png) left center; background-size: 8px;}
 
 
 /** document: 공지사항(con_noti) **/
@@ -169,7 +167,7 @@
 /** checkbox **/
     .checkbox {font-size: 12px; color: #fff; margin-bottom: 44px;}
     .checkbox input[type="checkbox"] {-webkit-appearance: none; -moz-appearance: none; appearance: none; width: 11px; height: 11px; background: #fff; margin-right: 0.5625rem;}
-    .checkbox input[type="checkbox"]:checked {border: 0; background: no-repeat url(../images/correct_bl_ico.png) #fff center; background-size: cover;}
+    .checkbox input[type="checkbox"]:checked {border: 0; background: no-repeat url(/app/images/correct_bl_ico.png) #fff center; background-size: cover;}
     .checkbox .check_active {vertical-align: top;}
     .lp_content .checkbox input[type="checkbox"] {width: 12px; height: 12px; border: 1px solid #a0a0a0; border-radius: 0.25rem; vertical-align: bottom; margin-right: 10px;}
     .lp_content .checkbox input[type="checkbox"]+label {font-size: 13px; font-weight: bold; color: #545454; line-height: 13px; margin-right: 35px;}
@@ -177,7 +175,7 @@
 
 
 /** password **/
-    input[type="password"]#now_psw {background: no-repeat url(../images/correct_bl_ico.png) right center; background-size: 15px;}
+    input[type="password"]#now_psw {background: no-repeat url(/app/images/correct_bl_ico.png) right center; background-size: 15px;}
 
 
 /** tab_option **/
@@ -190,8 +188,8 @@
 
 /* autocomplete */
     .autocomplete {position: relative; width: 100%; height: 100%; z-index: 1;}
-    .autocomplete input {position: relative; display: inline-block; width: 100%; height: 38px; font-size: 13px; font-weight: normal; line-height: 38px; background: no-repeat url(../images/search_ico.png) 10px center #f0f0f0; background-size: 12px; padding-left: 30px;}
-    .autoClose {position: absolute; top: 10px; right: 12px; width: 19px; height: 19px; background: no-repeat url(../images/close_ico.png); background-size: 19px; z-index: 3; opacity: 0; filter: alpha(opacity=0);}
+    .autocomplete input {position: relative; display: inline-block; width: 100%; height: 38px; font-size: 13px; font-weight: normal; line-height: 38px; background: no-repeat url(/app/images/search_ico.png) 10px center #f0f0f0; background-size: 12px; padding-left: 30px;}
+    .autoClose {position: absolute; top: 10px; right: 12px; width: 19px; height: 19px; background: no-repeat url(/app/images/close_ico.png); background-size: 19px; z-index: 3; opacity: 0; filter: alpha(opacity=0);}
     .ui-widget.ui-widget-content {border: 0;}
     .ui-menu .ui-menu-item-wrapper {font-size: 13px; font-weight: 400; line-height: 38px; border-bottom: 1px solid #f0f0f0; padding-left: 10px;}
 
@@ -199,7 +197,7 @@
     .date-picker {font-size: 15px; text-align: center;}
     .date-picker > div {float: left; width: 47%; color: #545454; line-height: 40px;}
     .date-picker > div:nth-child(2) {width: 6%;}
-    .date-picker .js-date-picker {width: 100%; font-size: 12px; line-height: 38px; background: no-repeat url(../images/date-picker.png) right center; background-size: 14px; border: 1px solid #dcdcdc; border-radius: 3px; box-sizing: border-box; padding: 0 10px;}
+    .date-picker .js-date-picker {width: 100%; font-size: 12px; line-height: 38px; background: no-repeat url(/app/images/date-picker.png) right center; background-size: 14px; border: 1px solid #dcdcdc; border-radius: 3px; box-sizing: border-box; padding: 0 10px;}
     .date-picker02 .js-date-picker {float: left; width: 25%;}
     .date-picker02 .js-date-picker:first-child {width: 44%;}
     .date-picker02 .js-date-picker:nth-child(2) {margin: 0 3%;}

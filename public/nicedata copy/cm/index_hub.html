@@ -1,0 +1,152 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>NICE D&R 사업자지원서비스</title>
+    <link rel="shortcut icon" href="../images/hub/favicon-logo.png" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="../css/hub/reset.css" />
+    <link rel="stylesheet" type="text/css" href="../css/hub/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/hub/animate.css" />
+    <script src="../js/libs/jquery-1.11.1.min.js" />
+    </script>
+    <script type="text/javascript">
+        function replaceAll(str, searchStr, replaceStr) {
+            return str.split(searchStr).join(replaceStr);
+        }
+
+        $(document).ready(function () {
+
+
+            $(".hub_target").click(function () {
+
+                var url = $(this).data("url");
+                var target = $(this).data("target");
+
+                if (!target || target == null || replaceAll(target, " ", "") == "") {
+                    target = "_blank";
+                }
+                window.open(url, target);
+            });
+
+        });
+    </script>
+</head>
+
+
+
+<body>
+    <div class="wrap">
+        <div class="wrapper">
+            <div class="logo-area"> <a href="http://www.nicednr.co.kr" target="_blank"><img
+                        src="../images/hub/logo-nice.png" alt="" /></a> </div>
+            <div class="d-table">
+                <div class="d-table-cell">
+                    <div class="container">
+                        <div class="visual-title">
+                            <h1>NICE D&#38;R 서비스 제공 사이트 변경 안내</h1>
+                            <p>고객님 안녕하세요. 나이스데이터에서 제공하던 사업자 세무 지원 및 일부 서비스를<br>
+                                2020년 2월3일 부터 새롭게 오픈한 Taxdiet에서 제공해드립니다. <br>
+                                내용을 확인하시고 이용에 차질이 없도록 참고하시기 바랍니다.</p>
+                        </div>
+
+
+                        <div class="tax-area">
+                            <div class="tax-logo-area"> <a href="https://www.taxdiet.co.kr" target="_blank"><img
+                                        src="../images/hub/logo-tax.png" alt="" /></a> </div>
+                            <div class="row">
+                                <div class="tax wow fadeInUp">
+                                    <div class="tax-btn hub_target" data-url="https://www.taxdiet.co.kr/vr/VR_03002.do">
+                                        <h2>부가세환급지원</h2>
+                                        <div class="tax-img"> <img src="../images/hub/img-visual-01.png" alt="" /> </div>
+                                    </div>
+                                </div>
+                                <div class="tax wow fadeInUp">
+                                    <div class="tax-btn hub_target" data-url="https://www.taxdiet.co.kr/vt/VT_30111.do">
+                                        <h2>부가가치세 자가신고</h2>
+                                        <div class="tax-img"> <img src="../images/hub/img-visual-02.png" alt="" /> </div>
+                                    </div>
+                                </div>
+                                <div class="tax wow fadeInUp">
+                                    <div class="tax-btn hub_target" data-url="https://www.taxdiet.co.kr/sd/SD_30111.do">
+                                        <h2>종합소득세 자가신고</h2>
+                                        <div class="tax-img"> <img src="../images/hub/img-visual-03.png" alt="" /> </div>
+                                    </div>
+                                </div>
+                                <div class="tax wow fadeInUp">
+                                    <div class="tax-btn hub_target"
+                                        data-url="https://www.taxdiet.co.kr/bizmap/BS_20111.do">
+                                        <h2>상권분석</h2>
+                                        <div class="tax-img"> <img src="../images/hub/img-visual-04.png" alt="" /> </div>
+                                    </div>
+                                </div>
+                                <div class="tax wow fadeInUp">
+                                    <div class="tax-btn hub_target"
+                                        data-url="https://www.taxdiet.co.kr/as/AS_02101_SL.do"
+                                        data-target="taxdiet_hub">
+                                        <h2>세무상담</h2>
+                                        <div class="tax-img"> <img src="../images/hub/img-visual-05.png" alt="" /> </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottom-area wow fadeInUp">
+                            <div class="d-inline">
+                                <div class="bottom-btn hub_target" data-url="http://www.nicebill.co.kr/cm/main.do"> <img
+                                        src="../images/hub/ic-bottom-01.png" alt="" />
+                                    <h3>전자세금계산서</h3>
+                                </div>
+                                <div class="bottom-btn hub_target" data-url="http://www.nicedata.co.kr/as/AS_30401.do">
+                                    <img src="../images/hub/ic-bottom-02.png" alt="" />
+                                    <h3>휴폐업 조회</h3>
+                                </div>
+                                <div class="bottom-btn hub_target" data-url="http://www.nicedata.co.kr/as/AS_40601.do">
+                                    <img src="../images/hub/ic-bottom-03.png" alt="" />
+                                    <h3>서울보증보험 안내</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer-li">
+                <ul>
+                    <li>NICE디앤알 주식회사</li>
+                    <li>우편번호 03741</li>
+                    <li>서울특별시 서대문구 충정로 36</li>
+                    <li>고객만족센터 1588-5659</li>
+                </ul>
+            </div>
+            <div class="copy"> COPYRIGHT NICE D&#38;R @ ALL RIGHTS RESERVED </div>
+        </div>
+    </div>
+    <!-- animate -->
+    <script src="/js/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <script type="text/javascript">
+        var b_count;
+        if (b_count != 1) {
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+            ga('create', 'UA-36649342-2', 'auto');
+            ga('require', 'linkid', 'linkid.js'); ///추가부분 2015-09-01
+            ga('send', 'pageview');
+        }
+    </script>
+</body>
+
+</html>
