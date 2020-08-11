@@ -52,26 +52,7 @@
     p { padding: 0; margin: 0; }
     .page.a4 { width: 595px; height: 842px; padding: 26px 54px; border: 1px solid #222; }
     .page.a4 .inner { height: 256mm; }
-    @page {
-        size: A4 landscape;
-        margin: 0;
-        /*size: landscape;*/
-    }
-    @media print  {
-        html, body {
-            width: 210mm;
-            height: 297mm;
-        }
-        .page {
-            margin: 0;
-            border: initial;
-            width: initial;
-            min-height: initial;
-            box-shadow: initial;
-            background: initial;
-            page-break-after: always;
-        }
-    }
+
     /*** //a4 ***/
 
     .header .title { font-family: "Noto Sans Korean"; font-size: 22px; font-weight: bold; color: #181818; text-align: center; margin-top: 28px; }

@@ -28,26 +28,6 @@
     /* .page.a4 { width: 21cm; height: 29.7cm; font-size: 16px; margin: 1cm auto; padding: 30px 74px; border: 1px solid #222; } */
     .page.a4 { width: 21cm; height: 29.7cm; font-size: 16px; padding: 30px 74px; margin: 0 auto; }
     .page.a4 .inner { height: 256mm; }
-    @page {
-        size: A4 landscape;
-        margin: 0;
-        /*size: landscape;*/
-    }
-    @media print  {
-        html, body {
-            width: 210mm;
-            height: 297mm;
-        }
-        .page {
-            margin: 0;
-            border: initial;
-            width: initial;
-            min-height: initial;
-            box-shadow: initial;
-            background: initial;
-            page-break-after: always;
-        }
-    }
     /*** //a4 ***/
 
     .a4 .header .title { font-family: "Noto Sans Korean"; font-size: 29px; font-weight: bold; color: #181818; text-align: center; margin-top: 30px; }

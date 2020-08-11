@@ -1,0 +1,48 @@
+<script></script>
+
+<div class="__pop-basic _pop-ajax">
+    <div class="inner">
+        <div class="title">
+            <h1>배달 수단</h1>
+            <input type="button" id="pop-close" class="blind" value="닫기" onclick="ajaxClose('._pop-ajax');"> 
+            <label for="pop-close"></label>
+        </div>
+        <div class="desc">
+            <ul class="delivery-type">
+                <li>
+                    <input type="radio" id="motorcycle" name="delivery-type_list">
+                    <label for="motorcycle">
+                        <span>오토바이</span> (만 26세 이상만 가능)</label>
+                </li>
+                <li>
+                    <input type="radio" id="bicycle" name="delivery-type_list">
+                    <label for="bicycle">
+                        <span>자전거</span> (전기자전거 포함)</label>
+                </li>
+                <li>
+                    <input type="radio" id="elec_board" name="delivery-type_list">
+                    <label for="elec_board">
+                        <span>전동킥보드</span>
+                        (최대 정격 출력 590이하, 최대 속도 25km/h 이하만 가능)
+                    </label>
+                </li>
+                <li>
+                    <input type="radio" id="on_foot" name="delivery-type_list">
+                    <label for="on_foot"><span>도보</span></label>
+                </li>
+                <li>
+                    <input type="radio" id="car" name="delivery-type_list">
+                    <label for="car"><span>자동차</span> (면허증, 가입된 보험증권 필요)</label>
+                </li>
+            </ul>
+        </div>
+        <ul class="pop-exit">
+            <li>
+                <label for="pop-next" class="blind">다음</label>
+                <input type="submit" id="pop-next" class="button-primary" value="다음" onclick="ajaxClose('._pop-ajax');">
+            </li>
+        </ul>
+    </div>    
+    
+    <div class="bg"></div>
+</div>

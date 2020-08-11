@@ -1,0 +1,77 @@
+@import "common.css";
+
+
+/* header */
+    header { display: table; width: 100%; height: 56px; border-bottom: 1px solid #e8e8e8; box-sizing: border-box; }
+    header .inner { display: table-cell; vertical-align: middle; }
+    header .logo { max-width: 117px; margin: 0 auto; }
+
+/* section */
+    .contents section { margin-top: 30px; padding: 0 20px; } 
+    .contents .conn-info ul { display: table; margin-left: auto; margin-right: auto; }
+    .contents .conn-info li { float: left; width: 9px; height: 9px; font-size: 0; text-align: center; line-height: 20px; background-color: #d9d9d9; -webkit-border-radius: 9px; border-radius: 9px; }
+    .contents .conn-info li+li { margin-left: 15px; }
+    .contents .conn-info li.on { width: 20px; height: 20px; font-size: 12px; color: #fff; line-height: 20px; background-color: #018aff; }
+    .contents .conn-content .conn_title { font-size: 22px; color: #272727; letter-spacing: -1px;}
+    .contents .conn-content .conn-guide { font-size: 15px; line-height: 1.4; margin-top: 28px;}
+    .contents .conn-content .conn-guide > span { position: relative; display: block; font-size: 13px; line-height: 1.5; letter-spacing: -1px; margin-top: 2px; }
+    .contents .conn-content .conn-guide > span+span { margin-top: 0; }
+    .contents .conn-content .conn-guide > span.middot::before { content: '·'; display: inline-block; width: 8px; height: 100%; left: 0; }
+
+    .contents .conn-content .connect > ul { margin-top: 20px; }
+    .contents .conn-content .conn_terms li { border: 1px solid #eee; padding: 12px 10px; }
+    .contents .conn-content .conn_terms li+li { border-top: 0; }
+    .contents .conn-content .conn_terms li input[type=checkbox] { margin-right: 10px; }
+    .contents .conn-content .conn_terms li input[type=checkbox]#terms-all:checked {background-position: right;}
+    .contents .conn-content .conn_terms li .terms-box { display: none; height: 100px; font-size: 11px; color: #929292; background-color: #f2f2f2; margin-top: 12px; padding: 10px 12px; box-sizing: border-box; }
+    /** active **/
+        .contents .conn-content .conn_terms li > span { 
+            float: right; 
+            width: 8px; 
+            height: 8px; 
+            border-left: 2px solid #aaa; 
+            border-bottom: 2px solid #aaa; 
+            -webkit-transform: rotate(-45deg); 
+                    transform: rotate(-45deg); 
+            -webkit-transition: -webkit-transform .2s ease-out;
+                    transition: -webkit-transform .2s ease-out;
+                    transition: transform .2s ease-out;
+                    transition: transform .2s ease-out, 
+            -webkit-transform .2s ease-out; 
+            cursor: pointer;
+        }
+        .contents .conn-content .conn_terms li.is-active > span {
+            -webkit-transform: rotate(135deg);
+                    transform: rotate(135deg);
+        }
+
+    .contents .conn-content .conn_form .conn-guide > span::before { content: ''; display: inline-block; width: 16px; height: 16px; background: no-repeat url('/images/common/ico_info.png') center; background-size: cover; vertical-align: -3px; margin-right: 5px; }
+    .contents .conn-content .conn_delivery .conn-guide > span,
+    .contents .conn-content .conn_area .conn-guide > span { color: #797979;}
+    .contents .conn-content .conn_delivery .btn-box li::after,
+    .contents .conn-content .conn_area .btn-box li::after { content: ''; position: absolute; top: 0; right: 10px; width: 8px; height: 8px; border-right: 2px solid #aaa; border-bottom: 2px solid #aaa; -webkit-transform: rotate(-45deg); transform: rotate(-45deg); margin-top: 16px; }
+    .contents .conn-content .conn_delivery .btn-delivery2 { display: none; }
+    .contents .conn-content .conn_area .btn-box li::after { border-color: #c7c7c7; }
+    .contents .conn-content .conn_area .conn_area-list { margin-top: 10px; }
+    .contents .conn-content .conn_area .conn_area-list li { width: 100%; height: 29px; color: #8b8a8a; line-height: 29px; text-align: center; }
+    .contents .conn-content .conn_area .conn_area-list li:not(.list-non ) { display: none; float: left; width: 80px; text-align: left; background-color: #ededed; border-radius: 30px; padding: 0 8px; box-sizing: border-box; }
+    .contents .conn-content .conn_area .conn_area-list li:not(.list-non )+li:not(.list-non ) { margin-left: 10px; }
+    .contents .conn-content .conn_area .conn_area-list .list_close { position: relative; float: right; width: 11px; height: 1px; text-align: right; background-color: #c3c3c3; transform: rotate(45deg); margin-top: 14px; cursor: pointer;}
+    .contents .conn-content .conn_area .conn_area-list .list_close::after { content: ''; position: absolute; top: 0; left: 0; width: 11px; height: 1px; background-color: #c3c3c3; transform: rotate(90deg);}
+
+    .contents .conn-content .conn_form > ul > li+li { margin-top: 30px; }
+    .contents .conn-content .conn-inpt > div+div { margin-top: 20px; }
+    .contents .conn-content .conn-inpt .form-row {width: 100%; position: relative;}
+    .contents .conn-content .conn-inpt input { display: block; width: 100%; border-bottom: 1px solid #eee; margin-top: 16px; padding-bottom: 10px; box-sizing: border-box; }
+    .contents .conn-content .conn-inpt .btn-file+label,
+    .contents .conn-content .conn-inpt .btn-file_remove+label {position: absolute; bottom: 8px; right: 0; width: 77px; height: 24px; line-height: 22px; -webkit-border-radius: 20px; border-radius: 20px;}
+
+    .contents .btn-box li { position: relative; width: 100%; height: 45px; line-height: 45px; box-sizing: border-box; cursor: pointer; }
+    .contents .btn-box li+li { margin-top: 5px; }
+
+/* footer */
+    footer { margin: 30px 0 52px 0; padding: 0 20px; }
+    footer > div+div { margin-top: 18px; }
+    footer > div span { display: block; font-size: 13px; color: #adadad; line-height: 1.4; }
+
+

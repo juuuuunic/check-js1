@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html class="desktop">
+<head>
+<meta charset="utf-8">
+<title>약관동의</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="우아한청년들 라이더지원시스템">
+<meta property="og:title" content="우아한청년들 라이더지원시스템">
+
+<!--style -->
+<link href="/css/normalize.css" rel="stylesheet">
+<link href="/css/layout.css" rel="stylesheet">
+
+<!--js -->
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/js/common.js"></script>
+
+<!--lib /  fancybox-->
+<!-- <link rel="stylesheet" type="text/css" href="/lib/slick/slick.css" />
+<script src="/lib/slick/slick.min.js"></script> -->
+
+<script>
+$(function(){
+    fileUploadNm();
+
+    // 다음
+    $(".btn-next").click(function(){
+        if(!fnChkInput()) {
+            return false;
+        }
+
+
+
+        return false;
+    });
+
+    // 첨부파일 삭제
+    $(".btn-file_remove blind").on("click", function() {     
+        var attr = $(this).siblings('label').attr('for')
+        var replace = attr.slice(0,-3)
+        $(this).siblings('.file-name').val('');
+        $(this).siblings('label').attr('for',replace).text('첨부하기');
+    });
+
+   
+
+});
+
+// 커넥터 정보
+function fnChkInput(){	
+    var input = $(".conn-inpt input.file-name:not(.ncsry_non)"); 
+    for(var i = 0; i < input.length; i++) {
+        var $this = $(input[i]);
+        if($this.val() ==='') { //인풋박스가 비어있다면
+            alert('필수 제출서류를 첨부해 주세요.');
+            $this.focus();
+            return false;
+        }		
+    }
+    return true;
+}
+
+// 첨부파일
+function fileUploadNm() {
+    var fileTarget = $('.btn-file'); 
+    fileTarget.on('change', function(){ // 값이 변경되면 
+        if(window.FileReader){ // modern browser 
+            var filename = $(this)[0].files[0].name; 
+        } else { // old IE 
+            var filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출 
+        } 
+        
+        var attr = $(this).siblings('label').attr('for')
+        var replace = attr+'_rm'
+        // 추출한 파일명 삽입 및 라벨 변경
+        $(this).siblings('.file-name').val(filename);
+        $(this).siblings('label').attr('for',replace).text('삭제하기');
+    });
+}
+
+</script>
+</head>
+
+<body>
+<!-- header -->
+<header>
+    <h3></h3>
+    <div class="inner">
+        <h1 class="blind">우아한청년들 라이더지원시스템</h1>
+        <h1 class="logo"><img src="/images/common/logo.png" alt="배민커넥트 로고"></h1>
+    </div>
+</header>
+<!-- //header -->
+
+<!-- contents -->
+<div class="contents">   
+    <section class="conn-info">
+        <ul class="clearfix">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li class="on">4</li>
+        </ul>
+    </section>
+    <section class="conn-content">
+        <h3 class="conn_title">4. 지원서류 첨부</h3>
+
+        <!-- conn_form -->
+        <div class="connect conn_form">
+            <p class="conn-guide">운송수단에 따른 제출 서류를 첨부해 주세요.</p>
+            <ul>
+                <!-- conn-inpt -->
+                <li class="conn-inpt">
+                    <div class="form-row">
+                        <span class="file-label"><em class="notice">(필수)</em> 본인 운전면허증</span>
+                        <input class="file-name" disabled>
+
+                        <input id="dvr_lic_rm" name="dvr_lic_rm" type="button" class="btn-file_remove blind">
+                        <input id="dvr_lic" name="dvr_lic" type="file" class="btn-file blind">
+                        <label for="dvr_lic">첨부하기</label>
+                    </div>
+                    <div class="form-row">
+                        <span class="file-label"><em class="notice">(필수)</em> 계좌 사본</span>
+                        <input class="file-name" disabled>
+                       
+                        <input id="acc_copy_rm" name="acc_copy_rm" type="button" class="btn-file_remove blind">
+                        <input id="acc_copy" name="acc_copy" type="file" class="btn-file blind">
+                        <label for="acc_copy">첨부하기</label>
+                    </div>
+                    <div class="form-row">
+                        <span class="file-label"><em class="notice">(필수)</em> 본인 프로필 사진</span>
+                        <input class="file-name" disabled>
+
+                        <input id="profile_rm" name="profile_rm" type="button" class="btn-file_remove blind ">
+                        <input id="profile" name="profile" type="file" class="btn-file blind">
+                        <label for="profile">첨부하기</label>
+                    </div>
+                    <div class="form-row">
+                        <span class="file-label"><em class="notice">(필수)</em> 자동차 등록증</span>
+                        <input class="file-name" disabled>
+
+                        <input id="car_rgit_rm" name="car_rgit_rm" type="button" class="btn-file_remove blind">
+                        <input id="car_rgit" name="car_rgit" type="file" class="btn-file blind">
+                        <label for="car_rgit">첨부하기</label>
+                    </div>
+                    <div class="form-row">
+                        <span class="file-label"><em class="notice">(필수)</em> 보험증권</span>
+                        <input class="file-name" disabled>
+
+                        <input id="insur_policy_rm" name="insur_policy_rm" type="button" class="btn-file_remove blind">
+                        <input id="insur_policy" name="insur_policy" type="file" class="btn-file blind">
+                        <label for="insur_policy">첨부하기</label>
+                    </div>
+                    <div class="form-row">
+                        <span class="file-label">가족관계증명서</span>
+                        <input class="ncsry_non file-name" disabled>
+
+                        <input id="family_rc_rm" name="family_rc_rm" type="button" class="btn-file_remove blind">
+                        <input id="family_rc" name="family_rc" type="file" class="btn-file blind">
+                        <label for="family_rc">첨부하기</label>
+                    </div>
+                </li>
+                <!-- //conn-inpt -->
+            </ul>
+        </div>
+        <!-- //conn_form -->
+    </section>
+    <section class="conn-btn">
+        <ul class="btn-box">
+            <li><input type="submit" class="button-primary-line btn-save-temp" value="임시저장"></li>
+            <li><input type="submit" class="button-primary btn-next" value="다음"></li>
+        </ul>
+    </section>
+</div>
+<!-- //contents -->
+
+<!-- footer -->
+<footer>
+    <div class="contact">
+        <span>상담시간</span>
+        <span>09:00~18:00 | 점심시간 12:00~13:00 | 주말, 공휴일 휴무</span>
+    </div>
+    <div class="company-info">
+        <span>서울특별시 송파구 올림픽로35다길 42, 한국루터회관 16층</span>
+        <span>대표이사 윤현준 | 사업자등록번호 417-87-00193</span>
+        <span>(주)우아한청년들</span>
+    </div>
+</footer>
+<!-- //footer -->
+
+</body>
+
+</html>
