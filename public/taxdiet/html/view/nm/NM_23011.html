@@ -1,0 +1,625 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+
+<title>택스다이어트: NM_23011(부가세환급지원)</title>
+<link rel="stylesheet" type="text/css" href="/css/mobile/default.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery.fancybox-1.3.1.css">
+
+<script src="/js/mobile/libs/jquery-1.11.1.min.js"></script>
+<script src="/js/mobile/libs/jquery-ui.min.js"></script>
+<script src="/js/mobile/libs/jquery.easing.1.3.js"></script>
+<script src="/js/mobile/libs/jquery-ui.js"></script> <!-- dskim -->
+<script src="/js/mobile/libs/jquery.mask.min.js"></script>
+<script src="/js/mobile/libs/daterange.js"></script>
+
+<script src="/js/mobile/libs/jquery.validate-1.8.1.min.js"></script>
+<script src="/js/mobile/niceNmCommon.js"></script>
+<script src="/js/mobile/common-util.js"></script>
+
+<!-- layerpopup -->
+<script src="/js/mobile/libs/jquery.fancybox.min.js"></script>
+
+<!-- placeholder fix -->
+<script src="/js/mobile/libs/jquery.placeholder.js"></script>
+
+<script src="/js/mobile/libs/jquery.history.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+<script type="text/javascript">
+
+$(function(){
+	
+	$(".btn_joinMember").click(function(){
+			
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A2D594B41200D152A3E062545033D5E220C" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+	
+});
+
+</script>
+<script type="text/javascript" src="/js/mobile/libs/jquery.cookie.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("select.option_limit4").each(function(){
+		$(this).find("option").eq(4).remove();
+	})
+
+	$("select.option_limit3").each(function(){
+		$(this).find("option").eq(4).remove();
+		$(this).find("option").eq(3).remove();
+	})
+	
+	//의제매입 사용여부에 따른 부가세대상조회조건 select박스 설정
+	var userDeemPrcsTarYn = 'N';	// 의제메입 사용여부
+
+	//의제매입인경우의 화면컨트롤
+	if (userDeemPrcsTarYn == "N") {
+		$('.vatTarSetVluCode option:eq(4)').remove();
+		$('.deemAmt').hide();
+	}
+	else {
+		$('.deemAmt').show();
+	}
+
+	$("#srchBtn").click(function() {
+		$("#vatTarSetVluNmCode").val("");
+
+		movePage(1);
+
+		return false;
+	});
+
+	// 부가세 대상여부 지정
+	$('.selectVatTarSetVlu').change(function() {
+		var $this_tr		 = $(this).closest('tr');
+		var bef_vatTarSetVlu = $this_tr.find('.bef_vatTarSetVlu').val();			
+		var h_vatTarSetVlu	 = $this_tr.find('.selectVatTarSetVlu').val();		
+		var h_prcs_dttm		 = $this_tr.find('.h_prcs_dttm').val();				
+		var h_prcs_srno		 = $this_tr.find('.h_prcs_srno').val();				
+		var h_use_amt		 = $this_tr.find('.h_use_amt').val();				
+		var h_service_charge = $this_tr.find('.h_service_charge').val();			
+    	var h_prsn_corp_cls  = $this_tr.find('.h_prsn_corp_cls').val();
+    	var h_appr_no 		 = $this_tr.find('.h_appr_no').val();
+    	var h_card_comp_cls  = $this_tr.find('.h_card_comp_cls').val();    	
+		var rpstIndsCode	 = $this_tr.find('.rpst_inds_code').val();			
+		var pgYn			 = $this_tr.find('.pgYn').val();						
+		var carYn			 = $this_tr.find('.carYn').val();					
+    	var rpstIndsCode 	 = $this_tr.find('.rpst_inds_code').val();
+    	var bef_vatTarSetVlu = $this_tr.find('.bef_vatTarSetVlu').val();
+
+    	/*
+		console.log("$this_tr : " + $this_tr);
+		console.log("bef_vatTarSetVlu : " + bef_vatTarSetVlu);
+		console.log("h_vatTarSetVlu : " + h_vatTarSetVlu);
+		console.log("h_prcs_dttm : " + h_prcs_dttm);
+		console.log("h_prcs_srno : " + h_prcs_srno);
+		console.log("h_use_amt : " + h_use_amt);
+		console.log("h_service_charge : " + h_service_charge);
+		console.log("h_prsn_corp_cls : " + h_prsn_corp_cls);
+		console.log("h_appr_no : " + h_appr_no);
+		console.log("h_card_comp_cls : " + h_card_comp_cls);
+		*/
+
+		$('#h_vatTarSetVlu').val(h_vatTarSetVlu);			
+		$('#h_prcsDttm').val(h_prcs_dttm);					
+		$('#h_prcsSrno').val(h_prcs_srno);					
+		$('#h_useAmt').val(h_use_amt);						
+		$('#h_serviceCharge').val(h_service_charge);		
+		$('#h_prsnCorpCls').val(h_prsn_corp_cls);
+		$('#h_appr_no').val(h_appr_no);
+		$('#h_card_comp_cls').val(h_card_comp_cls);
+
+		if(bef_vatTarSetVlu == '002' && h_vatTarSetVlu == '001'){
+			if (!confirm("				 부가세대상여부를 변경하시겠습니까?\n[승차권,항공권,입장권,유흥주점,골프연습장,보험료,금융거래수수료,\n  이미용,목욕 등 사용분은 매입세액이 불공제 됩니다.]")){
+				$this_tr.find('.selectVatTarSetVlu').val(bef_vatTarSetVlu);
+				return false;
+			}
+		}
+		else if(carYn == 'Y' && (bef_vatTarSetVlu == '002' || bef_vatTarSetVlu == '003') && h_vatTarSetVlu == '001') {
+			if (!confirm("						   부가세대상여부를 변경하시겠습니까?\n[개별소비세(舊, 특별소비세)가 부과되는 차량 관련 사용분은 매입세액이 불공제 됩니다.]")){
+				$this_tr.find('.selectVatTarSetVlu').val(bef_vatTarSetVlu);
+				return false;
+			}
+		}
+		else if(h_vatTarSetVlu == '004') {
+			if (!confirm("당해 거래가 농,축,수,임산물이 맞습니까?")) {
+				h_vatTarSetVlu = '002';   
+				$('#h_vatTarSetVlu').val(h_vatTarSetVlu);
+			}
+			else {
+				if(pgYn == 'Y' && (bef_vatTarSetVlu == '002' || bef_vatTarSetVlu == '003'|| bef_vatTarSetVlu == '004') && (h_vatTarSetVlu == '001' ||h_vatTarSetVlu == '004')) {
+					// 실거래처 입력팝업 호출
+					f_cust_reg_pop();
+
+					$this_tr.find('.selectVatTarSetVlu').val(bef_vatTarSetVlu);
+					return false;
+				}
+			}
+		}
+		else {			
+			if (!confirm("부가세대상여부를 변경하시겠습니까?")) {
+				$this_tr.find('.selectVatTarSetVlu').val(bef_vatTarSetVlu);	
+				return false;
+			}
+		}
+
+		
+		if((h_vatTarSetVlu == '001' || h_vatTarSetVlu == '004') && (rpstIndsCode == '006' || rpstIndsCode == '057')){
+			// 실거래처 입력팝업 호출
+			f_cust_reg_pop();
+
+			$this_tr.find('.selectVatTarSetVlu').val(bef_vatTarSetVlu);
+
+			return false;
+		}
+
+		f_post_submit("../nm/NM_23011_UP1.html", "7F4250422D0233081B17263B40013B");
+
+		return false;
+	});
+
+	// 상호명클릭시
+	$(".data_detail_popup").click(function() {
+	   	var $this_tr = $(this).closest('tr');
+	   	var prcs_srno = $this_tr.find(".h_prcs_srno").val();
+	   	var prcs_dttm = $this_tr.find(".h_prcs_dttm").val();
+
+	   	$("#prcs_srno").val(prcs_srno);
+	   	$("#prcs_dttm").val(prcs_dttm);
+
+	   	f_form_submit('../nm/NM_23012.html', "7F4250422D0233081B17263B40013B");
+	});
+
+	// 자료전송
+	$("#dataSend").click(function() {
+		var param = "";
+
+		param += "../nm/NM_23021.html";
+		param += "?searchGbn=" + $("input[name='searchGbn']:checked").val();
+		param += "&srchInsDtFrom=" + $("#calendar01").val();
+		param += "&srchInsDtTo=" + $("#calendar02").val();
+		param += "&searchYear=" + $("#search_year").val();
+		param += "&searchMonth=" + $("#search_month").val();
+		param += "&qurtSearchYear=" + $("#qurt_search_year").val();
+		param += "&qurtSearchMonth=" + $("#qurt_search_month").val();
+
+		fancybox_open_height(param, "460px", "7F4250422D0233081B17263B40013B");
+
+		return false;
+	});
+
+	// 환급금액 변동시
+	if (""!="") {
+		$("#comment_amt").html("");
+		$(".comment").show();
+	}
+	
+});
+
+function f_call_result(result) {
+	if (result.status) {
+		// 변경되었습니다.
+		alert("변경되었습니다.");
+		movePage($("#current_page").val());
+	}
+	else {
+		// 변경에 실패하였습니다.
+		alert("변경에 실패 하였습니다.");
+	}
+}
+
+$(window).load(function(){
+	$("input:radio[name=searchGbn]:checked").change();
+});
+
+function f_target(vatTarSetVluNmCode) {
+	$("#vatTarSetVluNmCode").val(vatTarSetVluNmCode);
+
+	movePage(1);
+}
+
+//실거래처등록
+function f_cust_reg_pop() {
+	var param = "";
+
+	param += "../nm/NM_23031.html";
+	param += "?prcsYmd=" + $("#h_prcsDttm").val();
+	param += "&prcsSrno=" + $("#h_prcsSrno").val();
+	param += "&h_vatTarSetVlu=" + $("#h_vatTarSetVlu").val();
+	param += "&h_prcsDttm=" + $("#h_prcsDttm").val();
+	param += "&h_prcsSrno=" + $("#h_prcsSrno").val();
+	param += "&h_useAmt=" + $("#h_useAmt").val();
+	param += "&h_serviceCharge=" + $("#h_serviceCharge").val();
+	param += "&h_prsnCorpCls=" + $("#h_prsnCorpCls").val();
+	param += "&h_appr_no=" + $("#h_appr_no").val();
+	param += "&search_type=1"
+	;
+
+	fancybox_open_height(param, "600px", "7F4250422D0233081B17263B40013B");
+}
+
+
+function movePage(page){
+	$("#current_page").val(page);
+	$("#form").attr("target", "_self");
+
+	f_form_submit("../nm/NM_23011.html", "7F4250422D0233081B17263B40013B");
+}
+
+function f_reload() {
+	movePage($("#current_page").val());
+}
+</script>
+</head>
+<body>
+<form name="form" id="form" method="post">
+	<input type="hidden" id="current_page" name="current_page" value="" />
+	<input type="hidden" id="vatTarSetVluNmCode" name="vatTarSetVluNmCode" value="" />
+	<input type="hidden" id="h_vatTarSetVlu" name="h_vatTarSetVlu" />
+	<input type="hidden" id="h_prcsDttm" name="h_prcsDttm" />
+	<input type="hidden" id="h_prcsSrno" name="h_prcsSrno" />
+	<input type="hidden" id="h_useAmt" name="h_useAmt" />
+	<input type="hidden" id="h_serviceCharge" name="h_serviceCharge" />
+	<input type="hidden" id="prcs_dttm" name="prcsDttm" />
+	<input type="hidden" id="prcs_srno" name="prcsSrno" />
+	<input type="hidden" id="h_prsnCorpCls" name="h_prsnCorpCls" />
+	<input type="hidden" id="h_appr_no" name="h_appr_no" />
+	<input type="hidden" id="h_card_comp_cls" name="h_card_comp_cls" />
+	<input type="hidden" name="srchInsDtFrom" value="20200101" />
+	<input type="hidden" name="srchInsDtTo" value="20200427" />
+	<div class="wrap">
+		<div class="header header--white">
+			<div class="header__logo">
+				<a href="javascript:f_go_home();"><img src="/images/mobile/common/main_logo.png" alt="택스다이어트"></a>
+			</div>
+			<script type="text/javascript">
+$(document).ready(function(){
+	$("#tax_bill").click(function() {
+		window.open("http://www.nicedata.co.kr/ti/TI_10000.html");
+		return false;
+	});
+	
+	$("#check_biz").click(function() {
+		window.open("http://www.nicedata.co.kr/as/AS_30401.html");
+		return false;
+	});
+	
+	$("#sgic").click(function() {
+		window.open("http://www.nicedata.co.kr/as/AS_40601.html");
+		return false;
+	});
+});
+</script>
+<div class="header__gnb">
+	<input type="checkbox" class="gnb__btn" id="gnb__btn">
+	<label for="gnb__btn" class="gnb__btn__action">
+		<div class="spinner diagonal part-1"></div>
+		<div class="spinner horizontal"></div>
+		<div class="spinner diagonal part-2"></div>
+	</label>
+	<div class="gnb__contents">
+		<div class="gnb__contents__header">
+			<a href="../nm/NM_27011.html"><p class="login-info">나이스디앤알(주)</p></a>
+					</div>
+		<ul class="gnb__contents__menu">
+			<li>
+				<a href="../nm/NM_23011.html">
+					<i class="icon-set1"></i>부가세 환급지원
+				</a>
+			</li>
+			<li>
+				<a href="../nm/NM_29011.html">
+					<i class="icon-set2"></i>셀프택스 자가신고
+				</a>
+			</li>
+			<li>
+				<a href="../nm/NM_25011.html">
+					<i class="icon-set3"></i>세무상담
+				</a>
+			</li>
+			<li>
+				<a href="../nm/NM_30011.html">
+					<i class="icon-set5"></i>상권분석
+				</a>
+			</li>
+		</ul>
+		<div class="gnb__contents__service">
+			<div class="gnb__contents__service--top">
+				<p class="call_tit">
+					<i></i>고객만족센터
+				</p>
+				<div class="call_btn">
+					<a href="tel:1588-5659">통화하기</a>
+				</div>
+			</div>
+			<div class="gnb__contents__service--bottom">
+				<p class="service-number">1588-5659</p>
+				<p class="service-time">
+					상담시간: 09:00~18:00(금요일 17:00까지)<br/>
+					점심시간: 12:00~13:00<br />
+					주말, 공휴일 휴무<br />
+				</p>
+			</div>
+		</div>
+		<div class="gnb__contents__qiuck">
+			<ul>
+				<li>
+					<a href="#none" id="tax_bill">
+						<img src="/images/mobile/common/quick_icon_1.png" alt="전자세금계산서"/>
+						전자세금<br/>계산서
+					</a>
+				</li>
+				<li>
+					<a href="#none" id="check_biz">
+						<img src="/images/mobile/common/quick_icon_2.png" alt="휴폐업조회"/>
+						휴폐업<br/>조회
+					</a>
+				</li>
+				<li>
+					<a href="#none" id="sgic">
+						<img src="/images/mobile/common/quick_icon_3.png" alt="서울보증보험안내"/>
+						서울보증보험<br/>안내
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="header__hidden-bg"></div>
+</div>
+		<div class="container">
+			<div class="dashboard-top">
+				<div class="dashboard__search">
+					<div class="dashboard__search__check">
+						<ul>
+							<li>
+								<input type="radio" id="search_radio_0" name="searchGbn" value="day" checked="checked" class="type1">
+								<label for="search_radio_0">
+									<span></span>일자별
+								</label>
+							</li>
+							<li>
+								<input type="radio" id="search_radio_1" name="searchGbn" value="month"  class="type1">
+								<label for="search_radio_1">
+									<span></span>월별
+								</label>
+							</li>
+							<li>
+								<input type="radio" id="search_radio_2" name="searchGbn" value="quarter"  class="type1">
+								<label for="search_radio_2">
+									<span></span>분기별
+								</label>
+							</li>
+						</ul>
+					</div>
+					<div class="dashboard__search__type">
+						<div class="type__con change-day" style="display:none;">
+							<div class="type__con--day">
+								<div class="input--day">
+									<input type="text" id="calendar01" name="inqStrtDt" value="2020-01-01" readonly="readonly" >
+								</div>
+								<div class="txt--day">~</div>
+								<div class="input--day">
+									<input type="text" id="calendar02" name="inqEndDt" value="2020-04-27" readonly="readonly" >
+								</div>
+							</div>
+						</div>
+						<div class="type__con change-month" style="display:none;">
+							<div class="type__con--month">
+								<div class="input--month">
+									<select id="search_year" name="searchYear" >
+							            <option value="2020">2020</option>
+										<option value="2019">2019</option>
+										<option value="2018">2018</option>
+										<option value="2017">2017</option>
+										<option value="2016">2016</option>
+										<option value="2015">2015</option>
+										<option value="2014">2014</option>
+										<option value="2013">2013</option>
+										<option value="2012">2012</option>
+										<option value="2011">2011</option>
+										<option value="2010">2010</option>
+										</select>
+								</div>
+								<div class="txt--month middle">년</div>
+								<div class="input--month">
+									<select id="search_month" name="searchMonth">
+										<option value="0">1</option>
+										<option value="1">2</option>
+										<option value="2">3</option>
+										<option value="3">4</option>
+										<option value="4">5</option>
+										<option value="5">6</option>
+										<option value="6">7</option>
+										<option value="7">8</option>
+										<option value="8">9</option>
+										<option value="9">10</option>
+										<option value="10">11</option>
+										<option value="11">12</option>
+										</select>
+								</div>
+								<div class="txt--month">월</div>
+							</div>
+						</div>
+						<div class="type__con change-quarter" style="display:none;">
+							<div class="type__con--day">
+								<div class="input--day">
+									<select id="qurt_search_year" name="qurtSearchYear">
+							            <option value="2020" selected="selected">2020</option>
+										<option value="2019">2019</option>
+										<option value="2018">2018</option>
+										<option value="2017">2017</option>
+										<option value="2016">2016</option>
+										<option value="2015">2015</option>
+										<option value="2014">2014</option>
+										<option value="2013">2013</option>
+										<option value="2012">2012</option>
+										<option value="2011">2011</option>
+										<option value="2010">2010</option>
+										</select>
+								</div>
+								<div class="txt--day">년</div>
+								<div class="input--day">
+									<select id="qurt_search_month" name="qurtSearchMonth">
+										<option value="01010331"  selected="selected"  />1기예정</option>
+										<option value="04010630"  />1기확정</option>
+										<option value="01010630"  />1기(예정+확정)</option>
+										<option value="07010930"  />2기예정</option>
+										<option value="10011231"  />2기확정</option>
+										<option value="07011231"  />2기(예정+확정)</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="dashboard__search__submit">
+						<button id="srchBtn">조회</button>
+					</div>
+				</div>
+				<div class="dashboard__expected-results">
+					<p class="tit">
+						예상환급액<strong>0원</strong>
+					</p>
+					<p class="comment" style="display:none;">
+						<span>환급대상 변경으로 예상액이</span>
+					</p>
+					<p class="comment" id="comment_amt" style="display:none;">
+						3,400원 증가하였습니다.
+					</p>
+				</div>
+				<div class="dashboard__results-data">
+					<div class="results-data__table">
+						<table>
+							<col style="width: 33.4%;">
+							<col style="width: 33.3%;">
+							<col style="width: 33.3%;">
+							<tbody>
+							<tr>
+									<th><a href="javascript:f_target('001');" class="positive">대상<i></i></a></th>
+									<td>0건</td>
+									<td>0원</td>
+								</tr>
+							<tr>
+									<th><a href="javascript:f_target('002');" class="negative">비대상<i></i></a></th>
+									<td>0건</td>
+									<td>0원</td>
+								</tr>
+								<tr>
+									<th><a href="javascript:f_target('003');" class="undefine">미분류<i></i></a></th>
+									<td>0건</td>
+									<td>0원</td>
+								</tr>
+								<tr class="deemAmt" style="display:none">
+									<th><a href="javascript:f_target('004');" class="negative">의제<i></i></a></th>
+									<td>0건</td>
+									<td>0원</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<p class="results-data__comment">※부가세 대상여부 판단을 위해 비대상, 미분류 건을  확인 해 주세요</p>
+				</div>
+			</div>
+			<div class="dashboard-bottom">
+				<div class="dashboard-info">
+					<div class="dashboard-info__tit">
+						<p class="tit">상세내역</p>
+						<p class="tit--filter">전체</p>
+						<div class="tit--btn">
+							<button class="check-btn check-btn--right-space" id="dataSend">자료전송</button>
+						</div>
+					</div>
+					<div class="dashboard-info__table">
+						<table>
+							<col style="width: *;">
+							<col style="width: 27%;">
+							<col style="width: 18%;">
+							<tbody>
+							<tr>
+									<td colspan="3" style="text-align:center;">조회된 결과가 없습니다.</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					</div>
+			</div>
+		</div>
+		<div class="footer">
+			<script src="/js/mobile/common.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	// 이용약관
+	$(".NM_22012_001").click(function() {
+		fancybox_open("../nm/NM_22012.do?termCode=001", null, false);
+		return false;
+	});
+
+	// 개인정보처리방침
+	$(".NM_22012_002").click(function() {
+		fancybox_open("../nm/NM_22012.do?termCode=002", null, false);
+		return false;
+	});
+
+	// PC버전
+	$(".PC").click(function() {
+		location.href = "https://t-renewal.taxdiet.co.kr/cm/main.html";
+		return false;
+	});
+});
+</script>
+
+<ul class="footer__terms">
+	<li>
+		<a href="javascript:;" class="NM_22012_001">이용약관</a>
+	</li>
+	<li>
+		<a href="javascript:;" class="NM_22012_002">개인정보처리방침</a>
+	</li>
+	<li>
+		<a href="javascript:;" class="PC">PC버전</a>
+	</li>
+</ul>
+<p class="footer__copyright">Ⓒ NICE D&R Ltd.</p>
+
+<!--
+ <div class="terms-wrap HeightAuto use-terms">
+	<iframe src="" id="terms" name="terms" frameborder="0"></iframe>
+</div>
+ -->
+<!-- 택스다이어트 모바일 전용 구글 애널리틱스 (PC용은 별도로 있음) -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-36649342-22"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-36649342-22');
+</script></div>
+		<div class="top-btn" style="display:none;">
+			<span>맨위로</span>
+		</div>
+	</div>
+</form>
+</body>
+</html>
+

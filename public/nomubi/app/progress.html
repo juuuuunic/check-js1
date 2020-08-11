@@ -1,0 +1,97 @@
+<!DOCTYPE html
+    PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+
+<head>
+    <title> nomu </title>
+    <meta http-equiv='Content-Type' content='text/html; charset=euc-kr'>
+
+    <link rel='stylesheet' href=../app/css/common.css type='text/css' />
+    <link rel='stylesheet' href=../app/css/layout.css type='text/css' />
+    <link rel='stylesheet' href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css
+        type='text/css' />
+
+
+    <script language='javascript' charset='euc-kr' src=../app/js/lib/jquery-1.11.1.min.js> </script>
+    <script language='javascript' charset='euc-kr' src=../app/js/common.js> </script>
+    <script language='javascript' charset='euc-kr' src=../app/js/nomua.js> </script>
+    <meta name="viewport"
+        content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+
+</head>
+
+<body>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () { setProgress(); });
+        window.addEventListener('DOMContentLoaded', function () { rmProgress(); });
+
+        // progress
+        function setProgress() {
+            $(".progress_wrap").css({ "opacity": "0.5", "display": "block" });
+        }
+
+        function rmProgress() {
+            //$(".progress_wrap").css({"opacity":"0","display":"none"});
+        }
+
+    </script>
+    <div class="progress_wrap">
+        <ul class="progress">
+            <li class="progress-bar1 progress-bar"><span></span></li>
+            <li class="progress-bar2 progress-bar"><span></span></li>
+            <li class="progress-bar3 progress-bar"><span></span></li>
+            <li class="progress-bar4 progress-bar"><span></span></li>
+            <li class="progress-bar5 progress-bar"><span></span></li>
+            <li class="progress-bar6 progress-bar"><span></span></li>
+            <li class="progress-bar7 progress-bar"><span></span></li>
+            <li class="progress-bar8 progress-bar"><span></span></li>
+            <li class="progress-bar9 progress-bar"><span></span></li>
+            <li class="progress-bar10 progress-bar"><span></span></li>
+            <li class="progress-bar11 progress-bar"><span></span></li>
+            <li class="progress-bar12 progress-bar"><span></span></li>
+        </ul>
+    </div>
+
+    <div id="content" class="HeightAuto"></div>
+    <nav>
+        <ul class="clearfix">
+            <li><a href="../app/napp3100.do" target="_self">
+                    <div class="img_box">
+                        <img src="../app/images/common/nav_ico01_dim.png" class="img" alt="내역서관리" />
+                    </div>
+                    내역서관리
+                </a></li>
+            <li><a href="../app/napp3200.do" target="_self">
+                    <div class="img_box">
+                        <img src="../app/images/common/nav_ico02_dim.png" class="img" alt="미지급관리" />
+                    </div>
+                    미지급관리
+                </a></li>
+            <li><a href="../app/napp3300.do" target="_self">
+                    <div class="img_box">
+                        <img src="../app/images/common/nav_ico03_dim.png" class="img" alt="알림조회" />
+                        <div class="tooltip">10</div>
+                    </div>
+                    알림조회
+                </a></li>
+            <li><a href="../app/napp1100.do" target="_self">
+                    <div class="img_box">
+                        <img src="../app/images/common/nav_ico04_sel.png" class="img" alt="공지사항" />
+                    </div>
+                    공지사항
+
+                </a></li>
+            <li><a href="../app/napp3900.do" target="_self">
+                    <div class="img_box">
+                        <img src="../app/images/common/nav_ico05_dim.png" class="img" alt="더보기" />
+                    </div>
+                    더보기
+                </a></li>
+        </ul>
+    </nav>
+
+</body>
+
+</html>

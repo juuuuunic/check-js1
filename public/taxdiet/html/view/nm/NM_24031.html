@@ -1,0 +1,696 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+
+<title>택스다이어트: NM_24031(마이페이지>세무정보관리)</title>
+<link rel="stylesheet" type="text/css" href="/css/mobile/default.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery.fancybox-1.3.1.css">
+
+<script src="/js/mobile/libs/jquery-1.11.1.min.js"></script>
+<script src="/js/mobile/libs/jquery-ui.min.js"></script>
+<script src="/js/mobile/libs/jquery.easing.1.3.js"></script>
+<script src="/js/mobile/libs/jquery-ui.js"></script> <!-- dskim -->
+<script src="/js/mobile/libs/jquery.mask.min.js"></script>
+<script src="/js/mobile/libs/daterange.js"></script>
+
+<script src="/js/mobile/libs/jquery.validate-1.8.1.min.js"></script>
+<script src="/js/mobile/niceNmCommon.js"></script>
+<script src="/js/mobile/common-util.js"></script>
+
+<!-- layerpopup -->
+<script src="/js/mobile/libs/jquery.fancybox.min.js"></script>
+
+<!-- placeholder fix -->
+<script src="/js/mobile/libs/jquery.placeholder.js"></script>
+
+<script src="/js/mobile/libs/jquery.history.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+<script type="text/javascript">
+
+$(function(){
+	
+	$(".btn_joinMember").click(function(){
+			
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A2D594B41200D152A3E062545033D5E220C" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+	
+});
+
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var current_offset = "";	
+
+	if (current_offset != "") {
+		$( 'html, body' ).animate( { scrollTop : current_offset }, 1);
+	}
+
+	// 차량공제 설정정보 저장
+	$(".saveBtn1").click(function() {
+		var message = "차량공제 설정정보를 저장하시겠습니까?";		
+
+		if(confirm(message)) {
+        	f_post_submit("../nm/NM_24031_UP1.html", "7F4250422D02330857170A3B40013B", "f_call_result1");
+		}
+
+  		return false;
+	});
+
+	// 통신공제 설정정보를 저장
+	$(".saveBtn2").click(function() {
+		var message = "통신공제 설정정보를 저장하시겠습니까?";		
+
+		if (confirm(message)) {
+        	f_post_submit("../nm/NM_24031_UP2.html", "7F4250422D02330857170A3B40013B", "f_call_result2");
+		}
+
+  		return false;
+	});
+
+	// 카드사용자 설정정보 저장
+	$(".saveBtn3").click(function() {
+		var message = "카드사용자 설정정보를 저장하시겠습니까?";		
+
+		if (confirm(message)) {
+        	f_post_submit("../nm/NM_24031_UP3.html", "7F4250422D02330857170A3B40013B", "f_call_result3");
+		}
+
+  		return false;
+	});
+
+	// 의제매입 설정 저장
+	$(".saveBtn4").click(function() {
+		var message = "";
+
+        if($("#hDeemPrcsTarYn").is(":checked")) {
+        	message = "의제매입을 사용 하시겠습니까?";
+        	$('#deemPrcsTarYn').val("Y");
+        }
+        else {
+        	message = "의제매입을 사용해제 하시겠습니까?";
+        	$('#deemPrcsTarYn').val("N");
+        }
+
+        if(confirm(message)) {
+        	f_post_submit("../nm/NM_24031_UP4.html", "7F4250422D02330857170A3B40013B", "f_call_result4");
+		}
+
+  		return false;
+	});
+
+	// 차종별 공제 가능여부 확인
+	$(".NM_24032").click(function() {
+		fancybox_open("../nm/NM_24032.html", "7F4250422D02330857170A3B40013B");
+
+		return false;
+	});
+
+	// 통신업체별 홈페이지/연락처 확인
+	$(".NM_24033").click(function() {
+		fancybox_open_height("../nm/NM_24033.html", "270px", "7F4250422D02330857170A3B40013B");
+
+		return false;
+	});
+});
+
+function f_call_result1(result) {
+	if (result.status) {
+		// {0} 저장 되었습니다.
+		alert("차량공제 설정정보가 저장되었습니다.");
+		movePage($("#current_page1").val());
+	}
+	else if (result.status_msg != "") {
+		alert(result.status_msg);
+	}
+	else {
+		// {0} 저장에 실패 하였습니다.
+		alert("차량공제 설정정보 저장에 실패 하였습니다.");
+	}
+}
+
+function f_call_result2(result) {
+	if (result.status) {
+		// {0} 저장 되었습니다.
+		alert("통신공제 설정정보가 저장되었습니다.");
+	}
+	else {
+		// {0} 저장에 실패 하였습니다.
+		alert("통신공제 설정정보 저장에 실패 하였습니다.");
+	}
+}
+
+function f_call_result3(result) {
+	if (result.status) {
+		// {0} 저장 되었습니다.
+		alert("카드사용자 설정정보가 저장되었습니다.");
+		movePage2($("#current_page2").val());
+	}
+	else if (result.status_msg != "") {
+		alert(result.status_msg);
+	}
+	else {
+		// {0} 저장에 실패 하였습니다.
+		alert("카드사용자 설정정보 저장에 실패 하였습니다.");
+	}
+}
+
+function f_call_result4(result) {
+	if (result.status) {
+		// {0} 저장 되었습니다.
+		alert("의제매입 설정정보가 저장되었습니다.");
+	}
+	else {
+		// {0} 저장에 실패 하였습니다.
+		alert("의제매입 설정정보 저장에 실패 하였습니다.");
+	}
+}
+
+
+function movePage(page){
+	$("#current_offset").val(0);
+	$("#current_page1").val(page);
+
+	f_form_submit("../nm/NM_24031.html", "7F4250422D02330857170A3B40013B");
+}
+
+function movePage2(page){
+	var offset = $("#save3").offset();
+
+	$("#current_offset").val(offset.top - 55);
+	$("#current_page2").val(page);
+
+	f_form_submit("../nm/NM_24031.html", "7F4250422D02330857170A3B40013B");
+}
+</script>
+</head>
+<body>
+<form id="form" name="form" method="post">
+	<input type="hidden" id="current_page1" name="current_page1" value="1" />
+	<input type="hidden" id="current_page2" name="current_page2" value="1" />
+	<input type="hidden" id="current_offset" name="current_offset" />
+	<input type="hidden" id="deemPrcsTarYn" name="deemPrcsTarYn" />
+	<div class="wrap">
+		<div class="header header--white">
+			<div class="header__back">
+				<a href="javascript:f_go_mypage();">뒤로가기</a>
+			</div>
+			<div class="header__logo">
+				<p>세무정보 관리</p>
+			</div>
+		</div>
+		<div class="container">
+			<div class="inner-container mypage-con">
+				<div class="tax-info">
+					<div id="save1" class="tax-info__tit">
+						<p>차량공제 설정</p>
+						<button class="saveBtn1">저장</button>
+					</div>
+					<div class="tax-info__con">
+						<div class="tax-info__help">
+							<a href="javascript:;" class="NM_24032">
+								<i class="help-ico ico1"></i>차종별 공제 가능여부 확인<i class="help-ico ico2"></i>
+							</a>
+						</div>
+						<div class="tax-info__table">
+							<div class="table-type1 table-type1--tight2">
+								<table>
+									<col style="width: 23%">
+									<col style="width: 36%">
+									<col style="width: *">
+									<thead>
+										<tr>
+											<th>카드사</th>
+											<th>카드번호</th>
+											<th>차량공제유형 설정</th>
+										</tr>
+									</thead>
+									<tbody>
+									<tr>
+											<td>롯데카드</td>
+											<!-- td>4523-****-****-7486</td -->
+											<td>7486</td>
+											<td>
+												<select id="hChaCarDdctCls" name="hChaCarDdctCls">
+													<option value="">선택</option>
+													<option value="Y">대상</option>
+													<option value="N">비대상</option>
+													<option value="X" selected="selected">미분류</option>
+													</select>
+												<input type="hidden" name="hCardNo1" value="4523730000007486"/>
+												<input type="hidden" name="hChbCarDdctCls" value="X"/>
+											</td>
+										</tr>
+									<tr>
+											<td>롯데카드</td>
+											<!-- td>4523-****-****-7494</td -->
+											<td>7494</td>
+											<td>
+												<select id="hChaCarDdctCls" name="hChaCarDdctCls">
+													<option value="">선택</option>
+													<option value="Y">대상</option>
+													<option value="N">비대상</option>
+													<option value="X" selected="selected">미분류</option>
+													</select>
+												<input type="hidden" name="hCardNo1" value="4523730000007494"/>
+												<input type="hidden" name="hChbCarDdctCls" value="X"/>
+											</td>
+										</tr>
+									<tr>
+											<td>롯데카드</td>
+											<!-- td>4523-****-****-7429</td -->
+											<td>7429</td>
+											<td>
+												<select id="hChaCarDdctCls" name="hChaCarDdctCls">
+													<option value="">선택</option>
+													<option value="Y">대상</option>
+													<option value="N">비대상</option>
+													<option value="X" selected="selected">미분류</option>
+													</select>
+												<input type="hidden" name="hCardNo1" value="4523730000007429"/>
+												<input type="hidden" name="hChbCarDdctCls" value="X"/>
+											</td>
+										</tr>
+									<tr>
+											<td>롯데카드</td>
+											<!-- td>4523-****-****-7437</td -->
+											<td>7437</td>
+											<td>
+												<select id="hChaCarDdctCls" name="hChaCarDdctCls">
+													<option value="">선택</option>
+													<option value="Y">대상</option>
+													<option value="N">비대상</option>
+													<option value="X" selected="selected">미분류</option>
+													</select>
+												<input type="hidden" name="hCardNo1" value="4523730000007437"/>
+												<input type="hidden" name="hChbCarDdctCls" value="X"/>
+											</td>
+										</tr>
+									<tr>
+											<td>롯데카드</td>
+											<!-- td>4523-****-****-6843</td -->
+											<td>6843</td>
+											<td>
+												<select id="hChaCarDdctCls" name="hChaCarDdctCls">
+													<option value="">선택</option>
+													<option value="Y">대상</option>
+													<option value="N">비대상</option>
+													<option value="X" selected="selected">미분류</option>
+													</select>
+												<input type="hidden" name="hCardNo1" value="4523730000006843"/>
+												<input type="hidden" name="hChbCarDdctCls" value="X"/>
+											</td>
+										</tr>
+									<tr>
+											<td>롯데카드</td>
+											<!-- td>4523-****-****-6827</td -->
+											<td>6827</td>
+											<td>
+												<select id="hChaCarDdctCls" name="hChaCarDdctCls">
+													<option value="">선택</option>
+													<option value="Y">대상</option>
+													<option value="N">비대상</option>
+													<option value="X" selected="selected">미분류</option>
+													</select>
+												<input type="hidden" name="hCardNo1" value="4523730000006827"/>
+												<input type="hidden" name="hChbCarDdctCls" value="X"/>
+											</td>
+										</tr>
+									<tr>
+											<td>롯데카드</td>
+											<!-- td>4523-****-****-6835</td -->
+											<td>6835</td>
+											<td>
+												<select id="hChaCarDdctCls" name="hChaCarDdctCls">
+													<option value="">선택</option>
+													<option value="Y">대상</option>
+													<option value="N">비대상</option>
+													<option value="X" selected="selected">미분류</option>
+													</select>
+												<input type="hidden" name="hCardNo1" value="4523730000006835"/>
+												<input type="hidden" name="hChbCarDdctCls" value="X"/>
+											</td>
+										</tr>
+									<tr>
+											<td>롯데카드</td>
+											<!-- td>4523-****-****-6769</td -->
+											<td>6769</td>
+											<td>
+												<select id="hChaCarDdctCls" name="hChaCarDdctCls">
+													<option value="">선택</option>
+													<option value="Y">대상</option>
+													<option value="N">비대상</option>
+													<option value="X" selected="selected">미분류</option>
+													</select>
+												<input type="hidden" name="hCardNo1" value="4523730000006769"/>
+												<input type="hidden" name="hChbCarDdctCls" value="X"/>
+											</td>
+										</tr>
+									<tr>
+											<td>롯데카드</td>
+											<!-- td>4523-****-****-6751</td -->
+											<td>6751</td>
+											<td>
+												<select id="hChaCarDdctCls" name="hChaCarDdctCls">
+													<option value="">선택</option>
+													<option value="Y">대상</option>
+													<option value="N">비대상</option>
+													<option value="X" selected="selected">미분류</option>
+													</select>
+												<input type="hidden" name="hCardNo1" value="4523730000006751"/>
+												<input type="hidden" name="hChbCarDdctCls" value="X"/>
+											</td>
+										</tr>
+									<tr>
+											<td>롯데카드</td>
+											<!-- td>4523-****-****-6736</td -->
+											<td>6736</td>
+											<td>
+												<select id="hChaCarDdctCls" name="hChaCarDdctCls">
+													<option value="">선택</option>
+													<option value="Y">대상</option>
+													<option value="N">비대상</option>
+													<option value="X" selected="selected">미분류</option>
+													</select>
+												<input type="hidden" name="hCardNo1" value="4523730000006736"/>
+												<input type="hidden" name="hChbCarDdctCls" value="X"/>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div id="pageList" class="paginate"><ul><li class="paginate-arrow ico1"><a href="javascript:movePage('1');">처음</a></li><li class="paginate-arrow ico2"><a href="#">이전</a></li><li class="active"><a href="#">1</a></li><li><a href="javascript:movePage('2');">2</a></li><li><a href="javascript:movePage('3');">3</a></li><li><a href="javascript:movePage('4');">4</a></li><li><a href="javascript:movePage('5');">5</a></li><li class="paginate-arrow ico3"><a href="javascript:movePage('6');">다음</a></li><li class="paginate-arrow ico4"><a href="javascript:movePage('33');">마지막</a></li></ul></div></div>
+						<div class="tax-info__summury">
+							<p>
+								차량유지 관련항목(주유비, 수리비 등)에 대하여 부가세 환급을 <br>
+								받으시려면 카드별로 차량 공제유형을 설정 하셔야 합니다.
+							</p>
+						</div>
+					</div>
+
+					<div class="tax-info__tit">
+						<p>통신공제 설정</p>
+						<button class="saveBtn2">저장</button>
+					</div>
+					<div class="tax-info__con">
+						<div class="tax-info__help">
+							<a href="javascript:;" class="NM_24033">
+								<i class="help-ico ico1"></i>통신업체별 홈페이지/연락처 확인<i class="help-ico ico2"></i>
+							</a>
+						</div>
+						<div class="tax-info__communication">
+							<ul class="ax-info__communication__list">
+								<li>
+									<i class="ico1"></i>
+									<p>사업자 핸드폰</p>
+								</li>
+								<li>
+									<i class="ico2"></i>
+									<p>유선전화</p>
+								</li>
+								<li>
+									<i class="ico3"></i>
+									<p>인터넷</p>
+								</li>
+							</ul>
+							<ul class="tax-info__communication__check">
+								<li>
+									<input type="radio" id="communication-check1" name="vatTarSetVlu" value="002"  class="type2">
+									<label for="communication-check1">
+										<span></span>예
+									</label>
+								</li>
+								<li>
+									<input type="radio" id="communication-check2" name="vatTarSetVlu" value="001" checked class="type2">
+									<label for="communication-check2">
+										<span></span>아니오
+									</label>
+								</li>
+							</ul>
+						</div>
+						<div class="tax-info__summury">
+							<p>
+								이중 공제 방지를 위하여 통신업체에 사업자번호 등록을 <br>
+								완료  하신 후 ‘예’를 선택하시면 비대상으로 분류되어 
+								<br>제공됩니다.
+							</p>
+						</div>
+					</div>
+
+					<div id="save3" class="tax-info__tit">
+						<p>카드사용자 설정</p>
+						<button class="saveBtn3">저장</button>
+					</div>
+					<div class="tax-info__con">
+						<div class="tax-info__table">
+							<div class="table-type1 table-type1--tight2">
+								<table>
+									<col style="width: 25%">
+									<col style="width: 25%">
+									<col style="width: 25%">
+									<col style="width: 25%">
+									<thead>
+										<tr>
+											<th>카드사</th>
+											<th>카드번호</th>
+											<th>사용자</th>
+											<th>적요</th>
+										</tr>
+									</thead>
+									<tbody>
+									<tr>
+											<td>롯데카드</td>
+											<td>6843</td>
+											<td>
+												<input type="text" id="hChaRealUserName" name="hChaRealUserName" value="" size="12" />
+											</td>
+											<td>
+												<input type="text" id="hChaEpit" name="hChaEpit" value="" maxlength="30" />
+												<input type="hidden" name="hCardNo3" value="4523730000006843" />
+												<input type="hidden" name="hChbRealUserName" value="" />
+												<input type="hidden" name="hChbEpit" value="" />
+											</td>
+										</tr>
+									<tr>
+											<td>롯데카드</td>
+											<td>0705</td>
+											<td>
+												<input type="text" id="hChaRealUserName" name="hChaRealUserName" value="" size="12" />
+											</td>
+											<td>
+												<input type="text" id="hChaEpit" name="hChaEpit" value="" maxlength="30" />
+												<input type="hidden" name="hCardNo3" value="4523730000000705" />
+												<input type="hidden" name="hChbRealUserName" value="" />
+												<input type="hidden" name="hChbEpit" value="" />
+											</td>
+										</tr>
+									<tr>
+											<td>롯데카드</td>
+											<td>0945</td>
+											<td>
+												<input type="text" id="hChaRealUserName" name="hChaRealUserName" value="" size="12" />
+											</td>
+											<td>
+												<input type="text" id="hChaEpit" name="hChaEpit" value="" maxlength="30" />
+												<input type="hidden" name="hCardNo3" value="4523730000000945" />
+												<input type="hidden" name="hChbRealUserName" value="" />
+												<input type="hidden" name="hChbEpit" value="" />
+											</td>
+										</tr>
+									<tr>
+											<td>롯데카드</td>
+											<td>0242</td>
+											<td>
+												<input type="text" id="hChaRealUserName" name="hChaRealUserName" value="" size="12" />
+											</td>
+											<td>
+												<input type="text" id="hChaEpit" name="hChaEpit" value="" maxlength="30" />
+												<input type="hidden" name="hCardNo3" value="4523730000000242" />
+												<input type="hidden" name="hChbRealUserName" value="" />
+												<input type="hidden" name="hChbEpit" value="" />
+											</td>
+										</tr>
+									<tr>
+											<td>롯데카드</td>
+											<td>0812</td>
+											<td>
+												<input type="text" id="hChaRealUserName" name="hChaRealUserName" value="" size="12" />
+											</td>
+											<td>
+												<input type="text" id="hChaEpit" name="hChaEpit" value="" maxlength="30" />
+												<input type="hidden" name="hCardNo3" value="4523730000000812" />
+												<input type="hidden" name="hChbRealUserName" value="" />
+												<input type="hidden" name="hChbEpit" value="" />
+											</td>
+										</tr>
+									<tr>
+											<td>롯데카드</td>
+											<td>2578</td>
+											<td>
+												<input type="text" id="hChaRealUserName" name="hChaRealUserName" value="" size="12" />
+											</td>
+											<td>
+												<input type="text" id="hChaEpit" name="hChaEpit" value="" maxlength="30" />
+												<input type="hidden" name="hCardNo3" value="4523730000002578" />
+												<input type="hidden" name="hChbRealUserName" value="" />
+												<input type="hidden" name="hChbEpit" value="" />
+											</td>
+										</tr>
+									<tr>
+											<td>롯데카드</td>
+											<td>7494</td>
+											<td>
+												<input type="text" id="hChaRealUserName" name="hChaRealUserName" value="" size="12" />
+											</td>
+											<td>
+												<input type="text" id="hChaEpit" name="hChaEpit" value="" maxlength="30" />
+												<input type="hidden" name="hCardNo3" value="4523730000007494" />
+												<input type="hidden" name="hChbRealUserName" value="" />
+												<input type="hidden" name="hChbEpit" value="" />
+											</td>
+										</tr>
+									<tr>
+											<td>롯데카드</td>
+											<td>0457</td>
+											<td>
+												<input type="text" id="hChaRealUserName" name="hChaRealUserName" value="" size="12" />
+											</td>
+											<td>
+												<input type="text" id="hChaEpit" name="hChaEpit" value="" maxlength="30" />
+												<input type="hidden" name="hCardNo3" value="4523730000000457" />
+												<input type="hidden" name="hChbRealUserName" value="" />
+												<input type="hidden" name="hChbEpit" value="" />
+											</td>
+										</tr>
+									<tr>
+											<td>롯데카드</td>
+											<td>0895</td>
+											<td>
+												<input type="text" id="hChaRealUserName" name="hChaRealUserName" value="" size="12" />
+											</td>
+											<td>
+												<input type="text" id="hChaEpit" name="hChaEpit" value="" maxlength="30" />
+												<input type="hidden" name="hCardNo3" value="4523730000000895" />
+												<input type="hidden" name="hChbRealUserName" value="" />
+												<input type="hidden" name="hChbEpit" value="" />
+											</td>
+										</tr>
+									<tr>
+											<td>롯데카드</td>
+											<td>0739</td>
+											<td>
+												<input type="text" id="hChaRealUserName" name="hChaRealUserName" value="" size="12" />
+											</td>
+											<td>
+												<input type="text" id="hChaEpit" name="hChaEpit" value="" maxlength="30" />
+												<input type="hidden" name="hCardNo3" value="4523730000000739" />
+												<input type="hidden" name="hChbRealUserName" value="" />
+												<input type="hidden" name="hChbEpit" value="" />
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div id="pageList" class="paginate"><ul><li class="paginate-arrow ico1"><a href="javascript:movePage2('1');">처음</a></li><li class="paginate-arrow ico2"><a href="#">이전</a></li><li class="active"><a href="#">1</a></li><li><a href="javascript:movePage2('2');">2</a></li><li><a href="javascript:movePage2('3');">3</a></li><li><a href="javascript:movePage2('4');">4</a></li><li><a href="javascript:movePage2('5');">5</a></li><li class="paginate-arrow ico3"><a href="javascript:movePage2('6');">다음</a></li><li class="paginate-arrow ico4"><a href="javascript:movePage2('33');">마지막</a></li></ul></div></div>
+					</div>
+
+					<div class="tax-info__tit">
+						<p>의제매입 설정</p>
+						<button class="saveBtn4">저장</button>
+					</div>
+					<div class="tax-info__con">
+						<div class="tax-info__apply-check">
+							<p>의제매입세액공제 적용여부</p>
+							<div class="check-area">
+								<input type="checkbox" id="hDeemPrcsTarYn" name="hDeemPrcsTarYn"  class="big">
+								<label for="hDeemPrcsTarYn">
+									<span></span> 적용
+								</label>
+							</div>
+						</div>
+						<div class="tax-info__summury">
+							<p>
+								의제매입세액공제 적용을 선택하시면 신용카드 이용내역 조회 시 <br>
+								부가세 환급 대상, 비대상, 미분류, 의제로 표기됩니다.<br>
+								대상사업자: 농,축,임산물 등을 원재료로 하여 재화를 제조, 가공 <br>
+								또는 용역을 창출하는 사업자
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<script src="/js/mobile/common.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	// 이용약관
+	$(".NM_22012_001").click(function() {
+		fancybox_open("../nm/NM_22012.do?termCode=001", null, false);
+		return false;
+	});
+
+	// 개인정보처리방침
+	$(".NM_22012_002").click(function() {
+		fancybox_open("../nm/NM_22012.do?termCode=002", null, false);
+		return false;
+	});
+
+	// PC버전
+	$(".PC").click(function() {
+		location.href = "https://t-renewal.taxdiet.co.kr/cm/main.html";
+		return false;
+	});
+});
+</script>
+
+<ul class="footer__terms">
+	<li>
+		<a href="javascript:;" class="NM_22012_001">이용약관</a>
+	</li>
+	<li>
+		<a href="javascript:;" class="NM_22012_002">개인정보처리방침</a>
+	</li>
+	<li>
+		<a href="javascript:;" class="PC">PC버전</a>
+	</li>
+</ul>
+<p class="footer__copyright">Ⓒ NICE D&R Ltd.</p>
+
+<!--
+ <div class="terms-wrap HeightAuto use-terms">
+	<iframe src="" id="terms" name="terms" frameborder="0"></iframe>
+</div>
+ -->
+<!-- 택스다이어트 모바일 전용 구글 애널리틱스 (PC용은 별도로 있음) -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-36649342-22"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-36649342-22');
+</script></div>
+	</div>
+</form>
+</body>
+</html>

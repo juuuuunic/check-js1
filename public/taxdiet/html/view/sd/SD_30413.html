@@ -1,0 +1,378 @@
+<html lang="ko"><head>
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="language" content="ko">
+    <meta name="copyright" content="copyrights 2019 NICE Data">
+    <meta name="author" content="NICE Data">
+    <title>택스다이어트: SD_30413(종합소득세자가신고 > 간편장부작성>직접입력)</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/default.css">
+    <link rel="stylesheet" type="text/css" href="/css/libs/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="/css/soho_default.css">
+    <link rel="stylesheet" type="text/css" href="/css/soho_sub_default.css">
+    
+    <!--  공통 -->
+    <script src="/js/libs/jquery-1.11.1.min.js"></script>
+    <script src="/js/niceCommon.js"></script>
+    <script src="/js/common-util.js"></script>
+    <script src="/js/libs/jquery.fancybox.min.js"></script>
+    <script src="/js/libs/jquery.placeholder.min.js"></script>
+    <script src="/js/libs/jquery-ui.min.js"></script>
+    <script src="/js/moment.min.js"></script>
+    
+    <script src="/js/libs/jquery.dialog.min.js"></script>
+    
+    <script src="/js/common.js"></script>
+    <script src="/js/progress.min.js"></script>
+    <script src="/js/browserVersion.min.js"></script>
+    <script src="/js/libs/jquery.easing.1.3.min.js"></script>
+    <script src="/js/libs/jquery.mask.min.js"></script>
+    
+    <script src="/js/libs/jquery.cookie.min.js"></script>
+    <script src="/js/cookie.min.js"></script>
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico">
+    
+    <script type="text/javascript">
+    
+    $(function(){
+        // gnb 로고 옆에 현재 머물고 있는 1뎁스 메뉴 표시
+        $("ul.gnb_depth1 > li").each(function(index){
+            if($(this).attr("class") == "on"){
+                $("div.logo-wrap > h2").html($(this).text().trim());
+            }
+        })
+        
+        
+        // 로그아웃
+        $(document).on("click", ".btn_logout", function(data){
+            if (confirm("로그아웃 하시겠습니까?")) {
+                
+                var $form = $("<form/>",{id:"logoutForm",method:"post", action:"../cm/nTdLogout.html"});
+                $("body").append($form);
+                $form.submit();
+            }
+        });
+        
+        
+        $("#loginBtn").click(function(){
+            if($.trim($("#membId").val()) == "") {
+                alert("회원아이디를 입력하세요.");
+                $("#membId").focus();
+                return false;
+            }
+            
+            if($.trim($("#pswd").val()) == "") {
+                alert("비밀번호를 입력하세요.");
+                $("#pswd").focus();
+                return false;
+            }
+    
+            $.removeCookie("saveid", {path : '/'});
+    
+            if ($("#chk_save_id").prop("checked")) {
+                $.cookie("saveid", $.trim($("#membId").val()), {expires: 365, path : '/'});
+            }
+    
+            doLogin();
+    
+            return false;
+        });
+    
+        
+        $("#btn_login").click(function(){
+    
+            var param	= "";
+            
+            
+            param = "7F3401425D07331D0040261740013B";
+    
+            location.href="../cm/nTdLogin.html?returnURL=" + param;
+        });
+        
+        $("#loginForm input[name=pswd]").keyup(function(e) {
+            if (e.keyCode == KeyCode.ENTER) {
+                $("#loginBtn").click();
+            }
+        });
+        
+        
+        $(".btn_joinMember").click(function(){
+            
+            var url		= $(this).attr("move");
+            
+            if(typeof jmForm == "undefined"){
+                var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+                
+                $("body").append($form);
+                $("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A16010741200D152A3E062545033D5E220C" }).appendTo("#jmForm");
+                $("<input/>").attr({type:"hidden", name:"hmpUrl", value:"taxdiet" }).appendTo("#jmForm");
+                
+            } else {
+                $("#jmForm").attr("action", url);
+            }
+            $("#jmForm").attr('target', '_blank').submit();
+            
+        });
+    });
+        
+    function fnLayerClose(){
+        try{
+            parent.$.fancybox.close();
+        }catch(exception){}
+    }
+    var membEtcRefresh = function(){
+        $.post("../cm/CM_00001_UP1.html", "", "");
+    }
+    var isLogin = function(){
+        
+                return true;
+                    
+    }
+    
+    // 미사용
+    function fnLogin(returnURL){
+        if(!isLogin()){
+            var msg	= "로그인이 필요합니다.\n회원이 아니시면 회원가입을 해주시기 바랍니다.";
+            
+            alert(msg);
+            
+            if(typeof(returnURL) == "undefined") {
+                returnURL = location.pathname;
+            }
+    
+            location.href = "../cm/nTdLogin.html?returnURL="+returnURL;
+            
+            return false;
+        }
+        return true;
+    }
+    
+    function fnIeLimitCheck(){
+        var limitVersion	= 8;
+        var ieVersion		= getIeVersion();
+    
+        if(getCookie("NoMoreBrowserPopup") != "yes"){
+            if(ieVersion){
+                if(ieVersion <= limitVersion){
+                    WindowUtil.open({
+                          windowURL		: "/popup/popup_ieWarning.html"
+                        , windowName	: "popup_browserWarning"
+                        , width			: 600
+                        , height		: 741
+                    });
+                }
+            }
+        }
+    }
+    
+    function doLogin() {
+        if($("#loginForm > input#redirectURL").length === 0){
+            $("<input>").attr({
+                  type	: "hidden"
+                , id	: "redirectURL"
+                , name	: "redirectURL"
+                , value : "https://www.taxdiet.co.kr/my/MY_B0111.html"
+            }).appendTo("#loginForm");
+        }
+        else if ($("#redirectURL").val()=="") {
+            $("#redirectURL").val("https://www.taxdiet.co.kr/my/MY_B0111.html");
+        }
+        else {
+            $("#redirectURL").val(location.href);	
+        }
+    
+        if ($("#returnURL").val() != "") {
+            $("#redirectURL").val("");
+        }
+    
+        $("#loginForm").attr("action", "../cm/nTdSsoLoginProc.html");
+        $("#loginForm").attr("target", "_self");
+        $("#loginForm").submit();
+    }
+    </script>
+    <script type="text/javascript" src="/js/ta_common.js"></script>
+    <script type="text/javascript">
+    $(function(){
+        // 매출(수입),비용(지출) radio change event
+        $('[name=dataCls]').on('change', function(event) {
+            if ($(this).hasClass('lp-ta-diselect')) {
+                $('.lp-ta-total-sh').show();
+            } else {
+                $('.lp-ta-total-sh').hide();
+            }
+        });
+        
+        // 저장버튼 click event
+        $("#btnSave").click(function() {
+            
+            if(!$("#dealDtTxt").val()) {
+                alert("일자를 입력하세요.");
+                $("#dealDtTxt").focus();
+                return false;
+            }
+        
+            if(!$("#custName").val()) {
+                alert("거래처상호를 입력하세요.");
+                $("#custName").focus();
+                return false;
+            }
+        
+            if(!$("#totAmtTxt").val()) {
+                alert("합계금액을 입력하세요.");
+                $("#totAmtTxt").focus();
+                return false;
+            }
+        
+            if(!$("#evidKind").val()) {
+                alert("증빙유형을 선택하세요.");
+                $("#evidKind").focus();
+                return false;
+            }
+        
+            if(!$("#expAccSel").val()) {
+                alert("지출용도를 선택하세요.");
+                $("#expAccSel").focus();
+                return false;
+            }
+            
+            if (confirm("저장하시겠습니까?")) {
+                var expAccSel = $("#expAccSel").val();
+                var expAcc = "";
+                var expAccDtl = "";
+                var tmpExpAcc = expAccSel.substring(0, 1);
+                if (tmpExpAcc == "F" || tmpExpAcc == "Z") {
+                    expAcc = tmpExpAcc;
+                    expAccDtl = expAccSel;
+                } else {
+                    expAcc = expAccSel;
+                }
+                
+                $("#expAcc").val(expAcc);
+                $("#expAccDtl").val(expAccDtl);
+                $("#dealDt").val($("#dealDtTxt").val().replaceAll("-",""));
+                $("#totAmt").val($("#totAmtTxt").val().replaceAll(",",""));
+                
+                f_post_submit("/sd/SD_30413_IN.html", "7F3401425D07331D0040263B40013B", "f_call_result1");
+            }
+    
+            return false;
+        });
+    });
+    
+    function f_call_result1(result) {
+        if (result.status) {
+            // 저장되었습니다.
+            alert("저장되었습니다.");
+    
+            parent.fn.search();
+            parent.$.fancybox.close();
+        }
+        else if (result.status_msg != "") {
+            alert(result.status_msg);
+        }
+        else {
+            // 저장시 오류가 발생하였습니다.
+            alert("저장시 오류가 발생하였습니다.");
+        }
+    }
+    </script>
+    </head>
+    <body><div class="loading_wrap HeightAuto" style="height: 470px;">	<div class="box_img">		<p>Loading...</p>	</div>	<div class="loading_bg HeightAuto" style="height: 470px;"></div></div>
+    <form id="form" name="form" method="post">
+    <input type="hidden" name="dealDt" id="dealDt" value="">
+    <input type="hidden" name="totAmt" id="totAmt" value="">
+    <input type="hidden" name="expAcc" id="expAcc" value="">
+    <input type="hidden" name="expAccDtl" id="expAccDtl" value="">
+        <div class="lp-ta-wrap">
+            <div class="lp-header">
+                <p>직접입력</p>
+            </div>
+            <div class="lp-container">
+                <div class="lp-content-select">
+                    <label>
+                        <input type="radio" name="dataCls" value="HS" checked="">
+                        매출(수입)
+                    </label>
+                    <label>
+                        <input type="radio" name="dataCls" value="HE" class="lp-ta-diselect">
+                        비용(지출)
+                    </label>
+                </div>
+                <div class="lp-ta-content">
+                    <ul class="lp-ta-input-wrap">
+                        <li>
+                            <div class="left">
+                                <p>일자</p>
+                            </div>
+                            <div class="right">
+                                <input type="text" class="_datepick width-95 hasDatepicker" id="dealDtTxt" name="dealDtTxt">
+                                <img src="../../../images/sub/tax/common/calendar_icon.gif" alt="ICON" class="ta-cal-icon">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="left">
+                                <p>거래처 상호</p>
+                            </div>
+                            <div class="right">
+                                <input type="text" class="width-210" id="custName" name="custName">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="left">
+                                <p>합계금액</p>
+                            </div>
+                            <div class="right">
+                                <input type="text" class="width-210 align-right" onkeyup="getNumber(this);" onchange="getNumber(this);" id="totAmtTxt" name="totAmtTxt"> 원
+                            </div>
+                        </li>
+                        <li>
+                            <div class="left">
+                                <p>증빙유형</p>
+                            </div>
+                            <div class="right">
+                                <select class="width-210" id="evidKind" name="evidKind">
+                                    <option value="01">세금계산서</option>
+                                    <option value="03">계산서</option>
+                                    <option value="05">신용카드</option>
+                                    <option value="07">현금영수증</option>
+                                    <option value="08">전자지급수단</option>
+                                    <option value="09">기타</option>
+                                    </select>
+                            </div>
+                        </li>
+                        <li class="lp-ta-total-sh" style="display: none;">
+                            <div class="left">
+                                <p>지출용도</p>
+                            </div>
+                            <div class="right">
+                                <select class="width-210" id="expAccSel" name="expAccSel">
+                                    <option value="A">식자재&amp;상품&amp;원재료</option>
+                                    <option value="C">임차료</option>
+                                    <option value="B">식대(복리후생비)</option>
+                                    <option value="H">사무용품&amp;소모품</option>
+                                    <option value="G">접대비</option>
+                                    <option value="Z1">기타(접대비제외)</option>
+                                    <option value="Z2">사업무관</option>
+                                    <option value="F1">건물</option>
+                                    <option value="F2">기계장치</option>
+                                    <option value="F3">차량운반구</option>
+                                    <option value="F9">컴퓨터,비품</option>
+                                    <option value="F8">토지</option>
+                                    <option value="I">기부금</option>
+                                    <option value="J">인건비(홈택스 신고한 것만)</option>
+                                    </select>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lp-ta-btn-wrap">
+                    <input type="button" value="저장" id="btnSave" class="base_btn_color width-90">
+                    <input type="button" data-fancybox-close="" value="닫기" class="base_btn_color gray width-90 lp-ta-close" onclick="parent.$.fancybox.close();">
+                </div>
+            </div>
+        </div>
+    </form>
+    
+    <div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div></body></html>

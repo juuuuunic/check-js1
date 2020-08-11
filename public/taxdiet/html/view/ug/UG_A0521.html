@@ -1,0 +1,678 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots"      content="noindex,nofollow" />
+<meta name="language"    content="ko" />
+<meta name="copyright"   content="copyrights 2019 NICE Data" />
+<meta name="author"      content="NICE Data" />
+<title>택스다이어트: UG_A0521(고객의소리>작성)</title>
+
+<link rel="stylesheet" type="text/css" href="/css/default.css">
+<link rel="stylesheet" type="text/css" href="/css/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/soho_default.css">
+<link rel="stylesheet" type="text/css" href="/css/soho_sub_default.css">
+
+<!--  공통 -->
+<script src="/js/libs/jquery-1.11.1.min.js"></script>
+<script src="/js/niceCommon.js"></script>
+<script src="/js/common-util.js"></script>
+<script src="/js/libs/jquery.fancybox.js"></script>
+<script src="/js/libs/jquery.placeholder.js"></script>
+<script src="/js/libs/jquery-ui.js"></script>
+<script src="/js/moment.js"></script>
+
+<script src="/js/libs/jquery.dialog.min.js"></script>
+
+<script src="/js/common.js"></script>
+<script src="/js/progress.js"></script>
+<script src="/js/browserVersion.js"></script>
+<script src="/js/libs/jquery.easing.1.3.js"></script>
+<script src="/js/libs/jquery.mask.js"></script>
+
+<script src="/js/libs/jquery.cookie.js"></script>
+<script src="/js/cookie.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+
+<script type="text/javascript">
+
+$(function(){
+	// gnb 로고 옆에 현재 머물고 있는 1뎁스 메뉴 표시
+	$("ul.gnb_depth1 > li").each(function(index){
+		if($(this).attr("class") == "on"){
+			$("div.logo-wrap > h2").html($(this).text().trim());
+		}
+	})
+	
+	
+	// 로그아웃
+	$(document).on("click", ".btn_logout", function(data){
+		if (confirm("로그아웃 하시겠습니까?")) {
+			
+			var $form = $("<form/>",{id:"logoutForm",method:"post", action:"../cm/nTdLogout.do"});
+			$("body").append($form);
+			$form.submit();
+		}
+	});
+	
+	
+	$("#loginBtn").click(function(){
+		if($.trim($("#membId").val()) == "") {
+			alert("회원아이디를 입력하세요.");
+			$("#membId").focus();
+			return false;
+		}
+		
+		if($.trim($("#pswd").val()) == "") {
+			alert("비밀번호를 입력하세요.");
+			$("#pswd").focus();
+			return false;
+		}
+
+		$.removeCookie("saveid", {path : '/'});
+
+		if ($("#chk_save_id").prop("checked")) {
+			$.cookie("saveid", $.trim($("#membId").val()), {expires: 365, path : '/'});
+		}
+
+		doLogin();
+
+		return false;
+	});
+
+	
+	$("#btn_login").click(function(){
+
+		var param	= "";
+		
+		
+		param = "7F3D02422106333F00261F3B40013B";
+
+		location.href="../cm/nTdLogin.do?returnURL=" + param;
+	});
+	
+	$("#loginForm input[name=pswd]").keyup(function(e) {
+		if (e.keyCode == KeyCode.ENTER) {
+			$("#loginBtn").click();
+		}
+	});
+	
+	
+	$(".btn_joinMember").click(function(){
+		
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A2D5910065E0016262341250F130D2100204935215D3F07" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+});
+	
+function fnLayerClose(){
+	try{
+		parent.$.fancybox.close();
+	}catch(exception){}
+}
+var membEtcRefresh = function(){
+	$.post("../cm/CM_00001_UP1.do", "", "");
+}
+var isLogin = function(){
+	
+			return true;
+				
+}
+
+// 미사용
+function fnLogin(returnURL){
+	if(!isLogin()){
+		var msg	= "로그인이 필요합니다.\n회원이 아니시면 회원가입을 해주시기 바랍니다.";
+		
+		alert(msg);
+		
+		if(typeof(returnURL) == "undefined") {
+			returnURL = location.pathname;
+		}
+
+		location.href = "../cm/nTdLogin.do?returnURL="+returnURL;
+		
+		return false;
+	}
+	return true;
+}
+
+function fnIeLimitCheck(){
+	var limitVersion	= 8;
+	var ieVersion		= getIeVersion();
+
+	if(getCookie("NoMoreBrowserPopup") != "yes"){
+		if(ieVersion){
+			if(ieVersion <= limitVersion){
+				WindowUtil.open({
+					  windowURL		: "/popup/popup_ieWarning.html"
+					, windowName	: "popup_browserWarning"
+					, width			: 600
+					, height		: 741
+				});
+			}
+		}
+	}
+}
+
+function doLogin() {
+	if($("#loginForm > input#redirectURL").length === 0){
+		$("<input>").attr({
+			  type	: "hidden"
+			, id	: "redirectURL"
+			, name	: "redirectURL"
+			, value : "https://t-renewal.taxdiet.co.kr/my/MY_B0111.do"
+		}).appendTo("#loginForm");
+	}
+	else if ($("#redirectURL").val()=="") {
+		$("#redirectURL").val("https://t-renewal.taxdiet.co.kr/my/MY_B0111.do");
+	}
+	else {
+		$("#redirectURL").val(location.href);	
+	}
+
+	if ($("#returnURL").val() != "") {
+		$("#redirectURL").val("");
+	}
+
+	$("#loginForm").attr("action", "../cm/nTdSsoLoginProc.do");
+	$("#loginForm").attr("target", "_self");
+	$("#loginForm").submit();
+}
+</script>
+<script type="text/javascript" src="/js/libs/jquery.validate-1.8.1.min.js"></script>
+<script type="text/javascript" src="/js/cheditor/cheditor.js"></script>
+	
+<script type="text/javascript">
+var isAllowFileExt = "jpg,jpeg,gif,png,bmp";
+var fileMaxSize = 1048576;	// 현재 1MB
+var $fileObj_target;
+var $file_obj;
+
+$(function() {
+	// set focus event
+	$(":input").bind("keyup, keydown", function(event) {
+		ElementUtil.moveFocus(event, this);
+	});
+
+	$(":input[readonly]").bind("focus", function() {
+		ElementUtil.nextFocus(this);
+	});
+	
+	//리스트
+	$(".list").click(function() {
+		$("#blbdSeq").val(null);
+		$("#form").attr("target", "_self");
+
+		f_form_submit_nosession("../ug/UG_A0511.do");
+
+		return false;
+	});
+
+	$("#form").validate({
+		rules : {
+		  'titl'   : { required : true, maxBytes: 1000}
+		}
+		,names  : {
+		  'titl'		: '제목' 
+		}
+		,onsubmit : false 
+		,errorPlacement: function(error, element) { 
+			element.focus();
+		}
+	});
+
+	//등록하기
+	$(".regist").click(function() {
+		if(!$('#form').valid()){
+			return false;
+		}
+
+		$("#cont").val(myeditor1.outputBodyHTML());
+		
+		if($("#cont").val().indexOf("<img") == -1 && myeditor1.outputBodyText().length < 5){
+			alert("내용을 5자 이상 입력해 주세요.");
+			$("#content").focus();
+			return false;
+		}
+
+		var msg	= "등록하시겠습니까?";		
+
+		if (confirm(msg)){
+			var form = $("form")[0];
+	        var formData = new FormData(form);
+
+			$("#form").attr("target", "_self");
+
+			f_ajax_content_submit("../ug/UG_A0521_IN.do", formData, "7F3D02422106333F0026263B40013B", "f_call_result1");
+		}
+
+		return false;
+	});
+
+    $file_obj = $("#filex").clone(true);
+
+	// 첨부 파일 실행
+    $("#filex").bind("change", function() {
+    	//정상파일 및 확장자 체크
+        if (FileFunc.attachFile(this)) {
+        	$fileObj_target = this;
+        }
+
+        return false;
+    });
+    
+    var FileFunc = {
+        // 첨부 파일 실행
+        attachFile : function(obj) {
+            var file_name = obj.value;
+            file_name = file_name.substring(file_name.lastIndexOf("\\") + 1, file_name.length);
+	        // file ext check
+	        if (file_name == "") {
+	        	return false;
+	        }
+	        else if (!FileFunc.attachFileExtChk(file_name)) {
+	        	alert("업로드시 허용하지 않는 파일 형식입니다.");
+	        	FileFunc.createFileObj(obj);
+	            return false;
+	        }
+	
+	        if (!FileFunc.attachFileSizeChk(obj.files[0].size)) {
+	        	alert("업로드 가능한 파일사이즈는 최대 1M 입니다.");
+	        	FileFunc.createFileObj(obj);
+	            return false;
+	        }
+
+            return true;
+        },
+        // 첨부 파일 확장자 유효성 검사
+        attachFileExtChk : function(file_name) {
+            if (file_name.lastIndexOf(".") == -1) {
+            	return false;
+            }
+
+            var ext = file_name.substring(file_name.lastIndexOf(".") + 1, file_name.length).toLowerCase();
+            var ext_array = isAllowFileExt.split(",");
+            var ext_array_length = ext_array.length;
+
+            for (var i = 0; i < ext_array_length; i++) {
+                if (ext_array[i] == ext) {
+                    return true;
+                }
+            }
+
+            return false;
+        },
+        // 첨부 파일 크기 유효성 검사
+        attachFileSizeChk : function(fileSize) {
+			if(fileSize > fileMaxSize) {
+				return false;
+		    }
+
+			return true;
+        },
+        // 첨부 파일 객체 재생성
+        createFileObj : function(obj) {
+        	initFileObj(obj);
+        }
+    };
+
+	/* 파일삭제 */
+	$(".delfile").click(function() {
+		FileFunc.createFileObj($fileObj_target);
+
+		return false;
+	});
+
+	$("#titl").focus();
+});
+
+function f_call_result1(result) {
+	if (result.status) {
+		$("#blbdSeq").val(result.blbdSeq);
+		$("#blbdKind").val(result.blbdKind);
+		$("#form").attr("target", "_self");
+
+		f_form_submit("../ug/UG_A0531.do", "7F3D02422106333F0026263B40013B");
+	}
+	else if (result.status_msg != "") {
+		if (result.status_msg == "ATTACH_FILE_EXT") {
+			alert("업로드시 허용하지 않는 파일 형식입니다.");
+
+			initFileObj($fileObj_target);
+		}
+		else if (result.status_msg == "ATTACH_MAX_SIZE") {
+			alert("업로드 가능한 파일사이즈는 최대 1M 입니다.");
+
+			initFileObj($fileObj_target);
+		}
+		else {
+			alert(result.status_msg);
+		}
+	}
+	else {
+		alert("저장에 실패 하였습니다.");
+	}
+}
+
+function initFileObj(obj) {
+	if(getIeVersion()){
+    	$(obj).replaceWith($(obj).clone(true));
+        $file_obj = $("#filex").clone(true);
+	}
+	else {
+		$("#filex").val("");
+	}
+
+	$(".file-name").val("");
+}
+</script>
+
+</head>
+<body>
+<script type="text/javascript">
+$(function(){
+    //메뉴  클릭시 프로그레스 처리
+    $(".logo, .mypage").find("a").click(function(){ progress.start();});
+    
+  	//메뉴  클릭시 프로그레스 처리
+    $(".dep01, .dep02").find("a").click(function(){
+    	
+    	if($(this).attr("target") != "_blank" ) {
+    		progress.start();
+    	}
+    });
+        
+});
+</script>
+
+	<!-- header_n -->
+
+	<div id="wrap">
+		<div id="td__header_wrap">
+			<div class="td__header">
+				<div class="td__header-depth1">
+					<ul class="item5">
+					<li >
+								<a href="javascript:f_location_href_nosession('../vr/VR_03002.html');">부가세환급지원</a>
+							</li>
+						<li >
+								<a href="javascript:f_location_href_nosession('../vt/VT_30111.html');">부가가치세 자가신고</a>
+							</li>
+						<li >
+								<a href="javascript:f_location_href_nosession('../sd/SD_30111.html');">종합소득세 자가신고</a>
+							</li>
+						<li >
+								<a href="javascript:f_location_href_nosession('../as/AS_02101_SL.html');">세무상담</a>
+							</li>
+						<li >
+								<a href="javascript:f_location_href_nosession('../bizmap/BS_20111.html');">상권분석</a>
+							</li>
+						</ul>
+				</div>
+				<div class="td__header-block">
+                    <div class="td__header-top">
+						<div class="td__inner-container">
+							<h1>
+								<a href="../cm/main.do">
+									<img src="/images/td/common/sub_logo.gif" alt="로고">
+								</a>
+							</h1>
+							<div class="login-area">
+								<div class="login-inner">
+								<ul class="login-btn">
+											<li>
+													<a href="javascript:f_location_href_nosession('../my/MY_B0111.html');" class="progress">마이페이지</a>
+												</li>
+											</ul>
+										<button class="btn_logout">로그아웃</button>
+									</div>
+							</div>
+						</div>
+					</div>
+					<div class="td__header-bottom">
+						<div class="td__header-depth2">
+							<ul>
+							<li >
+											<a href="javascript:f_location_href_nosession('../ug/UG_A0211.html');">자주묻는 질문</a>
+										</li>
+									<li >
+											<a href="javascript:f_location_href_nosession('../ug/UG_A0311.html');">공지사항</a>
+										</li>
+									<li class="active">
+											<a href="javascript:f_location_href_nosession('../ug/UG_A0511.html');">고객의 소리</a>
+										</li>
+									<li >
+											<a href="javascript:f_location_href_nosession('../ug/UG_A0611.html');">1:1 문의</a>
+										</li>
+									<li >
+											<a href="javascript:f_location_href_nosession('../ug/UG_A0711.html');">원격지원</a>
+										</li>
+									</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //header_n -->
+<script type="text/javascript" src="/js/niceTopMenu.js"></script><form id="form" name="form" method="post">
+	<input type="hidden" name="token" value="UuuAd5vDZ987yO/mBnnANcWNg8b8vdnFLl50y9nxl68=" />
+	<input type="hidden" name="blbdKind" id="blbdKind" value="133" />
+	<input type="hidden" name="blbdSeq" id="blbdSeq"  value="" />
+	<input type="hidden" name="hddnCls" id="hddnCls" value="" />
+	<input type="hidden" name="cont" id="cont"/>
+	<input type="hidden" name="contCls" id="contCls" value="H"/> <input type="hidden" name="current_page" id="current_page" value="" />
+	<input type="hidden" name="allowFileExt" id="allowFileExt" value="jpg,jpeg,gif,png,bmp"/>
+	<input type="hidden" name="fileMaxSize" id="fileMaxSize" value="1048576"/>
+	<div id="wrap board-view">
+		<div id="container">
+			<div class="contents_wrap">
+				<div class="contents full_width">
+					<div class="ug_sub_title_wrap">
+						<p class="title">고객의 소리</p>
+						<p class="text">보다 더 나은 서비스를 위하여 항상 최선을 다하겠습니다.</p>
+					</div>
+					<div class="notice_write_wrap">
+						<div class="section first">
+							<div class="left_text">
+								<label for="ug_write_title">제목</label>
+							</div>
+							<div class="right_contents">
+								<input type="text" name="titl" id="titl" />
+							</div>
+						</div>
+						<div class="section">
+							<div class="left_text">이름</div>
+							<div class="right_contents">최현수</div>
+						</div>
+						<div class="section">
+							<div class="left_text">이메일</div>
+							<div class="right_contents">BBBB@hanmail.net</div>
+						</div>
+						<div class="section">
+							<div class="left_text">전화번호</div>
+							<div class="right_contents">010-****-8508</div>
+						</div>
+						<div class="section">
+							<div class="left_text">내용</div>
+							<div class="right_contents">
+								<!-- <div class="contents noedit"> -->
+								<div class="contents">
+									<textarea name="content" id="content" style="width:100%; height:300px"></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="section last">
+							<div class="left_text">
+								<label for="ug_write_title">첨부파일</label>
+							</div>
+							<div class="input-file">
+								<input type="text" readonly="readonly" class="file-name">
+								<input type="file" name="filex" id="filex" class="file-upload">
+							</div>
+							<div class="input-file-sub">
+								<label for="filex" class="file-label">파일선택</label>
+							</div>
+							<div class="input-file-sub">
+								<button class="delfile">삭제</button>
+							</div>
+						</div>
+						<div class="td__btn-block">
+							<button class="common-btn gray list">취소</button>
+							<button class="common-btn regist">저장</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+$(document).ready(function(){
+	// 회사소개
+	$(".nicednr").click(function() {
+		window.open("http://www.nicednr.co.kr");
+		return false;
+	});
+
+	// 제휴문의
+	$(".UG_A0411").click(function() {
+		fancybox_open_width("../ug/UG_A0411.do", "700px", "", "yes", false);
+		return false;
+	});
+
+	// 개인정보처리방침
+	$(".UG_A0131").click(function() {
+		fancybox_open_width("../ug/UG_A0131.do", "700px", "", "yes", false);
+		return false;
+	});
+
+	// 이용약관
+	$(".UG_A0121").click(function() {
+		fancybox_open_width("../ug/UG_A0121.do", "700px", "", "yes", false);
+		return false;
+	});
+
+	// 고객센터
+	$(".UG_A0111").click(function() {
+		f_location_href_nosession("../ug/UG_A0111.do");
+		return false;
+	});
+	
+	$(".tax_bill").click(function() {
+		window.open("http://www.nicedata.co.kr/ti/TI_10000.do");
+		return false;
+	});
+	
+	$(".check_biz").click(function() {
+		window.open("http://www.nicedata.co.kr/as/AS_30401.do");
+		return false;
+	});
+	
+	$(".sgic").click(function() {
+		window.open("http://www.nicedata.co.kr/as/AS_40601.do");
+		return false;
+	});
+});
+</script>
+<div id="td__footer_wrap">
+	<div class="td__footer">
+		<div class="td__footer-top">
+			<ul>
+				<li><a href="javascript:;" class="nicednr">회사소개</a></li>
+				<li><a href="javascript:;" class="UG_A0411">제휴문의</a></li>
+				<li><a href="javascript:;" class="UG_A0131"><b>개인정보처리방침</b></a></li>
+				<li><a href="javascript:;" class="UG_A0121">이용약관</a></li>
+				<li><a href="javascript:;" class="UG_A0111">고객센터</a></li>
+				<li class="mo_right">
+					<a href="https://t-m.taxdiet.co.kr/nm/NM_20001.do">
+						<div class="mo_img">
+							<img src="/images/td/common/ico_mobile.png" alt=""/>
+						</div>
+						모바일버전
+					</a>
+				</li>
+				</ul>
+		</div>
+		<div class="td__footer-bottom">
+			<ul>
+				<li>NICE 디앤알(주)</li>
+				<li>대표 : 강용구</li>
+				<li class="last">통신판매업 신고번호 : 제2012-서울구로-1033호</li>
+				<li>사업자등록번호 : 107-87-08207</li>
+				<li class="last">서울특별시 서대문구 충정로 36 7층</li>
+				<li>TEL : 1588-5659</li>
+				<li class="last">FAX : 788-9001</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="common-quick-menu qm-sub">
+	<ul>
+		<li class="tax_bill">
+			<a href="#none">
+				<img src="/images/common/quick_icon_1.png" alt="전자세금계산서"/>
+				전자세금<br />계산서
+			</a>
+		</li>
+		<li class="check_biz">
+			<a href="#none">
+				<img src="/images/common/quick_icon_2.png" alt="휴폐업조회"/>
+				휴폐업<br />조회
+			</a>
+		</li>
+		<li class="sgic">
+			<a href="#none">
+				<img src="/images/common/quick_icon_3.png" alt="서울보즘보험안내"/>
+				서울보증보험<br />안내
+			</a>
+		</li>
+	</ul>
+</div>
+<!-- //footer_n -->	
+<iframe id="sessionFrame" name="sessionFrame" width="10" height="10" src="javascript:void 0;" title="로그인처리용" style="display:none"></iframe>
+<script type="text/javascript" src="/js/imageChecker.js"></script>
+<script type="text/javascript">
+
+
+var title = document.title;
+document.title	= title + "·"; 
+
+
+
+ImageNotExistProcess.process("boardBox");
+</script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-36649342-23"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-36649342-23');
+</script></div>
+</form>
+<script type="text/javascript">
+var myeditor1 = new cheditor();
+myeditor1.config.editorHeight = '300px';
+myeditor1.config.editorWidth = '100%';
+myeditor1.inputForm = 'content';
+myeditor1.run();
+$(".cheditor-tb-wrapper").css("height","57px");
+</script>
+<iframe id="trgID" name="uploadTrg" height="0" width="0" frameborder="0" scrolling="yes"></iframe>	
+</body>
+</html>

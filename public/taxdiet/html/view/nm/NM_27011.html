@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+
+<title>택스다이어트: NM_27011(마이페이지)</title>
+<link rel="stylesheet" type="text/css" href="/css/mobile/default.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery.fancybox-1.3.1.css">
+
+<script src="/js/mobile/libs/jquery-1.11.1.min.js"></script>
+<script src="/js/mobile/libs/jquery-ui.min.js"></script>
+<script src="/js/mobile/libs/jquery.easing.1.3.js"></script>
+<script src="/js/mobile/libs/jquery-ui.js"></script> <!-- dskim -->
+<script src="/js/mobile/libs/jquery.mask.min.js"></script>
+<script src="/js/mobile/libs/daterange.js"></script>
+
+<script src="/js/mobile/libs/jquery.validate-1.8.1.min.js"></script>
+<script src="/js/mobile/niceNmCommon.js"></script>
+<script src="/js/mobile/common-util.js"></script>
+
+<!-- layerpopup -->
+<script src="/js/mobile/libs/jquery.fancybox.min.js"></script>
+
+<!-- placeholder fix -->
+<script src="/js/mobile/libs/jquery.placeholder.js"></script>
+
+<script src="/js/mobile/libs/jquery.history.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+<script type="text/javascript">
+
+$(function(){
+	
+	$(".btn_joinMember").click(function(){
+			
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A2D594B41200D152A3E062545033D5E220C" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+	
+});
+
+</script>
+<script type="text/javascript" src="/js/mobile/libs/jquery.cookie.js"></script>
+<script type="text/javascript">
+$(function() {
+	$('#logoutBtn').click(function() {
+		if (confirm("로그아웃 하시겠습니까?")) {
+			$.removeCookie("saveid", {path : '/'});
+			$.removeCookie("savepw", {path : '/'});
+
+			$("#form").attr('target', '_self');
+			$("#form").attr('action', 'https://t-m.taxdiet.co.kr/cm/ndsLogoutNm.html');
+			$("#form").submit();
+		}
+
+		return false;
+	});
+});
+</script>
+</head>
+<body>
+	<form name="form" id="form" method="post" >
+	</form>
+	<div class="wrap">
+		<div class="header header--white">
+			<div class="header__home">
+				<a href="javascript:f_go_home();">홈</a>
+			</div>
+			<div class="header__logo">
+				<a href="javascript:f_go_home();"><img src="/images/mobile/common/main_logo.png" alt="택스다이어트"></a>
+			</div>
+			<div class="header__logout">
+				<button id="logoutBtn">로그아웃</button>
+			</div>
+		</div>
+		<div class="container">
+			<div class="inner-container mypage-con">
+				<div class="mypage">
+					<div class="mypage__top">
+						<div class="company-name">
+							<i></i>
+							<p>나이스디앤알(주)</p>
+						</div>
+						<div class="summary-info">
+							<ul>
+								<li>
+									<i class="mypage-icon info-icon1"></i>
+									<p class="tit">과세유형</p>
+									<div class="line"></div>
+									<p class="txt">일반</p>
+								</li>
+								<li>
+									<i class="mypage-icon info-icon2"></i>
+									<p class="tit">업종</p>
+									<div class="line"></div>
+									<p class="txt">정보통신업</p>
+								</li>
+								<li>
+									<i class="mypage-icon info-icon3"></i>
+									<p class="tit">이용중인 서비스</p>
+									<div class="line"></div>
+									<p class="txt">0개</p>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="mypage__notice">
+						<a href="javascript:return false;">공지사항입니다.</a>
+					</div>
+					<div class="mypage__bottom">
+						<ul class="service-list">
+							<li>
+								<a href="../nm/NM_21011.html">
+									<i class="mypage-icon service-icon1"></i>
+									<p>회원정보</p>
+								</a>
+							</li>
+							<li>
+								<a href="../nm/NM_21013.html">
+									<i class="mypage-icon service-icon2"></i>
+									<p>회사정보</p>
+								</a>
+							</li>
+							<li>
+								<a href="../nm/NM_28011.html">
+									<i class="mypage-icon service-icon3"></i>
+									<p>결제내역</p>
+								</a>
+							</li>
+							<li>
+								<a href="../nm/NM_24031.html">
+									<i class="mypage-icon service-icon4"></i>
+									<p>세무정보관리</p>
+								</a>
+							</li>
+							<li>
+								<a href="../nm/NM_24011.html">
+									<i class="mypage-icon service-icon5"></i>
+									<p>세무주치의</p>
+								</a>
+							</li>
+							<li>
+								<a href="../nm/NM_24041.html">
+									<i class="mypage-icon service-icon6"></i>
+									<p>문의내역</p>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<script src="/js/mobile/common.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	// 이용약관
+	$(".NM_22012_001").click(function() {
+		fancybox_open("../nm/NM_22012.do?termCode=001", null, false);
+		return false;
+	});
+
+	// 개인정보처리방침
+	$(".NM_22012_002").click(function() {
+		fancybox_open("../nm/NM_22012.do?termCode=002", null, false);
+		return false;
+	});
+
+	// PC버전
+	$(".PC").click(function() {
+		location.href = "https://t-renewal.taxdiet.co.kr/cm/main.html";
+		return false;
+	});
+});
+</script>
+
+<ul class="footer__terms">
+	<li>
+		<a href="javascript:;" class="NM_22012_001">이용약관</a>
+	</li>
+	<li>
+		<a href="javascript:;" class="NM_22012_002">개인정보처리방침</a>
+	</li>
+	<li>
+		<a href="javascript:;" class="PC">PC버전</a>
+	</li>
+</ul>
+<p class="footer__copyright">Ⓒ NICE D&R Ltd.</p>
+
+<!--
+ <div class="terms-wrap HeightAuto use-terms">
+	<iframe src="" id="terms" name="terms" frameborder="0"></iframe>
+</div>
+ -->
+<!-- 택스다이어트 모바일 전용 구글 애널리틱스 (PC용은 별도로 있음) -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-36649342-22"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-36649342-22');
+</script></div>
+	</div>
+</body>
+</html>

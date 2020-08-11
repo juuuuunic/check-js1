@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+
+<title>택스다이어트: NM_23011(부가세환급지원>자료전송)</title>
+<link rel="stylesheet" type="text/css" href="/css/mobile/default.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery.fancybox-1.3.1.css">
+
+<script src="/js/mobile/libs/jquery-1.11.1.min.js"></script>
+<script src="/js/mobile/libs/jquery-ui.min.js"></script>
+<script src="/js/mobile/libs/jquery.easing.1.3.js"></script>
+<script src="/js/mobile/libs/jquery-ui.js"></script> <!-- dskim -->
+<script src="/js/mobile/libs/jquery.mask.min.js"></script>
+<script src="/js/mobile/libs/daterange.js"></script>
+
+<script src="/js/mobile/libs/jquery.validate-1.8.1.min.js"></script>
+<script src="/js/mobile/niceNmCommon.js"></script>
+<script src="/js/mobile/common-util.js"></script>
+
+<!-- layerpopup -->
+<script src="/js/mobile/libs/jquery.fancybox.min.js"></script>
+
+<!-- placeholder fix -->
+<script src="/js/mobile/libs/jquery.placeholder.js"></script>
+
+<script src="/js/mobile/libs/jquery.history.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+<script type="text/javascript">
+
+$(function(){
+	
+	$(".btn_joinMember").click(function(){
+			
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A2D594B41200D152A3E062545033D5E220C" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+	
+});
+
+</script>
+<script src="/js/mobile/common.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	// 전송하기
+	$('#email_send_button').click(function() {
+		var eMail = $("#eMail1").val() + "@" + $("#eMail2").val();
+		var isDetail = $(':radio[name="isDetail"]:checked').val();
+
+		if(isDetail == null || isDetail == "") {
+			alert('처리할 항목이 없습니다.');
+			return false;
+		}
+
+		// 이메일 유효성체크
+		if(!eMail.isEmail()) {
+			alert('이메일 주소 형식이 잘못되었습니다.');
+			return false;
+		}
+		
+		$("#srchInsDtfrom").val($("#srchInsDtfrom").val().replaceAll("-",""));
+		$("#srchInsDtTo").val($("#srchInsDtTo").val().replaceAll("-",""));
+
+		// {0} 전송하시겠습니까?
+		var message = "자료를 전송하시겠습니까?";
+
+		if(confirm(message)) {
+			f_post_submit("../nm/NM_23021_ML.html", "7F4250422D0233081B17263B40013B");
+		}
+
+		return false;
+	});
+});
+
+function f_call_result(result) {
+	alert(result.status_msg);
+}
+
+//이메일 셀렉트
+function email_change(pval) {
+	if(pval == "selfToggle") {
+		$('#eMail2').val("").focus();
+	}
+	else {
+		$('#eMail2').val(pval);
+	}
+}
+</script>
+</head>
+<body>
+<form id="form" name="form">
+	<input type="hidden"  id="clientNo" name="clientNo" value="0000001950"/>
+	<input type="hidden" id="searchYear" name="searchYear" value="2020"/>
+	<input type="hidden" id="searchMonth" name="searchMonth" value="0"/>
+	<input type="hidden" id="srchInsDtfrom" name="srchInsDtFrom" value="2020-01-01"/>
+	<input type="hidden" id="srchInsDtTo" name="srchInsDtTo" value="2020-04-27" />
+	<div class="wrap">
+		<div class="header header--white">
+			<div class="header__logo">
+				<p>자료전송</p>
+			</div>
+			<a href="javascript:fancybox_close();" class="header__close">
+				<label for="gnb__btn" class="gnb__btn__action">
+					<div class="spinner diagonal part-1"></div>
+					<div class="spinner diagonal part-2"></div>
+				</label>
+			</a>
+		</div>
+		<div class="container">
+			<div class="inner-container">
+				<div class="popup-block">
+					<div class="popup-block__tit">
+						<p class="txt">
+							세무사에게 신고를 맡기시는 사업자분들을 위해 분류된 신용카드 자료의 전송이 가능합니다.<br>
+							분류된 내역을 다시 한번 확인하신 후 사용하시길 권장합니다.
+						</p>
+					</div>
+					<div class="popup-block__check">
+						<ul>
+							<li>
+								<input type="radio" id="transmission-radio1" name="isDetail" class="check_down" value="1">
+								<label for="transmission-radio1">
+									<span></span>내부관리용(상세정보 포함)
+								</label>
+							</li>
+							<li>
+								<input type="radio" id="transmission-radio2" name="isDetail" class="check_down" value="2">
+								<label for="transmission-radio2">
+									<span></span>프로그램 업로드용(아이플러스)
+								</label>
+							</li>
+							<li>
+								<input type="radio" id="transmission-radio3" name="isDetail" class="check_down" value="3">
+								<label for="transmission-radio3">
+									<span></span>국세청 사업용 신용카드 형식
+								</label>
+							</li>
+						</ul>
+					</div>
+					<div class="popup-block__mail">
+						<div class="popup__mail__section">
+							<div class="mail__input--short">
+								<input type="text" id="eMail1" name="eMail1" maxlength="30" placeholder="이메일ID">
+							</div>
+							<div class="mail__txt">@</div>
+							<div class="mail__input">
+								<select id="select" name="tax-table-select" class="mail-self" onchange="showDiv('selfToggle', this);email_change(this.value);">
+									<option value="">선택</option>
+									<option value="naver.com">naver.com</option>
+									<option value="daum.net">daum.net</option>
+									<option value="dreamwiz.com">dreamwiz.com</option>
+									<option value="gmail.com">gmail.com</option>
+									<option value="hanmail.net">hanmail.net</option>
+									<option value="nate.com">nate.com</option>
+									<option value="hotmail.com">hotmail.com</option>
+									<!--									
+									<option value="chol.com">chol.com</option>
+									<option value="empal.com">empal.com</option>
+									<option value="freechal.com">freechal.com</option>
+									<option value="hanafos.com">hanafos.com</option>
+									<option value="hanmir.com">hanmir.com</option>
+									<option value="hitel.net">hitel.net</option>
+									<option value="korea.com">korea.com</option>
+									<option value="lycos.co.kr">lycos.co.kr</option>
+									<option value="netian.com">netian.com</option>
+									<option value="paran.com">paran.com</option>
+									<option value="yahoo.com">yahoo.com</option>
+									<option value="yahoo.co.kr">yahoo.co.kr</option>
+									-->
+									<option value="selfToggle">직접입력</option>
+								</select>
+							</div>
+						</div>
+						<div class="popup__mail__section selfToggle">
+							<div class="mail__input--wide">
+								<input type="text" id="eMail2" name="eMail2" size="20" maxlength="20" placeholder="직접입력">
+							</div>
+						</div>
+					</div>
+					<div class="popup-block__tit__btn common-btn">
+						<button id="email_send_button" class="common-btn__btn common-btn__btn--wide">전송하기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+</body>
+</html>

@@ -1,0 +1,1431 @@
+<html lang="ko">
+
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="../../../images/favicon/taxdiet_favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="language" content="ko">
+    <meta name="copyright" content="copyrights 2019 NICE Data">
+    <meta name="author" content="NICE Data">
+    <title>택스다이어트(VT_30641:부가가치세 자가신고 -> 신고서 작성 -> 부동산임대공급가액명세서작성)</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../css/default.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/libs/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/soho_default.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/soho_sub_default.css">
+
+    <!--  공통 -->
+    <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
+    <script src="../../../js/libs/jquery-1.11.1.min.js"></script>
+    <script src="../../../js/niceCommon.js"></script>
+    <script src="../../../js/common-util.js"></script>
+    <script src="../../../js/libs/jquery.fancybox.js"></script>
+    <script src="../../../js/libs/jquery.placeholder.js"></script>
+    <script src="../../../js/libs/jquery-ui.js"></script>
+    <script src="../../../js/moment.js"></script>
+
+    <script src="../../../js/libs/jquery.dialog.min.js"></script>
+
+    <script src="../../../js/common.js"></script>
+    <script src="../../../js/progress.js"></script>
+    <script src="../../../js/browserVersion.js"></script>
+    <script src="../../../js/libs/jquery.easing.1.3.js"></script>
+    <script src="../../../js/libs/jquery.mask.js"></script>
+
+    <script src="../../../js/libs/jquery.cookie.js"></script>
+    <script src="../../../js/cookie.js"></script>
+
+    <link rel="shortcut icon" type="image/x-icon" href="../../../images/favicon/taxdiet_favicon.ico">
+
+    <script type="text/javascript">
+        $(function () {
+            // gnb 로고 옆에 현재 머물고 있는 1뎁스 메뉴 표시
+            $("ul.gnb_depth1 > li").each(function (index) {
+                if ($(this).attr("class") == "on") {
+                    $("div.logo-wrap > h2").html($(this).text().trim());
+                }
+            })
+
+
+            // 로그아웃
+            $(document).on("click", ".btn_logout", function (data) {
+                if (confirm("로그아웃 하시겠습니까?")) {
+
+                    var $form = $("<form/>", {
+                        id: "logoutForm",
+                        method: "post",
+                        action: "/cm/nTdLogout.do"
+                    });
+                    $("body").append($form);
+                    $form.submit();
+                }
+            });
+
+
+            $("#btn_agree_check").click();
+
+            $("#loginBtn").click(function () {
+                if ($.trim($("#membId").val()) == "") {
+                    alert("회원아이디를 입력하세요.");
+                    $("#membId").focus();
+                    return false;
+                }
+
+                if ($.trim($("#pswd").val()) == "") {
+                    alert("비밀번호를 입력하세요.");
+                    $("#pswd").focus();
+                    return false;
+                }
+
+                $.removeCookie("saveid", {
+                    path: '/'
+                });
+
+                if ($("#chk_save_id").prop("checked")) {
+                    $.cookie("saveid", $.trim($("#membId").val()), {
+                        expires: 365,
+                        path: '/'
+                    });
+                }
+
+                doLogin();
+
+                return false;
+            });
+
+
+            $("#btn_login").click(function () {
+
+                var param = "";
+
+
+                param = "7F2227421532331D000D463B40013B";
+
+                location.href = "/cm/nTdLogin.do?returnURL=" + param;
+            });
+
+            $("#loginForm input[name=pswd]").keyup(function (e) {
+                if (e.keyCode == KeyCode.ENTER) {
+                    $("#loginBtn").click();
+                }
+            });
+
+
+            $(".btn_joinMember").click(function () {
+
+                var url = $(this).attr("move");
+
+                if (typeof jmForm == "undefined") {
+                    var $form = $("<form/>", {
+                        id: "jmForm",
+                        name: "jmForm",
+                        method: "get",
+                        action: url
+                    });
+
+                    $("body").append($form);
+                    $("<input/>").attr({
+                        type: "hidden",
+                        name: "referrUrl",
+                        value: "623C2734237F434A2D5910065E0016262341250F130D2100204935215D3F07"
+                    }).appendTo("#jmForm");
+                    $("<input/>").attr({
+                        type: "hidden",
+                        name: "hmpUrl",
+                        value: "taxdiet"
+                    }).appendTo("#jmForm");
+
+                } else {
+                    $("#jmForm").attr("action", url);
+                }
+                $("#jmForm").attr('target', '_blank').submit();
+
+            });
+        });
+
+        function fnLayerClose() {
+            try {
+                parent.$.fancybox.close();
+            } catch (exception) {}
+        }
+        var membEtcRefresh = function () {
+            $.post("/cm/CM_00001_UP1.do", "", "");
+        }
+        var isLogin = function () {
+
+            return true;
+
+        }
+
+        // 미사용
+        function fnLogin(returnURL) {
+            if (!isLogin()) {
+                var msg = "로그인이 필요합니다.\n회원이 아니시면 회원가입을 해주시기 바랍니다.";
+
+                alert(msg);
+
+                if (typeof (returnURL) == "undefined") {
+                    returnURL = location.pathname;
+                }
+
+                location.href = "/cm/nTdLogin.do?returnURL=" + returnURL;
+
+                return false;
+            }
+            return true;
+        }
+
+        function fnIeLimitCheck() {
+            var limitVersion = 8;
+            var ieVersion = getIeVersion();
+
+            if (getCookie("NoMoreBrowserPopup") != "yes") {
+                if (ieVersion) {
+                    if (ieVersion <= limitVersion) {
+                        WindowUtil.open({
+                            windowURL: "/popup/popup_ieWarning.html",
+                            windowName: "popup_browserWarning",
+                            width: 600,
+                            height: 741
+                        });
+                    }
+                }
+            }
+        }
+
+        function doLogin() {
+            if ($("#loginForm > input#redirectURL").length === 0) {
+                $("<input>").attr({
+                    type: "hidden",
+                    id: "redirectURL",
+                    name: "redirectURL",
+                    value: "https://t-renewal.taxdiet.co.kr/my/MY_B0111.do"
+                }).appendTo("#loginForm");
+            } else if ($("#redirectURL").val() == "") {
+                $("#redirectURL").val("https://t-renewal.taxdiet.co.kr/my/MY_B0111.do");
+            } else {
+                $("#redirectURL").val(location.href);
+            }
+
+            if ($("#returnURL").val() != "") {
+                $("#redirectURL").val("");
+            }
+
+            $("#loginForm").attr("action", "/cm/nTdSsoLoginProc.do");
+            $("#loginForm").attr("target", "_self");
+            $("#loginForm").submit();
+        }
+    </script>
+    <script type="text/javascript" src="../../../js/ta_common.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("._datepick").mask('0000-00-00');
+            $("._datepick-dual").mask('0000-00-00');
+            $('.amt').mask("###,###,###,###,##0", {
+                reverse: true
+            });
+
+            // 이전자료 가져오기
+            $("#btnPrev").click(function () {
+                if (confirm("현재 저장된 항목은 지워집니다.\n" + "이전자료 가져오기를 진행 하시겠습니까?")) {
+                    f_post_submit("/vt/VT_30641_IN.do", "7F2227421532331D000D263B40013B",
+                        "f_call_result1");
+                }
+
+                return false;
+            });
+
+            // 다음 단계로
+            $("#btnPass").click(function () {
+                f_form_submit("/vt/VT_30651.do", "7F2227421532331D000D263B40013B");
+            });
+
+            // 입력 초기화
+            $("#btnReset").click(function () {
+                $("#seq").val("");
+                $("#dong").val("");
+                $("#hno").val("");
+                $("#flr").val("");
+                $("#arM2").val("");
+                $("#arP").val("");
+                $("#ar").val("");
+                $("#shop").val("");
+                $("#secCorpNo").val("");
+                $(".amt").val("");
+                $("._datepick").val("");
+                $("._datepick-dual").val("");
+            });
+
+            // 저장
+            $("#btnSave").click(function () {
+                var len = "0";
+
+                if (len >= 5) {
+                    alert("자료등록은 5개까지만 가능합니다. 초과 등록하실 사업자께서는 세무사사무실을 통해 신고하실 것을 추천드립니다.");
+                    return false;
+                }
+
+                if ($("#dong").val() == "") {
+                    alert("동을 입력하세요.");
+                    $("#dong").focus();
+                    return false;
+                }
+
+                if ($("#hno").val() == "") {
+                    alert("호를 입력하세요.");
+                    $("#hno").focus();
+                    return false;
+                }
+
+                if ($("#flr").val() == "") {
+                    alert("층을 입력하세요");
+                    $("#flr").focus();
+                    return false;
+                }
+
+                if ($("#arM2").val() == "") {
+                    alert("면적을 입력하세요.");
+                    $("#arM2").focus();
+                    return false;
+                }
+
+                if ($("#shop").val() == "") {
+                    alert("상호를 입력해주세요.");
+                    $("#shop").focus();
+                    return false;
+                }
+
+                if ($("#secCorpNo").val() == "") {
+                    alert("사업자(주민)등록번호를 입력해주세요.");
+                    $("#secCorpNo").focus();
+                    return false;
+                }
+
+                var secCorpNo = $("#secCorpNo").val().replace(/-/gi, "").trim();
+
+                if (secCorpNo.length == 10) { //사업자번호
+                    if (!secCorpNo.isBizNum2()) {
+                        alert("사업자등록번호가 올바르지 않습니다.");
+                        $("#secCorpNo").focus();
+                        validation = false;
+                        return false;
+                    }
+                } else if (secCorpNo.length == 13) { //주민등록번호
+                    if (!secCorpNo.isJumin2()) {
+                        alert("주민등록번호가 올바르지 않습니다.");
+                        $("#secCorpNo").focus();
+                        return false;
+                    }
+                } else {
+                    alert("주민등록번호(사업자등록번호)가 올바르지 않습니다.");
+                    $("#secCorpNo").focus();
+                    return false;
+                }
+
+                if ($("#startDt").val() == "" || $("#EndDate").val() == "") {
+                    alert("임대기간을 입력해주세요.");
+                    return false;
+                }
+
+                if (!fn.checkMoveDt()) {
+                    return false;
+                }
+
+                if ($("#samt0010").val() == "") {
+                    alert("보증금을 입력해주세요.");
+                    $("#samt0010").focus();
+                    return false;
+                }
+
+                if ($("#samt0020").val() == "") {
+                    alert("월세를 입력해주세요.");
+                    $("#samt0020").focus();
+                    return false;
+                }
+
+                var msg = "저장하시겠습니까?";
+
+                if (confirm(msg)) {
+                    $('.amt').mask("##############0", {
+                        reverse: true
+                    });
+                    $("._datepick").mask('00000000');
+                    $("._datepick-dual").mask('00000000');
+
+                    if ($("#itemSel").val() == "mp") {
+                        $("#ar").val($("#arM2").val());
+                    } else {
+                        $("#ar").val($("#arP").val());
+                    }
+
+                    f_post_submit("/vt/VT_30641_UP.do", "7F2227421532331D000D263B40013B",
+                        "f_call_result2");
+                }
+
+                return false;
+            });
+
+            // 삭제
+            $("#btnDel").click(function () {
+
+                if ($("input:checkbox[name='seqChk']:checked").length == 0) {
+                    alert("삭제할 항목을 선택하세요.");
+                    return false;
+                }
+
+                if (confirm("선택하신 항목을 삭제하시겠습니까?")) {
+                    var argStr = new Array();
+
+                    $("input:checkbox[name='seqChk']:checked").each(function () {
+                        argStr.push($(this).val());
+                    });
+
+                    $("#argStr").val(argStr.join(","));
+
+                    f_post_submit("/vt/VT_30641_DL.do", "7F2227421532331D000D263B40013B",
+                        "f_call_result3");
+                }
+
+                return false;
+            });
+
+            $("#samt0020").on('keyup', function () {
+
+                if (!fn.checkMoveDt()) {
+                    return false;
+                }
+
+                // 월임대료(계) 계산
+                fn.calcSamt0050();
+
+                // 임대료 수입(과세표준) 계산
+                fn.calcSamt0030();
+            });
+
+            $("#samt0010").on("keyup", function () {
+
+                if (!fn.checkMoveDt()) {
+                    return false;
+                }
+
+                // 보증금이자(간주임대료) 계산
+                fn.calcSamt0040();
+
+                // 임대수입금액(과세표준)
+                fn.calcSamt0030();
+            });
+
+            $("#itemSel").change(function () {
+                var m2Val = $("#arM2").val();
+                var pVal = $("#arP").val();
+
+                if ($(this).val() == "mp") {
+                    $("#arM2").val(pVal);
+                    $("#arP").val(m2Val);
+                    $("#itemTxt1").html("㎡");
+                    $("#itemTxt2").html("평");
+                } else {
+                    $("#arM2").val(pVal);
+                    $("#arP").val(m2Val);
+                    $("#itemTxt1").html("평");
+                    $("#itemTxt2").html("㎡");
+                }
+            });
+
+            $("#dateOK,#dateCancel").click(function () {
+                // 월임대료(계) 계산
+                fn.calcSamt0050();
+
+                // 보증금이자(간주임대료) 계산
+                fn.calcSamt0040();
+            });
+
+            $("#arM2").on('keyup', function () {
+
+                if ($(this).val() == "") {
+                    return false;
+                }
+
+                var val = $(this).val().replace(",", "");
+
+                if (!val.isNumber()) {
+                    alert("숫자만 입력 가능합니다.");
+                    if ($("#itemSel").val() == "mp") {
+                        $(this).val("");
+                    } else {
+                        $(this).val("");
+                    }
+                    return false;
+                }
+
+                if ($("#itemSel").val() == "mp") {
+                    $("#arP").val(fn.areaMCalcP(val));
+                } else {
+                    $("#arP").val(fn.areaPCalcM(val));
+                }
+            });
+
+            $(".detail").click(function () {
+                $("#seq").val($(this).closest("tr").find(".seq").val());
+
+                f_post_submit("/vt/VT_30641_SL.do", "7F2227421532331D000D263B40013B", "f_call_result4");
+
+                return false;
+            });
+
+            $("#allChk").click(function () {
+
+                if ($(this).is(':checked')) {
+                    $("input:checkbox[name='seqChk']").prop("checked", true);
+                } else {
+                    $("input:checkbox[name='seqChk']").prop("checked", false);
+                }
+            });
+
+            $(document).ready(function () {
+
+                $("#file16100").show();
+
+
+                var paramCls = '0';
+                if (paramCls == "1") {
+                    alert("보증금이자 + 월세의 합이\n" + "매출과세분 보다 큽니다.");
+                }
+            })
+
+            $("#naviStep1").click(function () {
+                f_naviForm_submit("/vt/VT_30611.do", "7F2227421532331D000D263B40013B");
+            });
+
+            $("#naviStep2").click(function () {
+                f_naviForm_submit("/vt/VT_30621.do", "7F2227421532331D000D263B40013B");
+            });
+
+            $("#naviStep3").click(function () {
+                f_naviForm_submit("/vt/VT_30631.do", "7F2227421532331D000D263B40013B");
+            });
+
+            $("#naviStep5").click(function () {
+                f_naviForm_submit("/vt/VT_30651.do", "7F2227421532331D000D263B40013B");
+            });
+
+            $("#naviStep6").click(function () {
+                f_naviForm_submit("/vt/VT_30661.do", "7F2227421532331D000D263B40013B");
+            });
+        });
+
+        var fn = {
+
+            // 평 -> m2
+            areaPCalcM: function (areaP) {
+                if (areaP != null && areaP != "") {
+                    return String(Math.floor(areaP * 3.306)).addComma();
+                } else {
+                    return "";
+                }
+            },
+
+            // m2 -> 평
+            areaMCalcP: function (areaM) {
+
+                if (areaM != null && areaM != "") {
+                    return String(Math.floor(areaM / 3.306)).addComma();
+                } else {
+                    return "";
+                }
+            },
+
+            // 임대기간 체크 - 입주일
+            checkMoveInDt: function () {
+                var taxFromYmd = "20200101";
+                var moveInDt = $("#StartDate").val().removeDelim();
+                //moveInDt = moveInDt > taxFromYmd ? moveInDt : taxFromYmd;
+                $("#StartDate").val(moveInDt.addDelim());
+
+                return moveInDt;
+            },
+
+            // 임대기간 체크 - 퇴거일
+            checkMoveOutDt: function () {
+                var taxToYmd = "20200630";
+                var moveOutDt = $("#EndDate").val().removeDelim();
+                //moveOutDt = moveOutDt > taxToYmd ? moveOutDt : taxToYmd;
+                $("#EndDate").val(moveOutDt.addDelim());
+
+                return moveOutDt;
+            },
+
+            // 입주일/퇴거일 체크
+            checkMoveDt: function () {
+                if (fn.checkMoveInDt() > fn.checkMoveOutDt()) {
+                    alert("입주일과 퇴거일이 올바르지 않습니다.");
+                    $("#StartDate").val("");
+                    $("#EndDate").val("");
+                    return false;
+                }
+
+                return true;
+            },
+
+
+            // 월 임대료(계) 계산
+            calcSamt0050: function () {
+
+                if ($("#StartDate").val() == "") {
+                    $("#samt0050").val("");
+                    return false;
+                }
+
+                if ($("#EndDate").val() == "") {
+                    $("#samt0050").val("");
+                    return false;
+                }
+
+                if ($("#samt0020").val() == "") {
+                    $("#samt0050").val("");
+                    return false;
+                }
+
+                // 월임대료(계) = 해당과세기간의 개월 수 * 월 임대료
+                var betweenMonth = DateUtil.getBetweenMonths(fn.checkMoveInDt(), fn.checkMoveOutDt()) + 1;
+                $("#samt0050").val(String($("#samt0020").val().replaceAll(",", "") * betweenMonth).addComma());
+
+                fn.calcSamt0030();
+            },
+
+            // (16)임대수입금액(과세표준) 합계 계산
+            calcSamt0030: function () {
+
+                var samt0040 = $("#samt0040").val().replaceAll(",", "");
+                if (samt0040 == "") {
+                    samt0040 = 0;
+                }
+
+                var samt0050 = $("#samt0050").val().replaceAll(",", "");
+                if (samt0050 == "") {
+                    samt0050 = 0;
+                }
+
+                $("#samt0030").val(String(Number(samt0040) + Number(samt0050)).addComma());
+            },
+
+            // (17)보증금이자(간주임대료) 계산
+            calcSamt0040: function () {
+                if ($("#samt0010").val() == "") {
+                    $("#samt0040").val("");
+                    return false;
+                }
+
+                var yearDay = DateUtil.isLeapYear(fn.checkMoveInDt()) ? 366 : 365;
+                var samt0010 = $("#samt0010").val().replaceAll(",", "");
+                var ratio = $("#rentRate").val() / 100;
+                var betweenDay = DateUtil.getBetweenDates(fn.checkMoveInDt(), fn.checkMoveOutDt()) + 1;
+
+                // 보증금*과세기간임대일수/365(or366)*이자율(2019.03.21 이후 2.1%)
+                var samt0040 = Math.floor(samt0010 * betweenDay / yearDay * ratio);
+
+                $("#samt0040").val(String(samt0040).addComma());
+
+                fn.calcSamt0030();
+            }
+        }
+
+        function f_call_result1(result) {
+            if (result.status) {
+                alert("완료되였습니다.");
+
+                f_form_submit("/vt/VT_30641.do", "7F2227421532331D000D263B40013B");
+            } else if (result.status_msg != "") {
+                alert(result.status_msg);
+            } else {
+                // 작업시 오류가 발생하였습니다.
+                alert("작업시 오류가 발생하였습니다.");
+            }
+        }
+
+        function f_call_result2(result) {
+            $("._datepick").mask('0000-00-00');
+            $("._datepick-dual").mask('0000-00-00');
+            $('.amt').mask("###,###,###,###,##0", {
+                reverse: true
+            });
+
+            if (result.status) {
+                // 저장되었습니다.
+                alert("완료되였습니다.");
+
+                f_form_submit("/vt/VT_30641.do", "7F2227421532331D000D263B40013B");
+            } else if (result.status_msg != "") {
+                alert(result.status_msg);
+            } else {
+                // 저장시 오류가 발생하였습니다.
+                alert("저장시 오류가 발생하였습니다.");
+            }
+        }
+
+        function f_call_result3(result) {
+            $("._datepick").mask('0000-00-00');
+            $("._datepick-dual").mask('0000-00-00');
+            $('.amt').mask("###,###,###,###,##0", {
+                reverse: true
+            });
+
+            if (result.status) {
+                alert("삭제하였습니다.");
+
+                f_form_submit("/vt/VT_30641.do", "7F2227421532331D000D263B40013B");
+            } else if (result.status_msg != "") {
+                alert(result.status_msg);
+            } else {
+                // 삭제시 오류가 발생하였습니다.
+                alert("삭제시 오류가 발생하였습니다.");
+            }
+        }
+
+        function f_call_result4(result) {
+            if (result.status) {
+                $("#dong").val(result.vtV120DVO.dong);
+                $("#flr").val(result.vtV120DVO.flr);
+                $("#hno").val(result.vtV120DVO.hno);
+
+                if ($("#itemSel").val() == "mp") {
+                    $("#arM2").val(String(result.vtV120DVO.ar).addComma());
+                    $("#arP").val(fn.areaMCalcP(result.vtV120DVO.ar));
+                } else {
+                    $("#arP").val(result.vtV120DVO.ar);
+                    $("#arM2").val(fn.areaPCalcM(result.vtV120DVO.ar));
+                }
+                $("#secCorpNo").val(result.vtV120DVO.secCorpNo);
+
+                $("#StartDate").val(result.vtV120DVO.moveInDt.addDelim());
+                $("#EndDate").val(result.vtV120DVO.moveOutDt.addDelim());
+
+                $("#shop").val(result.vtV120DVO.shop);
+                $("#samt0010").val(result.vtV120DVO.samt0010.addComma());
+                $("#samt0020").val(result.vtV120DVO.samt0020.addComma());
+                $("#samt0030").val(result.vtV120DVO.samt0030.addComma());
+                $("#samt0040").val(result.vtV120DVO.samt0040.addComma());
+                $("#samt0050").val(result.vtV120DVO.samt0050.addComma());
+
+                // 월임대료(계) 계산
+                fn.calcSamt0050();
+
+                // 보증금이자(간주임대료) 계산
+                fn.calcSamt0040();
+            }
+        }
+    </script>
+
+    <style>
+        
+    </style>
+</head>
+
+<body>
+    <div class="loading_wrap HeightAuto" style="height: 937px;">
+        <div class="box_img">
+            <p>Loading...</p>
+        </div>
+        <div class="loading_bg HeightAuto" style="height: 937px;"></div>
+    </div>
+    <div id="wrap board-view">
+        <script type="text/javascript">
+            $(function () {
+                //메뉴  클릭시 프로그레스 처리
+                $(".logo, .mypage").find("a").click(function () {
+                    progress.start();
+                });
+
+                //메뉴  클릭시 프로그레스 처리
+                $(".dep01, .dep02").find("a").click(function () {
+
+                    if ($(this).attr("target") != "_blank") {
+                        progress.start();
+                    }
+                });
+
+            });
+        </script>
+
+        <!-- header_n -->
+
+        <div id="wrap">
+            <div id="td__header_wrap">
+                <div class="td__header">
+                    <div class="td__header-depth1">
+                        <ul class="item5">
+                            <li>
+                                <a href="javascript:f_location_href_nosession('/vr/VR_03002.do');">부가세환급지원</a>
+                            </li>
+                            <li class="active">
+                                <a href="javascript:f_location_href_nosession('/vt/VT_30111.do');">부가가치세 자가신고</a>
+                            </li>
+                            <li>
+                                <a href="javascript:f_location_href_nosession('/sd/SD_30111.do');">종합소득세 자가신고</a>
+                            </li>
+                            <li>
+                                <a href="javascript:f_location_href_nosession('/as/AS_02101_SL.do');">세무상담</a>
+                            </li>
+                            <li>
+                                <a href="javascript:f_location_href_nosession('/bizmap/BS_20111.do');">상권분석</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="td__header-block">
+                        <div class="td__header-top">
+                            <div class="td__inner-container">
+                                <h1>
+                                    <a href="/cm/main.do">
+                                        <img src="../../../images/td/common/sub_logo.gif" alt="로고">
+                                    </a>
+                                </h1>
+                                <div class="login-area">
+                                    <div class="login-inner">
+                                        <ul class="login-btn">
+                                            <li>
+                                                <a href="javascript:f_location_href_nosession('/my/MY_B0111.do');"
+                                                    class="progress">마이페이지</a>
+                                            </li>
+                                        </ul>
+                                        <button class="btn_logout">로그아웃</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="td__header-bottom">
+                            <div class="td__header-depth2">
+                                <ul>
+                                    <li>
+                                        <a href="javascript:f_location_href_nosession('/vt/VT_30112.do');">부가가치세 정의</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:f_location_href_nosession('/vt/VT_30411.do');">신고절차 미리보기</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:f_location_href_nosession('/vt/VT_30211.do');">매출·매입
+                                            가져오기</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:f_location_href_nosession('/vt/VT_30311.do');">매출·매입
+                                            조회하기</a>
+                                    </li>
+                                    <li class="active">
+                                        <a href="javascript:f_location_href_nosession('/vt/VT_30611.do');">신고서 작성</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //header_n -->
+        <script type="text/javascript" src="../../../js/niceTopMenu.js"></script>
+        <form id="form" name="form" method="post">
+            <input type="hidden" id="returnYear" name="returnYear" value="2020">
+            <input type="hidden" id="returnPeriod" name="returnPeriod" value="1">
+            <input type="hidden" id="returnCls" name="returnCls" value="2">
+            <input type="hidden" id="crtCls" name="crtCls" value="VT">
+            <input type="hidden" id="ar" name="ar" value="">
+            <input type="hidden" id="seq" name="seq" value="">
+            <input type="hidden" id="argStr" name="argStr" value="">
+            <div id="td__container">
+                <div class="td__contents_wrap">
+                    <div class="td__contents">
+                        <div class="sohotex-wrap">
+                            <h1 class="ta-subpage-title">
+                                신고서 작성
+                                <div class="notice-btn">
+                                    <a href="javascript:f_call_30211_pop2('7F2227421532331D000D263B40013B');"
+                                        class="in_btn">부가가치세 신고 왜 필요하죠?</a>
+                                </div>
+                            </h1>
+                            <div class="ta-flowbox">
+                                <ul>
+                                    <li>
+                                        <p><a href="javascript:;" id="naviStep1">사업자 정보 확인</a></p>
+                                    </li>
+                                    <li id="file11100" class="fileNavi" style="display:none;">
+                                        <p><a href="javascript:;" id="naviStep2">사업장현황<br>명세서 작성</a></p>
+                                    </li>
+                                    <li id="file14100" class="fileNavi" style="display:none;">
+                                        <p><a href="javascript:;" id="naviStep3">의제매입세액<br>공제신고서 작성</a></p>
+                                    </li>
+                                    <li id="file16100" class="fileNavi is-active">
+                                        <p>부동산임대공급가액<br>명세서 작성</p>
+                                    </li>
+                                    <li>
+                                        <p>추가정보 입력</p>
+                                    </li>
+                                    <li>
+                                        <p>납부(환급)액 확인</p>
+                                    </li>
+                                    <li>
+                                        <p>신고파일 생성</p>
+                                    </li>
+                                </ul>
+                                <p class="flowbox-inner-text">※ 진행 중 이전 작성내용을 수정하려면 해당 단계를 클릭하세요!</p>
+                            </div>
+                            <h2 class="ta-section-title"><i class="ta-title-bul2"></i>부동산임대공급가액명세서 작성</h2>
+                            <div class="ta-pull-block">
+                                <div class="pull-left">
+                                    <p class="ta-section-note">
+                                        사장님은 <span>부동산임대업</span>을 하고 계시는데요, <br>
+                                        부동산임대공급가액명세서 작성을 위해 아래 질문에 입력을 부탁드립니다.
+                                    </p>
+                                </div>
+                                <div class="pull-right">
+                                    <input type="button" href="javascript:;" id="btnPrev" value="이전자료 가져오기"
+                                        class="base_btn_color width-215">
+                                    <input type="button" id="btnPass" value="다음 단계로"
+                                        class="base_btn_color gray width-215">
+                                </div>
+                            </div>
+                            <div class="ta-declaration ta-declaration-4">
+                                <div class="half-section">
+                                    <h3><i class="ta-title-bul2"></i>임대현황</h3>
+                                    <div class="ta-list-table">
+                                        <table>
+                                            <colgroup>
+                                                <col style="width:35px">
+                                                <col style="width:55px">
+                                                <col style="width:55px">
+                                                <col style="width:55px">
+                                                <col style="width:70px">
+                                                <col style="width:*">
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th><input type="checkbox" name="allChk" id="allChk" title="전체선택">
+                                                    </th>
+                                                    <th>동</th>
+                                                    <th>층</th>
+                                                    <th>호</th>
+                                                    <th>면적(㎡)</th>
+                                                    <th>상호(성명)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <input type="button" id="btnDel" value="삭제"
+                                            class="base_btn_color gray middle width-65">
+                                    </div>
+                                    <div class="ta-help-wrap">
+                                        <p class="ta-help-title">※ 작성 시 참고</p>
+                                        <ul class="ta-help-tab common_tab">
+                                            <li class="active">
+                                                <span>동, 층, 호수 작성방법</span>
+                                            </li>
+                                            <li>
+                                                <span>임대기간 등 작성방법</span>
+                                            </li>
+                                        </ul>
+                                        <div class="tab_cont ta-help-contents" style="display: block;">
+                                            <ul class="ta-help-list1">
+                                                <li>
+                                                    <p>※ 모든 층(호)의 면적(공용면적 포함)을 합산하여 기재</p>
+                                                </li>
+                                                <li>
+                                                    <p>동일 건물 내 여러 층을 하나의 보증금/월세로 일괄 계약하는 경우에는 모든 층(호)을 아래와 같이 기재</p>
+                                                    <ul class="ta-help-list2">
+                                                        <li>
+                                                            <span class="left">예시1)</span>
+                                                            <span class="right">지하1층을 임대하는 경우: B1</span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="left">예시2)</span>
+                                                            <span class="right">지상1층, 지상2층, 지상3층을 임대하는 경우</span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="left">예시3)</span>
+                                                            <span class="right">201호, 202호, 203호, 205호 임대하는 경우: 201-203,
+                                                                205</span>
+                                                        </li>
+                                                        <li>
+                                                            <span class="left">예시4)</span>
+                                                            <span class="right">지하1층, 지상1층을 임대하는 경우: B1, 1</span>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="tab_cont ta-help-contents" style="display: none;">
+                                            <ul class="ta-help-list1">
+                                                <li>
+                                                    <p>과세기간 중 보증금/월세 변동 있는 경우</p>
+                                                    <ul class="ta-help-list2">
+                                                        <li>계약갱신일 : 2017년 4월 1일</li>
+                                                        <li>종전 계약조건 : 보증금 5,000만원, 월세 50만원</li>
+                                                        <li>변경 계약조건 : 보증금 7,000만원, 월세 70만원</li>
+                                                    </ul>
+                                                    <div class="ta-help-table">
+                                                        <table width="100%" class="in-list-tabel">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col">입주일</th>
+                                                                    <th scope="col">갱신일</th>
+                                                                    <th scope="col">퇴거일</th>
+                                                                    <th scope="col">보증금</th>
+                                                                    <th scope="col">월세</th>
+                                                                    <th scope="col">특이사항</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>2017.01.01</td>
+                                                                    <td>-</td>
+                                                                    <td>2017.03.31</td>
+                                                                    <td>50,000,000</td>
+                                                                    <td>500,000</td>
+                                                                    <td> 종전 계약조건 입력</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>2017.04.01</td>
+                                                                    <td>2017.04.01</td>
+                                                                    <td>2017.06.30</td>
+                                                                    <td>70,000,000</td>
+                                                                    <td>700,000</td>
+                                                                    <td> 변경 계약조건 입력</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <p class="ta-help-table-text">* 갱신 계약조건 입력 시 입주일은 갱신일, 갱신일은
+                                                            계약변경일, 퇴거일은 과세기간 종료일(또는 퇴거일)을 각각 기재하셔야 합니다.</p>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <p>과세기간 중 계약기간만 연장된 경우(보증금/월세 변동 없음)</p>
+                                                    <ul class="ta-help-list2">
+                                                        <li>계약갱신일: 2017년 4월 1일</li>
+                                                        <li>변경 계약조건: 계약기간만 24개월(2년) 연장</li>
+                                                    </ul>
+                                                    <div class="ta-help-table">
+                                                        <table width="100%" class="in-list-tabel">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col">입주일</th>
+                                                                    <th scope="col">갱신일</th>
+                                                                    <th scope="col">퇴거일</th>
+                                                                    <th scope="col">보증금</th>
+                                                                    <th scope="col">월세</th>
+                                                                    <th scope="col">특이사항</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>2017.01.01</td>
+                                                                    <td>-</td>
+                                                                    <td>2017.03.31</td>
+                                                                    <td>50,000,000</td>
+                                                                    <td>500,000</td>
+                                                                    <td rowspan="2"> 종전 계약조건 입력</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>2017.04.01</td>
+                                                                    <td>2017.04.01</td>
+                                                                    <td>2017.06.30</td>
+                                                                    <td>50,000,000</td>
+                                                                    <td>500,000</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <p class="ta-help-table-text">* 갱신 계약조건 입력 시 입주일은 갱신일, 갱신일은
+                                                            계약변경일, 퇴거일은 과세기간 종료일(또는 퇴거일)을 각각 기재하셔야 합니다.</p>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <p>갱신일</p>
+                                                    <ul class="ta-help-list2">
+                                                        <li>과세기간 내에 계약기간 연장, 보증금, 월세 변동이 발생한 경우만 기재합니다.<br>
+                                                            갱신일 기재 시 입주일 퇴거일은 반드시 기재하셔야 합니다.</li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="half-section">
+                                    <h3>
+                                        <i class="ta-title-bul2"></i>세부내역
+                                    </h3>                                    
+                                    <p class="ta-container-note"><span class="ta-area-note">*</span>필수항목</p>
+                                    <div class="ta-area-container">
+                                        <div class="ta-area-row">
+                                            <span><input type="text" name="dong" id="dong"
+                                                    class="width-110 align-right"> 동</span>
+                                            <span><input type="text" name="hno" id="hno" class="width-110 align-right">
+                                                호</span>
+                                        </div>
+                                        <div class="ta-area-row ta-area-required">
+                                            <span>
+                                                <input type="text" name="flr" id="flr" class="width-100 align-right"> 층
+                                            </span>
+                                        </div>
+                                        <div class="ta-area-row ta-area-required">
+                                            <span>
+                                                <select id="itemSel" name="itemSel" class="width-135">
+                                                    <option value="mp">면적: ㎡ -&gt;평</option>
+                                                    <option value="pm">면적: 평 -&gt;㎡</option>
+                                                </select>
+                                            </span>
+                                            <span>
+                                                <input class="width-100 align-right amt" type="text" name="arM2"
+                                                    id="arM2" value="" maxlength="19" autocomplete="off"><em
+                                                    id="itemTxt1">㎡</em>
+                                            </span>
+                                            <span class="ta-area-spacer">=</span>
+                                            <span>
+                                                <input class="width-100 input-disabled align-right amt" name="arP"
+                                                    id="arP" value="" type="text" readonly="readonly" maxlength="19"
+                                                    autocomplete="off"><em id="itemTxt2">평</em>
+                                            </span>
+                                            <span class="ta-note-box">
+                                                <p class="ta-area-note width-300">공용면적을 포함하여 적어주세요. <br>㎡의 경우, 소수점 둘째자리까지 입력해주세요.(셋째자리에서 버림)</p>
+                                            </span>
+                                        </div>
+                                        <div class="ta-area-row ta-area-required">
+                                            <span>
+                                                <p class="ta-area-title">
+                                                    상호(성명)
+                                                </p>
+                                            </span>
+                                            <span>
+                                                <input type="text" name="shop" id="shop" value="" class="width-240">
+                                            </span>
+                                        </div>
+                                        <div class="ta-area-row ta-area-required">
+                                            <span>
+                                                <p class="ta-area-title">
+                                                    임차인 사업자(주민)등록번호
+                                                </p>
+                                            </span>
+                                            <span>
+                                                <input type="text" name="secCorpNo" id="secCorpNo" value=""
+                                                    class="width-240">
+                                            </span>
+                                        </div>
+                                        <div class="ta-area-row">
+                                            <span>
+                                                <p class="ta-area-title">
+                                                    갱신일
+                                                </p>
+                                            </span>
+                                            <span>
+                                                <input type="text" name="updDt" id="updDt"
+                                                    class="_datepick _datefrom width-85" value=""
+                                                    maxlength="10" autocomplete="off">
+                                                <img src="../../../images/sub/tax/common/calendar_icon.gif" alt="ICON"
+                                                    class="ta-cal-icon">
+                                                <div class="updReset"></div>
+                                            </span>
+                                            <span class="ta-note-box">
+                                                <p class="ta-area-note width-450">과세기간 내 임차인의 변경, 계약기간의 연장, 보증금, 월세의 변동이 있으신 경우에만 입력하세요. <br>
+                                                    과세기간 내 갱신일이 기재된 경우, 임대기간을 2회로 나누어 작성 및 저장하셔야 합니다.</p>
+                                            </span>
+                                        </div>
+                                        <div class="ta-area-row ta-area-required">
+                                            <span>
+                                                <p class="ta-area-title">
+                                                    임대기간
+                                                </p>
+                                            </span>
+                                            <span>
+                                                <input type="text" name="moveInDt"
+                                                    class="_datepick-dual _datefrom width-95" value="" id="StartDate"
+                                                    readonly="readonly" maxlength="10" autocomplete="off">
+                                            </span>
+                                            <span class="ta-area-spacer-sm">&nbsp;~</span>
+                                            <span>
+                                                <input type="text" name="moveOutDt"
+                                                    class="_datepick-dual _dateto width-95" value="" id="EndDate"
+                                                    readonly="readonly" maxlength="10" autocomplete="off">
+                                                <img src="../../../images/sub/tax/common/calendar_icon.gif" alt="ICON"
+                                                    class="ta-cal-icon" id="date_select">
+                                            </span>
+                                            <span class="ta-note-box">
+                                                <p class="ta-area-note width-250">
+                                                    작성방법) 갱신일(2020.4.1)을 기재한 경우, 2회 저장<br>
+                                                    &nbsp;&emsp;&emsp;&emsp;&emsp;'계약일 ~ 갱신일 전일' 선택 → 저장<br>
+                                                    &nbsp;&emsp;&emsp;&emsp;&emsp;'계약일 ~ 계약만료일' 선택 → 저장
+                                                </p>
+                                            </span>
+                                        </div>
+                                        <div id="hiddenDivTwoDate">
+                                            <div id="pop_cal_wrap">
+                                                <div class="ta-date" date-altfield="#StartDate"></div>
+                                                <div class="ta-date2" date-altfield="#EndDate"></div>
+                                                <div class="ta-date-btn">
+                                                    <a href="javascript:;" class="base_btn_color middle width-60"
+                                                        id="dateOK">확인</a>
+                                                    <a href="javascript:;" class="base_btn_color gray middle width-60"
+                                                        id="dateCancel">닫기</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ta-area-row ta-area-required">
+                                            <span>
+                                                <p class="ta-area-title">
+                                                    보증금
+                                                </p>
+                                            </span>
+                                            <span>
+                                                <input type="text" name="samt0010" id="samt0010"
+                                                    class="width-240 align-right amt" maxlength="19" autocomplete="off">
+                                                원
+                                            </span>
+                                        </div>
+                                        <div class="ta-area-row">
+                                            <span>
+                                                <p class="ta-area-title">
+                                                    <!-- 이자율<font class="ta-area-note">(2018년3월19일 이후)</font> -->
+                                                    이자율<font class="ta-area-note">(2020년3월13일 이후)</font>
+                                                </p>
+                                            </span>
+                                            <span>
+                                                <input type="text" name="rentRate" id="rentRate" value="1.8"
+                                                    class="width-240 align-right input-disabled" readonly="true"> %
+                                            </span>
+                                        </div>
+                                        <div class="ta-area-row">
+                                            <span>
+                                                <p class="ta-area-title">
+                                                    보증금이자(간주임대료)
+                                                </p>
+                                            </span>
+                                            <span>
+                                                <input type="text" name="samt0040" id="samt0040"
+                                                    class="width-240 align-right input-disabled amt" readonly="true"
+                                                    maxlength="19" autocomplete="off"> 원
+                                            </span>
+                                        </div>
+                                        <div class="ta-area-row ta-area-required">
+                                            <span>
+                                                <p class="ta-area-title">
+                                                    월세<font class="ta-area-note">(부가세 제외금액)</font>
+                                                </p>
+                                            </span>
+                                            <span>
+                                                <input type="text" name="samt0020" id="samt0020"
+                                                    class="width-240 align-right amt" maxlength="19" autocomplete="off">
+                                                원
+                                            </span>
+                                        </div>
+                                        <div class="ta-area-row">
+                                            <span>
+                                                <p class="ta-area-title">
+                                                    월임대료(계)
+                                                </p>
+                                            </span>
+                                            <span>
+                                                <input type="text" name="samt0050" id="samt0050"
+                                                    class="width-240 align-right input-disabled amt" readonly="true"
+                                                    maxlength="19" autocomplete="off"> 원
+                                            </span>
+                                        </div>
+                                        <div class="ta-area-row">
+                                            <span>
+                                                <p class="ta-area-title">
+                                                    임대료수입(과세표준)
+                                                </p>
+                                            </span>
+                                            <span>
+                                                <input type="text" name="samt0030" id="samt0030"
+                                                    class="width-240 align-right input-disabled amt" readonly="true"
+                                                    maxlength="19" autocomplete="off"> 원
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <ul class="ta-btn-container">
+                                        <li>
+                                            <input type="button" id="btnReset" value="입력 초기화"
+                                                class="base_btn_color gray width-115">
+                                            <input type="button" id="btnSave" value="저장"
+                                                class="base_btn_color width-115">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <form id="naviForm" name="naviForm" method="post">
+                    <input type="hidden" id="returnYear" name="returnYear" value="2020">
+                    <input type="hidden" id="returnPeriod" name="returnPeriod" value="1">
+                    <input type="hidden" id="returnCls" name="returnCls" value="2">
+                    <input type="hidden" id="crtCls" name="crtCls" value="VT">
+                    <input type="hidden" id="stepStatus" name="stepStatus" value="200">
+                </form>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        // 회사소개
+                        $(".nicednr").click(function () {
+                            window.open("http://www.nicednr.co.kr");
+                            return false;
+                        });
+
+                        // 제휴문의
+                        $(".UG_A0411").click(function () {
+                            fancybox_open_width("/ug/UG_A0411.do", "700px", "", "yes", false);
+                            return false;
+                        });
+
+                        // 개인정보처리방침
+                        $(".UG_A0131").click(function () {
+                            fancybox_open_width("/ug/UG_A0131.do", "700px", "", "yes", false);
+                            return false;
+                        });
+
+                        // 이용약관
+                        $(".UG_A0121").click(function () {
+                            fancybox_open_width("/ug/UG_A0121.do", "700px", "", "yes", false);
+                            return false;
+                        });
+
+                        // 고객센터
+                        $(".UG_A0111").click(function () {
+                            f_location_href_nosession("/ug/UG_A0111.do");
+                            return false;
+                        });
+
+                        // 전자세금 계산서
+                        $(".tax_bill").click(function () {
+                            var returnUrl = "/cm/main.do";
+
+                            $.post("/cm/ndSsoToken.do", {
+                                returnUrl: returnUrl
+                            }, function (data) {
+                                if (data != "") {
+                                    var sendUrl =
+                                        "https://t-renewal.nicebill.co.kr/cm/nbSSOLogin.do";
+                                    var $form = $("<form/>", {
+                                        id: "ssoForm",
+                                        method: "get"
+                                    });
+                                    var $token = $("<input/>", {
+                                        id: "token",
+                                        name: "token"
+                                    });
+                                    $("body").append($form);
+                                    $form.attr("target", "_blank");
+                                    $form.attr("action", sendUrl);
+                                    $form.append($token);
+                                    $("#token").val(data);
+                                    $form.submit();
+                                } else {
+                                    window.open("https://t-renewal.nicebill.co.kr" + returnUrl);
+                                }
+                            }).fail(function () {
+                                window.open("https://t-renewal.nicebill.co.kr" + returnUrl);
+                            }).always(function () {
+                                $("#ssoForm").remove();
+                            });
+
+                            return false;
+                        });
+
+                        // 휴폐업 조회
+                        $(".check_biz").click(function () {
+                            window.open("http://t-renewal.nicedata.co.kr/as/AS_30401.do");
+                            return false;
+                        });
+
+                        // 서울보증보험 안내
+                        $(".sgic").click(function () {
+                            window.open("http://t-renewal.nicedata.co.kr/as/AS_40601.do");
+                            return false;
+                        });
+                    });
+                </script>
+                <div id="td__footer_wrap">
+                    <div class="td__footer">
+                        <div class="td__footer-top">
+                            <ul>
+                                <li><a href="javascript:;" class="nicednr">회사소개</a></li>
+                                <li><a href="javascript:;" class="UG_A0411">제휴문의</a></li>
+                                <li><a href="javascript:;" class="UG_A0131"><b>개인정보처리방침</b></a></li>
+                                <li><a href="javascript:;" class="UG_A0121">이용약관</a></li>
+                                <li><a href="javascript:;" class="UG_A0111">고객센터</a></li>
+                                <li class="mo_right">
+                                    <a href="https://t-m.taxdiet.co.kr/nm/NM_20001.do">
+                                        <div class="mo_img">
+                                            <img src="../../../images/td/common/ico_mobile.png" alt="">
+                                        </div>
+                                        모바일버전
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="td__footer-bottom">
+                            <ul>
+                                <li>NICE 디앤알(주)</li>
+                                <li>대표 : 강용구</li>
+                                <li class="last">통신판매업 신고번호 : 제2012-서울구로-1033호</li>
+                                <li>사업자등록번호 : 107-87-08207</li>
+                                <li class="last">서울특별시 서대문구 충정로 36 7층</li>
+                                <li>TEL : 1588-5659</li>
+                                <li class="last">FAX : 788-9001</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="common-quick-menu qm-sub">
+                    <ul>
+                        <li class="tax_bill">
+                            <a href="#none">
+                                <img src="../../../images/common/quick_icon_1.png" alt="전자세금계산서">
+                                전자세금<br>계산서
+                            </a>
+                        </li>
+                        <li class="check_biz">
+                            <a href="#none">
+                                <img src="../../../images/common/quick_icon_2.png" alt="휴폐업조회">
+                                휴폐업<br>조회
+                            </a>
+                        </li>
+                        <li class="sgic">
+                            <a href="#none">
+                                <img src="../../../images/common/quick_icon_3.png" alt="서울보즘보험안내">
+                                서울보증보험<br>안내
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- //footer_n -->
+                <iframe id="sessionFrame" name="sessionFrame" width="10" height="10" src="javascript:void 0;"
+                    title="로그인처리용" style="display:none"></iframe>
+                <script type="text/javascript" src="../../../js/imageChecker.js"></script>
+                <script type="text/javascript">
+                    var title = document.title;
+                    document.title = title + "·";
+
+
+
+                    ImageNotExistProcess.process("boardBox");
+                </script>
+                <!-- Global site tag (gtag.js) - Google Analytics -->
+                <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-36649342-23"></script>
+                <script>
+                    window.dataLayer = window.dataLayer || [];
+
+                    function gtag() {
+                        dataLayer.push(arguments);
+                    }
+                    gtag('js', new Date());
+
+                    gtag('config', 'UA-36649342-23');
+                </script>
+            </div>
+        </form>
+
+    </div>
+    <div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<!-- 택스다이어트: NM_24041(마이페이지>세무주치의>설정변경) -->
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".argmBtn").click(function(){
+		if($("#argmChk").is(":checked") == true) {
+			$("#ippbAgrmYn, #txbzCnslAgrmYn", parent.document).val("Y");
+			$("#ctaxaTxactCode", parent.document).val('');
+
+			f_ajax_submit("../nm/NM_24011_UP1.html", "json", $("#form", parent.document).serialize(), "7F4250422D0233085717263B40013B");
+		}
+		else {
+			alert("정보제공에 동의하셔야 변경이 가능합니다.");
+		}
+
+		return false;
+	});
+});
+
+function f_call_result(result) {
+	if (result.status) {
+		alert("개인정보 제3자 제공 동의 처리되었습니다.");
+
+		f_form_submit("../nm/NM_24011.html", "7F4250422D0233085717263B40013B");
+	}
+	else {
+		alert("개인정보 제3자 제공 동의 처리를 실패하었습니다");
+	}
+}
+
+</script>
+</head>
+<body>
+
+<div class="layerpopup inner-lp">
+	<div class="layerpopup__inner">
+		<div class="layerpopup__con">
+			<div class="layerpopup__close">
+				<button onclick="ajaxClose('.inner-lp');">
+					닫기
+					<div class="diagonal part-1"></div>
+					<div class="diagonal part-2"></div>
+				</button>
+			</div>
+			<div class="layerpopup__header">
+				<p>정보제공동의</p>
+			</div>
+			<div class="layerpopup__container">
+				<div class="tax-doctor-privacy">
+					<p class="privacy-tit">서비스 이용을 위해서 회원님의 정보가<br>세무사에게 제공됩니다.</p>
+					<div class="privacy-table">
+						<p class="tit">개인정보 제3자(전문가 회원) 제공</p>
+						<div class="table-type4 table-type4--small">
+							<table>
+								<col style="width:30%;">
+								<col style="width:*;">
+								<tbody>
+									<tr>
+										<th>제공받는 자</th>
+										<td>세무사</td>
+									</tr>
+									<tr>
+										<th>제공 목적</th>
+										<td>NICE디앤알 사업자 회원 맞춤형 유무료 경영자문 서비스, 전문가별 서비스 정보 안내</td>
+									</tr>
+									<tr>
+										<th>제공 항목</th>
+										<td>회원정보(상호, 대표자명, 주소, 핸드폰번호, 이메일) 나이스디앤알에 등록된 사업활동정보 (카드매입/매출정보, 전자세금계산서 발행내역 등)</td>
+									</tr>
+									<tr>
+										<th>보유 기간</th>
+										<td>회원 탈퇴 혹은 동의 철회 시까지</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="check">
+							<div class="input-check">
+								<input type="checkbox" id="argmChk" name="argmChk" class="type2">
+								<label for="argmChk">
+									<span></span> 개인정보 제3자 제공 약관에 동의합니다. <em>(선택)</em>
+								</label>
+							</div>
+							<p>
+								동의를 거부 하실 수 있으며, 미동의 시 나이스디앤알 세무, 회계,노무, 법무 각 분야별 전문가 서비스 이용에 제한이 있을 수 있습니다.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="layerpopup__footer">
+				<div class="common-btn">
+					<button class="common-btn__btn common-btn__btn--wide argmBtn">확인</button>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div class="layerpopup__bg"></div>
+</div>
+
+</body>
+</html>

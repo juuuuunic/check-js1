@@ -1,0 +1,426 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+
+<title>택스다이어트: NM_21013(마이페이지>회사정보)</title>
+<link rel="stylesheet" type="text/css" href="/css/mobile/default.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery.fancybox-1.3.1.css">
+
+<script src="/js/mobile/libs/jquery-1.11.1.min.js"></script>
+<script src="/js/mobile/libs/jquery-ui.min.js"></script>
+<script src="/js/mobile/libs/jquery.easing.1.3.js"></script>
+<script src="/js/mobile/libs/jquery-ui.js"></script> <!-- dskim -->
+<script src="/js/mobile/libs/jquery.mask.min.js"></script>
+<script src="/js/mobile/libs/daterange.js"></script>
+
+<script src="/js/mobile/libs/jquery.validate-1.8.1.min.js"></script>
+<script src="/js/mobile/niceNmCommon.js"></script>
+<script src="/js/mobile/common-util.js"></script>
+
+<!-- layerpopup -->
+<script src="/js/mobile/libs/jquery.fancybox.min.js"></script>
+
+<!-- placeholder fix -->
+<script src="/js/mobile/libs/jquery.placeholder.js"></script>
+
+<script src="/js/mobile/libs/jquery.history.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+<script type="text/javascript">
+
+$(function(){
+	
+	$(".btn_joinMember").click(function(){
+			
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A2D594B41200D152A3E062545033D5E220C" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+	
+});
+
+</script>
+<script type="text/javascript" src="/js/nm/libs/jquery.mask.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#corpNo').mask('000000-0000000');	// 법인번호
+	$('#rpsrRrno1').mask('000000');			// 주민번호1
+
+	// 우편번호
+	$("#ozipCodePop").click(function(){
+		fancybox_open_height("../nm/NM_21014.html", "500px", "7F4250422D0233083717261740013B");
+
+		return false;
+	});
+
+	// 업종코드조회
+	$("#indsCodePop").click(function(){
+		fancybox_open_height("../nm/NM_21015.html", "500px", "7F4250422D0233083717261740013B");
+
+		return false;
+	});
+
+	$("#form").validate({
+		rules : {
+			'shop' : { required:true, maxBytes:100 }
+			,'rpsrName' : { required:true, maxBytes:100 }
+			,'rpsrRrno1' : { required:true, minlength:6, number:true }
+	        ,'telNo' : { validPhone:true }
+			,'ozipCode' : { required:true }
+	        ,'oaddr2' : { required:true, maxBytes:200 }
+			,'bizCond' : { required:true }
+	        ,'bizItem' : { maxBytes:150 }
+			,'txptCls' : { required:true }
+		}
+		,names  : {
+			'shop' : '상호명'
+			,'rpsrName': '대표자명'
+			,'rpsrRrno1' : '대표자생년월일'
+			,'telNo' : '사업장전화번호'
+			,'ozipCode' : '우편번호.'
+			,'oaddr2' : '상세주소'
+			,'bizCond' : '업종코드'
+			,'bizItem' : '종목'
+			,'txptCls' : '사업자유형'
+		}
+        ,messages : {
+        	'telNo' : { validPhone : "사업장전화번호 형식이 잘못되었습니다." }
+        	,'txptCls' : { required : "사업자유형 항목은 반드시 선택해야 합니다." }
+        }
+		,onsubmit : false
+	});
+
+    $.validator.addMethod(
+        // 전화번호 검증
+        'validPhone', function(value, element) {
+            return ($.trim(value) == '' || value.isPhoneNumber());
+        }, '전화번호 형식이 잘못되었습니다.'
+    );
+
+	/* 저장 */
+	$("#btn_modify_submit").click(function(){
+		if(!$("#form").valid()){
+			return false;
+		}
+
+		// 주민번호 체크
+		if($('#rpsrRrno2').val() != "" && ($('#rpsrRrno2').val() != $('#rpsrRrno2').attr("placeholder"))){
+			// 주민번호 숫자인지 체크
+			if(!NumberUtil.isNumber($('#rpsrRrno1').val())){
+				alert("올바른 주민등록번호가 아닙니다.");
+				$('#rpsrRrno1').val("");
+				$('#rpsrRrno1').focus();
+
+				return false;
+			}
+
+			if(!NumberUtil.isNumber($('#rpsrRrno2').val())){
+				alert("올바른 주민등록번호가 아닙니다.");
+				$('#rpsrRrno2').val("");
+				$('#rpsrRrno2').focus();
+
+				return false;
+			}
+
+		   	$('#rpsrRrno').val($('#rpsrRrno1').val() + $('#rpsrRrno2').val());
+
+		   	if(!$('#rpsrRrno').val().isJumin()){
+		   		alert("올바른 주민등록번호가 아닙니다.");
+		   		return false;
+		   	}
+
+			$('#chkRpsrRrno').val($('#rpsrRrno').val());
+		} else {
+			$('#rpsrRrno').val("");
+			$('#chkRpsrRrno').val($('#rpsrRrno1').val() + $('#rpsrRrno2').attr("placeholder"));
+		}
+
+		if($("#txptCls").val() == "V102" && $("#etVatRate").val() == ""){
+			alert("부가가치율 항목은 반드시 선택해야 합니다.");
+			$("#etVatRate").focus();
+			return false;
+		}
+
+		var message = "저장하시겠습니까?";		
+
+		if(confirm(message)) {
+			f_post_submit("../nm/NM_21013_UP1.html", "7F4250422D0233083717261740013B");
+		}
+
+		return false;
+	});
+
+	$("#btn_modify_cencel").click(function(){
+		f_go_mypage();
+	});
+
+	if ("V101"=="V102") {
+		$("#txptCls").change();
+	}
+});
+
+function f_call_result(result) {
+	if (result.status) {
+		// 저장 되었습니다.
+		alert("저장되었습니다.");
+
+		f_form_submit("../nm/NM_21013.html", "7F4250422D0233083717261740013B");
+	}
+	else if (result.status_msg != "") {
+		alert(result.status_msg);
+	}
+	else {
+		// 저장에 실패 하였습니다.
+		alert("저장에 실패 하였습니다.");
+	}
+}
+
+var fn = {
+	setIndsDeemInf : function(indsCode, bizCond, bizItem) {
+		$.fancybox.close();
+
+		$("#indsCode").val(indsCode);
+		$("#bizCond").val(bizCond);
+		$("#bizItem").val(bizItem);
+	},
+
+	setAddrInf : function(zipCode, addr1) {
+		$.fancybox.close();
+
+		$("#ozipCode").val(zipCode);
+		$("#oaddr1").val(addr1);
+		//$("#oaddr2").val();
+	}
+}
+</script>
+</head>
+<body>
+	<div class="wrap">
+		<div class="header header--white">
+			<div class="header__back">
+				<a href="javascript:f_go_mypage();">뒤로가기</a>
+			</div>
+			<div class="header__logo">
+				<p>회사정보</p>
+			</div>
+		</div>
+		<div class="container">
+			<div class="inner-container">
+				<form id="form" name="form" method="post">
+				<input type="hidden" name="gbn" value="M" />
+				<input type="hidden" name="id" value="distTaxOffcCode" />
+				<input type="hidden" id="rpsrRrno" name="rpsrRrno"/>
+				<input type="hidden" id="membNo" name="membNo" value="00349585"/>
+				<input type="hidden" id="deemPrcsTarYn" name="deemPrcsTarYn" value="N"/>
+				<input type="hidden" id="evatSdsmsTrmsYn" name="evatSdsmsTrmsYn" value="N"/>
+				<input type="hidden" id="brkBizYn" name="brkBizYn" value="N"/>
+				<input type="hidden" id="prsnCorpCls" name="prsnCorpCls" value="B"/>
+				<input type="hidden" id="oldIndsCode" name="oldIndsCode" value="722000"/>
+				<input type="hidden" id="chkRpsrRrno" name="chkRpsrRrno" value=""/>
+
+				<div class="info-block">
+					<div class="info-section">
+						<div class="info__left">
+							<p class="tit">사업자등록번호</p>
+						</div>
+						<div class="info__right">
+							<div class="input-area">
+								<div class="check-area">
+									<p>107-87-08207</p>
+				   					<input id="bizNo" name="bizNo" type="hidden" value="1078708207"/></div>
+							</div>
+						</div>
+					</div>
+					<div class="info-section">
+						<div class="info__left">
+							<p class="tit">법인등록번호</p>
+						</div>
+						<div class="info__right">
+							<div class="input-area">
+								<input id="corpNo" name="corpNo" type="text" value=""/></div>
+						</div>
+					</div>
+					<div class="info-section">
+						<div class="info__left">
+							<p class="tit">상호명 <span>*</span></p>
+						</div>
+						<div class="info__right">
+							<div class="input-area">
+								<input id="shop" name="shop" type="text" value="나이스디앤알(주)" maxlength="50"/></div>
+						</div>
+					</div>
+					<div class="info-section">
+						<div class="info__left">
+							<p class="tit">대표자명 <span>*</span></p>
+						</div>
+						<div class="info__right">
+							<div class="input-area">
+								<input id="rpsrName" name="rpsrName" type="text" value="DNR대표" maxlength="50"/></div>
+						</div>
+					</div>
+					<div class="info-section">
+						<div class="info__left">
+							<p class="tit">대표자생년월일 <span>*</span></p>
+						</div>
+						<div class="info__right">
+							<div class="input-birthday">
+								<input name="rpsrRrno1" type="text" id="rpsrRrno1" value="531111" maxlength="6" />
+								<div class="txt">-</div>
+								<input name="rpsrRrno2" type="text" id="rpsrRrno2" placeholder="1******" value="" maxlength="7" />
+							</div>
+						</div>
+					</div>
+					<div class="info-section">
+						<div class="info__left">
+							<p class="tit">사업장 전화번호</p>
+						</div>
+						<div class="info__right">
+							<div class="input-area">
+								<input id="telNo" name="telNo" type="text" value="15884546" maxlength="20"/></div>
+						</div>
+					</div>
+					<div class="info-section">
+						<div class="info__left">
+							<p class="tit">주소 <span>*</span></p>
+						</div>
+						<div class="info__right">
+							<div class="input-area">
+								<input id="ozipCode" name="ozipCode" class="right-space" readonly="readonly" type="text" value="07237" size="7"/><button id="ozipCodePop" class="check-btn check-btn--right-space">우편번호</button>
+							</div>
+							<div class="input-area">
+								<input type="text" id="oaddr1" name="oaddr1" value="서울특별시 영등포구 은행로 3 (여의도동)" readonly="readonly">
+							</div>
+							<div class="input-area">
+								<input type="text" id="oaddr2" name="oaddr2" value="123" placeholder="나머지 주소 입력">
+							</div>
+						</div>
+					</div>
+					<div class="info-section">
+						<div class="info__left">
+							<p class="tit">업종코드 <span>*</span></p>
+						</div>
+						<div class="info__right">
+							<div class="input-area">
+								<input type="text" id="indsCode" name="indsCode" value="722000"  readonly="readonly" class="right-space"/>
+								<button id="indsCodePop" class="check-btn check-btn--right-space">업종코드</button>
+							</div>
+						</div>
+					</div>
+					<div class="info-section">
+						<div class="info__left">
+							<p class="tit">업태</p>
+						</div>
+						<div class="info__right">
+							<div class="input-area">
+								<input type="text" id="bizCond" name="bizCond" value="정보통신업" readonly="readonly">
+							</div>
+						</div>
+					</div>
+					<div class="info-section">
+						<div class="info__left">
+							<p class="tit">종목</p>
+						</div>
+						<div class="info__right">
+							<div class="input-area">
+								<input id="bizItem" name="bizItem" type="text" value="응용 소프트웨어 개발 및 공급업" maxlength="50"/></div>
+						</div>
+					</div>
+					<div class="info-section">
+						<div class="info__left">
+							<p class="tit">사업자유형<span>*</span></p>
+						</div>
+						<div class="info__right">
+							<div class="input-area">
+								<select id="txptCls" name="txptCls" onchange="showDiv(&#39;V102&#39;, this)"><option value="">선택</option><option value="V101" selected="selected">일반</option><option value="V102">간이</option><option value="V155">면세</option><option value="V999">기타</option></select></div>
+						</div>
+					</div>
+					<div class="info-section V102" style="display:none;">
+						<div class="info__left">
+							<p class="tit tit--double">간이과세자 <br>부가가치율</p>
+						</div>
+						<div class="info__right">
+							<div class="input-area">
+								<select id="etVatRate" name="etVatRate"><option value="" selected="selected">선택</option><option value="001">5%</option><option value="002">10%</option><option value="003">20%</option><option value="004">30%</option></select></div>
+						</div>
+					</div>
+				</div>
+				</form>
+				<div class="bottom-btn--fixed common-btn common-btn--half">
+					<button id="btn_modify_cencel" class="common-btn__btn common-btn__btn--gray">취소</button>
+					<button id="btn_modify_submit" class="common-btn__btn">저장</button>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<script src="/js/mobile/common.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	// 이용약관
+	$(".NM_22012_001").click(function() {
+		fancybox_open("../nm/NM_22012.do?termCode=001", null, false);
+		return false;
+	});
+
+	// 개인정보처리방침
+	$(".NM_22012_002").click(function() {
+		fancybox_open("../nm/NM_22012.do?termCode=002", null, false);
+		return false;
+	});
+
+	// PC버전
+	$(".PC").click(function() {
+		location.href = "https://t-renewal.taxdiet.co.kr/cm/main.html";
+		return false;
+	});
+});
+</script>
+
+<ul class="footer__terms">
+	<li>
+		<a href="javascript:;" class="NM_22012_001">이용약관</a>
+	</li>
+	<li>
+		<a href="javascript:;" class="NM_22012_002">개인정보처리방침</a>
+	</li>
+	<li>
+		<a href="javascript:;" class="PC">PC버전</a>
+	</li>
+</ul>
+<p class="footer__copyright">Ⓒ NICE D&R Ltd.</p>
+
+<!--
+ <div class="terms-wrap HeightAuto use-terms">
+	<iframe src="" id="terms" name="terms" frameborder="0"></iframe>
+</div>
+ -->
+<!-- 택스다이어트 모바일 전용 구글 애널리틱스 (PC용은 별도로 있음) -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-36649342-22"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-36649342-22');
+</script></div>
+	</div>
+</body>
+<script>
+</script>
+</html>

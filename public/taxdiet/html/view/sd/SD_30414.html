@@ -1,0 +1,292 @@
+<html lang="ko"><head>
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="language" content="ko">
+    <meta name="copyright" content="copyrights 2019 NICE Data">
+    <meta name="author" content="NICE Data">
+    <title>택스다이어트: SD_30414(종합소득세자가신고 > 간편장부작성>인증정보 등록 및 자료가져오기)</title>
+    
+    <link rel="stylesheet" type="text/css" href="/css/default.css">
+    <link rel="stylesheet" type="text/css" href="/css/libs/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="/css/soho_default.css">
+    <link rel="stylesheet" type="text/css" href="/css/soho_sub_default.css">
+    
+    <!--  공통 -->
+    <script src="/js/libs/jquery-1.11.1.min.js"></script>
+    <script src="/js/niceCommon.js"></script>
+    <script src="/js/common-util.js"></script>
+    <script src="/js/libs/jquery.fancybox.min.js"></script>
+    <script src="/js/libs/jquery.placeholder.min.js"></script>
+    <script src="/js/libs/jquery-ui.min.js"></script>
+    <script src="/js/moment.min.js"></script>
+    
+    <script src="/js/libs/jquery.dialog.min.js"></script>
+    
+    <script src="/js/common.js"></script>
+    <script src="/js/progress.min.js"></script>
+    <script src="/js/browserVersion.min.js"></script>
+    <script src="/js/libs/jquery.easing.1.3.min.js"></script>
+    <script src="/js/libs/jquery.mask.min.js"></script>
+    
+    <script src="/js/libs/jquery.cookie.min.js"></script>
+    <script src="/js/cookie.min.js"></script>
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico">
+    
+    <script type="text/javascript">
+    
+    $(function(){
+        // gnb 로고 옆에 현재 머물고 있는 1뎁스 메뉴 표시
+        $("ul.gnb_depth1 > li").each(function(index){
+            if($(this).attr("class") == "on"){
+                $("div.logo-wrap > h2").html($(this).text().trim());
+            }
+        })
+        
+        
+        // 로그아웃
+        $(document).on("click", ".btn_logout", function(data){
+            if (confirm("로그아웃 하시겠습니까?")) {
+                
+                var $form = $("<form/>",{id:"logoutForm",method:"post", action:"../cm/nTdLogout.html"});
+                $("body").append($form);
+                $form.submit();
+            }
+        });
+        
+        
+        $("#loginBtn").click(function(){
+            if($.trim($("#membId").val()) == "") {
+                alert("회원아이디를 입력하세요.");
+                $("#membId").focus();
+                return false;
+            }
+            
+            if($.trim($("#pswd").val()) == "") {
+                alert("비밀번호를 입력하세요.");
+                $("#pswd").focus();
+                return false;
+            }
+    
+            $.removeCookie("saveid", {path : '/'});
+    
+            if ($("#chk_save_id").prop("checked")) {
+                $.cookie("saveid", $.trim($("#membId").val()), {expires: 365, path : '/'});
+            }
+    
+            doLogin();
+    
+            return false;
+        });
+    
+        
+        $("#btn_login").click(function(){
+    
+            var param	= "";
+            
+            
+            param = "7F3401425D07331D0040265B40013B";
+    
+            location.href="../cm/nTdLogin.html?returnURL=" + param;
+        });
+        
+        $("#loginForm input[name=pswd]").keyup(function(e) {
+            if (e.keyCode == KeyCode.ENTER) {
+                $("#loginBtn").click();
+            }
+        });
+        
+        
+        $(".btn_joinMember").click(function(){
+            
+            var url		= $(this).attr("move");
+            
+            if(typeof jmForm == "undefined"){
+                var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+                
+                $("body").append($form);
+                $("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A16010741200D152A3E062545033D5E220C" }).appendTo("#jmForm");
+                $("<input/>").attr({type:"hidden", name:"hmpUrl", value:"taxdiet" }).appendTo("#jmForm");
+                
+            } else {
+                $("#jmForm").attr("action", url);
+            }
+            $("#jmForm").attr('target', '_blank').submit();
+            
+        });
+    });
+        
+    function fnLayerClose(){
+        try{
+            parent.$.fancybox.close();
+        }catch(exception){}
+    }
+    var membEtcRefresh = function(){
+        $.post("../cm/CM_00001_UP1.html", "", "");
+    }
+    var isLogin = function(){
+        
+                return true;
+                    
+    }
+    
+    // 미사용
+    function fnLogin(returnURL){
+        if(!isLogin()){
+            var msg	= "로그인이 필요합니다.\n회원이 아니시면 회원가입을 해주시기 바랍니다.";
+            
+            alert(msg);
+            
+            if(typeof(returnURL) == "undefined") {
+                returnURL = location.pathname;
+            }
+    
+            location.href = "../cm/nTdLogin.html?returnURL="+returnURL;
+            
+            return false;
+        }
+        return true;
+    }
+    
+    function fnIeLimitCheck(){
+        var limitVersion	= 8;
+        var ieVersion		= getIeVersion();
+    
+        if(getCookie("NoMoreBrowserPopup") != "yes"){
+            if(ieVersion){
+                if(ieVersion <= limitVersion){
+                    WindowUtil.open({
+                          windowURL		: "/popup/popup_ieWarning.html"
+                        , windowName	: "popup_browserWarning"
+                        , width			: 600
+                        , height		: 741
+                    });
+                }
+            }
+        }
+    }
+    
+    function doLogin() {
+        if($("#loginForm > input#redirectURL").length === 0){
+            $("<input>").attr({
+                  type	: "hidden"
+                , id	: "redirectURL"
+                , name	: "redirectURL"
+                , value : "https://www.taxdiet.co.kr/my/MY_B0111.html"
+            }).appendTo("#loginForm");
+        }
+        else if ($("#redirectURL").val()=="") {
+            $("#redirectURL").val("https://www.taxdiet.co.kr/my/MY_B0111.html");
+        }
+        else {
+            $("#redirectURL").val(location.href);	
+        }
+    
+        if ($("#returnURL").val() != "") {
+            $("#redirectURL").val("");
+        }
+    
+        $("#loginForm").attr("action", "../cm/nTdSsoLoginProc.html");
+        $("#loginForm").attr("target", "_self");
+        $("#loginForm").submit();
+    }
+    </script>
+    <script type="text/javascript" src="/js/ta_common.js"></script>
+    <script type="text/javascript">
+    $(function(){
+        // 상세보기 팝업
+        $("#btnDetail").click(function() {
+            parent.fn.detailPop();
+        });
+        
+        // 추가정보 가져오기
+        $("#btnAddInfo").click(function() {
+            parent.fn.addInfo();
+        });
+        
+    });
+    </script>
+    </head>
+    <body><div class="loading_wrap HeightAuto" style="height: 500px;">	<div class="box_img">		<p>Loading...</p>	</div>	<div class="loading_bg HeightAuto" style="height: 500px;"></div></div>
+    <form id="form" name="form" method="post">
+        <div class="lp-ta-wrap">
+            <div class="lp-header">
+                <p>수집된 데이터 현황</p>
+            </div>
+            <div class="lp-container">
+                <div class="ta-text-btn-wrap">
+                    <p>현재 수집되어 있는 정보는 아래와 같습니다.<br>월별 상세 내용을 조회하려면 우측 상세보기 버튼을 클릭하세요.</p>
+                    <div class="btn-wrap">
+                        <a href="javascript:;" id="btnDetail">상세보기</a>
+                    </div>
+                </div>
+                <div class="lp-total-table-block3">
+                    <div class="lp-total-table-top-text">
+                        <div class="inner-left">
+                            <p>[수집된 정보 요약]</p>
+                        </div>
+                        <div class="inner-right">
+                            <p>(단위: 원)</p>
+                        </div>
+                    </div>
+                    <table width="100%">
+                        <colgroup><col width="20%;">
+                        <col width="20%;">
+                        <col width="20%;">
+                        <col width="20%;">
+                        <col width="20%;">
+                        </colgroup><thead>
+                            <tr>
+                                <th scope="col">구분</th>
+                                <th scope="col">정보구분</th>
+                                <th scope="col">상반기</th>
+                                <th scope="col">하반기</th>
+                                <th scope="col" class="br-none">연간합계</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                    <th rowspan="3">매출</th>
+                                    <td class="text_left">전자(세금)계산서</td>
+                                    <td>11,000</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                            </tr><tr>
+                                    <td class="text_left">신용카드</td>
+                                    <td>140,222,619</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                            </tr><tr class="half">
+                                    <td class="text_left">현금영수증</td>
+                                    <td>3,169,435</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                            </tr><tr>
+                                    <th rowspan="3">비용</th>
+                                    <td class="text_left">전자(세금)계산서</td>
+                                    <td>26,530,717</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                            </tr><tr>
+                                    <td class="text_left">신용카드</td>
+                                    <td>7,928,620</td>
+                                    <td>4,066,316</td>
+                                    <td>11,994,936</td>
+                            </tr><tr class="half">
+                                    <td class="text_left">현금영수증</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                            </tr></tbody>
+                    </table>
+                </div>
+                <div class="lp-ta-btn-wrap none_border">
+                    <input type="button" value="추가 정보를 가져오겠습니다" class="base_btn_color width-180" id="btnAddInfo">
+                    <input type="button" value="현재 정보로 진행하겠습니다" class="base_btn_color gray width-180" onclick="parent.$.fancybox.close();">
+                </div>
+            </div>
+        </div>
+    </form>
+    
+    </body></html>

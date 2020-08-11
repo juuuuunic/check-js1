@@ -1,0 +1,446 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+
+<title>택스다이어트: NM_21011(마이페이지>회원정보)</title>
+<link rel="stylesheet" type="text/css" href="/css/mobile/default.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery.fancybox-1.3.1.css">
+
+<script src="/js/mobile/libs/jquery-1.11.1.min.js"></script>
+<script src="/js/mobile/libs/jquery-ui.min.js"></script>
+<script src="/js/mobile/libs/jquery.easing.1.3.js"></script>
+<script src="/js/mobile/libs/jquery-ui.js"></script> <!-- dskim -->
+<script src="/js/mobile/libs/jquery.mask.min.js"></script>
+<script src="/js/mobile/libs/daterange.js"></script>
+
+<script src="/js/mobile/libs/jquery.validate-1.8.1.min.js"></script>
+<script src="/js/mobile/niceNmCommon.js"></script>
+<script src="/js/mobile/common-util.js"></script>
+
+<!-- layerpopup -->
+<script src="/js/mobile/libs/jquery.fancybox.min.js"></script>
+
+<!-- placeholder fix -->
+<script src="/js/mobile/libs/jquery.placeholder.js"></script>
+
+<script src="/js/mobile/libs/jquery.history.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+<script type="text/javascript">
+
+$(function(){
+	
+	$(".btn_joinMember").click(function(){
+			
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A2D594B41200D152A3E062545033D5E220C" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+	
+});
+
+</script>
+<script src="/js/nm/password.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* 휴대폰번호 변경-인증모듈 호출*/
+	$("#btn_cert").click(function(){
+		checkPlusOpen();
+	});
+
+	$("#form").validate({
+		rules : {
+			'membName' : { required:true, maxBytes:100 }
+			,'hpNo' : { required:true }
+			,'email' : { required:true, maxBytes:100, validEmail:true }
+	        ,'pswd' : { required:true }
+		}
+		,names  : {
+			'membName' : '이름'
+			,'hpNo': '휴대폰번호'
+			,'email' : '이메일'
+			,'pswd' : '현재 비밀번호'
+		}
+        ,messages : {
+        	'email' : { validEmail : "이메일 주소 형식이 잘못되었습니다." }
+        }
+		,onsubmit : false
+	});
+
+    $.validator.addMethod(
+        // 이메일 검증
+        'validEmail', function(value, element) {
+            return ($.trim(value) == '' || value.isEmail());
+        }, '이메일 주소 형식이 잘못되었습니다.'
+    );
+
+	/* 저장 */
+	$("#btn_modify_submit").click(function(){
+		if(!$("#form").valid()){
+			return false;
+		}
+
+		if($("#newPswd").val() != "" && $("#re_pswd").val() != ""){
+			if(!isCheck_pswd($("#newPswd").val())){
+				alert("비밀번호를 안전하게 다시 설정하십시오.");
+				$("#newPswd").focus();
+				return false;
+			}
+
+			if($("#pswd").val() == $("#newPswd").val()){
+				alert("비밀번호는 이전 비밀번호와 달라야 합니다.");
+				$("#newPswd").focus();
+				return false;
+			}
+
+			if($("#newPswd").val() != $("#re_pswd").val()){
+				alert("비밀번호가 일치하지 않습니다.");
+				$("#newPswd").focus();
+				return false;
+			}
+		}
+
+		var message = "저장하시겠습니까?";		
+
+		if(confirm(message)) {
+			f_post_submit("../nm/NM_21011_UP1.html", "7F4250422D0233083717263B40013B");
+		}
+
+		return false;
+	});
+
+	$("#btn_modify_cencel").click(function(){
+		f_go_mypage();
+	});
+
+	// 이용중인 서비스
+	$(".NM_21012").click(function() {
+		fancybox_open_height("../nm/NM_21012.html", "350px", "7F4250422D0233083717263B40013B");
+
+		return false;
+	});
+});
+
+function f_call_result(result) {
+	if (result.status) {
+		// 저장 되었습니다.
+		alert("저장되었습니다.");
+
+		f_form_submit("../nm/NM_21011.html", "7F4250422D0233083717263B40013B");
+	}
+	else if (result.status_msg != "") {
+		alert(result.status_msg);
+	}
+	else {
+		// 저장에 실패 하였습니다.
+		alert("저장에 실패 하였습니다.");
+	}
+}
+
+
+function checkPlusEnd() {
+	if ($("input[name='resSeq']").val() != "" && $("input[name='di']").val() != "") {
+		$("#crtfCode").val($("input[name='di']").val());
+		$("#certKey").val($("#checkPlusForm > input[name=reserved1]").val());
+
+		$("#membName").val($("#checkPlusForm > input[name=name]").val());
+		$("#membNameView").val($("#checkPlusForm > input[name=name]").val());
+		$("#hpNo").val($("#checkPlusForm > input[name=mobileNo]").val());
+		$("#hpNo_text").text($("#hpNo").val());
+	} else {
+		alert("본인확인 중 오류가 발생하였습니다.");
+		return false;
+	}
+}
+</script>
+</head>
+<body>
+	<div class="wrap">
+		<div class="header header--white">
+			<div class="header__back">
+				<a href="javascript:f_go_mypage();">뒤로가기</a>
+			</div>
+			<div class="header__logo">
+				<p>회원정보</p>
+			</div>
+		</div>
+		<div class="container">
+			<div class="inner-container">
+				<form id="form" name="form" method="post">
+					<input type="hidden" name="membNo" id="membNo" value="00349585"/>
+					<input type="hidden" name="crtfCode" id="crtfCode" value="" />
+					<input type="hidden" name="certKey" id="certKey" value="" />
+				<div class="info-block">
+					<div class="info-section">
+						<div class="info__left">
+							<p class="tit">아이디</p>
+						</div>
+						<div class="info__right">
+							<div class="input-area">
+								<div class="check-area">
+									<p>nice2122</p>
+									<a href="javascript:;" class="NM_21012"><button class="check-btn">이용중인 서비스</button></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="info-section">
+						<div class="info__left">
+							<p class="tit">이름 <span>*</span></p>
+						</div>
+						<div class="info__right">
+							<div class="input-area">
+								<input type="text" id="membNameView" value="최현수" readonly="readonly" disabled>
+								<input type="hidden" id="membName" name="membName" value="최현수">
+							</div>
+						</div>
+					</div>
+					<div class="info-section">
+						<div class="info__left">
+							<p class="tit">휴대폰번호 <span>*</span></p>
+						</div>
+						<div class="info__right">
+							<div class="input-area">
+								<div class="check-area">
+									<p id="hpNo_text">
+									01071098508</p>
+									<input type="hidden" name="hpNo" id="hpNo" value="01071098508"/>
+									<button id="btn_cert" class="check-btn">변경하기</button>
+								</div>
+								<div class="check-radio">
+									<p class="tit">SMS 수신동의</p>
+									<ul class="radio-list">
+										<li>
+											<input type="radio" id="smsRecpDenYn1" name="smsRecpDenYn" value="N" checked class="type2">
+											<label for="smsRecpDenYn1">
+												<span></span>수신동의
+											</label>
+										</li>
+										<li>
+											<input type="radio" id="smsRecpDenYn2" name="smsRecpDenYn" value="Y"  class="type2">
+											<label for="smsRecpDenYn2">
+												<span></span>수신거부
+											</label>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="info-section">
+						<div class="info__left">
+							<p class="tit">이메일 <span>*</span></p>
+						</div>
+						<div class="info__right">
+							<div class="input-area">
+								<input type="text" id="email" name="email" maxlength="50" value="BBBB@hanmail.net"/>
+								<div class="check-radio">
+									<p class="tit">메일 수신동의</p>
+									<ul class="radio-list">
+										<li>
+											<input type="radio" id="emailRecpDenYn1" name="emailRecpDenYn" value="N"  class="type2" />
+											<label for="emailRecpDenYn1">
+												<span></span>수신동의
+											</label>
+										</li>
+										<li>
+											<input type="radio" id="emailRecpDenYn2" name="emailRecpDenYn" value="Y" checked class="type2" />
+											<label for="emailRecpDenYn2">
+												<span></span>수신거부
+											</label>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="info-section">
+						<div class="info__left">
+							<p class="tit">현재 비밀번호 <span>*</span></p>
+						</div>
+						<div class="info__right">
+							<div class="input-area">
+								<input type="password" id="pswd" name="pswd" maxlength="16" value=""/>
+							</div>
+						</div>
+					</div>
+					<div class="info-section">
+						<div class="info__left">
+							<p class="tit">변경 비밀번호</p>
+						</div>
+						<div class="info__right">
+							<div class="input-area">
+								<input type="password" id="newPswd" name="newPswd" maxlength="16" value=""/>
+							</div>
+						</div>
+					</div>
+					<div class="info-section">
+						<div class="info__left">
+							<p class="tit">비밀번호 확인</p>
+						</div>
+						<div class="info__right">
+							<div class="input-area">
+								<input type="password" id="re_pswd" name="re_pswd" maxlength="16" value=""/>
+								<p class="input-comment">8~20자 영문 대 소문자, 숫자, 특수문자를 사용하세요.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				</form>
+				<div class="bottom-btn--fixed common-btn common-btn--half">
+					<button id="btn_modify_cencel" class="common-btn__btn common-btn__btn--gray">취소</button>
+					<button id="btn_modify_submit" class="common-btn__btn">저장</button>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<script src="/js/mobile/common.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	// 이용약관
+	$(".NM_22012_001").click(function() {
+		fancybox_open("../nm/NM_22012.do?termCode=001", null, false);
+		return false;
+	});
+
+	// 개인정보처리방침
+	$(".NM_22012_002").click(function() {
+		fancybox_open("../nm/NM_22012.do?termCode=002", null, false);
+		return false;
+	});
+
+	// PC버전
+	$(".PC").click(function() {
+		location.href = "https://t-renewal.taxdiet.co.kr/cm/main.html";
+		return false;
+	});
+});
+</script>
+
+<ul class="footer__terms">
+	<li>
+		<a href="javascript:;" class="NM_22012_001">이용약관</a>
+	</li>
+	<li>
+		<a href="javascript:;" class="NM_22012_002">개인정보처리방침</a>
+	</li>
+	<li>
+		<a href="javascript:;" class="PC">PC버전</a>
+	</li>
+</ul>
+<p class="footer__copyright">Ⓒ NICE D&R Ltd.</p>
+
+<!--
+ <div class="terms-wrap HeightAuto use-terms">
+	<iframe src="" id="terms" name="terms" frameborder="0"></iframe>
+</div>
+ -->
+<!-- 택스다이어트 모바일 전용 구글 애널리틱스 (PC용은 별도로 있음) -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-36649342-22"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-36649342-22');
+</script></div>
+	</div>
+	<script type="text/javascript">
+
+function checkPlusOpen() {
+	// 보안인증 암호화 키 생성
+	$.ajax({
+		type   : 'POST',
+		url    : '/cm/CM_CheckEncData.html',
+		async  : false,
+		success: function(data, status) {
+			if (data != null && data != "") {
+				$("input[name='EncodeData']").val(data);
+				
+				// 본인인증 페이지 호출
+				if ($("input[name='EncodeData']").val() != "") {
+					checkPlus.getCheckPop();	
+				}
+			} else {
+				alert("작업 중 오류가 발생하였습니다.");
+				return false;
+			}
+		},
+		error: function (xhr, textStatus, errorThrown) {
+			return;
+		}
+	});
+	
+	return false;
+	
+}
+
+var checkPlus = {
+		
+	// 본인인증 팝업 OPEN
+	getCheckPop : function() {
+
+		var win = window.open('about:blank', "popupChk", "width=500, height=550, top=100, left=100, fullscreen=no, menubar=no, status=no, toolbar=no, titlebar=yes, location=no, scrollbar=no" );
+	    if (win == null) {
+	    	alert('팝업창 설정을 허용해 주세요');
+	    	return false;
+	    }
+	    
+	    $('#checkPlusForm').attr('action', "https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb");
+		$('#checkPlusForm').attr('target', 'popupChk');
+		$('#checkPlusForm').submit();
+				
+		return false;
+	},
+	
+	endEvent : function(data) {
+		checkPlusEnd();
+	}
+}
+
+</script>
+
+<!-- 본인인증 서비스 팝업을 호출하기 위해서는 다음과 같은 form이 필요합니다. -->
+<form name="checkPlusForm" id="checkPlusForm" method="post">
+  <input type="hidden" name="m" value="checkplusSerivce">	<!-- 필수 데이타로, 누락하시면 안됩니다. -->
+  <input type="hidden" name="EncodeData" value="">		    <!-- 위에서 업체정보를 암호화 한 데이타입니다. -->
+	    
+  <!-- 업체에서 응답받기 원하는 데이타를 설정하기 위해 사용할 수 있으며, 인증결과 응답시 해당 값을 그대로 송신합니다. 해당 파라미터는 추가하실 수 없습니다. -->
+  <input type="hidden" name="param_r1" value="">
+  <input type="hidden" name="param_r2" value="">
+  <input type="hidden" name="param_r3" value="">
+  
+  <input type="hidden" name="mobileNo" value="">
+  <input type="hidden" name="cipherTime" value="">
+  <input type="hidden" name="reqSeq" value="">
+  <input type="hidden" name="resSeq" value="">
+  <input type="hidden" name="birthDate" value="">
+  <input type="hidden" name="nationalinfo" value="">
+  <input type="hidden" name="name" value="">
+  <input type="hidden" name="gender" value="">
+  <input type="hidden" name="errCode" value="">
+  <input type="hidden" name="reserved1" value="">
+  <input type="hidden" name="reserved2" value="">
+  <input type="hidden" name="reserved3" value="">
+  <input type="hidden" name="di" value="">
+  <input type="hidden" name="ci" value="">
+  
+</form></body>
+</html>

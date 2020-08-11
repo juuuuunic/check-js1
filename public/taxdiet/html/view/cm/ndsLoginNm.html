@@ -1,0 +1,317 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+
+<title>택스다이어트: ndsLoginNm(모바일 로그인)</title>
+<link rel="stylesheet" type="text/css" href="/css/mobile/default.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery.fancybox-1.3.1.css">
+
+<script src="/js/mobile/libs/jquery-1.11.1.min.js"></script>
+<script src="/js/mobile/libs/jquery-ui.min.js"></script>
+<script src="/js/mobile/libs/jquery.easing.1.3.js"></script>
+<script src="/js/mobile/libs/jquery-ui.js"></script> <!-- dskim -->
+<script src="/js/mobile/libs/jquery.mask.min.js"></script>
+<script src="/js/mobile/libs/daterange.js"></script>
+
+<script src="/js/mobile/libs/jquery.validate-1.8.1.min.js"></script>
+<script src="/js/mobile/niceNmCommon.js"></script>
+<script src="/js/mobile/common-util.js"></script>
+
+<!-- layerpopup -->
+<script src="/js/mobile/libs/jquery.fancybox.min.js"></script>
+
+<!-- placeholder fix -->
+<script src="/js/mobile/libs/jquery.placeholder.js"></script>
+
+<script src="/js/mobile/libs/jquery.history.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+<script type="text/javascript">
+
+$(function(){
+	
+	$(".btn_joinMember").click(function(){
+			
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A2D594B41200D152A3E062545033D5E220C" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+	
+});
+
+</script>
+<script type="text/javascript" src="/js/mobile/libs/jquery.cookie.js"></script>
+<script type="text/javascript">
+$(function() {
+	// set focus event
+	$(':input').bind('keyup, keydown', function(event) {
+		ElementUtil.moveFocus(event, this);
+	});
+
+	$("#form").validate({
+		rules : {
+			'membId' : { required:true }
+			,'pswd' : { required:true }
+		},
+		messages  : {
+			'membId' : '아이디를 입력해주세요.'
+			,'pswd' : '비밀번호를 입력해주세요.'
+		},
+
+		onsubmit : false
+	});
+
+	$('#loginBtn').click(function() {
+		if(!$("#form").valid()){
+			return false;
+		}
+
+		$.removeCookie("saveid", {path : '/'});
+		$.removeCookie("savepw", {path : '/'});
+
+		$("#form").attr('target', '_self');
+		$("#form").attr('action', 'https://t-m.taxdiet.co.kr/cm/ndsLoginProcNm.html');
+		$("#form").submit();
+
+		return false;
+	});
+});
+
+$(window).load(function(){
+	$('#membId').val("");
+	$('#pswd').val("");
+
+	if("false" == "true") {
+		if ($("#keep_login").prop("checked")) {
+			$.cookie("saveid", "", {expires: 365, path : '/'});
+			$.cookie("savepw", "", {expires: 365, path : '/'});
+		}
+
+		$('#pswd').val("");
+		$("#form").attr('action', '').submit();
+	}
+	else if("false" == "false" && "" != "") {
+		alert("");
+		$("#membId").focus();
+	}
+	else {
+		$("#membId").focus();
+	}
+});
+</script>
+</head>
+<body>
+	<div class="wrap">
+		<div class="header header--white">
+			<div class="header__logo">
+				<a href="javascript:f_go_home();"><img src="/images/mobile/common/main_logo.png" alt="택스다이어트"></a>
+			</div>
+			<script type="text/javascript">
+$(document).ready(function(){
+	$("#tax_bill").click(function() {
+		window.open("http://www.nicedata.co.kr/ti/TI_10000.html");
+		return false;
+	});
+	
+	$("#check_biz").click(function() {
+		window.open("http://www.nicedata.co.kr/as/AS_30401.html");
+		return false;
+	});
+	
+	$("#sgic").click(function() {
+		window.open("http://www.nicedata.co.kr/as/AS_40601.html");
+		return false;
+	});
+});
+</script>
+<div class="header__gnb">
+	<input type="checkbox" class="gnb__btn" id="gnb__btn">
+	<label for="gnb__btn" class="gnb__btn__action">
+		<div class="spinner diagonal part-1"></div>
+		<div class="spinner horizontal"></div>
+		<div class="spinner diagonal part-2"></div>
+	</label>
+	<div class="gnb__contents">
+		<div class="gnb__contents__header">
+			<p class="login-info">로그인 해주세요</p>
+					<div class="login-btn">
+						<a href="../cm/ndsLoginNm.do?main_login=Y">로그인</a>
+					</div>
+				</div>
+		<ul class="gnb__contents__menu">
+			<li>
+				<a href="../nm/NM_23011.html">
+					<i class="icon-set1"></i>부가세 환급지원
+				</a>
+			</li>
+			<li>
+				<a href="../nm/NM_29011.html">
+					<i class="icon-set2"></i>셀프택스 자가신고
+				</a>
+			</li>
+			<li>
+				<a href="../nm/NM_25011.html">
+					<i class="icon-set3"></i>세무상담
+				</a>
+			</li>
+			<li>
+				<a href="../nm/NM_30011.html">
+					<i class="icon-set5"></i>상권분석
+				</a>
+			</li>
+		</ul>
+		<div class="gnb__contents__service">
+			<div class="gnb__contents__service--top">
+				<p class="call_tit">
+					<i></i>고객만족센터
+				</p>
+				<div class="call_btn">
+					<a href="tel:1588-5659">통화하기</a>
+				</div>
+			</div>
+			<div class="gnb__contents__service--bottom">
+				<p class="service-number">1588-5659</p>
+				<p class="service-time">
+					상담시간: 09:00~18:00(금요일 17:00까지)<br/>
+					점심시간: 12:00~13:00<br />
+					주말, 공휴일 휴무<br />
+				</p>
+			</div>
+		</div>
+		<div class="gnb__contents__qiuck">
+			<ul>
+				<li>
+					<a href="#none" id="tax_bill">
+						<img src="/images/mobile/common/quick_icon_1.png" alt="전자세금계산서"/>
+						전자세금<br/>계산서
+					</a>
+				</li>
+				<li>
+					<a href="#none" id="check_biz">
+						<img src="/images/mobile/common/quick_icon_2.png" alt="휴폐업조회"/>
+						휴폐업<br/>조회
+					</a>
+				</li>
+				<li>
+					<a href="#none" id="sgic">
+						<img src="/images/mobile/common/quick_icon_3.png" alt="서울보증보험안내"/>
+						서울보증보험<br/>안내
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="header__hidden-bg"></div>
+</div>
+		<div class="container">
+			<div class="inner-container">
+			<form name="form" id="form" method="post" >
+				<input type="hidden" id="main_login" name="main_login" value="Y" />
+				<input type="hidden" id="returnURL" name="returnURL" value="7F4250422D0233081B17263B40013B" />
+				<div class="login">
+					<div class="login__input">
+						<div class="input-section">
+							<input type="text" name="membId" id="membId" placeholder="아이디를 입력해주세요." style="ime-mode:inactive"/>
+						</div>
+						<div class="input-section">
+							<input type="password" name="pswd" id="pswd" placeholder="비밀번호를 입력해주세요." >
+						</div>
+						<div class="input-check">
+							<input type="checkbox" id="keep_login" name="keep_login" value="Y"  class="big">
+							<label for="keep_login">
+								<span></span> <p>로그인 상태 유지</p>
+							</label>
+						</div>
+					</div>
+					<div class="common-btn">
+						<button class="common-btn__btn common-btn__btn--wide" id="loginBtn">로그인</button>
+					</div>
+					<div class="login__menu">
+						<ul>
+							<li>
+								<a href="javascript:;" move="https://t-renewal.nicedata.co.kr/jm/JM_40101.html" class="btn_joinMember">아이디찾기</a>
+							</li>
+							<li>
+								<a href="javascript:;" move="https://t-renewal.nicedata.co.kr/jm/JM_50101.html" class="btn_joinMember">비밀번호찾기</a>
+							</li>
+							<li>
+								<a href="javascript:;" move="https://t-renewal.nicedata.co.kr/jm/JM_10101.html"  class="btn_joinMember">회원가입</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</form>
+			</div>
+		</div>
+		<div class="footer">
+			<script src="/js/mobile/common.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	// 이용약관
+	$(".NM_22012_001").click(function() {
+		fancybox_open("../nm/NM_22012.do?termCode=001", null, false);
+		return false;
+	});
+
+	// 개인정보처리방침
+	$(".NM_22012_002").click(function() {
+		fancybox_open("../nm/NM_22012.do?termCode=002", null, false);
+		return false;
+	});
+
+	// PC버전
+	$(".PC").click(function() {
+		location.href = "https://t-renewal.taxdiet.co.kr/cm/main.html";
+		return false;
+	});
+});
+</script>
+
+<ul class="footer__terms">
+	<li>
+		<a href="javascript:;" class="NM_22012_001">이용약관</a>
+	</li>
+	<li>
+		<a href="javascript:;" class="NM_22012_002">개인정보처리방침</a>
+	</li>
+	<li>
+		<a href="javascript:;" class="PC">PC버전</a>
+	</li>
+</ul>
+<p class="footer__copyright">Ⓒ NICE D&R Ltd.</p>
+
+<!--
+ <div class="terms-wrap HeightAuto use-terms">
+	<iframe src="" id="terms" name="terms" frameborder="0"></iframe>
+</div>
+ -->
+<!-- 택스다이어트 모바일 전용 구글 애널리틱스 (PC용은 별도로 있음) -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-36649342-22"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-36649342-22');
+</script></div>
+	</div>
+</body>
+</html>

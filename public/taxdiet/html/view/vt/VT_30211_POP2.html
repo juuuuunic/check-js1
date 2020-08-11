@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots"      content="noindex,nofollow" />
+<meta name="language"    content="ko" />
+<meta name="copyright"   content="copyrights 2019 NICE Data" />
+<meta name="author"      content="NICE Data" />
+<title>택스다이어트: 30211_POP2(부가가치세자가신고>신고서작성-4>부가가치세신고왜필요하죠?)</title>
+
+<link rel="stylesheet" type="text/css" href="/css/default.css">
+<link rel="stylesheet" type="text/css" href="/css/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/soho_default.css">
+<link rel="stylesheet" type="text/css" href="/css/soho_sub_default.css">
+
+<!--  공통 -->
+<script src="/js/libs/jquery-1.11.1.min.js"></script>
+<script src="/js/niceCommon.js"></script>
+<script src="/js/common-util.js"></script>
+<script src="/js/libs/jquery.fancybox.js"></script>
+<script src="/js/libs/jquery.placeholder.js"></script>
+<script src="/js/libs/jquery-ui.js"></script>
+<script src="/js/moment.js"></script>
+
+<script src="/js/libs/jquery.dialog.min.js"></script>
+
+<script src="/js/common.js"></script>
+<script src="/js/progress.js"></script>
+<script src="/js/browserVersion.js"></script>
+<script src="/js/libs/jquery.easing.1.3.js"></script>
+<script src="/js/libs/jquery.mask.js"></script>
+
+<script src="/js/libs/jquery.cookie.js"></script>
+<script src="/js/cookie.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+
+<script type="text/javascript">
+
+$(function(){
+	// gnb 로고 옆에 현재 머물고 있는 1뎁스 메뉴 표시
+	$("ul.gnb_depth1 > li").each(function(index){
+		if($(this).attr("class") == "on"){
+			$("div.logo-wrap > h2").html($(this).text().trim());
+		}
+	})
+	
+	
+	// 로그아웃
+	$(document).on("click", ".btn_logout", function(data){
+		if (confirm("로그아웃 하시겠습니까?")) {
+			
+			var $form = $("<form/>",{id:"logoutForm",method:"post", action:"../cm/nTdLogout.html"});
+			$("body").append($form);
+			$form.submit();
+		}
+	});
+	
+	
+	$("#loginBtn").click(function(){
+		if($.trim($("#membId").val()) == "") {
+			alert("회원아이디를 입력하세요.");
+			$("#membId").focus();
+			return false;
+		}
+		
+		if($.trim($("#pswd").val()) == "") {
+			alert("비밀번호를 입력하세요.");
+			$("#pswd").focus();
+			return false;
+		}
+
+		$.removeCookie("saveid", {path : '/'});
+
+		if ($("#chk_save_id").prop("checked")) {
+			$.cookie("saveid", $.trim($("#membId").val()), {expires: 365, path : '/'});
+		}
+
+		doLogin();
+
+		return false;
+	});
+
+	
+	$("#btn_login").click(function(){
+
+		var param	= "";
+		
+		
+		param = "7F2227421532331D0019263B31232A0802410333";
+
+		location.href="../cm/nTdLogin.do?returnURL=" + param;
+	});
+	
+	$("#loginForm input[name=pswd]").keyup(function(e) {
+		if (e.keyCode == KeyCode.ENTER) {
+			$("#loginBtn").click();
+		}
+	});
+	
+	
+	$(".btn_joinMember").click(function(){
+		
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A2D5910065E0016262341250F130D2100204935215D3F07" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+});
+	
+function fnLayerClose(){
+	try{
+		parent.$.fancybox.close();
+	}catch(exception){}
+}
+var membEtcRefresh = function(){
+	$.post("../cm/CM_00001_UP1.html", "", "");
+}
+var isLogin = function(){
+	
+			return true;
+				
+}
+
+// 미사용
+function fnLogin(returnURL){
+	if(!isLogin()){
+		var msg	= "로그인이 필요합니다.\n회원이 아니시면 회원가입을 해주시기 바랍니다.";
+		
+		alert(msg);
+		
+		if(typeof(returnURL) == "undefined") {
+			returnURL = location.pathname;
+		}
+
+		location.href = "../cm/nTdLogin.do?returnURL="+returnURL;
+		
+		return false;
+	}
+	return true;
+}
+
+function fnIeLimitCheck(){
+	var limitVersion	= 8;
+	var ieVersion		= getIeVersion();
+
+	if(getCookie("NoMoreBrowserPopup") != "yes"){
+		if(ieVersion){
+			if(ieVersion <= limitVersion){
+				WindowUtil.open({
+					  windowURL		: "/popup/popup_ieWarning.html"
+					, windowName	: "popup_browserWarning"
+					, width			: 600
+					, height		: 741
+				});
+			}
+		}
+	}
+}
+
+function doLogin() {
+	if($("#loginForm > input#redirectURL").length === 0){
+		$("<input>").attr({
+			  type	: "hidden"
+			, id	: "redirectURL"
+			, name	: "redirectURL"
+			, value : "https://t-renewal.taxdiet.co.kr/my/MY_B0111.html"
+		}).appendTo("#loginForm");
+	}
+	else if ($("#redirectURL").val()=="") {
+		$("#redirectURL").val("https://t-renewal.taxdiet.co.kr/my/MY_B0111.html");
+	}
+	else {
+		$("#redirectURL").val(location.href);	
+	}
+
+	if ($("#returnURL").val() != "") {
+		$("#redirectURL").val("");
+	}
+
+	$("#loginForm").attr("action", "../cm/nTdSsoLoginProc.html");
+	$("#loginForm").attr("target", "_self");
+	$("#loginForm").submit();
+}
+</script>
+<script type="text/javascript"></script>
+</head>
+<body>
+    <div class="lp-ta-wrap">
+        <div class="lp-header">
+            <p>부가가치세 신고 왜 필요하죠?</p>
+        </div>
+        <div id="container" class="ta-help">
+            <div class="contents_wrap columns">
+                <div class="contents full_width">
+                    <div class="sohotex-wrap">
+                        <div class="ta-def">
+                            <div class="ta-def-block">
+                                <h2><i class="ta-title-bul"></i>과세기간 및 신고납부</h2>
+                                <div class="ta-def-row">
+                                    <p>부가가치세는 6개월을 과세기간으로 정해 1월과 7월 신고∙납부하게 되며, 4월과 10월 예정신고기간을 두고 있습니다.</p>
+                                    <div class="ta-def-table">
+                                        <table>
+                                            <colgroup>
+                                                <col style="width:22%">
+                                                <col style="width:18%">
+                                                <col style="width:18%">
+                                                <col style="width:21%">
+                                                <col style="width:21%">
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th>과세기간</th>
+                                                    <th colspan="2">과세대상시간</th>
+                                                    <th>신고납부기간</th>
+                                                    <th>신고대상자</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td rowspan="2">제1기<br>1.1~6.30</td>
+                                                    <td>예정신고</td>
+                                                    <td>1.1 ~ 3.31</td>
+                                                    <td>4.1 ~ 4.25</td>
+                                                    <td>법인사업자</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>확정신고</td>
+                                                    <td>1.1 ~ 6.30</td>
+                                                    <td>7.1 ~ 7.25</td>
+                                                    <td>개인 및 법인사업자</td>
+                                                </tr>
+                                                <tr>
+                                                    <td rowspan="2">제2기<br>7.1~12.31</td>
+                                                    <td>예정신고</td>
+                                                    <td>7.1 ~ 9.31</td>
+                                                    <td>10.1 ~ 10.25</td>
+                                                    <td>법인사업자</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>확정신고</td>
+                                                    <td>10.1 ~ 12.31</td>
+                                                    <td>다음해 1.1 ~ 1.25</td>
+                                                    <td>개인 및 법인사업자</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="ta-def-row">
+                                    <p>개인사업자(일반과세자) 중 사업부진, 조기 환급발생자는 예정신고와 예정고지세액 납부 중 하나를 선택할 수 있다.<br>개인 간이과세자는 1년을 과세기간으로 하여 신고∙납부하게 됩니다.</p>
+                                    <div class="ta-def-table">
+                                        <table>
+                                            <colgroup>
+                                                <col style="width:32%">
+                                                <col style="width:*">
+                                                <col style="width:32%">
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th>과세기간</th>
+                                                    <th>신고납부기간</th>
+                                                    <th>신고대상자</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1.1 ~ 12.31</td>
+                                                    <td>다음해 1.1 ~ 1.25</td>
+                                                    <td>개인 간이과세자</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ta-def-block">
+                                <h2><i class="ta-title-bul"></i>법정신고 기한 내 부가가치세 신고를 하지 못한다면?</h2>
+                                <div class="ta-def-row">
+                                    <div class="ta-def-list">
+                                        <ul>
+                                            <li>
+                                                무신고 가산세 징수
+                                                <ol>
+                                                    <li>1) 일반 무신고 가산세: 원 납부해야 할 세액의 20% 징수</li>
+                                                    <li>2) 부당 무신고 가산세: 원 납부해야 할 세액의 40% 징수</li>
+                                                </ol>
+                                            </li>
+                                            <li>
+                                                납부 불성실 가산세 징수
+                                                <p>납부하지 않거나 과소 납부한 세액 x 납부기한의 익일부터 자진납부일(혹은 납세고지일)까지 일수 x 0.03%</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ta-def-block">
+                                <h2><i class="ta-title-bul"></i>법정신고 기한 후에라도 신고하세요! 가산세 일부를 감면받을 수 있습니다.</h2>
+                                <div class="ta-def-row">
+                                    <div class="ta-def-table">
+                                        <table>
+                                            <colgroup>
+                                                <col style="width:50%">
+                                                <col style="width:*">
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th>신고기한 경과</th>
+                                                    <th>가산세 감면</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1개월 내 신고 및 납부</td>
+                                                    <td>50%</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>1개월 초과~6개월 내 신고 및 납부</td>
+                                                    <td>20%</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="lp-ta-btn-wrap">
+                        <input type="button" data-fancybox-close value="닫기" class="base_btn_color gray width-90 lp-ta-close" onclick="parent.$.fancybox.close();">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

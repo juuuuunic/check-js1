@@ -1,0 +1,675 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots"      content="noindex,nofollow" />
+<meta name="language"    content="ko" />
+<meta name="copyright"   content="copyrights 2019 NICE Data" />
+<meta name="author"      content="NICE Data" />
+<title>택스다이어트: VR_01013_SL(부가세환급지원>부가세환급설정>차량공제설정>여부확인버튼)</title>
+
+<link rel="stylesheet" type="text/css" href="/css/default.css">
+<link rel="stylesheet" type="text/css" href="/css/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/soho_default.css">
+<link rel="stylesheet" type="text/css" href="/css/soho_sub_default.css">
+
+<!--  공통 -->
+<script src="/js/libs/jquery-1.11.1.min.js"></script>
+<script src="/js/niceCommon.js"></script>
+<script src="/js/common-util.js"></script>
+<script src="/js/libs/jquery.fancybox.min.js"></script>
+<script src="/js/libs/jquery.placeholder.min.js"></script>
+<script src="/js/libs/jquery-ui.min.js"></script>
+<script src="/js/moment.min.js"></script>
+
+<script src="/js/libs/jquery.dialog.min.js"></script>
+
+<script src="/js/common.js"></script>
+<script src="/js/progress.min.js"></script>
+<script src="/js/browserVersion.min.js"></script>
+<script src="/js/libs/jquery.easing.1.3.min.js"></script>
+<script src="/js/libs/jquery.mask.min.js"></script>
+
+<script src="/js/libs/jquery.cookie.min.js"></script>
+<script src="/js/cookie.min.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+
+<script type="text/javascript">
+
+$(function(){
+	// gnb 로고 옆에 현재 머물고 있는 1뎁스 메뉴 표시
+	$("ul.gnb_depth1 > li").each(function(index){
+		if($(this).attr("class") == "on"){
+			$("div.logo-wrap > h2").html($(this).text().trim());
+		}
+	})
+	
+	
+	// 로그아웃
+	$(document).on("click", ".btn_logout", function(data){
+		if (confirm("로그아웃 하시겠습니까?")) {
+			
+			var $form = $("<form/>",{id:"logoutForm",method:"post", action:"../cm/nTdLogout.html"});
+			$("body").append($form);
+			$form.submit();
+		}
+	});
+	
+	
+	$("#loginBtn").click(function(){
+		if($.trim($("#membId").val()) == "") {
+			alert("회원아이디를 입력하세요.");
+			$("#membId").focus();
+			return false;
+		}
+		
+		if($.trim($("#pswd").val()) == "") {
+			alert("비밀번호를 입력하세요.");
+			$("#pswd").focus();
+			return false;
+		}
+
+		$.removeCookie("saveid", {path : '/'});
+
+		if ($("#chk_save_id").prop("checked")) {
+			$.cookie("saveid", $.trim($("#membId").val()), {expires: 365, path : '/'});
+		}
+
+		doLogin();
+
+		return false;
+	});
+
+	
+	$("#btn_login").click(function(){
+
+		var param	= "";
+		
+		
+		param = "7F220B4215723306371726173151563A410733";
+
+		location.href="../cm/nTdLogin.do?returnURL=" + param;
+	});
+	
+	$("#loginForm input[name=pswd]").keyup(function(e) {
+		if (e.keyCode == KeyCode.ENTER) {
+			$("#loginBtn").click();
+		}
+	});
+	
+	
+	$(".btn_joinMember").click(function(){
+		
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A16010741200D152A3E062545033D5E220C" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+});
+	
+function fnLayerClose(){
+	try{
+		parent.$.fancybox.close();
+	}catch(exception){}
+}
+var membEtcRefresh = function(){
+	$.post("../cm/CM_00001_UP1.html", "", "");
+}
+var isLogin = function(){
+	
+			return true;
+				
+}
+
+// 미사용
+function fnLogin(returnURL){
+	if(!isLogin()){
+		var msg	= "로그인이 필요합니다.\n회원이 아니시면 회원가입을 해주시기 바랍니다.";
+		
+		alert(msg);
+		
+		if(typeof(returnURL) == "undefined") {
+			returnURL = location.pathname;
+		}
+
+		location.href = "../cm/nTdLogin.do?returnURL="+returnURL;
+		
+		return false;
+	}
+	return true;
+}
+
+function fnIeLimitCheck(){
+	var limitVersion	= 8;
+	var ieVersion		= getIeVersion();
+
+	if(getCookie("NoMoreBrowserPopup") != "yes"){
+		if(ieVersion){
+			if(ieVersion <= limitVersion){
+				WindowUtil.open({
+					  windowURL		: "/popup/popup_ieWarning.html"
+					, windowName	: "popup_browserWarning"
+					, width			: 600
+					, height		: 741
+				});
+			}
+		}
+	}
+}
+
+function doLogin() {
+	if($("#loginForm > input#redirectURL").length === 0){
+		$("<input>").attr({
+			  type	: "hidden"
+			, id	: "redirectURL"
+			, name	: "redirectURL"
+			, value : "https://www.taxdiet.co.kr/my/MY_B0111.html"
+		}).appendTo("#loginForm");
+	}
+	else if ($("#redirectURL").val()=="") {
+		$("#redirectURL").val("https://www.taxdiet.co.kr/my/MY_B0111.html");
+	}
+	else {
+		$("#redirectURL").val(location.href);	
+	}
+
+	if ($("#returnURL").val() != "") {
+		$("#redirectURL").val("");
+	}
+
+	$("#loginForm").attr("action", "../cm/nTdSsoLoginProc.html");
+	$("#loginForm").attr("target", "_self");
+	$("#loginForm").submit();
+}
+</script>
+</head>
+<body>
+	<div class="fancy-layer">
+		<div class="fl__header">
+			<p>차종별 부가가치세 공제가능 여부</p>
+		</div>
+		<div class="fl__container long">
+			<div class="wp__center-txt">
+				“비영업용 소형승용자동차의 구입과 임차 및 유지에 관한 매입세액” 은 <br>
+				불공제 항목입니다. 다만, 해당 차량이 아래 표의 공제여부에 “O”으로 <br>
+				표시되어 있으면 부가세 대상으로 변경할 수 있습니다. 차량을 확인하시고, <br>
+				기본정보의 “차량공제유형”에 대상으로 변경, 저장하시면 <br>
+				추가로 발생하는 차량관련 거래는 부가세 대상으로 설정되므로, <br>
+				기본 정보를 변경하시기 바랍니다.
+			</div>
+
+			<div class="wp__normal-txt">
+				참고자료 : <br>
+				비영업용 소형승용차 예시 (오토바이는 125CC이하 = 공제여부 “O”) 
+			</div>
+
+			<div class="td__table-set5">
+				<table>
+					<col style="width: 15%;">
+					<col style="width: 20%;">
+					<col style="width: 15%;">
+					<col style="width: 20%;">
+					<col style="width: 15%;">
+					<col style="width: 15%;">
+					<thead>
+						<tr>
+							<th scope="col">회사별</th>
+							<th scope="col">명칭</th>
+							<th scope="col">정원</th>
+							<th scope="col">공제여부</th>
+							<th scope="col">차</th>
+							<th scope="col">종류</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td rowspan="19">현 대</td>
+							<td>갤로퍼</td>
+							<td>5, 6</td>
+							<td>X</td>
+							<td>승용</td>
+							<td>지프형</td>
+						</tr>
+						<tr>
+							<td>갤로퍼 - 밴</td>
+							<td>2, 9</td>
+							<td>○</td>
+							<td>화물</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>그레이스 - 미니버스</td>
+							<td>9, 12</td>
+							<td>○</td>
+							<td>승용,승합</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>그레이스 - 밴</td>
+							<td>3, 6</td>
+							<td>○</td>
+							<td>화물</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>베라크루즈</td>
+							<td>7</td>
+							<td>X</td>
+							<td>승용</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>산타모</td>
+							<td>5, 6, 7</td>
+							<td>X</td>
+							<td>승용</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>산타모</td>
+							<td>9</td>
+							<td>○</td>
+							<td>승용</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>산타페</td>
+							<td>7</td>
+							<td>X</td>
+							<td>승용</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>스타렉스</td>
+							<td>7</td>
+							<td>X</td>
+							<td>승용</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>스타렉스</td>
+							<td>9</td>
+							<td>○</td>
+							<td>승용</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>스타렉스 - 밴</td>
+							<td>6</td>
+							<td>○</td>
+							<td>화물</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>아토스</td>
+							<td>4</td>
+							<td>○</td>
+							<td>승용</td>
+							<td>국민차</td>
+						</tr>
+						<tr>
+							<td>테라칸</td>
+							<td>7</td>
+							<td>X</td>
+							<td>승용</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>투싼</td>
+							<td>5</td>
+							<td>X</td>
+							<td>승용</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>맥스크루즈</td>
+							<td>6,7</td>
+							<td>X</td>
+							<td>승용</td>
+							<td></td>
+						</tr>                
+						<tr>
+							<td>트라제 XG</td>
+							<td>7</td>
+							<td>X</td>
+							<td>승용</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>트라제 XG</td>
+							<td>9</td>
+							<td>○</td>
+							<td>승용</td>
+							<td>지프형아님</td>
+						</tr>
+						<tr>
+							<td>포터</td>
+							<td>3</td>
+							<td>○</td>
+							<td>화물</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>
+								쏘나타(II,III,EF,NF,YF), 마르샤, 제네시스(쿠페), 다이너스티,투스카니, 티뷰론,스쿠프,베르나, 아반테,I30,I40,엘란트라, 그랜저,에쿠스,벨로스터
+							</td>
+							<td>5</td>
+							<td>X</td>
+							<td>승용</td>
+							<td></td>
+						</tr>               
+						<tr>
+							<td rowspan="17">기 아</td>
+							<td>레토나, 록스타</td>
+							<td>5</td>
+							<td>X</td>
+							<td>승용</td>
+							<td>지프형</td>
+						</tr>
+						<tr>
+							<td>레토나 - 밴</td>
+							<td>2</td>
+							<td>○</td>
+							<td>화물</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>모닝</td>
+							<td>5</td>
+							<td>○</td>
+							<td>승용</td>
+							<td>국민차</td>
+						</tr>
+						<tr>
+							<td>모닝-밴</td>
+							<td>2</td>
+							<td>○</td>
+							<td>화물</td>
+							<td>국민차</td>
+						</tr>                
+						<tr>
+							<td>비스토</td>
+							<td>5</td>
+							<td>○</td>
+							<td>승용</td>
+							<td>국민차</td>
+						</tr>
+						<tr>
+							<td>모하비</td>
+							<td>5,7</td>
+							<td>X</td>
+							<td>승용</td>
+							<td></td>
+						</tr>                
+						<tr>
+							<td>쏘렌토</td>
+							<td>7</td>
+							<td>X</td>
+							<td>승용</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>스포티지</td>
+							<td>5, 7</td>
+							<td>X</td>
+							<td>승용</td>
+							<td>지프형</td>
+						</tr>
+						<tr>
+							<td>스포티지 - 밴</td>
+							<td>2</td>
+							<td>○</td>
+							<td>화물</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>카니발, 카렌스</td>
+							<td>7</td>
+							<td>X</td>
+							<td>승용</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>그랜드 카니발</td>
+							<td>11</td>
+							<td>○</td>
+							<td>승합</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>카니발</td>
+							<td>9</td>
+							<td>○</td>
+							<td>승용</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>카니발 - 밴</td>
+							<td>6</td>
+							<td>○</td>
+							<td>화물</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>타우너 - 코치,밴,트럭</td>
+							<td>7,2</td>
+							<td>○</td>
+							<td>승용,화물</td>
+							<td>국민차</td>
+						</tr>
+						<tr>
+							<td>프레지오</td>
+							<td>9, 12, 15</td>
+							<td>○</td>
+							<td>승용,승합</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>프레지오 - 밴</td>
+							<td>6</td>
+							<td>○</td>
+							<td>화물</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>
+								K3,K5,K7,로체,오피러스, 리오,슈마,소올,포르테, 스펙트라,옵티마, 크레도스,엔터프라이즈, 프라이드,세라토
+							</td>
+							<td>4,5</td>
+							<td>X</td>
+							<td>승용</td>
+							<td></td>
+						</tr>                
+						<tr>
+							<td rowspan="11">쉐보레<br>GM대우</td>
+							<td>다마스 - 밴</td>
+							<td>2</td>
+							<td>○</td>
+							<td>화물</td>
+							<td>국민차</td>
+						</tr>
+						<tr>
+							<td>다마스 - 코치</td>
+							<td>7</td>
+							<td>○</td>
+							<td>승용</td>
+							<td>국민차</td>
+						</tr>
+						<tr>
+							<td>라보</td>
+							<td>2</td>
+							<td>○</td>
+							<td>화물</td>
+							<td>국민차</td>
+						</tr>
+						<tr>
+							<td>마티즈</td>
+							<td>5</td>
+							<td>○</td>
+							<td>승용</td>
+							<td>국민차</td>
+						</tr>
+						<tr>
+							<td>마티즈 - 밴</td>
+							<td>2</td>
+							<td>○</td>
+							<td>화물</td>
+							<td>국민차</td>
+						</tr>
+						<tr>
+							<td>윈스톰, 캡티바</td>
+							<td>5, 7</td>
+							<td>X</td>
+							<td>승용</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>이스타나</td>
+							<td>11, 12, 14, 15</td>
+							<td>○</td>
+							<td>승합</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>이스타나 - 밴</td>
+							<td>2, 6</td>
+							<td>○</td>
+							<td>화물</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>티코</td>
+							<td>5</td>
+							<td>○</td>
+							<td>승용</td>
+							<td>국민차</td>
+						</tr>
+						<tr>
+							<td>레조</td>
+							<td>7</td>
+							<td>X</td>
+							<td>승용</td>
+							<td></td>
+						</tr>  
+						<tr>
+							<td>
+								젠트라, 라세티,칼로스, 라노스,누비라,에스페로,<br>
+								토스카,매그너스,레간자, 프린스,슈퍼살롱,브로엄, 알페온,베리티스, 스테이츠맨,크루즈,말리부
+							</td>
+							<td>5</td>
+							<td>X</td>
+							<td>승용</td>
+							<td></td>
+						</tr>             
+						<tr>
+							<td rowspan="11">쌍 용</td>
+							<td>로디우스</td>
+							<td>9, 11</td>
+							<td>○</td>
+							<td>승용, 승합</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>렉스턴</td>
+							<td>5,7</td>
+							<td>X</td>
+							<td>승용</td>
+							<td></td>
+						</tr>                
+						<tr>
+							<td>무쏘</td>
+							<td>5</td>
+							<td>X</td>
+							<td>승용</td>
+							<td>지프형</td>
+						</tr>
+						<tr>
+							<td>무쏘 - 밴</td>
+							<td>2</td>
+							<td>○</td>
+							<td>화물</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>무쏘 스포츠</td>
+							<td>5</td>
+							<td>○</td>
+							<td>화물</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>액티언</td>
+							<td>5</td>
+							<td>X</td>
+							<td>승용</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>액티언 스포츠</td>
+							<td>5</td>
+							<td>○</td>
+							<td>화물</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>카이런</td>
+							<td>7</td>
+							<td>X</td>
+							<td>승용</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>코란도 - 밴</td>
+							<td>3</td>
+							<td>○</td>
+							<td>화물</td>
+							<td>지프형</td>
+						</tr>
+						<tr>
+							<td>코란도(패밀리)</td>
+							<td>4, 5, 6</td>
+							<td>X</td>
+							<td>승용</td>
+							<td>지프형</td>
+						</tr>
+						<tr>
+							<td>체어맨</td>
+							<td>5</td>
+							<td>X</td>
+							<td>승용</td>
+							<td></td>
+						</tr> 
+						<tr>
+							<td rowspan="2">르노삼성</td>
+							<td>SM3, SM5, SM7</td>
+							<td>5</td>
+							<td>X</td>
+							<td>승용</td>
+							<td></td>
+						</tr>                 
+						<tr>
+							<td>QM5</td>
+							<td>5</td>
+							<td>X</td>
+							<td>승용</td>
+							<td></td>
+						</tr> 
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots"      content="noindex,nofollow" />
+<meta name="language"    content="ko" />
+<meta name="copyright"   content="copyrights 2019 NICE Data" />
+<meta name="author"      content="NICE Data" />
+<title>택스다이어트</title>
+
+<link rel="stylesheet" type="text/css" href="/css/default.css">
+<link rel="stylesheet" type="text/css" href="/css/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/soho_default.css">
+<link rel="stylesheet" type="text/css" href="/css/soho_sub_default.css">
+
+<!--  공통 -->
+<script src="/js/libs/jquery-1.11.1.min.js"></script>
+<script src="/js/niceCommon.js"></script>
+<script src="/js/common-util.js"></script>
+<script src="/js/libs/jquery.fancybox.min.js"></script>
+<script src="/js/libs/jquery.placeholder.min.js"></script>
+<script src="/js/libs/jquery-ui.min.js"></script>
+<script src="/js/moment.min.js"></script>
+
+<script src="/js/libs/jquery.dialog.min.js"></script>
+
+<script src="/js/common.js"></script>
+<script src="/js/progress.min.js"></script>
+<script src="/js/browserVersion.min.js"></script>
+<script src="/js/libs/jquery.easing.1.3.min.js"></script>
+<script src="/js/libs/jquery.mask.min.js"></script>
+
+<script src="/js/libs/jquery.cookie.min.js"></script>
+<script src="/js/cookie.min.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+
+<script type="text/javascript">
+
+$(function(){
+	// gnb 로고 옆에 현재 머물고 있는 1뎁스 메뉴 표시
+	$("ul.gnb_depth1 > li").each(function(index){
+		if($(this).attr("class") == "on"){
+			$("div.logo-wrap > h2").html($(this).text().trim());
+		}
+	})
+	
+	
+	// 로그아웃
+	$(document).on("click", ".btn_logout", function(data){
+		if (confirm("로그아웃 하시겠습니까?")) {
+			
+			var $form = $("<form/>",{id:"logoutForm",method:"post", action:"../cm/nTdLogout.html"});
+			$("body").append($form);
+			$form.submit();
+		}
+	});
+	
+	
+	$("#loginBtn").click(function(){
+		if($.trim($("#membId").val()) == "") {
+			alert("회원아이디를 입력하세요.");
+			$("#membId").focus();
+			return false;
+		}
+		
+		if($.trim($("#pswd").val()) == "") {
+			alert("비밀번호를 입력하세요.");
+			$("#pswd").focus();
+			return false;
+		}
+
+		$.removeCookie("saveid", {path : '/'});
+
+		if ($("#chk_save_id").prop("checked")) {
+			$.cookie("saveid", $.trim($("#membId").val()), {expires: 365, path : '/'});
+		}
+
+		doLogin();
+
+		return false;
+	});
+
+	
+	$("#btn_login").click(function(){
+
+		var param	= "";
+		
+		
+		param = "7F220B4215723306371726153151566C0737";
+
+		location.href="../cm/nTdLogin.do?returnURL=" + param;
+	});
+	
+	$("#loginForm input[name=pswd]").keyup(function(e) {
+		if (e.keyCode == KeyCode.ENTER) {
+			$("#loginBtn").click();
+		}
+	});
+	
+	
+	$(".btn_joinMember").click(function(){
+		
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A16010741200D152A3E062545033D5E220C" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+});
+	
+function fnLayerClose(){
+	try{
+		parent.$.fancybox.close();
+	}catch(exception){}
+}
+var membEtcRefresh = function(){
+	$.post("../cm/CM_00001_UP1.html", "", "");
+}
+var isLogin = function(){
+	
+			return true;
+				
+}
+
+// 미사용
+function fnLogin(returnURL){
+	if(!isLogin()){
+		var msg	= "로그인이 필요합니다.\n회원이 아니시면 회원가입을 해주시기 바랍니다.";
+		
+		alert(msg);
+		
+		if(typeof(returnURL) == "undefined") {
+			returnURL = location.pathname;
+		}
+
+		location.href = "../cm/nTdLogin.do?returnURL="+returnURL;
+		
+		return false;
+	}
+	return true;
+}
+
+function fnIeLimitCheck(){
+	var limitVersion	= 8;
+	var ieVersion		= getIeVersion();
+
+	if(getCookie("NoMoreBrowserPopup") != "yes"){
+		if(ieVersion){
+			if(ieVersion <= limitVersion){
+				WindowUtil.open({
+					  windowURL		: "/popup/popup_ieWarning.html"
+					, windowName	: "popup_browserWarning"
+					, width			: 600
+					, height		: 741
+				});
+			}
+		}
+	}
+}
+
+function doLogin() {
+	if($("#loginForm > input#redirectURL").length === 0){
+		$("<input>").attr({
+			  type	: "hidden"
+			, id	: "redirectURL"
+			, name	: "redirectURL"
+			, value : "https://www.taxdiet.co.kr/my/MY_B0111.html"
+		}).appendTo("#loginForm");
+	}
+	else if ($("#redirectURL").val()=="") {
+		$("#redirectURL").val("https://www.taxdiet.co.kr/my/MY_B0111.html");
+	}
+	else {
+		$("#redirectURL").val(location.href);	
+	}
+
+	if ($("#returnURL").val() != "") {
+		$("#redirectURL").val("");
+	}
+
+	$("#loginForm").attr("action", "../cm/nTdSsoLoginProc.html");
+	$("#loginForm").attr("target", "_self");
+	$("#loginForm").submit();
+}
+</script>
+<script type="text/javascript">
+$(function() { 
+	// 공제기준 보기
+	$('.inner-btn').click( function(){
+		WindowUtil.open({
+			  windowName	: 'car_deduct_info'
+			, windowURL		: '../vr/VR_01013_SL3.html'
+			, width			: 600
+			, height		: 600
+	        , scrollbars    : 1
+		});
+	});
+}); 
+</script>		
+</head>
+<body>
+	<div class="fancy-layer">
+		<div class="fl__header">
+			<p>부가세 환급대상 판단기준</p>
+		</div>
+		<div class="fl__container long">
+			<div class="td__table-set4">
+				<table>
+					<col style="width: 30%;">
+					<col style="width: 36%;">
+					<col style="width: 34%;">
+					<thead>
+						<tr>
+							<th scope="col">구분</th>
+							<th scope="col">대상</th>
+							<th scope="col">비대상</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>과세유형</td>
+							<td>일반과세자로부터의 매입</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>사용목적</td>
+							<td>사업관련 지출</td>
+							<td>접대비 성격의 지출</td>
+						</tr>
+						<tr>
+							<td>차량관련비용</td>
+							<td>
+								공제대상 차량 보유
+								<a href="javascript:;" class="inner-btn">공제기준 보기</a>
+							</td>
+							<td>공제대상 차량 미보유</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<html lang="ko"><head>
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="language" content="ko">
+    <meta name="copyright" content="copyrights 2019 NICE Data">
+    <meta name="author" content="NICE Data">
+    <title>택스다이어트: SD_30413(종합소득세자가신고 > 간편장부작성>종합소득세 신고 왜 필요하죠?)</title>
+    
+    <link rel="stylesheet" type="text/css" href="/css/default.css">
+    <link rel="stylesheet" type="text/css" href="/css/libs/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="/css/soho_default.css">
+    <link rel="stylesheet" type="text/css" href="/css/soho_sub_default.css">
+    
+    <!--  공통 -->
+    <script src="/js/libs/jquery-1.11.1.min.js"></script>
+    <script src="/js/niceCommon.js"></script>
+    <script src="/js/common-util.js"></script>
+    <script src="/js/libs/jquery.fancybox.min.js"></script>
+    <script src="/js/libs/jquery.placeholder.min.js"></script>
+    <script src="/js/libs/jquery-ui.min.js"></script>
+    <script src="/js/moment.min.js"></script>
+    
+    <script src="/js/libs/jquery.dialog.min.js"></script>
+    
+    <script src="/js/common.js"></script>
+    <script src="/js/progress.min.js"></script>
+    <script src="/js/browserVersion.min.js"></script>
+    <script src="/js/libs/jquery.easing.1.3.min.js"></script>
+    <script src="/js/libs/jquery.mask.min.js"></script>
+    
+    <script src="/js/libs/jquery.cookie.min.js"></script>
+    <script src="/js/cookie.min.js"></script>
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico">
+    
+    <script type="text/javascript">
+    
+    $(function(){
+        // gnb 로고 옆에 현재 머물고 있는 1뎁스 메뉴 표시
+        $("ul.gnb_depth1 > li").each(function(index){
+            if($(this).attr("class") == "on"){
+                $("div.logo-wrap > h2").html($(this).text().trim());
+            }
+        })
+        
+        
+        // 로그아웃
+        $(document).on("click", ".btn_logout", function(data){
+            if (confirm("로그아웃 하시겠습니까?")) {
+                
+                var $form = $("<form/>",{id:"logoutForm",method:"post", action:"../cm/nTdLogout.html"});
+                $("body").append($form);
+                $form.submit();
+            }
+        });
+        
+        
+        $("#loginBtn").click(function(){
+            if($.trim($("#membId").val()) == "") {
+                alert("회원아이디를 입력하세요.");
+                $("#membId").focus();
+                return false;
+            }
+            
+            if($.trim($("#pswd").val()) == "") {
+                alert("비밀번호를 입력하세요.");
+                $("#pswd").focus();
+                return false;
+            }
+    
+            $.removeCookie("saveid", {path : '/'});
+    
+            if ($("#chk_save_id").prop("checked")) {
+                $.cookie("saveid", $.trim($("#membId").val()), {expires: 365, path : '/'});
+            }
+    
+            doLogin();
+    
+            return false;
+        });
+    
+        
+        $("#btn_login").click(function(){
+    
+            var param	= "";
+            
+            
+            param = "7F3401425D07331D0019263B31232A083B410333";
+    
+            location.href="../cm/nTdLogin.html?returnURL=" + param;
+        });
+        
+        $("#loginForm input[name=pswd]").keyup(function(e) {
+            if (e.keyCode == KeyCode.ENTER) {
+                $("#loginBtn").click();
+            }
+        });
+        
+        
+        $(".btn_joinMember").click(function(){
+            
+            var url		= $(this).attr("move");
+            
+            if(typeof jmForm == "undefined"){
+                var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+                
+                $("body").append($form);
+                $("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A16010741200D152A3E062545033D5E220C" }).appendTo("#jmForm");
+                $("<input/>").attr({type:"hidden", name:"hmpUrl", value:"taxdiet" }).appendTo("#jmForm");
+                
+            } else {
+                $("#jmForm").attr("action", url);
+            }
+            $("#jmForm").attr('target', '_blank').submit();
+            
+        });
+    });
+        
+    function fnLayerClose(){
+        try{
+            parent.$.fancybox.close();
+        }catch(exception){}
+    }
+    var membEtcRefresh = function(){
+        $.post("../cm/CM_00001_UP1.html", "", "");
+    }
+    var isLogin = function(){
+        
+                return true;
+                    
+    }
+    
+    // 미사용
+    function fnLogin(returnURL){
+        if(!isLogin()){
+            var msg	= "로그인이 필요합니다.\n회원이 아니시면 회원가입을 해주시기 바랍니다.";
+            
+            alert(msg);
+            
+            if(typeof(returnURL) == "undefined") {
+                returnURL = location.pathname;
+            }
+    
+            location.href = "../cm/nTdLogin.html?returnURL="+returnURL;
+            
+            return false;
+        }
+        return true;
+    }
+    
+    function fnIeLimitCheck(){
+        var limitVersion	= 8;
+        var ieVersion		= getIeVersion();
+    
+        if(getCookie("NoMoreBrowserPopup") != "yes"){
+            if(ieVersion){
+                if(ieVersion <= limitVersion){
+                    WindowUtil.open({
+                          windowURL		: "/popup/popup_ieWarning.html"
+                        , windowName	: "popup_browserWarning"
+                        , width			: 600
+                        , height		: 741
+                    });
+                }
+            }
+        }
+    }
+    
+    function doLogin() {
+        if($("#loginForm > input#redirectURL").length === 0){
+            $("<input>").attr({
+                  type	: "hidden"
+                , id	: "redirectURL"
+                , name	: "redirectURL"
+                , value : "https://www.taxdiet.co.kr/my/MY_B0111.html"
+            }).appendTo("#loginForm");
+        }
+        else if ($("#redirectURL").val()=="") {
+            $("#redirectURL").val("https://www.taxdiet.co.kr/my/MY_B0111.html");
+        }
+        else {
+            $("#redirectURL").val(location.href);	
+        }
+    
+        if ($("#returnURL").val() != "") {
+            $("#redirectURL").val("");
+        }
+    
+        $("#loginForm").attr("action", "../cm/nTdSsoLoginProc.html");
+        $("#loginForm").attr("target", "_self");
+        $("#loginForm").submit();
+    }
+    </script>
+    <script type="text/javascript" src="/js/ta_common.js"></script>
+    <script type="text/javascript"></script>
+    </head>
+    <body><div class="loading_wrap HeightAuto" style="height: 650px;">	<div class="box_img">		<p>Loading...</p>	</div>	<div class="loading_bg HeightAuto" style="height: 650px;"></div></div>
+        <div class="lp-ta-wrap">
+            <div class="lp-header">
+                <p>종합소득세 신고 왜 필요하죠?</p>
+            </div>
+            <div id="container" class="ta-help">
+                <div class="contents_wrap columns">
+                    <div class="contents full_width total-tax-definition">
+                        <div class="sohotex-wrap">
+                            <div class="ta-def">
+                                <div class="ta-total-def-block">
+                                    <h2><i class="ta-title-bul2"></i>법정신고 기한 후에라도 신고하세요! 가산세 일부를 감면받을 수 있습니다.</h2>
+                                    <div class="ta-total-def-row">
+                                        <div class="ta-def-list">
+                                            <ul>
+                                                <li>
+                                                    무신고 가산세 징수
+                                                    <ol>
+                                                        <li>
+                                                            1) 일반 무신고 가산세 : 원 납부해야 할 세액의 20%(국제거래 수반시 60%)징수
+                                                            <span>(복식부기의무자: 원 납부해야 할 세액의 20%(국제거래 수반시 60%)와 수입금액의 0.07% 중 큰 금액)</span>
+                                                        </li>
+                                                        <li>
+                                                            2) 부당 무신고 가산세 : 원 납부해야 할 세액의 40%(국제거래 수반시 60%)징수
+                                                            <span>(복식부기의무자: 원 납부해야 할 세액의 40%(국제거래 수반시 60%)와 수입금액의 0.14% 중 큰 금액)</span>
+                                                        </li>
+                                                    </ol>
+                                                </li>
+                                                <li>
+                                                    납부 불성실 가산세 징수
+                                                    <ol>
+                                                        <li>1) 미납= 미납세액 x 미납기간 경과일수 x 0.25%</li>
+                                                        <li>2) 초과환급= 초과 환급된 세액 x 초과 환급기간 경과일수 x 0.25%</li>
+                                                    </ol>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ta-total-def-block">
+                                    <h2><i class="ta-title-bul2"></i>법정신고 기한 후에라도 신고하세요! 가산세 일부를 감면받을 수 있습니다.</h2>
+                                    <div class="ta-total-def-row">
+                                        <div class="ta-total-def-table">
+                                            <table>
+                                                <colgroup>
+                                                    <col style="width:50%">
+                                                    <col style="width:*">
+                                                </colgroup>
+                                                <thead>
+                                                    <tr>
+                                                        <th>신고기한 경과</th>
+                                                        <th>가산세 감면</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1개월 내 신고 및 납부</td>
+                                                        <td>50%</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>1개월 초과~6개월 내 신고 및 납부</td>
+                                                        <td>20%</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                        </div>
+                        <div class="lp-ta-btn-wrap">
+                            <input type="button" data-fancybox-close="" value="닫기" class="base_btn_color gray width-90 lp-ta-close" onclick="parent.$.fancybox.close();">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </body></html>

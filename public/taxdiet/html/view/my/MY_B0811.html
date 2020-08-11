@@ -1,0 +1,1145 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots"      content="noindex,nofollow" />
+<meta name="language"    content="ko" />
+<meta name="copyright"   content="copyrights 2019 NICE Data" />
+<meta name="author"      content="NICE Data" />
+<title>택스다이어트: MY_B0811(마이페이지>인증정보관리)</title>
+
+<link rel="stylesheet" type="text/css" href="/css/default.css">
+<link rel="stylesheet" type="text/css" href="/css/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/soho_default.css">
+<link rel="stylesheet" type="text/css" href="/css/soho_sub_default.css">
+
+<!--  공통 -->
+<script src="/js/libs/jquery-1.11.1.min.js"></script>
+<script src="/js/niceCommon.js"></script>
+<script src="/js/common-util.js"></script>
+<script src="/js/libs/jquery.fancybox.min.js"></script>
+<script src="/js/libs/jquery.placeholder.min.js"></script>
+<script src="/js/libs/jquery-ui.min.js"></script>
+<script src="/js/moment.min.js"></script>
+
+<script src="/js/libs/jquery.dialog.min.js"></script>
+
+<script src="/js/common.js"></script>
+<script src="/js/progress.min.js"></script>
+<script src="/js/browserVersion.min.js"></script>
+<script src="/js/libs/jquery.easing.1.3.min.js"></script>
+<script src="/js/libs/jquery.mask.min.js"></script>
+
+<script src="/js/libs/jquery.cookie.min.js"></script>
+<script src="/js/cookie.min.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+
+<script type="text/javascript">
+
+$(function(){
+	// gnb 로고 옆에 현재 머물고 있는 1뎁스 메뉴 표시
+	$("ul.gnb_depth1 > li").each(function(index){
+		if($(this).attr("class") == "on"){
+			$("div.logo-wrap > h2").html($(this).text().trim());
+		}
+	})
+	
+	
+	// 로그아웃
+	$(document).on("click", ".btn_logout", function(data){
+		if (confirm("로그아웃 하시겠습니까?")) {
+			
+			var $form = $("<form/>",{id:"logoutForm",method:"post", action:"../cm/nTdLogout.html"});
+			$("body").append($form);
+			$form.submit();
+		}
+	});
+	
+	
+	$("#loginBtn").click(function(){
+		if($.trim($("#membId").val()) == "") {
+			alert("회원아이디를 입력하세요.");
+			$("#membId").focus();
+			return false;
+		}
+		
+		if($.trim($("#pswd").val()) == "") {
+			alert("비밀번호를 입력하세요.");
+			$("#pswd").focus();
+			return false;
+		}
+
+		$.removeCookie("saveid", {path : '/'});
+
+		if ($("#chk_save_id").prop("checked")) {
+			$.cookie("saveid", $.trim($("#membId").val()), {expires: 365, path : '/'});
+		}
+
+		doLogin();
+
+		return false;
+	});
+
+	
+	$("#btn_login").click(function(){
+
+		var param	= "";
+		
+		
+		param = "7F4B2442220033240045263B40013B";
+
+		location.href="../cm/nTdLogin.html?returnURL=" + param;
+	});
+	
+	$("#loginForm input[name=pswd]").keyup(function(e) {
+		if (e.keyCode == KeyCode.ENTER) {
+			$("#loginBtn").click();
+		}
+	});
+	
+	
+	$(".btn_joinMember").click(function(){
+		
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A16010741200D152A3E062545033D5E220C" }).appendTo("#jmForm");
+			$("<input/>").attr({type:"hidden", name:"hmpUrl", value:"taxdiet" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+});
+	
+function fnLayerClose(){
+	try{
+		parent.$.fancybox.close();
+	}catch(exception){}
+}
+var membEtcRefresh = function(){
+	$.post("../cm/CM_00001_UP1.html", "", "");
+}
+var isLogin = function(){
+	
+			return true;
+				
+}
+
+// 미사용
+function fnLogin(returnURL){
+	if(!isLogin()){
+		var msg	= "로그인이 필요합니다.\n회원이 아니시면 회원가입을 해주시기 바랍니다.";
+		
+		alert(msg);
+		
+		if(typeof(returnURL) == "undefined") {
+			returnURL = location.pathname;
+		}
+
+		location.href = "../cm/nTdLogin.html?returnURL="+returnURL;
+		
+		return false;
+	}
+	return true;
+}
+
+function fnIeLimitCheck(){
+	var limitVersion	= 8;
+	var ieVersion		= getIeVersion();
+
+	if(getCookie("NoMoreBrowserPopup") != "yes"){
+		if(ieVersion){
+			if(ieVersion <= limitVersion){
+				WindowUtil.open({
+					  windowURL		: "/popup/popup_ieWarning.html"
+					, windowName	: "popup_browserWarning"
+					, width			: 600
+					, height		: 741
+				});
+			}
+		}
+	}
+}
+
+function doLogin() {
+	if($("#loginForm > input#redirectURL").length === 0){
+		$("<input>").attr({
+			  type	: "hidden"
+			, id	: "redirectURL"
+			, name	: "redirectURL"
+			, value : "https://www.taxdiet.co.kr/my/MY_B0111.html"
+		}).appendTo("#loginForm");
+	}
+	else if ($("#redirectURL").val()=="") {
+		$("#redirectURL").val("https://www.taxdiet.co.kr/my/MY_B0111.html");
+	}
+	else {
+		$("#redirectURL").val(location.href);	
+	}
+
+	if ($("#returnURL").val() != "") {
+		$("#redirectURL").val("");
+	}
+
+	$("#loginForm").attr("action", "../cm/nTdSsoLoginProc.html");
+	$("#loginForm").attr("target", "_self");
+	$("#loginForm").submit();
+}
+</script>
+<script type="text/javascript">
+$(function(){
+	// 저장
+	$(".save").click(function() {
+		var message	= "저장하시겠습니까?";		
+
+		if(confirm(message)){
+			var svcArr = new Array();
+			var oriArr = new Array();
+			var oriSvcClsList = $(this).closest("tr").find(".oriSvcClsList").val();
+			var oriSplit = oriSvcClsList.split(",");
+			for(var i = 0; i < oriSplit.length; i++) {
+				oriArr.push(oriSplit[i]);
+			}
+			
+			var obj = $(this).closest("tr").find("input:checkbox[name='svcCls']");
+			obj.each(function() {
+				if($(this).is(":checked") == false) {
+					const idx = oriArr.indexOf($(this).val());
+					if (idx > -1) {
+						oriArr.splice(idx, 1);
+					}
+				} else {
+					const idx = oriArr.indexOf($(this).val());
+					if (idx == -1) {
+						oriArr.push($(this).val());
+					}
+				}
+			});
+			
+			oriArr.sort();
+
+			$("#svcClsList").val(oriArr.join(","));
+			$("#entKey").val($(this).closest("tr").find(".entKey").val());
+			$("#oriSvcClsList").val(oriSvcClsList);
+			
+			f_post_submit("../my/MY_B0811_UP1.html", "7F4B2442220033240045263B40013B", "f_call_result1");
+		}
+
+		return false;		
+	});
+	
+	$(".del").click(function() {
+		var message	= "삭제하시겠습니까?";		
+
+		if(confirm(message)){
+			$("#entKey").val($(this).closest("tr").find(".entKey").val());
+
+			f_post_submit("../my/MY_B0811_UP2.html", "7F4B2442220033240045263B40013B", "f_call_result2");
+		}
+
+		return false;
+	});
+});
+
+function movePage(page){
+	$("#current_page").val(page);
+	$("#form").attr("target", "_self");
+
+	f_form_submit_nosession("../my/MY_B0811.html");
+}
+
+function f_call_result1(result) {
+	if (result.status) {
+		alert("저장되었습니다.");
+
+		movePage($("#current_page").val());
+	}
+	else if (result.status_msg != "") {
+		alert(result.status_msg);
+	}
+	else {
+		alert("저장시 오류가 발생하였습니다.");
+	}
+}
+
+function f_call_result2(result) {
+	if (result.status) {
+		alert("삭제하였습니다.");
+
+		movePage($("#current_page").val());
+	}
+	else if (result.status_msg != "") {
+		alert(result.status_msg);
+	}
+	else {
+		alert("삭제시 오류가 발생하였습니다.");
+	}
+}
+</script>
+</head>
+<body>
+	<div id="wrap board-view">
+		<script type="text/javascript">
+$(function(){
+    //메뉴  클릭시 프로그레스 처리
+    $(".logo, .mypage").find("a").click(function(){ progress.start();});
+    
+  	//메뉴  클릭시 프로그레스 처리
+    $(".dep01, .dep02").find("a").click(function(){
+    	
+    	if($(this).attr("target") != "_blank" ) {
+    		progress.start();
+    	}
+    });
+        
+});
+</script>
+
+	<!-- header_n -->
+
+	<div id="wrap">
+		<div id="td__header_wrap">
+			<div class="td__header">
+				<div class="td__header-depth1">
+					<ul class="item5">
+					<li >
+								<a href="javascript:f_location_href_nosession('/vr/VR_03002.html');">부가세환급지원</a>
+							</li>
+						<li >
+								<a href="javascript:f_location_href_nosession('/vt/VT_30111.html');">부가가치세 자가신고</a>
+							</li>
+						<li >
+								<a href="javascript:f_location_href_nosession('/sd/SD_30111.html');">종합소득세 자가신고</a>
+							</li>
+						<li >
+								<a href="javascript:f_location_href_nosession('/as/AS_02101_SL.html');">세무상담</a>
+							</li>
+						<li >
+								<a href="javascript:f_location_href_nosession('/bizmap/BS_20111.html');">상권분석</a>
+							</li>
+						</ul>
+				</div>
+				<div class="td__header-block">
+                    <div class="td__header-top">
+						<div class="td__inner-container">
+							<h1>
+								<a href="../cm/main.html">
+									<img src="/images/td/common/sub_logo.gif" alt="로고">
+								</a>
+							</h1>
+							<div class="login-area">
+								<div class="login-inner">
+								<ul class="login-btn">
+											<li>
+													<a href="javascript:f_location_href_nosession('/my/MY_B0111.html');" class="progress">마이페이지</a>
+												</li>
+											</ul>
+										<button class="btn_logout">로그아웃</button>
+									</div>
+							</div>
+						</div>
+					</div>
+					<div class="td__header-bottom">
+						<div class="td__header-depth2">
+							<ul>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //header_n -->
+<script type="text/javascript" src="/js/niceTopMenu.js"></script><div id="container">
+			<div class="contents_wrap columns">
+				<div class="contents columns_wrap">
+					<h3 class="my_title">
+						<strong>강용구</strong>님의 회원정보
+					</h3>
+					<div class="contents full_width">
+						<form name="form" id="form" method="post">
+						<input type="hidden" id="current_page"	name="current_page"	value="1"  />
+						<input type="hidden" name="svcClsList" id="svcClsList" value="">
+						<input type="hidden" name="entKey" id="entKey" value="">
+						<input type="hidden" name="oriSvcClsList" id="oriSvcClsList" value="">
+						
+							<script type="text/javascript">
+$(document).ready(function(){
+	// 이용중인 서비스
+	$(".mp_info_btn").click(function() {
+		fancybox_open_width("../my/MY_B0312.html", "700px", "", "yes");
+
+		return false;
+	});
+});
+</script>
+<div class="my_infomation_wrap">
+	<form name="form_profile" id="form_profile" method="post" enctype="multipart/form-data">
+		<div class="my_left">
+			<div class="pic_wrap">
+				<div class="thumbnail">
+					<div class="centered">
+						<a href="../my/MY_B0311.do#pic_file">
+							<img	src="" 
+									onError="this.src='/images/common/user_img_nopic.gif'"
+									width="156px"
+									height="158px"
+									alt="프로필사진">
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="my_right">
+			<ul class="my_info_list">
+				<li>
+					<dl>
+						<dt>가입일</dt>
+						<dd>2011-04-21</dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>최근 방문일</dt>
+						<dd>2020-06-18 11:53</dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>아이디</dt>
+						<dd>nice2122</dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>사용자 등급</dt>
+						<dd>
+							
+											사업자카드 회원
+										<a href="javascript:;" class="mp_info_btn">이용중인 서비스</a>
+						</dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>연락처</dt>
+						<dd>011-****-6784</dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>이메일</dt>
+						<dd>hjkang@nicednr.co.kr</dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>작성글 수</dt>
+						<dd>9</dd>
+					</dl>
+				</li>
+				<li>
+					<dl>
+						<dt>작성 댓글 수</dt>
+						<dd>0</dd>
+					</dl>
+				</li>
+			</ul>
+		</div>
+	</form>
+</div>
+						<div class="my_contents_wrap">
+								<div class="my_tab_wrap">
+									
+
+
+								
+									
+									
+										<ul class="my_tab">
+											<li  >
+												<a href="../my/MY_B0111.html">활동내역</a>
+											</li>
+											<li  >
+												<a href="../my/MY_B0211.html">결제내역</a>
+											</li>
+											<li  >
+												<a href="../my/MY_B0311.html">회원정보</a>
+											</li>
+											<li  >
+												<a href="../my/MY_B0411.html">회사정보</a>
+											</li>
+											<!-- 2019.11.06 세무주치의 기능 사용안함 : 이강호 책임님 확인
+											<li  >
+												<a href="../my/MY_B0511.html">세무주치의</a>
+											</li>
+											-->
+											<li  >
+												<a href="../my/MY_B0611.html">ID발급관리</a>
+											</li>
+											<li class="short active" >
+												<a href="../my/MY_B0811.html">인증정보관리</a>
+											</li>
+											<li  >
+												<a href="../my/MY_B0711.html">회원탈퇴</a>
+											</li>
+										</ul>
+									
+									
+									
+								</div>
+								<div class="my_contents">
+									<div class="my_ms_text_wrap2">
+										<div class="my_ms_text">
+											<ul class="my_ms_list">
+												<li><strong>택스다이어트에서 인증하여 사용 중인 정보</strong>입니다. 타 서비스에서도 사용하길 원하시면 <strong>해당 서비스 체크 후 저장 버튼을 클릭</strong>해 주시고, 더 이상 사용을 원하지 않으시면 삭제 버튼을 클릭하시면 됩니다.</li>
+												<li>
+													해당 인증정보를 삭제하신 뒤, <strong>같은 인증정보를 등록하시면 삭제 전과 동일한 인증정보</strong>가 나타납니다.<br/>
+													인증정보 및 사용한 수집정보를 영구 삭제하시려면 고객센터로 연락 부탁드립니다.<br/>
+													고객센터 1588-5659<br/>
+													상담시간: 09:00~18:00(금요일 17:00까지)<br/>
+													점심시간: 12:00~13:00<br/>
+													주말, 공휴일 휴무
+												</li>
+											</ul>
+										</div>
+									</div>
+									<table width="100%" class="MY1_table4">
+										<col width="20%">
+										<col width="24%">
+										<col width="36%">
+										<col width="20%">
+										<thead>
+											<tr>
+												<th scope="col">인증기관</th>
+												<th scope="col">인증정보</th>
+												<th scope="col">사용중인 서비스</th>
+												<th scope="col">저장/삭제</th>
+											</tr>
+										</thead>
+										<tbody>
+										  <tr>
+												<td>홈택스</td>
+												<td></td>
+												<td>
+													<ul class="my_use_info">
+													  <label>
+															      <input type="checkbox" name="svcCls" value="D" checked="true">
+															      <span class="text">나이스택스</span>
+															     </label>
+															    <span class="un_click">
+																		<span class="text">나이스오너</span>
+																	</span>
+															    <span class="un_click">
+																		<span class="text">하이브리드</span>
+																	</span>
+															    </ul>
+												</td>
+												<td class="btn_wrap">
+													<ul class="my_use_info_btn">
+														<li>
+															<a href="javascript:;" class="save">저장</a>
+															<input type="hidden" name="saveEntKey" class="entKey" value="ND0000UUT001">
+															<input type="hidden" name="saveOriSvcClsList" class="oriSvcClsList" value="D,G,L">
+														</li>
+														<li>
+															<a href="javascript:;" class="del">삭제</a>
+														</li>
+													</ul>
+												</td>
+											</tr>
+										  <tr>
+												<td>농협</td>
+												<td>302****415101</td>
+												<td>
+													<ul class="my_use_info">
+													  <span class="un_click">
+																		<span class="text">나이스택스</span>
+																	</span>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="H" >
+															      <span class="text">나이스오너</span>
+															     </label>
+															    <span class="un_click">
+																		<span class="text">하이브리드</span>
+																	</span>
+															    </ul>
+												</td>
+												<td class="btn_wrap">
+													<ul class="my_use_info_btn">
+														<li>
+															<a href="javascript:;" class="save">저장</a>
+															<input type="hidden" name="saveEntKey" class="entKey" value="ND0000UUB005">
+															<input type="hidden" name="saveOriSvcClsList" class="oriSvcClsList" value="L">
+														</li>
+														<li>
+															<a href="javascript:;" class="del">삭제</a>
+														</li>
+													</ul>
+												</td>
+											</tr>
+										  <tr>
+												<td>신한은행</td>
+												<td>110****60036</td>
+												<td>
+													<ul class="my_use_info">
+													  <span class="un_click">
+																		<span class="text">나이스택스</span>
+																	</span>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="H" checked="true">
+															      <span class="text">나이스오너</span>
+															     </label>
+															    <span class="un_click">
+																		<span class="text">하이브리드</span>
+																	</span>
+															    </ul>
+												</td>
+												<td class="btn_wrap">
+													<ul class="my_use_info_btn">
+														<li>
+															<a href="javascript:;" class="save">저장</a>
+															<input type="hidden" name="saveEntKey" class="entKey" value="ND0000UUB001">
+															<input type="hidden" name="saveOriSvcClsList" class="oriSvcClsList" value="E,G,H">
+														</li>
+														<li>
+															<a href="javascript:;" class="del">삭제</a>
+														</li>
+													</ul>
+												</td>
+											</tr>
+										  <tr>
+												<td>국민카드</td>
+												<td>4579********0014</td>
+												<td>
+													<ul class="my_use_info">
+													  <label>
+															      <input type="checkbox" name="svcCls" value="D" checked="true">
+															      <span class="text">나이스택스</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="H" >
+															      <span class="text">나이스오너</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="C" >
+															      <span class="text">하이브리드</span>
+															     </label>
+															    </ul>
+												</td>
+												<td class="btn_wrap">
+													<ul class="my_use_info_btn">
+														<li>
+															<a href="javascript:;" class="save">저장</a>
+															<input type="hidden" name="saveEntKey" class="entKey" value="ND0000UUC285">
+															<input type="hidden" name="saveOriSvcClsList" class="oriSvcClsList" value="D,G,L">
+														</li>
+														<li>
+															<a href="javascript:;" class="del">삭제</a>
+														</li>
+													</ul>
+												</td>
+											</tr>
+										  <tr>
+												<td>NH농협카드</td>
+												<td>4079********7765</td>
+												<td>
+													<ul class="my_use_info">
+													  <label>
+															      <input type="checkbox" name="svcCls" value="D" checked="true">
+															      <span class="text">나이스택스</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="H" >
+															      <span class="text">나이스오너</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="C" >
+															      <span class="text">하이브리드</span>
+															     </label>
+															    </ul>
+												</td>
+												<td class="btn_wrap">
+													<ul class="my_use_info_btn">
+														<li>
+															<a href="javascript:;" class="save">저장</a>
+															<input type="hidden" name="saveEntKey" class="entKey" value="ND0000UUC267">
+															<input type="hidden" name="saveOriSvcClsList" class="oriSvcClsList" value="D">
+														</li>
+														<li>
+															<a href="javascript:;" class="del">삭제</a>
+														</li>
+													</ul>
+												</td>
+											</tr>
+										  <tr>
+												<td>NH농협카드</td>
+												<td>4079********7435</td>
+												<td>
+													<ul class="my_use_info">
+													  <label>
+															      <input type="checkbox" name="svcCls" value="D" checked="true">
+															      <span class="text">나이스택스</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="H" >
+															      <span class="text">나이스오너</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="C" >
+															      <span class="text">하이브리드</span>
+															     </label>
+															    </ul>
+												</td>
+												<td class="btn_wrap">
+													<ul class="my_use_info_btn">
+														<li>
+															<a href="javascript:;" class="save">저장</a>
+															<input type="hidden" name="saveEntKey" class="entKey" value="ND0000UUC268">
+															<input type="hidden" name="saveOriSvcClsList" class="oriSvcClsList" value="D">
+														</li>
+														<li>
+															<a href="javascript:;" class="del">삭제</a>
+														</li>
+													</ul>
+												</td>
+											</tr>
+										  <tr>
+												<td>NH농협카드</td>
+												<td>4079********6502</td>
+												<td>
+													<ul class="my_use_info">
+													  <label>
+															      <input type="checkbox" name="svcCls" value="D" checked="true">
+															      <span class="text">나이스택스</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="H" >
+															      <span class="text">나이스오너</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="C" >
+															      <span class="text">하이브리드</span>
+															     </label>
+															    </ul>
+												</td>
+												<td class="btn_wrap">
+													<ul class="my_use_info_btn">
+														<li>
+															<a href="javascript:;" class="save">저장</a>
+															<input type="hidden" name="saveEntKey" class="entKey" value="ND0000UUC269">
+															<input type="hidden" name="saveOriSvcClsList" class="oriSvcClsList" value="D">
+														</li>
+														<li>
+															<a href="javascript:;" class="del">삭제</a>
+														</li>
+													</ul>
+												</td>
+											</tr>
+										  <tr>
+												<td>NH농협카드</td>
+												<td>4079********6767</td>
+												<td>
+													<ul class="my_use_info">
+													  <label>
+															      <input type="checkbox" name="svcCls" value="D" checked="true">
+															      <span class="text">나이스택스</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="H" >
+															      <span class="text">나이스오너</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="C" >
+															      <span class="text">하이브리드</span>
+															     </label>
+															    </ul>
+												</td>
+												<td class="btn_wrap">
+													<ul class="my_use_info_btn">
+														<li>
+															<a href="javascript:;" class="save">저장</a>
+															<input type="hidden" name="saveEntKey" class="entKey" value="ND0000UUC270">
+															<input type="hidden" name="saveOriSvcClsList" class="oriSvcClsList" value="D">
+														</li>
+														<li>
+															<a href="javascript:;" class="del">삭제</a>
+														</li>
+													</ul>
+												</td>
+											</tr>
+										  <tr>
+												<td>현대카드</td>
+												<td>4025********6500</td>
+												<td>
+													<ul class="my_use_info">
+													  <label>
+															      <input type="checkbox" name="svcCls" value="D" checked="true">
+															      <span class="text">나이스택스</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="H" >
+															      <span class="text">나이스오너</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="C" >
+															      <span class="text">하이브리드</span>
+															     </label>
+															    </ul>
+												</td>
+												<td class="btn_wrap">
+													<ul class="my_use_info_btn">
+														<li>
+															<a href="javascript:;" class="save">저장</a>
+															<input type="hidden" name="saveEntKey" class="entKey" value="ND0000UUC028">
+															<input type="hidden" name="saveOriSvcClsList" class="oriSvcClsList" value="D">
+														</li>
+														<li>
+															<a href="javascript:;" class="del">삭제</a>
+														</li>
+													</ul>
+												</td>
+											</tr>
+										  <tr>
+												<td>현대카드</td>
+												<td>5531********1911</td>
+												<td>
+													<ul class="my_use_info">
+													  <label>
+															      <input type="checkbox" name="svcCls" value="D" checked="true">
+															      <span class="text">나이스택스</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="H" >
+															      <span class="text">나이스오너</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="C" >
+															      <span class="text">하이브리드</span>
+															     </label>
+															    </ul>
+												</td>
+												<td class="btn_wrap">
+													<ul class="my_use_info_btn">
+														<li>
+															<a href="javascript:;" class="save">저장</a>
+															<input type="hidden" name="saveEntKey" class="entKey" value="ND0000UUC009">
+															<input type="hidden" name="saveOriSvcClsList" class="oriSvcClsList" value="D">
+														</li>
+														<li>
+															<a href="javascript:;" class="del">삭제</a>
+														</li>
+													</ul>
+												</td>
+											</tr>
+										  <tr>
+												<td>현대카드</td>
+												<td>5531********1912</td>
+												<td>
+													<ul class="my_use_info">
+													  <label>
+															      <input type="checkbox" name="svcCls" value="D" checked="true">
+															      <span class="text">나이스택스</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="H" >
+															      <span class="text">나이스오너</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="C" >
+															      <span class="text">하이브리드</span>
+															     </label>
+															    </ul>
+												</td>
+												<td class="btn_wrap">
+													<ul class="my_use_info_btn">
+														<li>
+															<a href="javascript:;" class="save">저장</a>
+															<input type="hidden" name="saveEntKey" class="entKey" value="ND0000UUC010">
+															<input type="hidden" name="saveOriSvcClsList" class="oriSvcClsList" value="D">
+														</li>
+														<li>
+															<a href="javascript:;" class="del">삭제</a>
+														</li>
+													</ul>
+												</td>
+											</tr>
+										  <tr>
+												<td>현대카드</td>
+												<td>4025********6203</td>
+												<td>
+													<ul class="my_use_info">
+													  <label>
+															      <input type="checkbox" name="svcCls" value="D" checked="true">
+															      <span class="text">나이스택스</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="H" >
+															      <span class="text">나이스오너</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="C" >
+															      <span class="text">하이브리드</span>
+															     </label>
+															    </ul>
+												</td>
+												<td class="btn_wrap">
+													<ul class="my_use_info_btn">
+														<li>
+															<a href="javascript:;" class="save">저장</a>
+															<input type="hidden" name="saveEntKey" class="entKey" value="ND0000UUC029">
+															<input type="hidden" name="saveOriSvcClsList" class="oriSvcClsList" value="D">
+														</li>
+														<li>
+															<a href="javascript:;" class="del">삭제</a>
+														</li>
+													</ul>
+												</td>
+											</tr>
+										  <tr>
+												<td>현대카드</td>
+												<td>4025********0705</td>
+												<td>
+													<ul class="my_use_info">
+													  <label>
+															      <input type="checkbox" name="svcCls" value="D" checked="true">
+															      <span class="text">나이스택스</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="H" >
+															      <span class="text">나이스오너</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="C" >
+															      <span class="text">하이브리드</span>
+															     </label>
+															    </ul>
+												</td>
+												<td class="btn_wrap">
+													<ul class="my_use_info_btn">
+														<li>
+															<a href="javascript:;" class="save">저장</a>
+															<input type="hidden" name="saveEntKey" class="entKey" value="ND0000UUC031">
+															<input type="hidden" name="saveOriSvcClsList" class="oriSvcClsList" value="D">
+														</li>
+														<li>
+															<a href="javascript:;" class="del">삭제</a>
+														</li>
+													</ul>
+												</td>
+											</tr>
+										  <tr>
+												<td>현대카드</td>
+												<td>4025********9313</td>
+												<td>
+													<ul class="my_use_info">
+													  <label>
+															      <input type="checkbox" name="svcCls" value="D" checked="true">
+															      <span class="text">나이스택스</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="H" >
+															      <span class="text">나이스오너</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="C" >
+															      <span class="text">하이브리드</span>
+															     </label>
+															    </ul>
+												</td>
+												<td class="btn_wrap">
+													<ul class="my_use_info_btn">
+														<li>
+															<a href="javascript:;" class="save">저장</a>
+															<input type="hidden" name="saveEntKey" class="entKey" value="ND0000UUC032">
+															<input type="hidden" name="saveOriSvcClsList" class="oriSvcClsList" value="D">
+														</li>
+														<li>
+															<a href="javascript:;" class="del">삭제</a>
+														</li>
+													</ul>
+												</td>
+											</tr>
+										  <tr>
+												<td>현대카드</td>
+												<td>4025********6807</td>
+												<td>
+													<ul class="my_use_info">
+													  <label>
+															      <input type="checkbox" name="svcCls" value="D" >
+															      <span class="text">나이스택스</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="H" >
+															      <span class="text">나이스오너</span>
+															     </label>
+															    <label>
+															      <input type="checkbox" name="svcCls" value="C" >
+															      <span class="text">하이브리드</span>
+															     </label>
+															    </ul>
+												</td>
+												<td class="btn_wrap">
+													<ul class="my_use_info_btn">
+														<li>
+															<a href="javascript:;" class="save">저장</a>
+															<input type="hidden" name="saveEntKey" class="entKey" value="ND0000UUC017">
+															<input type="hidden" name="saveOriSvcClsList" class="oriSvcClsList" value="">
+														</li>
+														<li>
+															<a href="javascript:;" class="del">삭제</a>
+														</li>
+													</ul>
+												</td>
+											</tr>
+										  </tbody>
+									</table>
+									<div class="paginate_wrap">
+											<div class="paginate">
+												<p class="first arrow" onClick='javascript:movePage("1");'><span class="icon"></span><span class="text">처음으로</span></p><p class="pre arrow"><span class="icon"></span><span class="text">이전</span></p><ol class="number"><li class="active" ><a href="javascript:movePage('1');">1</a></li><li><a href="javascript:movePage('2');">2</a></li><li><a href="javascript:movePage('3');">3</a></li><li><a href="javascript:movePage('4');">4</a></li><li><a href="javascript:movePage('5');">5</a></li><li><a href="javascript:movePage('6');">6</a></li><li><a href="javascript:movePage('7');">7</a></li><li><a href="javascript:movePage('8');">8</a></li><li><a href="javascript:movePage('9');">9</a></li><li><a href="javascript:movePage('10');">10</a></li></ol><p class="next arrow" onClick="javascript:movePage('11');"><span class="icon"></span><span class="text">다음</span></p><p class="last arrow" onClick="javascript:movePage('20');"><span class="icon"></span><span class="text">마지막으로</span></p></div>
+										</div>
+									</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+$(document).ready(function(){
+	// 회사소개
+	$(".nicednr").click(function() {
+		window.open("http://www.nicednr.co.kr");
+		return false;
+	});
+
+	// 제휴문의
+	$(".UG_A0411").click(function() {
+		fancybox_open_width("../ug/UG_A0411.html", "700px", "", "yes", false);
+		return false;
+	});
+
+	// 개인정보처리방침
+	$(".UG_A0131").click(function() {
+		fancybox_open_width("../ug/UG_A0131.html", "700px", "", "yes", false);
+		return false;
+	});
+
+	// 이용약관
+	$(".UG_A0121").click(function() {
+		fancybox_open_width("../ug/UG_A0121.html", "700px", "", "yes", false);
+		return false;
+	});
+
+	// 고객센터
+	$(".UG_A0111").click(function() {
+		f_location_href_nosession("../ug/UG_A0111.html");
+		return false;
+	});
+	
+	// 전자세금 계산서
+	$(".tax_bill").click(function() {
+		window.open("https://www.nicebill.co.kr/cm/main.html");
+		return false;
+	});
+	
+	// 휴폐업 조회
+	$(".check_biz").click(function() {
+		window.open("http://www.nicedata.co.kr/as/AS_30401.html");
+		return false;
+	});
+	
+	// 서울보증보험 안내
+	$(".sgic").click(function() {
+		window.open("http://www.nicedata.co.kr/as/AS_40601.html");
+		return false;
+	});
+});
+</script>
+<div id="td__footer_wrap">
+	<div class="td__footer">
+		<div class="td__footer-top">
+			<ul>
+				<li><a href="javascript:;" class="nicednr">회사소개</a></li>
+				<li><a href="javascript:;" class="UG_A0411">제휴문의</a></li>
+				<li><a href="javascript:;" class="UG_A0131"><b>개인정보처리방침</b></a></li>
+				<li><a href="javascript:;" class="UG_A0121">이용약관</a></li>
+				<li><a href="javascript:;" class="UG_A0111">고객센터</a></li>
+				<li class="mo_right">
+					<a href="https://m.taxdiet.co.kr/nm/NM_20001.html">
+						<div class="mo_img">
+							<img src="/images/td/common/ico_mobile.png" alt=""/>
+						</div>
+						모바일버전
+					</a>
+				</li>
+				</ul>
+		</div>
+		<div class="td__footer-bottom">
+			<ul>
+				<li>NICE 디앤알(주)</li>
+				<li>대표 : 강용구</li>
+				<li class="last">통신판매업 신고번호 : 제2012-서울구로-1033호</li>
+				<li>사업자등록번호 : 107-87-08207</li>
+				<li class="last">서울특별시 서대문구 충정로 36 7층</li>
+				<li>TEL : 1588-5659</li>
+				<li class="last">FAX : 788-9001</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="common-quick-menu qm-sub">
+	<ul>
+		<li class="tax_bill">
+			<a href="#none">
+				<img src="/images/common/quick_icon_1.png" alt="전자세금계산서"/>
+				전자세금<br />계산서
+			</a>
+		</li>
+		<li class="check_biz">
+			<a href="#none">
+				<img src="/images/common/quick_icon_2.png" alt="휴폐업조회"/>
+				휴폐업<br />조회
+			</a>
+		</li>
+		<li class="sgic">
+			<a href="#none">
+				<img src="/images/common/quick_icon_3.png" alt="서울보즘보험안내"/>
+				서울보증보험<br />안내
+			</a>
+		</li>
+	</ul>
+</div>
+<!-- //footer_n -->	
+<iframe id="sessionFrame" name="sessionFrame" width="10" height="10" src="javascript:void 0;" title="로그인처리용" style="display:none"></iframe>
+<script type="text/javascript" src="/js/imageChecker.js"></script>
+<script type="text/javascript">
+
+
+var title = document.title;
+document.title	= title + "·"; 
+
+
+
+ImageNotExistProcess.process("boardBox");
+</script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-36649342-23"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-36649342-23');
+</script></div>
+</body>
+</html>

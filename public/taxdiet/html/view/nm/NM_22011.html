@@ -1,0 +1,432 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+
+<title>택스다이어트</title>
+<link rel="stylesheet" type="text/css" href="/css/mobile/default.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery.fancybox-1.3.1.css">
+
+<script src="/js/mobile/libs/jquery-1.11.1.min.js"></script>
+<script src="/js/mobile/libs/jquery-ui.min.js"></script>
+<script src="/js/mobile/libs/jquery.easing.1.3.js"></script>
+<script src="/js/mobile/libs/jquery-ui.js"></script> <!-- dskim -->
+<script src="/js/mobile/libs/jquery.mask.min.js"></script>
+<script src="/js/mobile/libs/daterange.js"></script>
+
+<script src="/js/mobile/libs/jquery.validate-1.8.1.min.js"></script>
+<script src="/js/mobile/niceNmCommon.js"></script>
+<script src="/js/mobile/common-util.js"></script>
+
+<!-- layerpopup -->
+<script src="/js/mobile/libs/jquery.fancybox.min.js"></script>
+
+<!-- placeholder fix -->
+<script src="/js/mobile/libs/jquery.placeholder.js"></script>
+
+<script src="/js/mobile/libs/jquery.history.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="../images/favicon/taxdiet_favicon.ico" />
+<script type="text/javascript">
+
+$(function(){
+	
+	$(".btn_joinMember").click(function(){
+			
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A5A5A3C0B1801322B21410D334B2E12" }).appendTo("#jmForm");
+			$("<input/>").attr({type:"hidden", name:"hmpUrl", value:"taxdiet_m" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+	
+});
+
+</script>
+<link rel="stylesheet" type="text/css" href="/css/default.css ">
+	<script type="text/javascript" src="/js/jquery-ui.datepicker-nicedata.js "></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.card_no').mask("9999");
+			$('.card_no3').mask("999999");   
+			
+
+			$('.card_no_check').click(function (){
+				
+
+				if(!$(".agree_check1").is(":checked")) {
+					alert('이용약관에 동의해 주세요.');
+					$('.agree_check1').focus();
+					return false;
+					
+				}else if(!$(".agree_check2").is(":checked")) {
+					alert('개인정보 수집 및 이용 약관에 동의해 주세요.');
+					$('.agree_check2').focus();
+					return false;
+					
+				}
+				
+				
+				if($(".agree_check3").is(":checked")) {
+					$("#txbzCnslAgrmYn, #ippbAgrmYn").val("Y");
+				} else {
+					$("#txbzCnslAgrmYn, #ippbAgrmYn").val("N");
+				}
+					
+					
+				var Gbn = $("input:radio[name=searchGbn]:checked").val();
+
+				if(Gbn == 'C'){		
+					if($('#card_no1').val()==""){
+						alert('카드번호를 입력하십시요.'); 
+						$('#card_no1').focus();
+						return false;
+					}
+					
+					if($('#card_no2').val()==""){
+						alert('카드번호를 입력하십시요.'); 
+						$('#card_no2').focus();
+		  				return false;
+					}			
+					
+					$('#card_no').val($('#card_no1').val()+$('#card_no2').val());
+				} else {
+					if($('#card_no3').val()=="") {
+						alert('카드번호를 입력하십시요.'); 
+						$('#card_no3').focus();
+						return false;
+					}
+					
+					$('#card_no').val($('#card_no3').val());			
+				}		
+				
+				var op = $('#pswd').val(); 
+				var np = $('#npswd').val();
+				
+				if(op != np){
+					alert("변경할 비밀번호를 동일하게 입력하십시오.");
+					return;			
+				}			
+
+		   		$.post('../nm/NM_22011_UP1.html', $('#form').serialize(), function(data){
+
+		   			if(data.bizNo != null){
+		  				//alert('카드번호가 확인되었습니다.');
+						for(var items in data){
+		  					 	
+							// input 타입의 동일한 이름이 있으면 value값 할당 
+							if($("input[name="+ items +"]").length > 0){
+								value = data[items];
+								if(value == null){
+		  							value = '';
+		  						 }
+		  						 		
+		  						$("input[name="+ items +"]").val(value);
+							}
+						}
+		  				
+						alert("처리를 완료하였습니다.");
+						
+						//document.location.replace('../nm/NM_20001.html');
+						document.location.replace('https://m.taxdiet.co.kr../nm/NM_20001.html');
+		  				
+		   			}else{
+		   				if(data.errorMsg){
+			   				alert(data.errorMsg);
+		   				}else{
+		   					alert('카드번호를 확인해 주세요.');
+		   				}
+		   			}
+		   		}, 'json');
+				return false;
+			});		
+			
+		});
+		
+
+	</script>
+</head>
+<body>
+<form name="form" id="form" method="post" >
+	<input type="hidden" name="clientNo"		value="0000001950" />
+	<input type="hidden" name="corpNo"			value="" />
+	<input type="hidden" name="bizNo"			value="1078708207" />
+	<input type="hidden" name="cardNo"			id="card_no" />
+	<input type="hidden" name="clientName"		id="client_name" />
+	<input type="hidden" name="hpNo"			id="hp_no" />
+	<input type="hidden" name="rpsrName"		id="rpsr_name" />
+	<input type="hidden" name="rpsrRrno"		id="rpsr_rrno" />
+	<input type="hidden" name="telNo"			id="tel_no" />
+	<input type="hidden" name="faxNo"			id="fax_no" />
+	<input type="hidden" name="email"			id="email" />
+	<input type="hidden" name="ozipCode"		id="ozip_code" />
+	<input type="hidden" name="oaddr1"			id="oaddr1" />
+	<input type="hidden" name="oaddr2"			id="oaddr2" />
+	<input type="hidden" name="txbzCnslAgrmYn"	id="txbzCnslAgrmYn"	value="N" /> 
+	<input type="hidden" name="ippbAgrmYn"		id="ippbAgrmYn" 	value="N" /> 
+	
+	<div class="wrap">
+		<script type="text/javascript">
+$(document).ready(function(){
+	// 전자세금 계산서
+	$("#tax_bill").click(function() {
+		window.open("https://www.nicebill.co.kr/cm/main.html");
+		return false;
+	});
+	
+	// 휴폐업 조회
+	$("#check_biz").click(function() {
+		window.open("http://www.nicedata.co.kr/as/AS_30401.html");
+		return false;
+	});
+	
+	// 서울보증보험 안내
+	$("#sgic").click(function() {
+		window.open("http://www.nicedata.co.kr/as/AS_40601.html");
+		return false;
+	});
+});
+</script>
+<div class="header__gnb">
+	<input type="checkbox" class="gnb__btn" id="gnb__btn">
+	<label for="gnb__btn" class="gnb__btn__action">
+		<div class="spinner diagonal part-1"></div>
+		<div class="spinner horizontal"></div>
+		<div class="spinner diagonal part-2"></div>
+	</label>
+	<div class="gnb__contents">
+		<div class="gnb__contents__header">
+			<a href="../nm/NM_27011.html"><p class="login-info">나이스디앤알(주)</p></a>
+					</div>
+		<ul class="gnb__contents__menu">
+			<li>
+				<a href="../nm/NM_23011.html">
+					<i class="icon-set1"></i>부가세 환급지원
+				</a>
+			</li>
+			<li>
+				<a href="../nm/NM_29011.html">
+					<i class="icon-set2"></i>셀프택스 자가신고
+				</a>
+			</li>
+			<li>
+				<a href="../nm/NM_25011.html">
+					<i class="icon-set3"></i>세무상담
+				</a>
+			</li>
+			<li>
+				<a href="../nm/NM_30011.html">
+					<i class="icon-set5"></i>상권분석
+				</a>
+			</li>
+		</ul>
+		<div class="gnb__contents__service">
+			<div class="gnb__contents__service--top">
+				<p class="call_tit">
+					<i></i>고객만족센터
+				</p>
+				<div class="call_btn">
+					<a href="tel:1588-5659">통화하기</a>
+				</div>
+			</div>
+			<div class="gnb__contents__service--bottom">
+				<p class="service-number">1588-5659</p>
+				<p class="service-time">
+					상담시간: 09:00~18:00(금요일 17:00까지)<br/>
+					점심시간: 12:00~13:00<br />
+					주말, 공휴일 휴무<br />
+				</p>
+			</div>
+		</div>
+		<div class="gnb__contents__qiuck">
+			<ul>
+				<li>
+					<a href="#none" id="tax_bill">
+						<img src="../images/mobile/common/quick_icon_1.png" alt="전자세금계산서"/>
+						전자세금<br/>계산서
+					</a>
+				</li>
+				<li>
+					<a href="#none" id="check_biz">
+						<img src="../images/mobile/common/quick_icon_2.png" alt="휴폐업조회"/>
+						휴폐업<br/>조회
+					</a>
+				</li>
+				<li>
+					<a href="#none" id="sgic">
+						<img src="../images/mobile/common/quick_icon_3.png" alt="서울보증보험안내"/>
+						서울보증보험<br/>안내
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="header__hidden-bg"></div>
+<div class="container">
+			<div class="call-id-block first">
+				<p class="call-id-title">약관 및 정보수집 동의</p>
+				<div class="call-id-section">
+					<ul class="call-id-terms-list">
+						<li>
+									<label>
+										<input type="checkbox" name="check" value="Y" class="agree_check1">
+										<p class="title">
+											이용약관<strong>(필수)</strong>
+												</p>
+									</label>  
+									<p class="page-popup-link  NM_22012_001">전문보기 ></p>
+								</li>
+							<li>
+									<label>
+										<input type="checkbox" name="check" value="Y" class="agree_check2">
+										<p class="title">
+											개인정보 수집 및 이용<strong>(필수)</strong>
+												</p>
+									</label>  
+									<p class="page-popup-link  NM_22012_002">전문보기 ></p>
+								</li>
+							</ul>
+				</div>
+			</div>
+			<div class="call-id-block">
+				<p class="call-id-title">사업자 제휴 신용카드 확인</p>
+				<div class="call-id-section">
+					<ul class="card-list">
+						<li>
+							<p class="card-title">
+								<label for="card16">
+									<input type="radio" name="searchGbn" id="card16" value="C"  checked="checked" onclick="javascript:fnResetInput(this.value);"/>
+									카드번호 16자리 제휴 신용카드
+								</label>
+							</p>
+							
+							<div class="card-number">
+								<div class="text-box">XXXX</div>
+								<div class="hyphen-box">-</div>
+								<div class="input-box">
+									<input type="number" name="cardNo1" id="card_no1" onkeydown="onlyNumber(this)" max="9999" maxlength="4" oninput="maxLengthCheck(this)">
+								</div>
+								<div class="hyphen-box">-</div>
+								<div class="text-box">XXXX</div>
+								<div class="hyphen-box">-</div>
+								<div class="input-box">
+									<input type="number" name="cardNo2" id="card_no2" onkeydown="onlyNumber(this)" max="9999" maxlength="4" oninput="maxLengthCheck(this)">
+								</div>
+							</div>
+						</li>
+						<li>
+							<p class="card-title">
+								<label for="card15">
+									<input type="radio"  name="searchGbn" id="card15" value="A" onclick="javascript:fnResetInput(this.value);"/>
+									카드번호 15자리 제휴 신용카드(아멕스 카드)
+								</label>
+							</p>
+							<p class="card-number">
+							<div class="card-number">
+								<div class="text-box">XXXXX</div>
+								<div class="hyphen-box">-</div>
+								<div class="input-box">
+									<input type="number" name="cardNo3" id="card_no3" onkeydown="onlyNumber(this)" max="9999" maxlength="6" oninput="maxLengthCheck(this)">
+								</div>
+								<div class="hyphen-box">-</div>
+								<div class="text-box">XXXX</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="call-id-block">
+				<p class="call-id-title">비밀번호 변경</p>
+				<div class="call-id-section">
+					<div class="pw-change-input">
+						<input type="password" name="pswd" id="pswd" title="비밀번호" placeholder="신규 비밀번호">
+						<input type="password" name="npswd" id="npswd" title="비밀번호" placeholder="신규 비밀번호 확인">
+					</div>
+				</div>
+				<div class="call-id-section">
+					<p class="pw-change-text">
+						＊ <strong>영문자,숫자,특수문자!@#$%^&*() 조합으로 8~16자리 이내</strong>로 입력하세요.
+					</p>
+				</div>
+			</div>
+			<div class="call-id-block last">
+				<input type="button" id="save" value="확인" class="common-btn card_no_check">
+			</div>
+		</div>
+		
+		<div class="terms-wrap HeightAuto use-terms">
+			<iframe src="" id="terms" name="terms" frameborder="0"></iframe>
+		</div>
+		
+		<div class="footer">
+			<script src="/js/mobile/common.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	// 이용약관
+	$(".NM_22012_001").click(function() {
+		fancybox_open("../nm/NM_22012.do?termCode=001", null, false);
+		return false;
+	});
+
+	// 개인정보처리방침
+	$(".NM_22012_002").click(function() {
+		fancybox_open("../nm/NM_22012.do?termCode=002", null, false);
+		return false;
+	});
+
+	// PC버전
+	$(".PC").click(function() {
+		location.href = "https://www.taxdiet.co.kr/cm/main.html";
+		return false;
+	});
+});
+</script>
+
+<ul class="footer__terms">
+	<li>
+		<a href="javascript:;" class="NM_22012_001">이용약관</a>
+	</li>
+	<li>
+		<a href="javascript:;" class="NM_22012_002">개인정보처리방침</a>
+	</li>
+	<li>
+		<a href="javascript:;" class="PC">PC버전</a>
+	</li>
+</ul>
+<p class="footer__copyright">Ⓒ NICE D&R Ltd.</p>
+
+<!--
+ <div class="terms-wrap HeightAuto use-terms">
+	<iframe src="" id="terms" name="terms" frameborder="0"></iframe>
+</div>
+ -->
+<!-- 택스다이어트 모바일 전용 구글 애널리틱스 (PC용은 별도로 있음) -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-36649342-22"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-36649342-22');
+</script></div>
+	</div>
+</form>
+</body>
+</html>

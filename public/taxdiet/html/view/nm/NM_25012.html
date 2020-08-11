@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+
+<title>택스다이어트: NM_29011(세무상당>문의하기)</title>
+<link rel="stylesheet" type="text/css" href="/css/mobile/default.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery.fancybox-1.3.1.css">
+
+<script src="/js/mobile/libs/jquery-1.11.1.min.js"></script>
+<script src="/js/mobile/libs/jquery-ui.min.js"></script>
+<script src="/js/mobile/libs/jquery.easing.1.3.js"></script>
+<script src="/js/mobile/libs/jquery-ui.js"></script> <!-- dskim -->
+<script src="/js/mobile/libs/jquery.mask.min.js"></script>
+<script src="/js/mobile/libs/daterange.js"></script>
+
+<script src="/js/mobile/libs/jquery.validate-1.8.1.min.js"></script>
+<script src="/js/mobile/niceNmCommon.js"></script>
+<script src="/js/mobile/common-util.js"></script>
+
+<!-- layerpopup -->
+<script src="/js/mobile/libs/jquery.fancybox.min.js"></script>
+
+<!-- placeholder fix -->
+<script src="/js/mobile/libs/jquery.placeholder.js"></script>
+
+<script src="/js/mobile/libs/jquery.history.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+<script type="text/javascript">
+
+$(function(){
+	
+	$(".btn_joinMember").click(function(){
+			
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A2D594B41200D152A3E062545033D5E220C" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+	
+});
+
+</script>
+<script type="text/javascript">
+var isAllowFileExt = "image,jpg,jpeg,gif,png,bmp,pdf,ppt,pptx,doc,docx,xls,xlsx,hwp";
+var fileMaxSize = 10485760;	// 현재 10MB
+
+$(document).ready(function(){
+	// 취소-목록
+	$('.cancel').click(function() {
+		$('#blbdSeq').val(null);
+
+		f_form_submit("../nm/NM_25011.html", "7F4250422D0233083117263B40013B");
+
+		return false;
+	});
+
+	$("#form").validate({
+		rules : {
+			'titl' : { required:true, maxBytes:100 }
+			,'sms' : { required:true, validPhoneNumber:true }
+			,'agree' : { validAgreeYes:true }
+			,'taxCls' : { required:true }
+	        ,'cont' : { required:true }
+		}
+		,names  : {
+			'titl' : '제목'
+			,'sms': '연락처'
+			,'agree_yes': '개인정보 수집 이용 동의'
+			,'taxCls' : '문의유형'
+			,'cont' : '내용'
+		}
+        ,messages : {
+        	'sms' : { validPhoneNumber : "연락처 형식이 잘못되었습니다." }
+    		,'agree' : { validAgreeYes : "개인정보 수집 이용 미동의 시 세무상담을 진행할 수 없습니다. 동의함에 체크해주세요." }
+        	,'taxCls' : { required : "문의유형 항목은 반드시 선택해야 합니다." }
+        }
+		,onsubmit : false
+	});
+
+    $.validator.addMethod(
+        // 전화번호 검증
+        'validPhoneNumber', function(value, element) {
+            return ($.trim(value) == '' || value.isPhoneNumber());
+        }, '연락처 형식이 잘못되었습니다.'
+    );
+
+    $.validator.addMethod(
+        // 개인정보 수집 이용 동의 검증
+        'validAgreeYes', function(value, element) {
+    		if ($("input[name='agree']:checked").val() == "N") {
+    			return false;
+    		}
+
+    		return true;
+        }, '개인정보 수집 이용 미동의 시 세무상담을 진행할 수 없습니다. 동의함에 체크해주세요.'
+    );
+
+	// 등록
+	$('.regist').click(function() {
+		if(!$("#form").valid()){
+			return false;
+		}
+
+		var message = "등록하시겠습니까?";		
+
+		if(confirm(message)) {
+			var form = $('form')[0];
+	        var formData = new FormData(form);
+
+	        f_ajax_content_submit('../nm/NM_25012_IN.html', formData, "7F4250422D0233083117263B40013B");
+		}
+
+		return false;
+	});
+
+    $('#filex').change(function(e){
+    	if($("#fileDel").val()=="Y") {
+			$("#filex").val("");
+    	}
+    	else {
+	    	var file = e.target.files[0];
+			var isAllow = true;
+			var fileName = file.name;
+			var fileType = file.type;
+			var fileSize = file.size;
+
+			if(!fileType.match("image.*")) {
+				var lastDot = fileName.lastIndexOf('.') + 1;
+			    var fileExt = fileName.substring(lastDot).toLowerCase();
+
+			    if (isAllowFileExt.indexOf(fileExt) < 0) {
+			    	isAllow = false;
+    			}
+			}
+
+			if(isAllow) {
+				if(fileSize > fileMaxSize) {
+					// 업로드 가능한 파일사이즈는 최대 {0} 입니다.
+					alert("업로드 가능한 파일사이즈는 최대 10MB 입니다.");
+					$("#filex").val("");
+			    }
+				else {
+				}
+			}
+			else {
+				// 업로드시 허용하지 않는 파일 형식입니다.
+				alert("업로드시 허용하지 않는 파일 형식입니다.");
+				$("#filex").val("");
+			}
+    	}
+
+		$("#fileDel").val("N");
+
+		return false;
+    });
+
+	// 첨부파일취소
+	$('.fileDel').click(function() {
+		$("#fileDel").val("Y");
+		$('#filex').change();
+
+		return false;
+	});
+});
+
+function f_call_result(result) {
+	if (result.status) {
+		// 등록되었습니다.
+		alert("등록되었습니다.");
+		$(".cancel").click();
+   	}
+	else if (result.status_msg != "") {
+		if (result.status_msg == "ATTACH_FILE_EXT") {
+			alert("업로드시 허용하지 않는 파일 형식입니다.");
+		}
+		else if (result.status_msg == "ATTACH_MAX_SIZE") {
+			alert("업로드 가능한 파일사이즈는 최대 10MB 입니다.");
+		}
+		else {
+			alert(result.status_msg);
+		}
+	}
+   	else {
+		// 등록에 실패하였습니다.
+		alert("등록에 실패 하였습니다.");
+   	}
+}
+</script>
+</head>
+<body>
+<form id="form" name="form" method="post" enctype="multipart/form-data">
+	<input type="hidden" id="fileDel" name="fileDel" value="N"/>
+	<input type="hidden" id="blbdSeq" name="blbdSeq" value=""/>
+	<input type="hidden" id="current_page" name="current_page" value=""/>
+	<input type="hidden" id="orderGbnNm" name="orderGbnNm" value=""/>
+	<input type="hidden" id="srchTaxCls" name="srchTaxCls" value=""/>
+	<input type="hidden" id="srhTitl" name="srhTitl" value=""/>
+	<input type="hidden" id="srchType" name="srchType" value=""/>
+	<div class="wrap">
+		<div class="header header--white">
+			<div class="header__back cancel">
+				<a href="javascript:;">뒤로가기</a>
+			</div>
+			<div class="header__logo">
+				<a href="javascript:f_go_home();"><img src="/images/mobile/common/main_logo.png" alt="택스다이어트"></a>
+			</div>
+			<script type="text/javascript">
+$(document).ready(function(){
+	$("#tax_bill").click(function() {
+		window.open("http://www.nicedata.co.kr/ti/TI_10000.html");
+		return false;
+	});
+	
+	$("#check_biz").click(function() {
+		window.open("http://www.nicedata.co.kr/as/AS_30401.html");
+		return false;
+	});
+	
+	$("#sgic").click(function() {
+		window.open("http://www.nicedata.co.kr/as/AS_40601.html");
+		return false;
+	});
+});
+</script>
+<div class="header__gnb">
+	<input type="checkbox" class="gnb__btn" id="gnb__btn">
+	<label for="gnb__btn" class="gnb__btn__action">
+		<div class="spinner diagonal part-1"></div>
+		<div class="spinner horizontal"></div>
+		<div class="spinner diagonal part-2"></div>
+	</label>
+	<div class="gnb__contents">
+		<div class="gnb__contents__header">
+			<a href="../nm/NM_27011.html"><p class="login-info">나이스디앤알(주)</p></a>
+					</div>
+		<ul class="gnb__contents__menu">
+			<li>
+				<a href="../nm/NM_23011.html">
+					<i class="icon-set1"></i>부가세 환급지원
+				</a>
+			</li>
+			<li>
+				<a href="../nm/NM_29011.html">
+					<i class="icon-set2"></i>셀프택스 자가신고
+				</a>
+			</li>
+			<li>
+				<a href="../nm/NM_25011.html">
+					<i class="icon-set3"></i>세무상담
+				</a>
+			</li>
+			<li>
+				<a href="../nm/NM_30011.html">
+					<i class="icon-set5"></i>상권분석
+				</a>
+			</li>
+		</ul>
+		<div class="gnb__contents__service">
+			<div class="gnb__contents__service--top">
+				<p class="call_tit">
+					<i></i>고객만족센터
+				</p>
+				<div class="call_btn">
+					<a href="tel:1588-5659">통화하기</a>
+				</div>
+			</div>
+			<div class="gnb__contents__service--bottom">
+				<p class="service-number">1588-5659</p>
+				<p class="service-time">
+					상담시간: 09:00~18:00(금요일 17:00까지)<br/>
+					점심시간: 12:00~13:00<br />
+					주말, 공휴일 휴무<br />
+				</p>
+			</div>
+		</div>
+		<div class="gnb__contents__qiuck">
+			<ul>
+				<li>
+					<a href="#none" id="tax_bill">
+						<img src="/images/mobile/common/quick_icon_1.png" alt="전자세금계산서"/>
+						전자세금<br/>계산서
+					</a>
+				</li>
+				<li>
+					<a href="#none" id="check_biz">
+						<img src="/images/mobile/common/quick_icon_2.png" alt="휴폐업조회"/>
+						휴폐업<br/>조회
+					</a>
+				</li>
+				<li>
+					<a href="#none" id="sgic">
+						<img src="/images/mobile/common/quick_icon_3.png" alt="서울보증보험안내"/>
+						서울보증보험<br/>안내
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="header__hidden-bg"></div>
+</div>
+		<div class="container">
+			<div class="inner-container mypage-con">
+				<div class="tax-consulting">
+					<div class="consulting__header">
+						<div class="header-inner">
+							<p class="tit">질문하기</p>
+							<p class="txt">질문을 등록해 주세요.</p>
+						</div>
+					</div>
+					<div class="consulting__container">
+						<div class="write">
+							<div class="write__section">
+								<div class="inner-left">제목 <span>*</span></div>
+								<div class="inner-right">
+									<input type="text" id="titl" name="titl" placeholder="질문을 입력해 주세요.">
+								</div>
+							</div>
+							<div class="write__section">
+								<div class="inner-left">작성자 <span>*</span></div>
+								<div class="inner-right">
+									<input type="text" value="최현수" disabled>
+								</div>
+							</div>
+							<div class="write__section">
+								<div class="inner-left">연락처 <span>*</span></div>
+								<div class="inner-right">
+									<input type="text" id="sms" name="sms" title="휴대폰" placeholder="휴대폰번호 입력" value="010-7109-8508">
+								</div>
+							</div>
+							<div class="write__section">
+								<div class="privacy">
+									<p class="privacy-tit">개인정보 수집 및 이용 동의</p>
+									<ul class="privacy-list">
+										<li>개인정보의 수집 및 이용목적: 세무상담 질문 등록 및 답변 수신</li>
+										<li>수집하는 개인정보: 질문자 성명, 휴대폰 번호</li>
+										<li>수집한 정보의 보유 및 이용기간 : 세무상담 등록한 질문 삭제시까지 보유</li>
+										<li class="important">미동의 시 세무상담 질문이 등록되지 않습니다.</li>
+										<li class="important">원활한 상담을 위해 필요한 경우 세무사가 휴대폰번호로 전화상담을 진행할 수 있습니다.</li>
+									</ul>
+									<ul class="privacy-check">
+										<li>
+											<input type="radio" id="agree_yes" name="agree" value="Y" class="type2">
+											<label for="agree_yes">
+												<span></span>동의함
+											</label>
+										</li>
+										<li>
+											<input type="radio" id="agree_no" name="agree" value="N" checked class="type2">
+											<label for="agree_no">
+												<span></span>동의안함
+											</label>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="write__section">
+								<div class="inner-left">문의유형 <span>*</span></div>
+								<div class="inner-right">
+									<select id="taxCls" name="taxCls"><option value="" selected="selected">선택</option><option value="001">부가가치세</option><option value="002">종합소득세</option><option value="003">법인세</option><option value="004">자동차세</option><option value="005">임대소득</option><option value="006">재산세</option><option value="007">기타</option></select></div>
+							</div>
+							<div class="write__section">
+								<div class="inner-left">내용 <span>*</span></div>
+								<div class="inner-right">
+									<textarea id="cont" name="cont" placeholder="글을 남겨주세요"></textarea>
+								</div>
+							</div>
+							<div class="write__section">
+								<div class="inner-left">첨부파일</div>
+								<div class="inner-right">
+									<div class="file-wrap">
+										<ul class="file-list">
+											<li>
+												<div class="file">
+													<input type="file" id="filex" name="filex" class="file-upload" accept="file_extension|image/*">
+												</div>
+												<button class="fileDel">삭제</button>
+											</li>
+										</ul>
+									</div>
+									<div class="input-file-txt">image,jpg,jpeg,gif,png,bmp,pdf,ppt,pptx,doc,docx,xls,xlsx,hwp만 가능</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="consulting__footer">
+						<div class="common-btn common-btn--half">
+							<button class="common-btn__btn common-btn__btn--gray cancel">취소</button>
+							<button class="common-btn__btn regist">등록</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<script src="/js/mobile/common.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	// 이용약관
+	$(".NM_22012_001").click(function() {
+		fancybox_open("../nm/NM_22012.do?termCode=001", null, false);
+		return false;
+	});
+
+	// 개인정보처리방침
+	$(".NM_22012_002").click(function() {
+		fancybox_open("../nm/NM_22012.do?termCode=002", null, false);
+		return false;
+	});
+
+	// PC버전
+	$(".PC").click(function() {
+		location.href = "https://t-renewal.taxdiet.co.kr/cm/main.html";
+		return false;
+	});
+});
+</script>
+
+<ul class="footer__terms">
+	<li>
+		<a href="javascript:;" class="NM_22012_001">이용약관</a>
+	</li>
+	<li>
+		<a href="javascript:;" class="NM_22012_002">개인정보처리방침</a>
+	</li>
+	<li>
+		<a href="javascript:;" class="PC">PC버전</a>
+	</li>
+</ul>
+<p class="footer__copyright">Ⓒ NICE D&R Ltd.</p>
+
+<!--
+ <div class="terms-wrap HeightAuto use-terms">
+	<iframe src="" id="terms" name="terms" frameborder="0"></iframe>
+</div>
+ -->
+<!-- 택스다이어트 모바일 전용 구글 애널리틱스 (PC용은 별도로 있음) -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-36649342-22"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-36649342-22');
+</script></div>
+	</div>
+</form>
+</body>
+</html>

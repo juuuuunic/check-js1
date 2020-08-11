@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="robots" content="noindex,nofollow" />
+	<meta name="language" content="ko" />
+	<meta name="copyright" content="copyrights 2019 NICE Data" />
+	<meta name="author" content="NICE Data" />
+	<title>택스다이어트: MY_B0411_POP2(마이페이지>ID발급관리>등록)</title>
+
+	<link rel="stylesheet" type="text/css" href="/css/default.css">
+	<link rel="stylesheet" type="text/css" href="/css/libs/jquery-ui.css">
+	<link rel="stylesheet" type="text/css" href="/css/soho_default.css">
+	<link rel="stylesheet" type="text/css" href="/css/soho_sub_default.css">
+
+	<!--  공통 -->
+	<script src="/js/libs/jquery-1.11.1.min.js"></script>
+	<script src="/js/niceCommon.js"></script>
+	<script src="/js/common-util.js"></script>
+	<script src="/js/libs/jquery.fancybox.min.js"></script>
+	<script src="/js/libs/jquery.placeholder.min.js"></script>
+	<script src="/js/libs/jquery-ui.min.js"></script>
+	<script src="/js/moment.min.js"></script>
+
+	<script src="/js/libs/jquery.dialog.min.js"></script>
+
+	<script src="/js/common.js"></script>
+	<script src="/js/progress.min.js"></script>
+	<script src="/js/browserVersion.min.js"></script>
+	<script src="/js/libs/jquery.easing.1.3.min.js"></script>
+	<script src="/js/libs/jquery.mask.min.js"></script>
+
+	<script src="/js/libs/jquery.cookie.min.js"></script>
+	<script src="/js/cookie.min.js"></script>
+
+	<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+
+	<script type="text/javascript">
+		$(function () {
+			// gnb 로고 옆에 현재 머물고 있는 1뎁스 메뉴 표시
+			$("ul.gnb_depth1 > li").each(function (index) {
+				if ($(this).attr("class") == "on") {
+					$("div.logo-wrap > h2").html($(this).text().trim());
+				}
+			})
+
+
+			// 로그아웃
+			$(document).on("click", ".btn_logout", function (data) {
+				if (confirm("로그아웃 하시겠습니까?")) {
+
+					var $form = $("<form/>", {
+						id: "logoutForm",
+						method: "post",
+						action: "../cm/nTdLogout.html"
+					});
+					$("body").append($form);
+					$form.submit();
+				}
+			});
+
+
+			$("#loginBtn").click(function () {
+				if ($.trim($("#membId").val()) == "") {
+					alert("회원아이디를 입력하세요.");
+					$("#membId").focus();
+					return false;
+				}
+
+				if ($.trim($("#pswd").val()) == "") {
+					alert("비밀번호를 입력하세요.");
+					$("#pswd").focus();
+					return false;
+				}
+
+				$.removeCookie("saveid", {
+					path: '/'
+				});
+
+				if ($("#chk_save_id").prop("checked")) {
+					$.cookie("saveid", $.trim($("#membId").val()), {
+						expires: 365,
+						path: '/'
+					});
+				}
+
+				doLogin();
+
+				return false;
+			});
+
+
+			$("#btn_login").click(function () {
+
+				var param = "";
+
+
+				param = "7F4B244222003324000D260240013B";
+
+				location.href = "../cm/nTdLogin.do?returnURL=" + param;
+			});
+
+			$("#loginForm input[name=pswd]").keyup(function (e) {
+				if (e.keyCode == KeyCode.ENTER) {
+					$("#loginBtn").click();
+				}
+			});
+
+
+			$(".btn_joinMember").click(function () {
+
+				var url = $(this).attr("move");
+
+				if (typeof jmForm == "undefined") {
+					var $form = $("<form/>", {
+						id: "jmForm",
+						name: "jmForm",
+						method: "get",
+						action: url
+					});
+
+					$("body").append($form);
+					$("<input/>").attr({
+						type: "hidden",
+						name: "referrUrl",
+						value: "623C2734237F434A16010741200D152A3E062545033D5E220C"
+					}).appendTo("#jmForm");
+
+				} else {
+					$("#jmForm").attr("action", url);
+				}
+				$("#jmForm").attr('target', '_blank').submit();
+
+			});
+		});
+
+		function fnLayerClose() {
+			try {
+				parent.$.fancybox.close();
+			} catch (exception) {}
+		}
+		var membEtcRefresh = function () {
+			$.post("../cm/CM_00001_UP1.html", "", "");
+		}
+		var isLogin = function () {
+
+			return true;
+
+		}
+
+		// 미사용
+		function fnLogin(returnURL) {
+			if (!isLogin()) {
+				var msg = "로그인이 필요합니다.\n회원이 아니시면 회원가입을 해주시기 바랍니다.";
+
+				alert(msg);
+
+				if (typeof (returnURL) == "undefined") {
+					returnURL = location.pathname;
+				}
+
+				location.href = "../cm/nTdLogin.do?returnURL=" + returnURL;
+
+				return false;
+			}
+			return true;
+		}
+
+		function fnIeLimitCheck() {
+			var limitVersion = 8;
+			var ieVersion = getIeVersion();
+
+			if (getCookie("NoMoreBrowserPopup") != "yes") {
+				if (ieVersion) {
+					if (ieVersion <= limitVersion) {
+						WindowUtil.open({
+							windowURL: "/popup/popup_ieWarning.html",
+							windowName: "popup_browserWarning",
+							width: 600,
+							height: 741
+						});
+					}
+				}
+			}
+		}
+
+		function doLogin() {
+			if ($("#loginForm > input#redirectURL").length === 0) {
+				$("<input>").attr({
+					type: "hidden",
+					id: "redirectURL",
+					name: "redirectURL",
+					value: "https://www.taxdiet.co.kr/my/MY_B0111.html"
+				}).appendTo("#loginForm");
+			} else if ($("#redirectURL").val() == "") {
+				$("#redirectURL").val("https://www.taxdiet.co.kr/my/MY_B0111.html");
+			} else {
+				$("#redirectURL").val(location.href);
+			}
+
+			if ($("#returnURL").val() != "") {
+				$("#redirectURL").val("");
+			}
+
+			$("#loginForm").attr("action", "../cm/nTdSsoLoginProc.html");
+			$("#loginForm").attr("target", "_self");
+			$("#loginForm").submit();
+		}
+	</script>
+	<script src="/js/password.js"></script>
+	<script type="text/javascript">
+		var g_membId = 'test01';
+
+		$(function () {
+			$("#taxSubSeq").mask("0000");
+
+			$("#btn_close").click(function () {
+				parent.$.fancybox.close();
+			});
+
+
+			$('#idchk').click(function () {
+				url = '/my/MY_B0612_SL1.html';
+
+				var membid = $('#membId').val();
+				membid = membid.replace(/\s/g, '');
+				$('#membId').val(membid);
+
+				if (membid == null || membid == "") {
+					alert("ID 항목은 반드시 입력해야 합니다.");
+					$('#membId').focus();
+					return;
+				}
+
+				$('#tempmembid').val(membid);
+
+				f_post_submit("../my/MY_B0612_SL1.html", "7F4B244222003324000D263B40013B", "f_call_result1");
+
+				return false;
+			});
+
+			$("#membId").keyup(function () {
+				$(".check_btn").addClass("active");
+				$(".check_co").removeClass("active");
+				$('#chkid').val("0");
+				$('#tempmembid').val("");
+			});
+
+			/* 저장 */
+			$('#idinsrt').click(function () {
+				var idval = $('#membId').val();
+				var tempmembid = $('#tempmembid').val();
+				var chkid = $('#chkid').val();
+
+				if ($("#membId").val().isEmpty()) {
+					alert("아이디 항목은 반드시 입력해야 합니다.");
+					$("#membId").focus();
+					return false;
+				}
+
+				if (chkid != "1") {
+					alert("아이디 중복체크를 하셔야합니다.");
+					return;
+				}
+
+				if (tempmembid != idval) {
+					alert("아이디 중복체크를 하셔야합니다.");
+					return;
+				}
+
+				if ($("#membName").val().isEmpty()) {
+					alert("사용자명 항목은 반드시 입력해야 합니다.");
+					$("#membName").focus();
+					return false;
+				}
+
+				if ($("#pswd").val().isEmpty()) {
+					alert("비밀번호 항목은 반드시 입력해야 합니다.");
+					$("#pswd").focus();
+					return false;
+				}
+
+				if (!isCheck_pswd($("#pswd").val())) {
+					alert("비밀번호는 문자, 숫자, 특수문자!@#$%^&*() 를 포함한 8~20자리 사용 가능합니다.");
+					$("#pswd").focus();
+					return false;
+				}
+
+				if ($("#re_pswd").val().isEmpty()) {
+					alert("비밀번호 확인 항목은 반드시 입력해야 합니다.");
+					$("#re_pswd").focus();
+					return false;
+				}
+
+				if ($("#pswd").val() != $("#re_pswd").val()) {
+					alert("비밀번호가 일치하지 않습니다.");
+					$("#re_pswd").focus();
+					return false;
+				}
+
+				if (confirm('등록하시겠습니까?')) {
+					f_post_submit("../my/MY_B0612_IN1.html", "7F4B244222003324000D263B40013B",
+						"f_call_result2");
+				}
+
+				return false;
+			});
+
+			// 비밀번호 입력 event
+			$("input[name=pswd]").on("keyup", function () {
+
+				var inputKey = $("#pswd").val();
+				var message = "";
+
+				if (inputKey != "") {
+					if (inputKey.length < 8) {
+						$("p.length").addClass("active").siblings(".pswd").removeClass("active");
+						return false;
+					}
+					if (!isCheck_pswd(inputKey)) {
+						$("p.invalid").addClass("active").siblings(".pswd").removeClass("active");
+						return false;
+					} else {
+						$("p.complete").addClass("active").siblings(".pswd").removeClass("active");
+						return false;
+					}
+				} else {
+					$("p.pswd").removeClass("active");
+				}
+			});
+
+			// 비밀번호 확인 event
+			$("input[name=re_pswd]", this).bind({
+				blur: function () {
+					check_re_pswd();
+				},
+				keyup: function () {
+					check_re_pswd();
+				}
+			});
+		});
+
+		//비밀번호 확인 체크
+		function check_re_pswd() {
+			if ($("#re_pswd").val() != "") {
+				if ($("#pswd").val() == $("#re_pswd").val()) {
+					if (isCheck_pswd($("#pswd").val())) {
+						$("p.equal").addClass("active").siblings(".re_pswd").removeClass("active");
+					}
+
+				} else {
+					$("p.notmatch").addClass("active").siblings(".re_pswd").removeClass("active");
+				}
+
+			} else {
+				$(".re_pswd").removeClass("active");
+			}
+		}
+
+		function f_call_result1(result) {
+			if (result.status) {
+				if (result.result_cnt > 0) {
+					alert("사용중인 ID 입니다");
+
+					$(".check_btn").addClass("active");
+					$(".check_co").removeClass("active");
+					$('#chkid').val("0");
+					$('#membId').focus();
+				} else {
+					alert("사용 가능한 아이디입니다");
+
+					$(".check_btn").removeClass("active");
+					$(".check_co").addClass("active");
+					$('#chkid').val("1");
+					$('#membId').focus();
+				}
+			} else if (result.status_msg != "") {
+				alert(result.status_msg);
+			} else {
+				alert("처리 중 오류가 발생하였습니다.");
+			}
+		}
+
+		function f_call_result2(result) {
+			if (result.status) {
+				alert('등록되었습니다.');
+
+				form.membId.value = g_membId;
+
+				top.location.href = "../my/MY_B0611.html";
+			} else if (result.status_msg != "") {
+				alert(result.status_msg);
+			} else {
+				alert("등록에 실패 하였습니다.");
+			}
+		}
+	</script>
+</head>
+
+<body>
+	<div class="loading_wrap HeightAuto" style="height: 700px;">
+		<div class="box_img">
+			<p>Loading...</p>
+		</div>
+		<div class="loading_bg HeightAuto" style="height: 700px;"></div>
+	</div>
+	<form id="form" name="form" method="post">
+		<input type="hidden" name="chkid" id="chkid">
+		<input type="hidden" name="tempmembid" id="tempmembid">
+		<div id="wrap">
+			<div class="lp-my_id">
+				<div class="lp-header">
+					<div class="join_title">
+						<p class="title">ID발급</p>
+						<p class="text">
+							<span class="normal">
+								ID를 발급해 주세요.
+							</span>
+						</p>
+					</div>
+				</div>
+				<div class="lp-container">
+					<div class="join_wrap">
+						<div class="section">
+							<div class="left">
+								<input type="text" name="membId" id="membId" maxlength="15" style="ime-mode:disabled;"
+									placeholder="아이디 : 6~12자리 입력">
+							</div>
+							<div class="right">
+								<div class="check_btn active">
+									<input type="button" id="idchk" value="중복검사" class="type1">
+								</div>
+								<div class="check_co">
+									<div class="text">
+										중복검사 완료
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="section">
+							<div class="pw_wrap">
+								<input type="text" name="membName" id="membName" maxlength="20" placeholder="사용자 명">
+							</div>
+						</div>
+						<div class="section">
+							<div class="pw_wrap">
+								<input type="text" name="taxSubSeq" id="taxSubSeq" maxlength="4" placeholder="종사업장 번호"
+									autocomplete="off">
+							</div>
+						</div>
+						<div class="section">
+							<div class="pw_wrap">
+								<input type="password" name="pswd" id="pswd" maxlength="16"
+									placeholder="비밀번호 : 영문자, 숫자, 특수문자를 포함한 8~16자리 입력">
+								<p class="pswd length notice_message low_line nm_red">비밀번호는 8자 ~ 16자 이내로 입력하셔야 합니다.</p>
+								<p class="pswd invalid notice_message low_line nm_red">영문자,숫자,특수문자!@#$%^&amp;*() 조합으로
+									8~16자리 이내로 입력하세요.</p>
+								<p class="pswd complete notice_message low_line nm_blue active">안전</p>
+							</div>
+						</div>
+						<div class="section mb-30">
+							<div class="pw_wrap">
+								<input type="password" name="re_pswd" id="re_pswd" maxlength="16" placeholder="비밀번호 확인">
+								<p class="re_pswd notmatch notice_message low_line nm_red">비밀번호가 맞지 않습니다.</p>
+								<p class="re_pswd equal notice_message low_line nm_blue">일치</p>
+							</div>
+						</div>
+						<div class="section">
+							<p class="sub_title">제한 서비스</p>
+							<ul class="my_services_limit">
+
+								<li>
+									<label>
+										<input type="checkbox" name="authGrpCode" value="AS">
+										부가서비스</label>
+								</li>
+								<li>
+									<label>
+										<input type="checkbox" name="authGrpCode" value="FA">
+										재무회계(복식회계)</label>
+								</li>
+								<li>
+									<label>
+										<input type="checkbox" name="authGrpCode" value="TI">
+										세금계산서</label>
+								</li>
+								<li>
+									<label>
+										<input type="checkbox" name="authGrpCode" value="VR">
+										부가세환급지원</label>
+								</li>
+							</ul>
+						</div>
+						<ul class="base_bottom_btn">
+							<li>
+								<a href="javascript:;" id="btn_close" class="base_btn_color dark width-150 lh48">닫기</a>
+							</li>
+							<li>
+								<input type="button" id="idinsrt" value="저장" class="base_btn_color width-150">
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+
+</body>
+
+</html>

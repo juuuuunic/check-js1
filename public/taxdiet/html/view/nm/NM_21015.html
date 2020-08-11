@@ -1,0 +1,301 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+
+<title>택스다이어트: NM_21013(마이페이지>회사정보>인증코드)</title>
+<link rel="stylesheet" type="text/css" href="/css/mobile/default.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery.fancybox-1.3.1.css">
+
+<script src="/js/mobile/libs/jquery-1.11.1.min.js"></script>
+<script src="/js/mobile/libs/jquery-ui.min.js"></script>
+<script src="/js/mobile/libs/jquery.easing.1.3.js"></script>
+<script src="/js/mobile/libs/jquery-ui.js"></script> <!-- dskim -->
+<script src="/js/mobile/libs/jquery.mask.min.js"></script>
+<script src="/js/mobile/libs/daterange.js"></script>
+
+<script src="/js/mobile/libs/jquery.validate-1.8.1.min.js"></script>
+<script src="/js/mobile/niceNmCommon.js"></script>
+<script src="/js/mobile/common-util.js"></script>
+
+<!-- layerpopup -->
+<script src="/js/mobile/libs/jquery.fancybox.min.js"></script>
+
+<!-- placeholder fix -->
+<script src="/js/mobile/libs/jquery.placeholder.js"></script>
+
+<script src="/js/mobile/libs/jquery.history.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+<script type="text/javascript">
+
+$(function(){
+	
+	$(".btn_joinMember").click(function(){
+			
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A2D594B41200D152A3E062545033D5E220C" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+	
+});
+
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	$("#btnSearch").click(function() {
+		f_form_submit('../nm/NM_21015.html', "7F4250422D0233083717261740013B");
+	});
+
+	// 엔터키 검색
+	$("#ntsIndsCode").on("keypress", function(e) { 
+		if(e.keyCode == 13) {
+			$("#btnSearch").click();
+		}
+	});
+
+	$(".indsCode").click(function() {
+		// 부동산공급가액명세서가
+		var msg = "업종 변경시 사업장현황명세서가 삭제될 수 있습니다.\n업종을 변경하시겠습니까?";
+
+		if(confirm(msg)) {
+			var indsCode = $(this).closest("tr").find(".ntsIndsCode").val();
+			var bizCond = $(this).closest("tr").find(".bizCond").val();
+			var bizItemArr = $(this).closest("tr").find(".bizItem").val().split('ㆍ');
+			var bizItem = "";
+
+			if (bizItemArr.length > 2) {
+				bizItem = bizItemArr[1].replace("<br>", "");
+			} else {
+				bizItem = bizItemArr[0];
+			}
+
+			parent.fn.setIndsDeemInf(indsCode, bizCond, bizItem);
+		}
+	});
+});
+</script>
+</head>
+<body>
+<form id="form" name="form" method="post">
+	<div class="wrap">
+		<div class="header header--white">
+			<div class="header__logo">
+				<p>업종검색</p>
+			</div>
+			<a href="javascript:fancybox_close();" class="header__close">
+				<label for="gnb__btn" class="gnb__btn__action">
+					<div class="spinner diagonal part-1"></div>
+					<div class="spinner diagonal part-2"></div>
+				</label>
+			</a>
+		</div>
+		<div class="container">
+			<div class="inner-container">
+				<div class="popup-block">
+					<div class="popup-block__search">
+						<div class="search__input">
+							<input type="text" name="ntsIndsCode" id="ntsIndsCode" value="">
+							<button id="btnSearch">조회</button>
+						</div>
+						<div class="search__result--business">
+							<div class="table-type1">
+								<table>
+									<col style="width: 20%;">
+									<col style="width: 40%;">
+									<col style="width: 40%;">
+									<thead>
+										<tr>
+											<th>코드</th>
+											<th>업종명</th>
+											<th>업종상세</th>
+										</tr>
+									</thead>
+									<tbody>
+		                          	<tr>
+		                                	<td>
+		                                  		<a href="javascript:;" class="indsCode">523520</a>
+		                                  		<input type="hidden" name="indsCode" value="523520" class="ntsIndsCode">
+		                                  		<input type="hidden" name="bizCond" value="도매 및 소매업" class="bizCond">
+		                                  		<input type="hidden" name="bizItem" value="문구용품 및 회화용품 소매업" class="bizItem"> 
+		                                	</td>
+		                                	<td>도매 및 소매업</td>
+		                                	<td>문구용품 및 회화용품 소매업</td>
+		                            	</tr>
+		                          	<tr>
+		                                	<td>
+		                                  		<a href="javascript:;" class="indsCode">523531</a>
+		                                  		<input type="hidden" name="indsCode" value="523531" class="ntsIndsCode">
+		                                  		<input type="hidden" name="bizCond" value="도매 및 소매업" class="bizCond">
+		                                  		<input type="hidden" name="bizItem" value="컴퓨터 및 주변장치, 소프트웨어 소매업" class="bizItem"> 
+		                                	</td>
+		                                	<td>도매 및 소매업</td>
+		                                	<td>컴퓨터 및 주변장치, 소프트웨어 소매업</td>
+		                            	</tr>
+		                          	<tr>
+		                                	<td>
+		                                  		<a href="javascript:;" class="indsCode">523532</a>
+		                                  		<input type="hidden" name="indsCode" value="523532" class="ntsIndsCode">
+		                                  		<input type="hidden" name="bizCond" value="도매 및 소매업" class="bizCond">
+		                                  		<input type="hidden" name="bizItem" value="사무용 기기 소매업" class="bizItem"> 
+		                                	</td>
+		                                	<td>도매 및 소매업</td>
+		                                	<td>사무용 기기 소매업</td>
+		                            	</tr>
+		                          	<tr>
+		                                	<td>
+		                                  		<a href="javascript:;" class="indsCode">523541</a>
+		                                  		<input type="hidden" name="indsCode" value="523541" class="ntsIndsCode">
+		                                  		<input type="hidden" name="bizCond" value="도매 및 소매업" class="bizCond">
+		                                  		<input type="hidden" name="bizItem" value="안경 및 렌즈 소매업" class="bizItem"> 
+		                                	</td>
+		                                	<td>도매 및 소매업</td>
+		                                	<td>안경 및 렌즈 소매업</td>
+		                            	</tr>
+		                          	<tr>
+		                                	<td>
+		                                  		<a href="javascript:;" class="indsCode">523932</a>
+		                                  		<input type="hidden" name="indsCode" value="523932" class="ntsIndsCode">
+		                                  		<input type="hidden" name="bizCond" value="도매 및 소매업" class="bizCond">
+		                                  		<input type="hidden" name="bizItem" value="운동 및 경기용품 소매업" class="bizItem"> 
+		                                	</td>
+		                                	<td>도매 및 소매업</td>
+		                                	<td>운동 및 경기용품 소매업</td>
+		                            	</tr>
+		                          	<tr>
+		                                	<td>
+		                                  		<a href="javascript:;" class="indsCode">523940</a>
+		                                  		<input type="hidden" name="indsCode" value="523940" class="ntsIndsCode">
+		                                  		<input type="hidden" name="bizCond" value="도매 및 소매업" class="bizCond">
+		                                  		<input type="hidden" name="bizItem" value="게임용구, 인형 및 장난감 소매업" class="bizItem"> 
+		                                	</td>
+		                                	<td>도매 및 소매업</td>
+		                                	<td>게임용구, 인형 및 장난감 소매업</td>
+		                            	</tr>
+		                          	<tr>
+		                                	<td>
+		                                  		<a href="javascript:;" class="indsCode">523970</a>
+		                                  		<input type="hidden" name="indsCode" value="523970" class="ntsIndsCode">
+		                                  		<input type="hidden" name="bizCond" value="도매 및 소매업" class="bizCond">
+		                                  		<input type="hidden" name="bizItem" value="자전거 및 기타 운송장비 소매업" class="bizItem"> 
+		                                	</td>
+		                                	<td>도매 및 소매업</td>
+		                                	<td>자전거 및 기타 운송장비 소매업</td>
+		                            	</tr>
+		                          	<tr>
+		                                	<td>
+		                                  		<a href="javascript:;" class="indsCode">552101</a>
+		                                  		<input type="hidden" name="indsCode" value="552101" class="ntsIndsCode">
+		                                  		<input type="hidden" name="bizCond" value="숙박 및 음식점업" class="bizCond">
+		                                  		<input type="hidden" name="bizItem" value="한식 일반 음식점업" class="bizItem"> 
+		                                	</td>
+		                                	<td>숙박 및 음식점업</td>
+		                                	<td>한식 일반 음식점업</td>
+		                            	</tr>
+		                          	<tr>
+		                                	<td>
+		                                  		<a href="javascript:;" class="indsCode">552102</a>
+		                                  		<input type="hidden" name="indsCode" value="552102" class="ntsIndsCode">
+		                                  		<input type="hidden" name="bizCond" value="숙박 및 음식점업" class="bizCond">
+		                                  		<input type="hidden" name="bizItem" value="중식 음식점업" class="bizItem"> 
+		                                	</td>
+		                                	<td>숙박 및 음식점업</td>
+		                                	<td>중식 음식점업</td>
+		                            	</tr>
+		                          	<tr>
+		                                	<td>
+		                                  		<a href="javascript:;" class="indsCode">552103</a>
+		                                  		<input type="hidden" name="indsCode" value="552103" class="ntsIndsCode">
+		                                  		<input type="hidden" name="bizCond" value="숙박 및 음식점업" class="bizCond">
+		                                  		<input type="hidden" name="bizItem" value="일식 음식점업" class="bizItem"> 
+		                                	</td>
+		                                	<td>숙박 및 음식점업</td>
+		                                	<td>일식 음식점업</td>
+		                            	</tr>
+		                          	<tr>
+		                                	<td>
+		                                  		<a href="javascript:;" class="indsCode">552104</a>
+		                                  		<input type="hidden" name="indsCode" value="552104" class="ntsIndsCode">
+		                                  		<input type="hidden" name="bizCond" value="숙박 및 음식점업" class="bizCond">
+		                                  		<input type="hidden" name="bizItem" value="서양식 음식점업" class="bizItem"> 
+		                                	</td>
+		                                	<td>숙박 및 음식점업</td>
+		                                	<td>서양식 음식점업</td>
+		                            	</tr>
+		                          	<tr>
+		                                	<td>
+		                                  		<a href="javascript:;" class="indsCode">552107</a>
+		                                  		<input type="hidden" name="indsCode" value="552107" class="ntsIndsCode">
+		                                  		<input type="hidden" name="bizCond" value="숙박 및 음식점업" class="bizCond">
+		                                  		<input type="hidden" name="bizItem" value="치킨 전문점" class="bizItem"> 
+		                                	</td>
+		                                	<td>숙박 및 음식점업</td>
+		                                	<td>치킨 전문점</td>
+		                            	</tr>
+		                          	<tr>
+		                                	<td>
+		                                  		<a href="javascript:;" class="indsCode">552108</a>
+		                                  		<input type="hidden" name="indsCode" value="552108" class="ntsIndsCode">
+		                                  		<input type="hidden" name="bizCond" value="숙박 및 음식점업" class="bizCond">
+		                                  		<input type="hidden" name="bizItem" value="김밥 및 기타 간이 음식점업" class="bizItem"> 
+		                                	</td>
+		                                	<td>숙박 및 음식점업</td>
+		                                	<td>김밥 및 기타 간이 음식점업</td>
+		                            	</tr>
+		                          	<tr>
+		                                	<td>
+		                                  		<a href="javascript:;" class="indsCode">552208</a>
+		                                  		<input type="hidden" name="indsCode" value="552208" class="ntsIndsCode">
+		                                  		<input type="hidden" name="bizCond" value="숙박 및 음식점업" class="bizCond">
+		                                  		<input type="hidden" name="bizItem" value="기타 주점업" class="bizItem"> 
+		                                	</td>
+		                                	<td>숙박 및 음식점업</td>
+		                                	<td>기타 주점업</td>
+		                            	</tr>
+		                          	<tr>
+		                                	<td>
+		                                  		<a href="javascript:;" class="indsCode">552301</a>
+		                                  		<input type="hidden" name="indsCode" value="552301" class="ntsIndsCode">
+		                                  		<input type="hidden" name="bizCond" value="숙박 및 음식점업" class="bizCond">
+		                                  		<input type="hidden" name="bizItem" value="제과점업" class="bizItem"> 
+		                                	</td>
+		                                	<td>숙박 및 음식점업</td>
+		                                	<td>제과점업</td>
+		                            	</tr>
+		                          	<tr>
+		                                	<td>
+		                                  		<a href="javascript:;" class="indsCode">552303</a>
+		                                  		<input type="hidden" name="indsCode" value="552303" class="ntsIndsCode">
+		                                  		<input type="hidden" name="bizCond" value="숙박 및 음식점업" class="bizCond">
+		                                  		<input type="hidden" name="bizItem" value="커피 전문점" class="bizItem"> 
+		                                	</td>
+		                                	<td>숙박 및 음식점업</td>
+		                                	<td>커피 전문점</td>
+		                            	</tr>
+		                          	</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+</body>
+</html>

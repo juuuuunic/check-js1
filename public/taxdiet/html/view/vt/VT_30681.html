@@ -1,0 +1,790 @@
+<html lang="ko"><head>
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="language" content="ko">
+    <meta name="copyright" content="copyrights 2019 NICE Data">
+    <meta name="author" content="NICE Data">
+    <title>택스다이어트: 30681(부가가치세자가신고>신고서작성-4)</title>
+    
+    <link rel="stylesheet" type="text/css" href="/css/default.css">
+    <link rel="stylesheet" type="text/css" href="/css/libs/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="/css/soho_default.css">
+    <link rel="stylesheet" type="text/css" href="/css/soho_sub_default.css">
+    
+    <!--  공통 -->
+    <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script src="/js/libs/jquery-1.11.1.min.js"></script>
+    <script src="/js/niceCommon.js"></script>
+    <script src="/js/common-util.js"></script>
+    <script src="/js/libs/jquery.fancybox.js"></script>
+    <script src="/js/libs/jquery.placeholder.js"></script>
+    <script src="/js/libs/jquery-ui.js"></script>
+    <script src="/js/moment.js"></script>
+    
+    <script src="/js/libs/jquery.dialog.min.js"></script>
+    
+    <script src="/js/common.js"></script>
+    <script src="/js/progress.js"></script>
+    <script src="/js/browserVersion.js"></script>
+    <script src="/js/libs/jquery.easing.1.3.js"></script>
+    <script src="/js/libs/jquery.mask.js"></script>
+    
+    <script src="/js/libs/jquery.cookie.js"></script>
+    <script src="/js/cookie.js"></script>
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico">
+    
+    <script type="text/javascript">
+    
+    $(function(){
+        // gnb 로고 옆에 현재 머물고 있는 1뎁스 메뉴 표시
+        $("ul.gnb_depth1 > li").each(function(index){
+            if($(this).attr("class") == "on"){
+                $("div.logo-wrap > h2").html($(this).text().trim());
+            }
+        })
+        
+        
+        // 로그아웃
+        $(document).on("click", ".btn_logout", function(data){
+            if (confirm("로그아웃 하시겠습니까?")) {
+                
+                var $form = $("<form/>",{id:"logoutForm",method:"post", action:"../cm/nTdLogout.do"});
+                $("body").append($form);
+                $form.submit();
+            }
+        });
+        
+        
+        $("#loginBtn").click(function(){
+            if($.trim($("#membId").val()) == "") {
+                alert("회원아이디를 입력하세요.");
+                $("#membId").focus();
+                return false;
+            }
+            
+            if($.trim($("#pswd").val()) == "") {
+                alert("비밀번호를 입력하세요.");
+                $("#pswd").focus();
+                return false;
+            }
+    
+            $.removeCookie("saveid", {path : '/'});
+    
+            if ($("#chk_save_id").prop("checked")) {
+                $.cookie("saveid", $.trim($("#membId").val()), {expires: 365, path : '/'});
+            }
+    
+            doLogin();
+    
+            return false;
+        });
+    
+        
+        $("#btn_login").click(function(){
+    
+            var param	= "";
+            
+            
+            param = "7F2227421532331D000D433B40013B";
+    
+            location.href="../cm/nTdLogin.do?returnURL=" + param;
+        });
+        
+        $("#loginForm input[name=pswd]").keyup(function(e) {
+            if (e.keyCode == KeyCode.ENTER) {
+                $("#loginBtn").click();
+            }
+        });
+        
+        
+        $(".btn_joinMember").click(function(){
+            
+            var url		= $(this).attr("move");
+            
+            if(typeof jmForm == "undefined"){
+                var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+                
+                $("body").append($form);
+                $("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A2D5910065E0016262341250F130D2100204935215D3F07" }).appendTo("#jmForm");
+                
+            } else {
+                $("#jmForm").attr("action", url);
+            }
+            $("#jmForm").attr('target', '_blank').submit();
+            
+        });
+    });
+        
+    function fnLayerClose(){
+        try{
+            parent.$.fancybox.close();
+        }catch(exception){}
+    }
+    var membEtcRefresh = function(){
+        $.post("../cm/CM_00001_UP1.do", "", "");
+    }
+    var isLogin = function(){
+        
+                return true;
+                    
+    }
+    
+    // 미사용
+    function fnLogin(returnURL){
+        if(!isLogin()){
+            var msg	= "로그인이 필요합니다.\n회원이 아니시면 회원가입을 해주시기 바랍니다.";
+            
+            alert(msg);
+            
+            if(typeof(returnURL) == "undefined") {
+                returnURL = location.pathname;
+            }
+    
+            location.href = "../cm/nTdLogin.do?returnURL="+returnURL;
+            
+            return false;
+        }
+        return true;
+    }
+    
+    function fnIeLimitCheck(){
+        var limitVersion	= 8;
+        var ieVersion		= getIeVersion();
+    
+        if(getCookie("NoMoreBrowserPopup") != "yes"){
+            if(ieVersion){
+                if(ieVersion <= limitVersion){
+                    WindowUtil.open({
+                          windowURL		: "/popup/popup_ieWarning.html"
+                        , windowName	: "popup_browserWarning"
+                        , width			: 600
+                        , height		: 741
+                    });
+                }
+            }
+        }
+    }
+    
+    function doLogin() {
+        if($("#loginForm > input#redirectURL").length === 0){
+            $("<input>").attr({
+                  type	: "hidden"
+                , id	: "redirectURL"
+                , name	: "redirectURL"
+                , value : "https://t-renewal.taxdiet.co.kr/my/MY_B0111.do"
+            }).appendTo("#loginForm");
+        }
+        else if ($("#redirectURL").val()=="") {
+            $("#redirectURL").val("https://t-renewal.taxdiet.co.kr/my/MY_B0111.do");
+        }
+        else {
+            $("#redirectURL").val(location.href);	
+        }
+    
+        if ($("#returnURL").val() != "") {
+            $("#redirectURL").val("");
+        }
+    
+        $("#loginForm").attr("action", "../cm/nTdSsoLoginProc.do");
+        $("#loginForm").attr("target", "_self");
+        $("#loginForm").submit();
+    }
+    </script>
+    <script type="text/javascript" src="/js/ta_common.js"></script>
+    <script type="text/javascript">
+    $(function(){
+        $(document).ready(function() {
+           
+        });
+    
+        // 홈택스ID확인방법 팝업
+        $("#btnHometaxId").click(function() {
+            fancybox_open_width("../vt/VT_30681_POP.do", "800px", "", "yes", false);
+        });
+    
+        // 신고서파일생성
+        $("#btnCreate").click(function() {
+            if ("6" == 0) {
+                alert("신고대상 서식이 없습니다.");
+                return false;
+            }
+    
+            if ($("#eleReturnUserId").val() == "") {
+                alert("홈택스ID를 입력해주세요.");
+                $("#eleReturnUserId").focus();
+                return false;
+            }
+            
+            if ($("#eleFilePwd").val() == "") {
+                alert("비밀번호를 입력해주세요!");
+                $("#eleFilePwd").focus();
+                return false;
+            }
+            
+            if ($("#eleFilePwd2").val() == "") {
+                alert("비밀번호 확인을 입력해주세요!");
+                $("#eleFilePwd2").focus();
+                return false;
+            }
+            
+            if ( $("#eleFilePwd").val() == $("#eleFilePwd2").val() ) {    			
+                if ( $("#eleFilePwd2").val().length < 4 ) {
+                    alert("비밀번호는 4자리 이상으로 입력해주세요.");
+                    $("#eleFilePwd2").focus();
+                    return false;
+                }    			
+            } else {
+                alert("비밀번호가 일치하지 않습니다.");
+                $("#eleFilePwd2").focus();
+                return false;
+            }
+    
+            var dt = new Date();
+            var today = dt.getFullYear().toString() + (dt.getMonth() + 1).toString().lpad(2, '0') + dt.getDate().toString().lpad(2, '0');
+            if ( '20200331' > today ) {
+                if ( !confirm( "현재일이 설정한 과세종료일보다 빠릅니다.\n계속 하시겠습니까?") ) { 
+                    return false; 
+                }	
+            }
+            
+            if ("6" == 0) {
+                alert("신고대상 서식이 없습니다.");
+                return false;
+            }
+    
+            if (confirm("신고파일을 생성하시겠습니까?") ) { 
+                $("#form").attr("target", "_self");
+    
+                var strArr = new Array();
+                $(".frmCode").each(function() {
+                    strArr.push($(this).val());
+                });
+    
+                $("#argStr").val(strArr.join(","));
+    
+                
+                f_post_submit("../vt/VT_30681_CK.do", "7F2227421532331D000D263B40013B", "f_call_result1");
+            }
+    
+            return false;
+        });
+    
+        // 출력
+        $(".btnPrint").click(function() {
+            if (getIeVersion()) {
+                progress.start();
+    
+                // Session Check후 정상일때 url호출
+                $.post("../cm/CM_SESSION_VALID.do", "", function(result) {
+                    if (result.status) {
+                        $("#frmCode").val($(this).closest("tr").find(".frmCode").val());
+        
+                        var window_name = 'NICEPRINT';
+                        WindowUtil.open({
+                            windowURL : 'about:blank',
+                            windowName : window_name,
+                            width : 1000,
+                            height : 680
+                        });
+                        
+                        $("#form").attr("action", "../vt/VT_30683_PR.do");
+                        $("#form").attr("target", window_name);
+                        $("#form").submit();
+        
+                        progress.stop();
+                    }
+                    else {
+                        progress.stop();
+        
+                        alert(result.status_msg);
+        
+                        f_go_login("7F2227421532331D000D263B40013B");
+                    }
+                }, 'json')
+                .fail(function(request,status,error){
+                       var errorMsg = "code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error;
+        
+                       console.log(errorMsg);
+        
+                    progress.stop();
+        
+                    alert(error);
+                });
+            }
+            else {
+                alert("인쇄기능은 IE 브라우저에서만 지원합니다.");
+            }
+    
+            return false;
+        });
+        
+        $("#btnHome").click(function() {
+            window.open("http://www.hometax.go.kr","_blank");
+        });
+    
+        $("#naviStep1").click(function() {
+            f_naviForm_submit("../vt/VT_30611.do", "7F2227421532331D000D263B40013B");
+        });
+    
+        $("#naviStep2").click(function() {
+            f_naviForm_submit("../vt/VT_30621.do", "7F2227421532331D000D263B40013B");
+        });
+    
+        $("#naviStep3").click(function() {
+            f_naviForm_submit("../vt/VT_30631.do", "7F2227421532331D000D263B40013B");
+        });
+    
+        $("#naviStep4").click(function() {
+            f_naviForm_submit("../vt/VT_30641.do", "7F2227421532331D000D263B40013B");
+        });
+    
+        $("#naviStep5").click(function() {
+            f_naviForm_submit("../vt/VT_30651.do", "7F2227421532331D000D263B40013B");
+        });
+    
+        $("#naviStep6").click(function() {
+            f_naviForm_submit("../vt/VT_30661.do", "7F2227421532331D000D263B40013B");
+        });
+    
+        $("#naviStep7").click(function() {
+            f_naviForm_submit("../vt/VT_30671.do", "7F2227421532331D000D263B40013B");
+        });
+    });
+    
+    function f_call_result1(result) {
+        if (result.status) {
+            if (result.checkCode == "0") {
+                progress.start();
+    
+                
+                $.post("../vt/VT_30681_CR.do", $("#form").serialize(), function(result2) {
+                    progress.stop();
+    
+                    if (result2.status) {
+                        if (result2.fileCnt > 0) {
+                            alert("신고파일이 생성되었습니다.");
+    
+                            $("#form").attr("action", "../vt/VT_30681_DN.do");
+                            $("#form").submit();
+    
+                            $("#eleFilePwd").val("");
+                            $("#eleFilePwd2").val("");
+                            $('#form').attr('action', '../vt/VT_30681.html');
+                        } else {
+                            alert("생성된 파일이 없습니다.");
+                        }
+                    }
+                }, 'json');
+            } else {
+                var msgStr = "";
+                var msgCnt = 1;
+    
+                if ( result.checkCode.indexOf("1") > -1 ) {
+                    msgStr += msgCnt + ". 필수 항목 누락\n    - 기본정보에서 홈택스 아이디를 입력해주세요.\n\n";
+                    msgCnt++;
+                }
+                if ( result.checkCode.indexOf("2") > -1 ) {
+                    msgStr += msgCnt + ". 필수 항목 누락\n    - 환급세액이 존재합니다. 은행(계좌)정보를 입력해주세요.\n\n";
+                    msgCnt++;
+                }
+                if ( result.checkCode.indexOf("3") > -1 ) {
+                    msgStr += msgCnt + ". 금액 입력 오류\n    - '부동산공급가액명세서'의 \n      보증금이자+월세의 합이 매출 과세분보다 큽니다.\n\n";
+                    msgCnt++;
+                }
+                if ( msgStr != "" && msgStr != null ) {
+                    alert(msgStr);
+                }
+            }
+        }
+        else if (result.status_msg != "") {
+            alert(result.status_msg);
+        }
+        else {
+            // 처리 중 오류가 발생하였습니다.
+            alert("처리 중 오류가 발생하였습니다.");
+        }
+    }
+    </script>
+    </head>
+    <body><div class="loading_wrap HeightAuto" style="height: 1713px;">	<div class="box_img">		<p>Loading...</p>	</div>	<div class="loading_bg HeightAuto" style="height: 1713px;"></div></div>
+        <div id="wrap board-view">
+            <script type="text/javascript">
+    $(function(){
+        //메뉴  클릭시 프로그레스 처리
+        $(".logo, .mypage").find("a").click(function(){ progress.start();});
+        
+          //메뉴  클릭시 프로그레스 처리
+        $(".dep01, .dep02").find("a").click(function(){
+            
+            if($(this).attr("target") != "_blank" ) {
+                progress.start();
+            }
+        });
+            
+    });
+    </script>
+    
+        <!-- header_n -->
+    
+        <div id="wrap">
+            <div id="td__header_wrap">
+                <div class="td__header">
+                    <div class="td__header-depth1">
+                        <ul class="item5">
+                        <li>
+                                    <a href="javascript:f_location_href_nosession('../vr/VR_03002.html');">부가세환급지원</a>
+                                </li>
+                            <li class="active">
+                                    <a href="javascript:f_location_href_nosession('../vt/VT_30111.html');">부가가치세 자가신고</a>
+                                </li>
+                            <li>
+                                    <a href="javascript:f_location_href_nosession('../sd/SD_30111.html');">종합소득세 자가신고</a>
+                                </li>
+                            <li>
+                                    <a href="javascript:f_location_href_nosession('../as/AS_02101_SL.html');">세무상담</a>
+                                </li>
+                            <li>
+                                    <a href="javascript:f_location_href_nosession('../bizmap/BS_20111.html');">상권분석</a>
+                                </li>
+                            </ul>
+                    </div>
+                    <div class="td__header-block">
+                        <div class="td__header-top">
+                            <div class="td__inner-container">
+                                <h1>
+                                    <a href="../cm/main.do">
+                                        <img src="/images/td/common/sub_logo.gif" alt="로고">
+                                    </a>
+                                </h1>
+                                <div class="login-area">
+                                    <div class="login-inner">
+                                    <ul class="login-btn">
+                                                <li>
+                                                        <a href="javascript:f_location_href_nosession('../my/MY_B0111.html');" class="progress">마이페이지</a>
+                                                    </li>
+                                                </ul>
+                                            <button class="btn_logout">로그아웃</button>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="td__header-bottom">
+                            <div class="td__header-depth2">
+                                <ul>
+                                <li>
+                                                <a href="javascript:f_location_href_nosession('../vt/VT_30112.html');">부가가치세 정의</a>
+                                            </li>
+                                        <li>
+                                                <a href="javascript:f_location_href_nosession('../vt/VT_30411.html');">신고절차 미리보기</a>
+                                            </li>
+                                        <li>
+                                                <a href="javascript:f_location_href_nosession('../vt/VT_30211.html');">매출·매입 가져오기</a>
+                                            </li>
+                                        <li>
+                                                <a href="javascript:f_location_href_nosession('../vt/VT_30311.html');">매출·매입 조회하기</a>
+                                            </li>
+                                        <li class="active">
+                                                <a href="javascript:f_location_href_nosession('../vt/VT_30611.html');">신고서 작성</a>
+                                            </li>
+                                        </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //header_n -->
+    <script type="text/javascript" src="/js/niceTopMenu.js"></script><form id="form" name="form" method="post">
+              <input type="hidden" id="returnYear" name="returnYear" value="2020">
+              <input type="hidden" id="returnPeriod" name="returnPeriod" value="1">
+              <input type="hidden" id="returnCls" name="returnCls" value="1">
+              <input type="hidden" id="crtCls" name="crtCls" value="VT">
+              <input type="hidden" id="argStr" name="argStr" value="">
+              <input type="hidden" id="paramCls" name="paramCls" value="V101">
+            <div id="td__container">
+                <div class="td__contents_wrap">
+                    <div class="td__contents">
+                        <div class="sohotex-wrap">
+                            <h1 class="ta-subpage-title">
+                                신고서 작성
+                                <div class="notice-btn">
+                                    <a href="javascript:f_call_30211_pop2('7F2227421532331D000D263B40013B');" class="in_btn">부가가치세 신고 왜 필요하죠?</a>
+                                </div>
+                            </h1>
+                            <div class="ta-flowbox">
+                                <ul>
+                                    <li>
+                                        <p><a href="javascript:;" id="naviStep1">사업자 정보 확인</a></p>
+                                    </li>
+                                    
+                                    <li id="file11100" class="fileNavi" style="display:none;">
+                                        <p><a href="javascript:;" id="naviStep2">사업장현황<br>명세서 작성</a></p>
+                                    </li>
+                                    <li id="file14100" class="fileNavi" style="display:none;">
+                                        <p><a href="javascript:;" id="naviStep3">의제매입세액<br>공제신고서 작성</a></p>
+                                    </li>
+                                    <li id="file16100" class="fileNavi" style="display:none;">
+                                        <p><a href="javascript:;" id="naviStep4">부동산임대공급가액<br>명세서 작성</a></p>
+                                    </li>
+                                    <li>
+                                        <p><a href="javascript:;" id="naviStep5">추가정보 입력</a></p>
+                                    </li>
+                                    <li>
+                                        <p><a href="javascript:;" id="naviStep6">납부(환급)액 확인</a></p>
+                                    </li>
+                                    <li class="is-active">
+                                        <p>신고파일 생성</p>
+                                    </li>
+                                </ul>
+                                <p class="flowbox-inner-text">※ 진행 중 이전 작성내용을 수정하려면 해당 단계를 클릭하세요!</p>
+                            </div>
+                            <h2 class="ta-section-title"><i class="ta-title-bul2"></i>신고파일 생성</h2>
+                            
+                            <div class="ta-total-reinfo-block">
+                                <div class="ta-total-file-make">
+                                    <div class="file-make-section">
+                                        <p class="file-make-title">1. 홈택스 ID</p>
+                                        <div class="file-make-inner">
+                                            <div class="file-make-input-title">홈택스 ID</div>
+                                            <div class="file-make-input">
+                                                <input type="text" name="eleReturnUserId" id="eleReturnUserId" value="1111" class="width-210">
+                                                <p>홈택스에서 직접 신고 시 반드시 필요하오니 꼭 입력해주세요!</p>
+                                            </div>
+                                            <div class="file-make-btn-right">
+                                                <input type="button" id="btnHometaxId" value="홈택스ID확인방법" class="base_btn_color  blue_line2 width-120">
+                                            </div>
+                                        </div>
+                                        <p class="file-make-title">2. 비밀번호 설정 및 파일 생성</p>
+                                        <div class="file-make-inner">
+                                            <div class="file-make-inner-colum">
+                                                <div class="file-make-input-title">비밀번호</div>
+                                                <div class="file-make-input">
+                                                    <input type="password" id="eleFilePwd" name="eleFilePwd" class="width-170">
+                                                </div>
+                                            </div>
+                                            <div class="file-make-inner-colum">
+                                                <div class="file-make-input-title">비밀번호 확인</div>
+                                                <div class="file-make-input">
+                                                    <input type="password" id="eleFilePwd2" name="eleFilePwd2" class="width-170">
+                                                </div>
+                                                <div class="file-make-btn-right">
+                                                    <input type="button" id="btnCreate" value="신고파일 생성" class="base_btn_color middle width-120">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <p class="file-make-title">3. 신고서식 목록</p>
+                                        </div>
+                                        <div class="ta-total-def2-table">
+                                            <table>
+                                                <colgroup>
+                                                    <col style="width:15%">
+                                                    <col style="width:*">
+                                                    <col style="width:5%">
+                                                    <col style="width:10%">
+                                                </colgroup>
+                                                <thead>
+                                                    <tr>
+                                                        <th>번호</th>
+                                                        <th>신고서식 명칭</th>
+                                                        <th colspan="2">제출여부</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                            <td>
+                                                              1</td>
+                                                            <td class="al-left2">일반과세자 부가가치세 신고서</td>
+                                                            <td>O</td>
+                                                                <td class="img_td">
+                                                                    <input type="hidden" name="frmCode" class="frmCode" value="I103200">
+                                                                    <a href="javascript:;" class="btnPrint"><img src="../../../images/sub/tax/subpage/ta_print_icon.gif" alt="인쇄"></a>
+                                                                </td>
+                                                            </tr>
+                                                      <tr>
+                                                            <td>
+                                                              2</td>
+                                                            <td class="al-left2">매출처별 세금계산서 합계표</td>
+                                                            <input type="hidden" class="frmCode" value="I105000">
+                                                                <td colspan="2">O</td>
+                                                            </tr>
+                                                      <tr>
+                                                            <td>
+                                                              3</td>
+                                                            <td class="al-left2">매입처별 세금계산서 합계표</td>
+                                                            <input type="hidden" class="frmCode" value="I105200">
+                                                                <td colspan="2">O</td>
+                                                            </tr>
+                                                      <tr>
+                                                            <td>
+                                                              4</td>
+                                                            <td class="al-left2">매출처별 계산서 합계표</td>
+                                                            <input type="hidden" class="frmCode" value="C107100">
+                                                                <td colspan="2">O</td>
+                                                            </tr>
+                                                      <tr>
+                                                            <td>
+                                                              5</td>
+                                                            <td class="al-left2">매입처별 계산서 합계표</td>
+                                                            <input type="hidden" class="frmCode" value="C107200">
+                                                                <td colspan="2">O</td>
+                                                            </tr>
+                                                      <tr>
+                                                            <td>
+                                                              6</td>
+                                                            <td class="al-left2">신용카드매출전표등 발행금액 집계표</td>
+                                                            <input type="hidden" class="frmCode" value="I103400">
+                                                                <td colspan="2">O</td>
+                                                            </tr>
+                                                      </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="padding-top: 7px">
+                                <p style="font-size: 12px;color: #ff3838">!인쇄기능은 IE 브라우저에서만 지원합니다.</p>
+                            </div>
+                            <ul class="ta-btn-container">
+                                <li>
+                                    <input type="button" id="btnHome" value="홈택스 신고하기" class="base_btn_color">
+                                </li>
+                            </ul>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <form id="naviForm" name="naviForm" method="post">
+              <input type="hidden" id="returnYear" name="returnYear" value="2020">
+              <input type="hidden" id="returnPeriod" name="returnPeriod" value="1">
+              <input type="hidden" id="returnCls" name="returnCls" value="1">
+              <input type="hidden" id="crtCls" name="crtCls" value="VT">
+            </form>
+            <script type="text/javascript">
+    $(document).ready(function(){
+        // 회사소개
+        $(".nicednr").click(function() {
+            window.open("http://www.nicednr.co.kr");
+            return false;
+        });
+    
+        // 제휴문의
+        $(".UG_A0411").click(function() {
+            fancybox_open_width("../ug/UG_A0411.do", "700px", "", "yes", false);
+            return false;
+        });
+    
+        // 개인정보처리방침
+        $(".UG_A0131").click(function() {
+            fancybox_open_width("../ug/UG_A0131.do", "700px", "", "yes", false);
+            return false;
+        });
+    
+        // 이용약관
+        $(".UG_A0121").click(function() {
+            fancybox_open_width("../ug/UG_A0121.do", "700px", "", "yes", false);
+            return false;
+        });
+    
+        // 고객센터
+        $(".UG_A0111").click(function() {
+            f_location_href_nosession("../ug/UG_A0111.do");
+            return false;
+        });
+        
+        $(".tax_bill").click(function() {
+            window.open("http://www.nicedata.co.kr/ti/TI_10000.do");
+            return false;
+        });
+        
+        $(".check_biz").click(function() {
+            window.open("http://www.nicedata.co.kr/as/AS_30401.do");
+            return false;
+        });
+        
+        $(".sgic").click(function() {
+            window.open("http://www.nicedata.co.kr/as/AS_40601.do");
+            return false;
+        });
+    });
+    </script>
+    <div id="td__footer_wrap">
+        <div class="td__footer">
+            <div class="td__footer-top">
+                <ul>
+                    <li><a href="javascript:;" class="nicednr">회사소개</a></li>
+                    <li><a href="javascript:;" class="UG_A0411">제휴문의</a></li>
+                    <li><a href="javascript:;" class="UG_A0131"><b>개인정보처리방침</b></a></li>
+                    <li><a href="javascript:;" class="UG_A0121">이용약관</a></li>
+                    <li><a href="javascript:;" class="UG_A0111">고객센터</a></li>
+                    <li class="mo_right">
+                        <a href="https://t-m.taxdiet.co.kr/nm/NM_20001.do">
+                            <div class="mo_img">
+                                <img src="/images/td/common/ico_mobile.png" alt="">
+                            </div>
+                            모바일버전
+                        </a>
+                    </li>
+                    </ul>
+            </div>
+            <div class="td__footer-bottom">
+                <ul>
+                    <li>NICE 디앤알(주)</li>
+                    <li>대표 : 강용구</li>
+                    <li class="last">통신판매업 신고번호 : 제2012-서울구로-1033호</li>
+                    <li>사업자등록번호 : 107-87-08207</li>
+                    <li class="last">서울특별시 서대문구 충정로 36 7층</li>
+                    <li>TEL : 1588-5659</li>
+                    <li class="last">FAX : 788-9001</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="common-quick-menu qm-sub">
+        <ul>
+            <li class="tax_bill">
+                <a href="#none">
+                    <img src="/images/common/quick_icon_1.png" alt="전자세금계산서">
+                    전자세금<br>계산서
+                </a>
+            </li>
+            <li class="check_biz">
+                <a href="#none">
+                    <img src="/images/common/quick_icon_2.png" alt="휴폐업조회">
+                    휴폐업<br>조회
+                </a>
+            </li>
+            <li class="sgic">
+                <a href="#none">
+                    <img src="/images/common/quick_icon_3.png" alt="서울보즘보험안내">
+                    서울보증보험<br>안내
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- //footer_n -->	
+    <iframe id="sessionFrame" name="sessionFrame" width="10" height="10" src="javascript:void 0;" title="로그인처리용" style="display:none"></iframe>
+    <script type="text/javascript" src="/js/imageChecker.js"></script>
+    <script type="text/javascript">
+    
+    
+    var title = document.title;
+    document.title	= title + "·"; 
+    
+    
+    
+    ImageNotExistProcess.process("boardBox");
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-36649342-23"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-36649342-23');
+    </script></div></form>
+    
+    </div></body></html>

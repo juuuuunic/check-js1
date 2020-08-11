@@ -1,0 +1,304 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+
+<title>택스다이어트: NM_28011(마이페이지>결제내역)</title>
+<link rel="stylesheet" type="text/css" href="/css/mobile/default.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery.fancybox-1.3.1.css">
+
+<script src="/js/mobile/libs/jquery-1.11.1.min.js"></script>
+<script src="/js/mobile/libs/jquery-ui.min.js"></script>
+<script src="/js/mobile/libs/jquery.easing.1.3.js"></script>
+<script src="/js/mobile/libs/jquery-ui.js"></script> <!-- dskim -->
+<script src="/js/mobile/libs/jquery.mask.min.js"></script>
+<script src="/js/mobile/libs/daterange.js"></script>
+
+<script src="/js/mobile/libs/jquery.validate-1.8.1.min.js"></script>
+<script src="/js/mobile/niceNmCommon.js"></script>
+<script src="/js/mobile/common-util.js"></script>
+
+<!-- layerpopup -->
+<script src="/js/mobile/libs/jquery.fancybox.min.js"></script>
+
+<!-- placeholder fix -->
+<script src="/js/mobile/libs/jquery.placeholder.js"></script>
+
+<script src="/js/mobile/libs/jquery.history.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+<script type="text/javascript">
+
+$(function(){
+	
+	$(".btn_joinMember").click(function(){
+			
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A2D594B41200D152A3E062545033D5E220C" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+	
+});
+
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#more_btn").click(function() {
+		var next_page = Number($("#current_page").val()) + 1;
+
+		$("#current_page").val(next_page);
+
+		f_post_submit("../nm/NM_28011_MORE.html", "7F4250422D0233085217263B40013B");
+	});
+});
+
+function f_call_result(result) {
+	if (result.status) {
+		var stmlDescList = result.myStmlDescList;
+		var dataLength = stmlDescList.length;
+		var content="";
+		var apprYmd = "";
+
+        for(var idx=0;idx<dataLength;idx++) {
+        	apprYmd = f_EmptyBlank(stmlDescList[idx].apprYmd);
+
+        	if (apprYmd != "") {
+        		apprYmd = DateUtil.addDelim(apprYmd);
+        	}
+
+            content += "<tr>"
+            		+"<td>"+apprYmd+"</td>"
+            		+"<td>"+f_EmptyBlank(stmlDescList[idx].stlmType)+"</td>"
+            		+"<td>"+f_EmptyBlank(stmlDescList[idx].cardName)+"</td>"
+            		+"<td>"+f_setComma(stmlDescList[idx].stlmAmt)+"</td>"
+            		+"<td>"+f_EmptyBlank(stmlDescList[idx].stlmCls)+"</td>"
+                	+"</tr>"
+                	;
+        }
+
+        $(content).appendTo("#payHisTable");
+
+        if (!result.more_data) {
+        	$("#more_btn").css("display","none");
+        }
+	}
+	else {
+		alert(result.message);
+	}
+}
+
+function f_setComma(nData){
+	if (f_EmptyBlank(nData) != "") {
+		var x = nData.split('.');
+	    var x1 = x[0];
+	    var x2 = x.length > 1 ? '.' + x[1] : '';
+	    var rgx = /(\d+)(\d{3})/;
+	
+	    while (rgx.test(x1)) {
+	        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+	    }
+	
+	    return x1 + x2;
+	}
+
+	return "";
+}
+
+function f_EmptyBlank(str) {
+    if (typeof str == 'undefined' || str == null || str.trim() == "") {
+		return "";
+	}
+	else {
+    	return str;
+	}
+}
+</script>
+</head>
+<body>
+
+<form name="form" id="form" method="post" action="../nm/NM_28011.html">
+	<input type="hidden" name="current_page" id="current_page" value="1" />
+</form>
+	<div class="wrap">
+		<div class="header header--white">
+			<div class="header__back">
+				<a href="javascript:f_go_mypage();">뒤로가기</a>
+			</div>
+			<div class="header__logo">
+				<p>결제내역</p>
+			</div>
+		</div>
+		<div class="container">
+			<div class="inner-container">
+				<div class="payment-history">
+					<div class="payment-history__list">
+						<div class="table-type1 table-type1--tight">
+							<table class="" id="payHisTable">
+								<col style="width: 20%;">
+								<col style="width: 20%;">
+								<col style="width: 20%;">
+								<col style="width: 20%;">
+								<col style="width: 20%;">
+								<thead>
+									<tr>
+										<th>결제일자</th>
+										<th>결제구분</th>
+										<th>카드사</th>
+										<th>결제금액</th>
+										<th>결제내역</th>
+									</tr>
+								</thead>
+								<tbody>
+								<tr>
+										<td>2019-06-18</td>
+										<td>신용카드</td>
+										<td>신한</td>
+										<td>1,004</td>
+										<td>메이크샵 계산서 포인트</td>
+									</tr>
+								<tr>
+										<td>2016-09-05</td>
+										<td>신용카드</td>
+										<td>우리은행</td>
+										<td>22,000</td>
+										<td>서진TPS 이용료</td>
+									</tr>
+								<tr>
+										<td>2016-07-18</td>
+										<td>신용카드</td>
+										<td>현대</td>
+										<td>22,000</td>
+										<td>서진TPS 이용료</td>
+									</tr>
+								<tr>
+										<td>2016-07-18</td>
+										<td>신용카드</td>
+										<td>현대</td>
+										<td>22,000</td>
+										<td>서진TPS 이용료</td>
+									</tr>
+								<tr>
+										<td>2016-06-27</td>
+										<td>신용카드</td>
+										<td>현대</td>
+										<td>33,000</td>
+										<td>서진TPS 이용료</td>
+									</tr>
+								<tr>
+										<td>2016-06-27</td>
+										<td>신용카드</td>
+										<td>현대</td>
+										<td>33,000</td>
+										<td>서진TPS 이용료</td>
+									</tr>
+								<tr>
+										<td>2016-06-27</td>
+										<td>신용카드</td>
+										<td>현대</td>
+										<td>22,000</td>
+										<td>서진TPS 이용료</td>
+									</tr>
+								<tr>
+										<td>2015-04-28</td>
+										<td>신용카드</td>
+										<td>신한</td>
+										<td>10,000</td>
+										<td>프랜차이즈서비스</td>
+									</tr>
+								<tr>
+										<td>2015-04-28</td>
+										<td>신용카드</td>
+										<td>신한</td>
+										<td>10,000</td>
+										<td>프랜차이즈서비스</td>
+									</tr>
+								<tr>
+										<td>2015-04-28</td>
+										<td>신용카드</td>
+										<td>KB국민</td>
+										<td>10,000</td>
+										<td>프랜차이즈서비스</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="payment-history__more">
+					<button id="more_btn">더보기 <i></i></button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<script src="/js/mobile/common.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	// 이용약관
+	$(".NM_22012_001").click(function() {
+		fancybox_open("../nm/NM_22012.do?termCode=001", null, false);
+		return false;
+	});
+
+	// 개인정보처리방침
+	$(".NM_22012_002").click(function() {
+		fancybox_open("../nm/NM_22012.do?termCode=002", null, false);
+		return false;
+	});
+
+	// PC버전
+	$(".PC").click(function() {
+		location.href = "https://t-renewal.taxdiet.co.kr/cm/main.html";
+		return false;
+	});
+});
+</script>
+
+<ul class="footer__terms">
+	<li>
+		<a href="javascript:;" class="NM_22012_001">이용약관</a>
+	</li>
+	<li>
+		<a href="javascript:;" class="NM_22012_002">개인정보처리방침</a>
+	</li>
+	<li>
+		<a href="javascript:;" class="PC">PC버전</a>
+	</li>
+</ul>
+<p class="footer__copyright">Ⓒ NICE D&R Ltd.</p>
+
+<!--
+ <div class="terms-wrap HeightAuto use-terms">
+	<iframe src="" id="terms" name="terms" frameborder="0"></iframe>
+</div>
+ -->
+<!-- 택스다이어트 모바일 전용 구글 애널리틱스 (PC용은 별도로 있음) -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-36649342-22"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-36649342-22');
+</script></div>
+		<div class="top-btn" style="display:none;">
+			<span>맨위로</span>
+		</div>
+	</div>
+</body>
+</html>

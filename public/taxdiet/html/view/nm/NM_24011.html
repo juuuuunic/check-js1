@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+
+<title>택스다이어트: NM_24011(마이페이지>세무주치의)</title>
+<link rel="stylesheet" type="text/css" href="/css/mobile/default.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery.fancybox-1.3.1.css">
+
+<script src="/js/mobile/libs/jquery-1.11.1.min.js"></script>
+<script src="/js/mobile/libs/jquery-ui.min.js"></script>
+<script src="/js/mobile/libs/jquery.easing.1.3.js"></script>
+<script src="/js/mobile/libs/jquery-ui.js"></script> <!-- dskim -->
+<script src="/js/mobile/libs/jquery.mask.min.js"></script>
+<script src="/js/mobile/libs/daterange.js"></script>
+
+<script src="/js/mobile/libs/jquery.validate-1.8.1.min.js"></script>
+<script src="/js/mobile/niceNmCommon.js"></script>
+<script src="/js/mobile/common-util.js"></script>
+
+<!-- layerpopup -->
+<script src="/js/mobile/libs/jquery.fancybox.min.js"></script>
+
+<!-- placeholder fix -->
+<script src="/js/mobile/libs/jquery.placeholder.js"></script>
+
+<script src="/js/mobile/libs/jquery.history.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+<script type="text/javascript">
+
+$(function(){
+	
+	$(".btn_joinMember").click(function(){
+			
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A2D594B41200D152A3E062545033D5E220C" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+	
+});
+
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+});
+</script>
+</head>
+<body>
+<form name="form" id="form" method="post">
+<input type="hidden" id="ippbAgrmYn" name="ippbAgrmYn"/>
+<input type="hidden" id="txbzCnslAgrmYn" name="txbzCnslAgrmYn"/>
+<input type="text" name="ctaxaTxactCode" id="ctaxaTxactCode"/>
+	<div class="wrap">
+		<div class="header header--white">
+			<div class="header__back">
+				<a href="javascript:f_go_mypage();">뒤로가기</a>
+			</div>
+			<div class="header__logo">
+				<p>세무주치의</p>
+			</div>
+		</div>
+		<div class="container">
+			<div class="inner-container">
+				<div class="tax-doctor">
+					<div class="tax-doctor__top">
+						<i></i>
+						<p class="tit">세무주치의가 궁금하세요? </p>
+						<p class="txt">
+							세무주치의는 세금신고 및 절세지원과 사업진단<br>
+							컨설팅까지 제공하는 사업자의 성공지키미 서비스 입니다.
+						</p>
+					</div>
+					<div class="tax-doctor__bottom">
+						<div class="tit">고객님의 세무주치의는  세무사 입니다.</div>
+						<div class="doctor-info">
+							<div class="pic">
+								<img src="../cm/CM_ImgLoader.do?fileSeq=" alt="세무사 사진" />
+							</div>
+							<div class="info">
+								<ul>
+									<li>이름: </li>
+									<li>관할세무서: </li>
+									<li>전화: </li>
+									<li>이메일: </li>
+									<li>정보제공동의: 미동의<a href="../nm/NM_24012.do?ctaxaTxactCode=" onclick="ajaxLink(this.href,'GET','');return false;">설정변경</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="doctor-more">
+							<p class="detail-title">약력</p>
+							<p class="detail-list"></p>
+
+							<p class="detail-title">인사말</p>
+							<p class="detail-list"></p>
+						</div>
+						<div class="doctor-more-btn">
+							<button onclick="toggledisplay('.doctor-more');return false;">
+								<p>세무사정보 상세보기</p>
+							</button>
+						</div>
+					</div>
+					<div class="common-btn bottom-btn--fixed">
+						<a href="../nm/NM_24014.do?clientNo_be=&regionCode=S02" onclick="ajaxLink(this.href,'GET','');return false;" class="common-btn__btn common-btn__btn--wide">세무주치의 변경</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<script src="/js/mobile/common.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	// 이용약관
+	$(".NM_22012_001").click(function() {
+		fancybox_open("../nm/NM_22012.do?termCode=001", null, false);
+		return false;
+	});
+
+	// 개인정보처리방침
+	$(".NM_22012_002").click(function() {
+		fancybox_open("../nm/NM_22012.do?termCode=002", null, false);
+		return false;
+	});
+
+	// PC버전
+	$(".PC").click(function() {
+		location.href = "https://t-renewal.taxdiet.co.kr/cm/main.html";
+		return false;
+	});
+});
+</script>
+
+<ul class="footer__terms">
+	<li>
+		<a href="javascript:;" class="NM_22012_001">이용약관</a>
+	</li>
+	<li>
+		<a href="javascript:;" class="NM_22012_002">개인정보처리방침</a>
+	</li>
+	<li>
+		<a href="javascript:;" class="PC">PC버전</a>
+	</li>
+</ul>
+<p class="footer__copyright">Ⓒ NICE D&R Ltd.</p>
+
+<!--
+ <div class="terms-wrap HeightAuto use-terms">
+	<iframe src="" id="terms" name="terms" frameborder="0"></iframe>
+</div>
+ -->
+<!-- 택스다이어트 모바일 전용 구글 애널리틱스 (PC용은 별도로 있음) -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-36649342-22"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-36649342-22');
+</script></div>
+	</div>
+</form>
+</body>
+</html>

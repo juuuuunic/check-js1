@@ -1,0 +1,284 @@
+@charset "utf-8";
+/* 나이스데이터 팝업CSS - 2011.09.09(금) */
+
+html, body {width:100%; margin:0; padding:0; background-color:#fff;}
+/** {margin:0; padding:0; font-family:Dotum, Gulim; font-size:12px; color:#8c8c8c;}*/
+h1, h2, h3, h4, h5, h6 {margin:0; padding:0;font-family:Dotum, Gulim;}
+html, body, div, span, applet, object, input, select, textarea, iframe, p 
+, pre, a, abbr, acronym, address, big, cite, code, del
+, dfn, em, img, ins, kbd, q, s, samp, small
+, strong, sub, sup, tt, var, dl, dt, dd, ol
+, ul, li, fieldset, form, label, legend, table, caption, tbody
+, tfoot, thead, tr, th, td{margin:0; padding:0; font-family:Dotum, Gulim; font-size:12px; color:#8c8c8c;}
+
+img {border:0;}
+input,textarea {ime-mode:active;}
+hr {display:none;}
+li {list-style:none}
+a:link {color:#8c8c8c; text-decoration:none;}
+a:visited {color:#8c8c8c; text-decoration:none;}
+a:hover, active {color:#004992; text-decoration:underline;}
+input.no_en, textarea.no_en	{ime-mode:disabled;}
+
+
+/* Layout */
+#wrap {width:100%;}
+#popupHead {width:100%; height:42px; background:url(../images/popup/bg_popup_top.gif) repeat-x;}
+#content {margin:20px 0;}
+#content_marginSide {margin:0 20px; /*일반팝업으로 띄울경우 양쪽에 여백설정 */ }
+
+/* Top */
+.title {position:relative; background:url(../images/popup/bg_popup_left.gif) no-repeat;}
+.title h1 {position:absolute; top:7px; left:20px; font-size:14px; color:#fff; font-weight:bold;}
+.title .close {position:absolute; top:0; right:0;}
+
+/* Contents */
+.menuSelect {position:relative; width:100%; height:22px;}
+.menuSelect .selectGo {position:absolute; top:0; left:0; padding-left:10px; background:url(../images/popup/bul01.gif) no-repeat 0 50%; color:#5d7cab; font-weight:bold;}
+.menuSelect p {position:absolute; top:0; left:0;}
+.searchPopup {width:100%; height:93px; background:url(../images/popup/bg_search_pop.gif) no-repeat right; /*검색라인이 두줄일때*/}
+.searchPopup .set {width:100%; height:93px; background:url(../images/popup/bg_search_left.gif) no-repeat left;}
+.searchPopup .setArea {padding:10px 20px 20px 20px;}
+.searchPopup_2 {width:100%; height:52px; background:url(../images/popup/bg_search2_pop.gif) no-repeat right; /*검색라인이 한줄일때*/}
+.searchPopup_2 .set {width:100%; height:52px; background:url(../images/popup/bg_search2_left.gif) no-repeat left;}
+.searchPopup_2 .setArea {padding:10px 20px 0 20px;}
+.search {width:100%; border:1px solid #eaeaea; border-style:solid none; background-color:#f5f5f5; /*우편번호검색용*/}
+.search .setArea {padding:0 20px;}
+.groupList {width:200px; height:250px; border:1px solid #e6e6e6;}
+.helpBox {width:560px; border-top:1px solid #5d7cab;}
+.textList {margin-top:10px; line-height:18px; /*불릿+리스트*/}
+.textList li {padding:0px 0 3px 8px; background:url(../images/popup/bul02.gif) no-repeat 0 6px;}
+.textList li.non {padding:0px 0 3px 8px; background:none;}
+.textList2 {margin-top:10px; line-height:18px; /*불릿없는 리스트*/}
+.textList2 li {padding:0px 0 3px 0}
+.textList3 {margin:0 20px; padding:1px; line-height:18px; /*숫자일련번호+리스트*/}
+.textList3 li {list-style-type:decimal;}
+.contentList {margin:2px; line-height:18px; /* 텍스트제목+리스트 */ }
+.contentList dt {padding-left:0;}
+.contentList dt.sec {padding-top:5px;}
+.contentList dd {padding-left:13px; background:url(../images/contents/dot01.gif) no-repeat 5px 6px;}
+.contentList dd.non {padding-left:13px; background:none;}
+.contentList2 {margin:20px 0;}
+.contentList2 dt {padding-bottom:14px;}
+.contentList2 dd {line-height:18px;}
+.contentList2 .bullet {padding-left:7px; background:url(../images/contents/dot01.gif) no-repeat 0 6px; line-height:18px;}
+.contentList2 .mallDetail {padding-left:27px; background:url(../images/contents/dot01.gif) no-repeat 20px 6px; line-height:18px;}
+.txtLine2 {width:100%; height:1px; border:0; background:url(../images/contents/line02.gif) no-repeat;}
+/* 세무주치의 */
+.mydoctor {position:relative; width:760px; height:200px; margin-top:40px; border-bottom:4px solid #09409a;}
+.mydoctor .mydoctorPic {position:absolute; top:0; left:0;}
+.mydoctor .mydoctorInfo  {position:absolute; top:0; left:143px; width:277px;}
+.taxDoctorTitle {width:277px; height:28px; background:url(../images/contents/bg_taxdoctor.gif) repeat-x;} 
+.taxDoctorTitle span {padding-left:15px; font-size:14px; color:#fff; font-weight:bold;}
+.mydoctor .greeting {position:absolute; top:0; left:445px; width:315px; height:166px; background:url(../images/popup/bg_mydoc_greeting.gif) no-repeat;}
+.mydoctor .greeting .hello {margin:20px 10px 20px 15px; padding-right:5px; height:126px; color:#738e96; line-height:18px; text-align:justify; overflow:auto;}
+.recentList {position:relative; width:760px; height:307px; background:url(../images/popup/bg_mydoctor.gif) no-repeat}
+.recentList .history {position:absolute; top:25px; left:6px; width:241px; height:278px;}
+.recentList .notice {position:absolute; top:25px; left:267px; width:223px; height:127px;}
+.recentList .advice {position:absolute; top:25px; left:521px; width:223px; height:127px;}
+.recentList .column {position:absolute; top:177px; left:267px; width:223px; height:127px;}
+.recentList .freeboard {position:absolute; top:177px; left:521px; width:223px; height:127px;}
+.boardContents {padding:20px; line-height:18px;}
+.recentList .contentList dt {padding-bottom:5px;}
+.recentList .contentList dd {padding-left:7px; background:url(../images/contents/dot01.gif) no-repeat 0 6px; line-height:20px;}
+.recentList .contentList dd.his {margin-left:0; background:none;}
+.doctor_contentList {float:left; margin-top:15px; line-height:18px; /* 세무주치의 선택시 리스트 */ }
+.doctor_contentList dt {margin-bottom:10px; padding-left:12px; font-size:12px; font-weight:bold;}
+.doctor_contentList dd {padding-left:13px; background:url(../images/contents/dot01.gif) no-repeat 5px 6px;}
+.doctor_contentList dd.non {margin-top:5px; padding-left:13px; background:none;}
+.taxPhoto {float:left; margin:15px 25px 20px 0; }
+.taxDoctorTitle2 {width:400px; padding:3px 0 1px 0; background-color:#5774a3;} 
+.taxDoctorTitle2 span { color:#fff;}
+.line04 {clear:left; width:100%; height:1px; background:url(../images/popup/line04.gif) repeat-x; margin-top:15px; *margin-top:0;}
+/* 댓글 테이블 */
+.replyTable {border-collapse:spacing; margin-bottom:20px;}
+.replyTable th {padding:10px 20px 5px 20px; color:#5d7cab; font-weight:normal; text-align:left;}
+.replyTable td {padding:0 20px 7px 20px; border-bottom:1px solid #e4e4e4; line-height:16px;}
+.replyTable td.reply {padding:7px 0 7px 20px;}
+.replyTable td.replySave {width:75px; padding:7px 0 7px 7px;}
+.date {font-size:11px; color:#c8c8c8;}
+
+/* Table */
+.tableSearch {border-collapse:collapse} 
+.tableSearch tr th {padding:5px 0 5px 8px; color:#8c8c8c; font-size:12px; font-weight:bold; text-align:left; background:url(../images/popup/bul_arrow1.gif) no-repeat 0 45%; letter-spacing:-1px}
+.tableSearch tr td {padding:5px; color:#555}
+.tableSearch .dotline {height:1px; padding:0; margin:0; background:url(../images/popup/dotline.gif) repeat-x} 
+/* 입력Table */
+.tableInput {margin-top:4px; border-collapse:spacing; border-top:2px solid #5d7cab; _margin-top:2px;} 
+.tableInput tr th {height:20px; padding:2px 2px 2px 10px; color:#5d7cab; border:1px solid #e4e4e4; border-style:none solid solid none; font-size:12px; background-color:#fafafa; font-weight:normal; text-align:left}
+.tableInput .ce {padding:2px; color:#5d7cab; border:1px solid #e4e4e4; border-style:none solid solid none; font-size:12px; background-color:#fafafa; font-weight:normal; text-align:center}
+.tableInput tr td {height:20px; padding:2px; color:#8c8c8c; border:1px solid #e4e4e4; border-style:none solid solid none;}
+.tableInput .cc {text-align:center;}
+.tableInput tr td.endcols {height:20px; padding:2px; color:#8c8c8c; border:1px solid #e4e4e4; border-style:none none solid none;}
+.tableInput .checkList_th {background-color:#fafafa; line-height:16px}
+.tableInput .checkList_th li {font-size:12px; color:#5d7cab}
+.tableInput .checkList_td {background-color:#fff; line-height:16px}
+.tableInput .checkList_td li {font-size:12px; color:#8c8c8c}
+.tableInput .mylogin_sch {padding:15px 0; border-right:0; font-size:14px; text-align:center; line-height:20px; /* 아이디/비밀번호 찾기 */}
+.tableInput .mylogin_sch .pointColor2 {font-size:14px; font-weight:bold; color:#f2783e; /*orange*/}
+.sumTable {border-collapse:spacing;}
+.sumTable td {text-align:center;}
+.sumTable .shadow {border-bottom:0; background-color:#ecf5fe;}
+.sumTable .shadowEnd {border-right:0; border-bottom:0; background-color:#ecf5fe;}
+.sumTable .bottomLine {border-bottom:0;}
+.sumTable .bottomLineEnd {border-right:0; border-bottom:0;}
+
+/* 리스트Table */
+.tableList {margin-top:4px; border-collapse:spacing; border-top:2px solid #5d7cab; _margin-top:2px;} 
+.tableList tr th {height:28px; color:#5d7cab; font-size:12px; text-align:center; font-weight:normal; border-right:1px solid #ececec; border-bottom:1px solid #ccc; background:url(../images/sub/bg_table_list.gif) repeat-x bottom;}
+.tableList tr th.endcols {height:28px; color:#5d7cab; border-right:0; border-bottom:1px solid #ccc; font-size:12px; text-align:center; font-weight:normal;}
+.tableList tr td {height:20px; padding:2px; color:#8c8c8c; border:1px #ececec; border-style:none solid solid none; text-align:center}
+.tableList tr td.endcols {height:20px; padding:2px; color:#8c8c8c; border:1px #ececec; border-style:none none solid none;}
+.tableList .le {text-align:left}
+.tableList .ri {text-align:right}
+.tableList .colsColor {background-color:#f5f5f5}
+.tableList .dotline {height:1px; padding:0; margin:0; background:url(../images/sub/dotline.gif) repeat-x} 
+.tableList .colsTotal_c {font-weight:bold; background-color:#fef1e0; text-align:center;}
+.tableList .colsTotal {font-weight:bold; background-color:#fef1e0; text-align:right;}
+.tableBottom {position:relative; width:100%; margin:10px 0}
+.tableBottom .totalList {position:absolute; top:0; left:0; width:80px; padding:2px 0 0 16px; color:#8c8c8c; font-size:11px; background:url(../images/sub/ico_total.gif) no-repeat}
+.tableList table {margin:4px; border-collapse:collapse; border:1px solid #ccc; /*테이블안 테이블*/} 
+.tableList table th {height:24px; color:#5d7cab; border:1px solid #ccc; font-size:12px; text-align:center; font-weight:normal; background-color:#eee;}
+.tableList table td {height:24px; color:#8c8c8c; border:1px solid #ccc; text-align:center}
+.tableList tr td.subject2 {height:20px; padding:2px 2px 2px 16px; color:#8c8c8c; border:1px #ececec; border-style:none solid solid none; /*세무상담: 비밀글이 아닌 칼럼*/}
+.tableList .lh {line-height:20px;}
+
+/* 세금계산서 */
+.taxBillBox_red {width:100%; margin-top:4px; border:2px solid #ec4e4b; _margin-top:2px;}
+.taxBillTable_red {border-collapse:collapse;} 
+.taxBillTable_red tr th {padding:6px 0; color:#ec4e4b; font-size:12px; text-align:center; font-weight:normal; border:1px #f2c3c2; border-style:none solid solid none; background-color:#fff7f6;}
+.taxBillTable_red tr th.endcols {border-style:none none none solid;}
+.taxBillTable_red tr th.firstCols {border-style:none solid none none;}
+.taxBillTable_red tr td {height:20px; padding:2px; color:#8c8c8c; border:1px #f2c3c2; border-style:none solid solid none; text-align:center}
+.taxBillTable_red tr td.endcols {border-style:none none none solid;}
+.taxBillTable_red tr td.endcolsRi {border-style:none none solid solid;}
+.taxBillTable_red tr td.firstCols {border-style:none;}
+.taxBillTable_red .tableLeftLine_red {border-left:2px solid #ec4e4b}
+.tableTopLine_red {border-top:2px solid #ec4e4b;}
+.taxBillBox_red .le {text-align:left;}
+.taxBillBox_red .ri {text-align:right;}
+
+.taxBillBox_blue {width:100%; margin-top:4px; border:2px solid #4a72ce;  _margin-top:2px;}
+.taxBillTable_blue {border-collapse:collapse;} 
+.taxBillTable_blue tr th {padding:6px 0; color:#4a72ce; font-size:12px; text-align:center; font-weight:normal; border:1px #ccd7ee; border-style:none solid solid none; background-color:#f7faff;}
+.taxBillTable_blue tr th.endcols {border-style:none none none solid;}
+.taxBillTable_blue tr th.firstCols {border-style:none solid none none;}
+.taxBillTable_blue tr td {height:20px; padding:2px; color:#8c8c8c; border:1px #ccd7ee; border-style:none solid solid none; text-align:center}
+.taxBillTable_blue tr td.endcols {border-style:none none none solid;}
+.taxBillTable_blue tr td.endcolsRi {border-style:none none solid solid;}
+.taxBillTable_blue tr td.firstCols {border-style:none;}
+.taxBillTable_blue tr td .intableTd {border-style:none solid none none;}
+.taxBillTable_blue .tableLeftLine_blue {border-left:2px solid #ec4e4b}
+.tableTopLine_blue {border-top:2px solid #4a72ce;}
+.taxBillBox_blue .le {text-align:left;}
+.taxBillBox_blue .ri {text-align:right;}
+
+/* 리스트Table Page nation */
+.paging {position:absolute; top:0; left:80px; width:90%; text-align:center}
+.paging img {margin-bottom:2px; vertical-align:middle}
+.page a {border-left:1px solid #cacaca; color:#656565; padding:0 2px 0 10px; text-align:center; text-decoration:none}
+.page a.no1 {border-left:1px solid #fff; color:#656565; padding:0 2px 0 10px; text-align:center; text-decoration:none}
+.page {font-size:12px; font-weight:bold; word-spacing:.5em }
+.page b.first {border:0 none; color:#df8256; padding-left:2px}
+.page b.second {border-left:1px solid #cacaca; color:#df8256; padding-left:10px} /*두번째 페이지부터*/
+.page a:hover {color:#df8256;}
+
+/* Common */
+.blank10 {padding-left:10px}
+.txtCenter {text-align:center}
+.txtRight {text-align:right}
+.imgMiddle {vertical-align:middle; *margin-top:-8px;}
+.txtMiddle {vertical-align:middle;}
+.buttonList {list-style:none;  height:22px;}
+.buttonList li {display:inline;}
+.spac10 {padding-top:10px;}
+.spac25 {padding-top:25px}
+.spac40 {padding-top:40px}
+.fontBold {font-weight:bold; letter-spacing:-1px;}
+.pointColor1 {color:#2173c7; /*blue*/}
+.pointColor2 {color:#f2783e; /*orange*/}
+.pointColor3 {color:#ea4545; /*red*/}
+.caption {padding:3px 0 2px 0; font-size:11px;}
+.hangGan18 {line-height:18px;}
+
+/* Button_공통버튼 */
+.buttonCommon {height:24px; vertical-align:middle; background-position:left top;}
+.buttonCommon, .buttonCommon a, .buttonCommon buttonCommon, .buttonCommon input { position:relative; display:-moz-inline-stack; display:inline-block; text-decoration:none !important; border:0; font-size:12px; white-space:nowrap; background:url(../images/sub/btn_common_bg.gif) no-repeat; overflow:visible; color:#8c8c8c;}
+.buttonCommon a, .buttonCommon buttonCommon, .buttonCommon input {left:10px; height:24px; padding:4px 15px 0 3px; font-size:12px; line-height:16px; background-position:right top; vertical-align:top; cursor:pointer; }
+/* Button_테이블안에 들어가는 작은 버튼 */
+.buttonSmall {height:16px; vertical-align:middle; background-position:left top; *margin-top:-8px;}
+.buttonSmall, .buttonSmall a, .buttonSmall buttonSmall, .buttonSmall input { position:relative; display:-moz-inline-stack; display:inline-block; text-decoration:none !important; border:0; font-size:11px; white-space:nowrap; background:url(../images/sub/btn_sm_bg.gif) no-repeat; overflow:visible; color:#fff; letter-spacing:-1px;}
+.buttonSmall a, .buttonSmall buttonSmall, .buttonSmall input {left:2px; height:16px; padding:1px 5px 0 3px; *padding:0 5px 1px 3px; font-size:11px; line-height:16px; background-position:right top; vertical-align:top; cursor:pointer; }
+.alone {*margin-top:0;}
+/* 탭메뉴 */
+.tab ul {position:relative; width:100%; height:28px; margin-bottom:20px; background:url(../images/sub/bg_tabline.gif) repeat-x bottom;}
+.tab ul li,.tab ul li a{background:url(../images/sub/bg_tab_off.gif) no-repeat}
+.tab ul li{float:left;margin-right:1px;line-height:28px}
+.tab ul li a{display:inline-block;padding:2px 16px 1px; _padding:0 16px 0;background-position: 100% 0; color:#b6b6b6; text-decoration:none !important}
+.tab ul li.on,.tab ul li.on a{background-image:url(../images/sub/bg_tab_on.gif)}
+.tab ul li.on a{color:#fff}
+
+/* Form Style */
+.edt_comn {height:14px; padding:2px; color:#8c8c8c; background-color:#fff; border:1px solid #e3e3e3}
+.edt_readonly {height:14px; padding:2px; color:#bcbcbc; background-color:#f7f7f7; border:1px solid #e3e3e3}
+.edt_readonly_ri {height:14px; padding:2px; color:#bcbcbc; background-color:#f7f7f7; border:1px solid #e3e3e3; text-align:right}
+.edt_file {height:20px; padding:2px; color:#666; background-color:#fff; border:1px solid #e3e3e3}
+.edt_select, select {height:20px; padding:1px; border:1px solid #c7c7c7; background-color:#fff;} 
+.edt_textarea {border:1px solid #e6e6e6;}
+.edt_comn2 {height:14px; padding:2px; color:#8c8c8c; font-size:14px; font-weight:bold; background-color:#fff; border:1px solid #a6b6cf; text-align:center;}
+
+
+/* 개인정보취급방침 */
+.privity {padding:25px 16px; line-height:18px; text-align:justify;}
+
+
+/* 신용카드 매출전표 */
+#slip_wrap {width:402px; padding:13px 23px 0 25px;}
+#sale_slip1 {width:402px; height:410px; background:url(../images/contents/slip_bg.jpg) no-repeat}
+#slip_close {height:50px; text-align:right;}
+.slipTitle {font-size:15px; color:#5374a6; text-align:center; padding-top:20px; font-weight:bold;
+position: absolute; top: 20px; left: 160px
+}
+
+.slipTable {padding:35px 52px 33px 69px; position: absolute; top:90px; left:10px}
+.slipTable th {color:#646464; text-align:left; font-weight:normal}
+.slipTable td {line-height:18px; color:#5374a6;}
+
+
+.slipTable1 {border-collapse:collapse}
+.slipTable1 th {color:#646464; text-align:left; font-weight:normal}
+.slipTable1 td {line-height:18px; color:#5374a6;}
+
+.slipbutton {padding-top:20px; text-align:center; }
+
+.cardDataH01 {	POSITION: absolute; TOP: 80px; LEFT: 100px; color:#646464; text-align:left; font-weight:normal}
+.cardDataH02 {	POSITION: absolute; TOP: 102px; LEFT: 100px; color:#646464; text-align:left; font-weight:normal} 
+.cardDataH03 {	POSITION: absolute; TOP: 124px; LEFT: 100px; color:#646464; text-align:left; font-weight:normal}
+.cardDataH04 {	POSITION: absolute; TOP: 146px; LEFT: 100px; color:#646464; text-align:left; font-weight:normal}
+
+.cardDataH05 {	POSITION: absolute; TOP: 180px; LEFT: 100px; color:#646464; text-align:left; font-weight:normal}
+.cardDataH06 {	POSITION: absolute; TOP: 202px; LEFT: 100px; color:#646464; text-align:left; font-weight:normal}
+.cardDataH07 {	POSITION: absolute; TOP: 224px; LEFT: 100px; color:#646464; text-align:left; font-weight:normal}
+
+
+.cardData01 {	POSITION: absolute; TOP: 80px; LEFT: 200px; color:#5374a6; text-align:left; font-weight:normal}
+.cardData02 {	POSITION: absolute; TOP: 102px; LEFT: 200px; color:#5374a6; text-align:left; font-weight:normal} 
+.cardData03 {	POSITION: absolute; TOP: 124px; LEFT: 200px; color:#5374a6; text-align:left; font-weight:normal}
+.cardData04 {	POSITION: absolute; TOP: 146px; LEFT: 200px; color:#5374a6; text-align:left; font-weight:normal}
+
+.cardData05 {	POSITION: absolute; TOP: 180px; LEFT: 190px; color:#5374a6; font-weight:normal;  width:80px; text-align:right;} 
+.cardData06 {	POSITION: absolute; TOP: 202px; LEFT: 190px; color:#5374a6; font-weight:normal;  width:80px; text-align:right;}
+.cardData07 {	POSITION: absolute; TOP: 224px; LEFT: 190px; color:#5374a6; font-weight:normal;  width:80px;; text-align:right;}
+
+.cardDataH08 {	POSITION: absolute; TOP: 270px; LEFT: 100px; color:#646464; text-align:left; font-weight:normal}
+.cardDataH09 {	POSITION: absolute; TOP: 292px; LEFT: 100px; color:#646464; text-align:left; font-weight:normal}
+.cardDataH10 {	POSITION: absolute; TOP: 314px; LEFT: 100px; color:#646464; text-align:left; font-weight:normal}
+.cardDataH11 {	POSITION: absolute; TOP: 336px; LEFT: 100px; color:#646464; text-align:left; font-weight:normal}
+.cardDataH12 {	POSITION: absolute; TOP: 358px; LEFT: 100px; color:#646464; text-align:left; font-weight:normal}
+
+.cardData08 {	POSITION: absolute; TOP: 270px; LEFT: 200px; color:#5374a6; text-align:left; font-weight:normal}
+.cardData09 {	POSITION: absolute; TOP: 292px; LEFT: 200px; color:#5374a6; text-align:left; font-weight:normal}
+.cardData10 {	POSITION: absolute; TOP: 314px; LEFT: 200px; color:#5374a6; text-align:left; font-weight:normal}
+.cardData11 {	POSITION: absolute; TOP: 336px; LEFT: 200px; color:#5374a6; text-align:left; font-weight:normal}
+.cardData12 {	POSITION: absolute; TOP: 358px; LEFT: 200px; color:#5374a6; text-align:left; font-weight:normal}
+.cardData13 {	POSITION: absolute; TOP: 372px; LEFT: 200px; color:#5374a6; text-align:left; font-weight:normal}

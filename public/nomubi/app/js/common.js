@@ -54,8 +54,7 @@ function minHeight(){
 		$(window).resize(function() {
 			$('#content section').css('height' ,  minHeight );
 		});
-	}
-
+	} 
 }
 
 //Footer Position: 반응형에 따른 푸터 위치조정

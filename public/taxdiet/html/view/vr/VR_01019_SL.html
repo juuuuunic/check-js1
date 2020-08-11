@@ -1,0 +1,670 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots"      content="noindex,nofollow" />
+<meta name="language"    content="ko" />
+<meta name="copyright"   content="copyrights 2019 NICE Data" />
+<meta name="author"      content="NICE Data" />
+<title>택스다이어트</title>
+
+<link rel="stylesheet" type="text/css" href="/css/default.css">
+<link rel="stylesheet" type="text/css" href="/css/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/soho_default.css">
+<link rel="stylesheet" type="text/css" href="/css/soho_sub_default.css">
+
+<!--  공통 -->
+<script src="/js/libs/jquery-1.11.1.min.js"></script>
+<script src="/js/niceCommon.js"></script>
+<script src="/js/common-util.js"></script>
+<script src="/js/libs/jquery.fancybox.min.js"></script>
+<script src="/js/libs/jquery.placeholder.min.js"></script>
+<script src="/js/libs/jquery-ui.min.js"></script>
+<script src="/js/moment.min.js"></script>
+
+<script src="/js/libs/jquery.dialog.min.js"></script>
+
+<script src="/js/common.js"></script>
+<script src="/js/progress.min.js"></script>
+<script src="/js/browserVersion.min.js"></script>
+<script src="/js/libs/jquery.easing.1.3.min.js"></script>
+<script src="/js/libs/jquery.mask.min.js"></script>
+
+<script src="/js/libs/jquery.cookie.min.js"></script>
+<script src="/js/cookie.min.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+
+<script type="text/javascript">
+
+$(function(){
+	// gnb 로고 옆에 현재 머물고 있는 1뎁스 메뉴 표시
+	$("ul.gnb_depth1 > li").each(function(index){
+		if($(this).attr("class") == "on"){
+			$("div.logo-wrap > h2").html($(this).text().trim());
+		}
+	})
+	
+	
+	// 로그아웃
+	$(document).on("click", ".btn_logout", function(data){
+		if (confirm("로그아웃 하시겠습니까?")) {
+			
+			var $form = $("<form/>",{id:"logoutForm",method:"post", action:"../cm/nTdLogout.html"});
+			$("body").append($form);
+			$form.submit();
+		}
+	});
+	
+	
+	$("#loginBtn").click(function(){
+		if($.trim($("#membId").val()) == "") {
+			alert("회원아이디를 입력하세요.");
+			$("#membId").focus();
+			return false;
+		}
+		
+		if($.trim($("#pswd").val()) == "") {
+			alert("비밀번호를 입력하세요.");
+			$("#pswd").focus();
+			return false;
+		}
+
+		$.removeCookie("saveid", {path : '/'});
+
+		if ($("#chk_save_id").prop("checked")) {
+			$.cookie("saveid", $.trim($("#membId").val()), {expires: 365, path : '/'});
+		}
+
+		doLogin();
+
+		return false;
+	});
+
+	
+	$("#btn_login").click(function(){
+
+		var param	= "";
+		
+		
+		param = "7F220B42157233063717263A3151566C0737";
+
+		location.href="../cm/nTdLogin.do?returnURL=" + param;
+	});
+	
+	$("#loginForm input[name=pswd]").keyup(function(e) {
+		if (e.keyCode == KeyCode.ENTER) {
+			$("#loginBtn").click();
+		}
+	});
+	
+	
+	$(".btn_joinMember").click(function(){
+		
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A16010741200D152A3E062545033D5E220C" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+});
+	
+function fnLayerClose(){
+	try{
+		parent.$.fancybox.close();
+	}catch(exception){}
+}
+var membEtcRefresh = function(){
+	$.post("../cm/CM_00001_UP1.html", "", "");
+}
+var isLogin = function(){
+	
+			return true;
+				
+}
+
+// 미사용
+function fnLogin(returnURL){
+	if(!isLogin()){
+		var msg	= "로그인이 필요합니다.\n회원이 아니시면 회원가입을 해주시기 바랍니다.";
+		
+		alert(msg);
+		
+		if(typeof(returnURL) == "undefined") {
+			returnURL = location.pathname;
+		}
+
+		location.href = "../cm/nTdLogin.do?returnURL="+returnURL;
+		
+		return false;
+	}
+	return true;
+}
+
+function fnIeLimitCheck(){
+	var limitVersion	= 8;
+	var ieVersion		= getIeVersion();
+
+	if(getCookie("NoMoreBrowserPopup") != "yes"){
+		if(ieVersion){
+			if(ieVersion <= limitVersion){
+				WindowUtil.open({
+					  windowURL		: "/popup/popup_ieWarning.html"
+					, windowName	: "popup_browserWarning"
+					, width			: 600
+					, height		: 741
+				});
+			}
+		}
+	}
+}
+
+function doLogin() {
+	if($("#loginForm > input#redirectURL").length === 0){
+		$("<input>").attr({
+			  type	: "hidden"
+			, id	: "redirectURL"
+			, name	: "redirectURL"
+			, value : "https://www.taxdiet.co.kr/my/MY_B0111.html"
+		}).appendTo("#loginForm");
+	}
+	else if ($("#redirectURL").val()=="") {
+		$("#redirectURL").val("https://www.taxdiet.co.kr/my/MY_B0111.html");
+	}
+	else {
+		$("#redirectURL").val(location.href);	
+	}
+
+	if ($("#returnURL").val() != "") {
+		$("#redirectURL").val("");
+	}
+
+	$("#loginForm").attr("action", "../cm/nTdSsoLoginProc.html");
+	$("#loginForm").attr("target", "_self");
+	$("#loginForm").submit();
+}
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("select.option_limit4").each(function(){
+		$(this).find("option").eq(4).remove();
+	});
+
+	$("select.option_limit3").each(function(){
+		$(this).find("option").eq(4).remove();
+		$(this).find("option").eq(3).remove();
+	});
+
+	$(".edt_comn").mask("###,###,###,###,##0", {reverse: true});
+	$("#affCorpBizNo").mask("999-99-99999");
+
+	// 저장
+	$(".btn_modify_submit").click(function(){
+		// PG업종
+		if ($("#pgYn").val()=="Y") {
+			var affCorpBizNo = $("#affCorpBizNo").val().removeDelim("-");
+			var affCorpName = $("#affCorpName").val();
+
+			// 부가세 대상인 경우
+			if ($("#vatTarSetVlu").val()=="001") {
+				if (affCorpBizNo=="" || affCorpName=="") {
+					alert("PG업종을 부가세 대상으로 변경할 경우 실 거래처 사업자번호와 가맹점명을 반드시 입력하세요.");
+
+					if (affCorpBizNo=="") {
+						$("#affCorpBizNo").focus();
+					}
+					else {
+						$("#affCorpName").focus();
+					}
+
+					return false;
+				}
+			}
+			else {
+				if (affCorpBizNo != "" || affCorpName != "") {
+					if (affCorpBizNo=="") {
+						alert("실 거래처 사업자번호를 입력해 주십시요.");
+						$("#affCorpBizNo").focus();
+
+						return false;
+					}
+					else if (affCorpName=="") {
+						alert("실 거래처 가맹점명을 입력해 주십시요.");
+						$("#affCorpName").focus();
+
+						return false;
+					}
+				}
+			}
+
+			if (affCorpBizNo != "" && affCorpBizNo.length != 10) {
+				alert("실 거래처 사업자번호 항목은 10자로 입력해야 합니다.");
+				$("#affCorpBizNo").focus();
+				return false;
+			}
+			else if (affCorpName != "" && affCorpName.getBytes() > 30) {
+				alert("상호명 항목은 30Byte 이상은 입력할 수 없습니다.");
+				$("#affCorpName").focus();
+				return false;
+			}
+		}
+
+   		if (!f_amt_valition()) {
+   			return false;
+   		}
+
+   		if($("#msg").val().getBytes() > 200){
+   			alert("메모 항목은 200Byte 이상은 입력할 수 없습니다.");
+   			$("#msg").focus();
+   			return false;
+   		}
+
+   		var message = "저장하시겠습니까?";		
+
+   		if(confirm(message)) {
+			$(".edt_comn").mask("##############0", {reverse: true});
+			$("#affCorpBizNo").mask("0000000000");
+
+			f_post_submit("../vr/VR_01019_UP.html", "7F220B42157233061B17111540013B", "f_call_result1");
+   		}
+
+		return false;
+	});
+
+	f_amt_valition = function() {
+		var use_amt = 0;
+		var sup_amt = 0;
+		var vat_amt = 0;
+		var de_free_amt = 0;
+		var de_zero_amt = 0;
+		var service_charge = 0;
+		var use_amt_tmp = 0;
+
+		use_amt = fnObjRemoveComma($(".use_amt"));
+		sup_amt = fnObjRemoveComma($(".sup_amt"));
+		vat_amt = fnObjRemoveComma($(".vat_amt"));
+		de_free_amt = fnObjRemoveComma($(".de_free_amt"));
+		de_zero_amt = fnObjRemoveComma($(".de_zero_amt"));
+		service_charge = fnObjRemoveComma($(".service_charge"));
+
+		/* 불필요한듯... 2019.12.27 필요시 주석제거하고 사용해도 됨
+		if(sup_amt > use_amt) {
+	   		alert("공급가액이 이용금액을 초과할수 없습니다.");
+	   		$(".sup_amt").focus();
+			return false;
+		}
+		else if ((Math.floor(use_amt * (10/110))) < vat_amt) {
+	   		alert("세액은 이용금액의 10%를 초과할 수 없습니다.");
+	   		$(".vat_amt").focus();
+			return false;
+		}
+		else if((sup_amt + vat_amt) > use_amt) {
+	   		alert("공급가액과 세액의 합이 이용금액을 초과할수 없습니다.");
+	   		$(".sup_amt").focus();
+			return false;
+		}
+		else if(de_free_amt > use_amt) {
+	   		alert("면세금액이 이용금액을 초과할수 없습니다.");
+	   		$(".de_free_amt").focus();
+			return false;
+		}
+		else if(service_charge > use_amt) {
+	   		alert("봉사료가 이용금액보다 클 수 없습니다.");
+	   		$(".service_charge").focus();
+			return false;
+		}
+		*/
+
+		use_amt_tmp = sup_amt + vat_amt + de_free_amt + de_zero_amt + service_charge;
+
+		if(use_amt_tmp != use_amt) {
+	   		alert("공급가액, 세액, 봉사료, 면세금액 및 영세금액의 합계는\r\n이용금액과 동일해야 합니다.");
+			return false;
+		}
+
+		return true;
+	};
+
+	// 공급가액 수정시
+	fnSupplyAmt = function(){
+		var sup_amt = 0;
+		var vat_amt = 0;
+
+		sup_amt = fnObjRemoveComma($(".sup_amt"));
+		vat_amt = parseInt(Math.floor(sup_amt * 0.1));
+
+		$(".vat_amt").val(vat_amt);
+		$(".edt_comn").mask("##############0", {reverse: true});
+		$(".edt_comn").mask("###,###,###,###,##0", {reverse: true});
+
+		return true;
+	};
+
+	// 부가세 수정시
+	fnVatAmt = function() {
+		var use_amt = 0;
+		var sup_amt = 0;
+		var vat_amt = 0;
+		var de_free_amt = 0;
+		var de_zero_amt = 0;
+		var service_charge = 0;
+
+		use_amt = fnObjRemoveComma($(".use_amt"));
+		vat_amt = fnObjRemoveComma($(".vat_amt"));
+		de_free_amt = fnObjRemoveComma($(".de_free_amt"));
+		de_zero_amt = fnObjRemoveComma($(".de_zero_amt"));
+		service_charge = fnObjRemoveComma($(".service_charge"));
+
+		sup_amt = use_amt - vat_amt - de_free_amt - de_zero_amt - service_charge;
+
+		$(".sup_amt").val(sup_amt);
+		$(".edt_comn").mask("##############0", {reverse: true});
+		$(".edt_comn").mask("###,###,###,###,##0", {reverse: true});
+
+		return true;
+	};
+
+	// 면세.영세.봉사료 수정시
+	fnFreeAmt = function(){
+		var use_amt = 0;
+		var sup_amt = 0;
+		var vat_amt = 0;
+		var de_free_amt = 0;
+		var de_zero_amt = 0;
+		var service_charge = 0;
+
+		use_amt = fnObjRemoveComma($(".use_amt"));
+		de_free_amt = fnObjRemoveComma($(".de_free_amt"));
+		de_zero_amt = fnObjRemoveComma($(".de_zero_amt"));
+		service_charge = fnObjRemoveComma($(".service_charge"));
+
+		vat_amt = parseInt(Math.floor((use_amt - de_free_amt - de_zero_amt - service_charge) * 10/110));
+		sup_amt = parseInt(use_amt - de_free_amt - de_zero_amt - service_charge - vat_amt);
+
+		$(".sup_amt").val(sup_amt);
+		$(".vat_amt").val(vat_amt);
+		$(".edt_comn").mask("##############0", {reverse: true});
+		$(".edt_comn").mask("###,###,###,###,##0", {reverse: true});
+
+		return true;
+	};
+
+	fnObjRemoveComma = function(obj){
+		var val = String($(obj).val());
+
+		if(val == null || val.trim() == '') {
+			return 0;
+		}
+		else {
+			return Number( val.replace(/($|\,)/g, ""));
+		}
+	};
+
+	
+	$(".receipt_print_popup").click(function() {
+		WindowUtil.open({
+			windowURL : "",
+			windowName : "receipt_print_popup",
+			width : 450,
+		    height : 520
+		});
+		$("#tmpform").attr("action", "../vr/VR_01039_SL.html");
+		$("#tmpform").attr("target", "receipt_print_popup");
+		$("#tmpform").submit();
+
+		return false;
+	});
+});
+
+function f_call_result1(result) {
+	if (result.status) {
+		// 저장 되었습니다.
+		alert("저장되었습니다.");
+
+		$(".input_date", parent.document).mask("00000000");	//날짜 포멧 제거
+		parent.document.form.action = "../vr/VR_03007.html";
+		parent.document.form.target = "_self";
+
+		$("#form", parent.document).submit();
+	}
+	else if (result.status_msg != "") {
+		$(".edt_comn").mask("###,###,###,###,##0", {reverse: true});
+		$("#affCorpBizNo").mask("999-99-99999");
+
+		alert(result.status_msg);
+	}
+	else {
+		$(".edt_comn").mask("###,###,###,###,##0", {reverse: true});
+		$("#affCorpBizNo").mask("999-99-99999");
+
+		// 저장에 실패 하였습니다.
+		alert("저장에 실패 하였습니다.");
+	}
+}
+
+//실거래처등록
+function f_cust_reg_pop() {
+	var w = 800;
+	var h = 800;
+	var winPos = f_open_window_pos(w, h);
+	var left = winPos[0];
+	var top = winPos[1];
+    
+    var uri = "";
+
+    uri += "../vr/VR_02101_SL.html";
+    uri += "?prcsYmd=" + $("#prcs_dttm").val();
+    uri += "&prcsSrno=" + $("#prcs_srno").val();
+    uri += "&h_vatTarSetVlu=" + $("#h_vatTarSetVlu").val();
+    uri += "&h_prcsDttm=" + $("#prcs_dttm").val();
+    uri += "&h_prcsSrno=" + $("#prcs_srno").val();
+    uri += "&h_useAmt=" + $(".use_amt").val();
+    uri += "&h_serviceCharge=" + $("#h_serviceCharge").val();
+    uri += "&h_prsnCorpCls=" + $("#h_prsnCorpCls").val();
+    uri += "&h_appr_no=" + $("#h_appr_no").val();
+	uri += "&search_type=W";
+
+    var options = "width=" + w + ", height=" + h + ",menubar=no,resizable=no,scrollbars=yes,status=no,toolbar=no, top=" + top + ", left=" + left;
+
+    openDialog(uri, "newPop", options, function(newPop) {
+    	location.reload();
+    });
+}
+
+var openDialog = function(uri, name, options, closeCallback) {
+    var newPop = window.open(uri, name, options);
+    var interval = window.setInterval(function() {
+        try {
+            if (newPop == null || newPop.closed) {
+                window.clearInterval(interval);
+                closeCallback(newPop);
+            }
+        }
+        catch (e) {
+        }
+    }, 1000);
+    
+    if(window.focus){
+ 		setTimeout(function(){
+ 			newPop.focus();
+ 		}, 1000);
+ 	}
+
+    return newPop;
+};
+</script>
+</head>
+<body>
+<form id="tmpform" name="tmpform" method="post">
+<input type="hidden" name="prcsDttm"  value="" />
+<input type="hidden" name="prcsSrno" value="" />
+<input type="hidden" name="apprDt" value="" />
+<input type="hidden" id="h_vatTarSetVlu" value="" />
+<input type="hidden" id="h_serviceCharge" value="" />
+<input type="hidden" id="h_prsnCorpCls" value="" />
+<input type="hidden" id="h_appr_no" value="" />
+<input type="hidden" id="h_card_comp_cls" value="" />
+</form>
+<form id="form" name="form" method="post">
+<input type="hidden" name="prcsDttm" id="prcs_dttm" value="" />
+<input type="hidden" name="prcsSrno" id="prcs_srno" value="" />
+<input type="hidden" name="useAmt" class="use_amt" value="" />
+<input type="hidden" name="chbVatAmt" value="" />
+<input type="hidden" name="chbVatTarVlu" value="" />
+<input type="hidden" name="chaVatTarVlu" value="" />
+<input type="hidden" name="befAffCorpBizNo" value="" />
+<input type="hidden" name="befAffCorpName" value="" />
+<input type="hidden" name="baffCorpBizNo" value="" />
+<input type="hidden" name="baffCorpName" value="" />
+<input type="hidden" id="pgYn" name="pgYn" value="" />
+	<div class="fancy-layer">
+		<div class="fl__header">
+			<p>상세보기</p>
+		</div>
+		<div class="fl__container long">
+			<div class="fl__tit">
+				<p>결제 정보</p>
+				<div class="tit-btn">
+					<a href="javascript:;" class="receipt_print_popup">영수증 인쇄</a>
+				</div>
+			</div>
+			<div class="td__table-set3">
+				<table>
+					<col style="width: 20%;">
+					<col style="width: 30%;">
+					<col style="width: 20%;">
+					<col style="width: 30%;">
+					<tbody>
+						<tr>
+							<th scope="row">이용일시</th>
+							<td></td>
+							<th scope="row">카드사</th>
+							<td></td>
+						</tr>
+						<tr>
+							<th scope="row">카드번호</th>
+							<td></td>
+							<th scope="row">승인번호</th>
+							<td></td>
+						</tr>
+						<tr>
+							<th scope="row">사용처</th>
+							<td>
+								</td>
+							<th scope="row">업종</th>
+							<td></td>
+						</tr>
+						<tr>
+							<th scope="row">사업자번호</th>
+							<td>
+								</td>
+							<th scope="row">과세구분</th>
+							<td></td>
+						</tr>
+						<tr>
+							<th scope="row">대표자명</th>
+							<td></td>
+							<th scope="row">가맹점주소</th>
+							<td></td>
+						</tr>
+						</tbody>
+				</table>
+			</div>
+
+			<div class="fl__tit">
+				<p>이용금액 정보</p>
+			</div>
+			<div class="td__table-set3">
+				<table>
+					<col style="width: 20%;">
+					<col style="width: 30%;">
+					<col style="width: 20%;">
+					<col style="width: 30%;">
+					<tbody>
+						<tr>
+							<th scope="row">부가세 대상</th>
+							<td>
+								<select id="vatTarSetVlu" name="vatTarSetVlu" class="select selectVatTarSetVlu option_limit3"><option value="001">대상</option><option value="002">비대상</option><option value="003">미분류</option><option value="004">의제</option></select></td>
+							<th rowspan="2" scope="row">분류기준</th>
+							<td rowspan="2" class="small">
+								<!-- 마트 -->
+								<!-- 차량 -->
+								<!-- PG -->
+								<!-- 쇼핑 -->
+								<!-- 통신비 -->
+								<!-- 미용 -->
+								<!-- 요식업 -->
+								<!-- 운송 -->
+								</td>
+						</tr>
+						<tr>
+							<th scope="row">공급가액</th>
+							<td><input name="supAmt" type="text" class="edt_comn align-right sup_amt" value="" alt="number" onkeyup="fnSupplyAmt();"/></td>
+						</tr>
+						<tr>
+							<th scope="row">세액</th>
+							<td><input name="vatAmt" type="text" class="edt_comn align-right vat_amt" value="" alt="number" onkeyup="fnVatAmt();" /></td>
+							<th scope="row">봉사료</th>
+							<td><input name="serviceCharge" type="text" class="edt_comn align-right service_charge" value="" alt="number" onkeyup="fnFreeAmt();" /></td>
+						</tr>
+						<tr>
+							<th scope="row">면세금액</th>
+							<td><input name="deFreeAmt" type="text" class="edt_comn align-right de_free_amt" value="" alt="number" onkeyup="fnFreeAmt();"/></td>
+							<th scope="row">영세금액</th>
+							<td><input name="deZeroAmt" type="text" class="edt_comn align-right de_zero_amt" value="" alt="number" onkeyup="fnFreeAmt();"/></td>
+						</tr>
+						<tr>
+							<th scope="row">이용금액</th>
+							<td class="align-right"></td>
+							<td colspan="2"></td>
+						</tr>
+						<tr>
+							<th scope="row">메모</th>
+							<td colspan="3" style="height:80px;"><textarea name="msg" id="msg" style="width:100%; height:85%;"></textarea></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="fl__tit">
+				<p>변경이력</p>
+			</div>
+			<div class="td__table-set1">
+				<table>
+					<col style="width: 25%;">
+					<col style="width: 25%;">
+					<col style="width: 25%;">
+					<col style="width: 25%;">
+					<thead>
+						<tr>
+							<th scope="col">수정일시</th>
+							<th scope="col">수정처리자</th>
+							<th scope="col">수정전</th>
+							<th scope="col">수정후</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="fl__btn-area">
+				<div class="td__btn-block">
+					<a href="javascript;" class="common-btn btn_modify_submit">저장</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+</body>
+</html>

@@ -1,0 +1,1249 @@
+<html lang="ko" class="">
+
+<head>
+	<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="robots" content="noindex,nofollow">
+	<meta name="language" content="ko">
+	<meta name="copyright" content="copyrights 2019 NICE Data">
+	<meta name="author" content="NICE Data">
+	<title>택스다이어트.</title>
+
+	<link rel="stylesheet" type="text/css" href="/css/default.css">
+	<link rel="stylesheet" type="text/css" href="/css/libs/jquery-ui.css">
+	<link rel="stylesheet" type="text/css" href="/css/soho_default.css">
+	<link rel="stylesheet" type="text/css" href="/css/soho_sub_default.css">
+
+	<!--  공통 -->
+	<script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
+	<script src="/js/libs/jquery-1.11.1.min.js"></script>
+	<script src="/js/niceCommon.js"></script>
+	<script src="/js/common-util.js"></script>
+	<script src="/js/libs/jquery.fancybox.min.js"></script>
+	<script src="/js/libs/jquery.placeholder.min.js"></script>
+	<script src="/js/libs/jquery-ui.min.js"></script>
+	<script src="/js/moment.min.js"></script>
+
+	<script src="/js/libs/jquery.dialog.min.js"></script>
+
+	<script src="/js/common.js"></script>
+	<script src="/js/progress.min.js"></script>
+	<script src="/js/browserVersion.min.js"></script>
+	<script src="/js/libs/jquery.easing.1.3.min.js"></script>
+	<script src="/js/libs/jquery.mask.min.js"></script>
+
+	<script src="/js/libs/jquery.cookie.min.js"></script>
+	<script src="/js/cookie.min.js"></script>
+
+	<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico">
+
+	<script type="text/javascript">
+		$(function () {
+			// gnb 로고 옆에 현재 머물고 있는 1뎁스 메뉴 표시
+			$("ul.gnb_depth1 > li").each(function (index) {
+				if ($(this).attr("class") == "on") {
+					$("div.logo-wrap > h2").html($(this).text().trim());
+				}
+			})
+
+
+			// 로그아웃
+			$(document).on("click", ".btn_logout", function (data) {
+				if (confirm("로그아웃 하시겠습니까?")) {
+
+					var $form = $("<form/>", {
+						id: "logoutForm",
+						method: "post",
+						action: "../cm/nTdLogout.html"
+					});
+					$("body").append($form);
+					$form.submit();
+				}
+			});
+
+
+			$("#loginBtn").click(function () {
+				if ($.trim($("#membId").val()) == "") {
+					alert("회원아이디를 입력하세요.");
+					$("#membId").focus();
+					return false;
+				}
+
+				if ($.trim($("#pswd").val()) == "") {
+					alert("비밀번호를 입력하세요.");
+					$("#pswd").focus();
+					return false;
+				}
+
+				$.removeCookie("saveid", {
+					path: '/'
+				});
+
+				if ($("#chk_save_id").prop("checked")) {
+					$.cookie("saveid", $.trim($("#membId").val()), {
+						expires: 365,
+						path: '/'
+					});
+				}
+
+				doLogin();
+
+				return false;
+			});
+
+
+			$("#btn_login").click(function () {
+
+				var param = "";
+
+
+				param = "7F3401425D07331D0040263B40013B";
+
+				location.href = "../cm/nTdLogin.html?returnURL=" + param;
+			});
+
+			$("#loginForm input[name=pswd]").keyup(function (e) {
+				if (e.keyCode == KeyCode.ENTER) {
+					$("#loginBtn").click();
+				}
+			});
+
+
+			$(".btn_joinMember").click(function () {
+
+				var url = $(this).attr("move");
+
+				if (typeof jmForm == "undefined") {
+					var $form = $("<form/>", {
+						id: "jmForm",
+						name: "jmForm",
+						method: "get",
+						action: url
+					});
+
+					$("body").append($form);
+					$("<input/>").attr({
+						type: "hidden",
+						name: "referrUrl",
+						value: "623C2734237F434A16010741200D152A3E062545033D5E220C"
+					}).appendTo("#jmForm");
+					$("<input/>").attr({
+						type: "hidden",
+						name: "hmpUrl",
+						value: "taxdiet"
+					}).appendTo("#jmForm");
+
+				} else {
+					$("#jmForm").attr("action", url);
+				}
+				$("#jmForm").attr('target', '_blank').submit();
+
+			});
+		});
+
+		function fnLayerClose() {
+			try {
+				parent.$.fancybox.close();
+			} catch (exception) {}
+		}
+		var membEtcRefresh = function () {
+			$.post("../cm/CM_00001_UP1.html", "", "");
+		}
+		var isLogin = function () {
+
+			return true;
+
+		}
+
+		// 미사용
+		function fnLogin(returnURL) {
+			if (!isLogin()) {
+				var msg = "로그인이 필요합니다.\n회원이 아니시면 회원가입을 해주시기 바랍니다.";
+
+				alert(msg);
+
+				if (typeof (returnURL) == "undefined") {
+					returnURL = location.pathname;
+				}
+
+				location.href = "../cm/nTdLogin.html?returnURL=" + returnURL;
+
+				return false;
+			}
+			return true;
+		}
+
+		function fnIeLimitCheck() {
+			var limitVersion = 8;
+			var ieVersion = getIeVersion();
+
+			if (getCookie("NoMoreBrowserPopup") != "yes") {
+				if (ieVersion) {
+					if (ieVersion <= limitVersion) {
+						WindowUtil.open({
+							windowURL: "/popup/popup_ieWarning.html",
+							windowName: "popup_browserWarning",
+							width: 600,
+							height: 741
+						});
+					}
+				}
+			}
+		}
+
+		function doLogin() {
+			if ($("#loginForm > input#redirectURL").length === 0) {
+				$("<input>").attr({
+					type: "hidden",
+					id: "redirectURL",
+					name: "redirectURL",
+					value: "https://www.taxdiet.co.kr/my/MY_B0111.html"
+				}).appendTo("#loginForm");
+			} else if ($("#redirectURL").val() == "") {
+				$("#redirectURL").val("https://www.taxdiet.co.kr/my/MY_B0111.html");
+			} else {
+				$("#redirectURL").val(location.href);
+			}
+
+			if ($("#returnURL").val() != "") {
+				$("#redirectURL").val("");
+			}
+
+			$("#loginForm").attr("action", "../cm/nTdSsoLoginProc.html");
+			$("#loginForm").attr("target", "_self");
+			$("#loginForm").submit();
+		}
+	</script>
+	<script type="text/javascript" src="/js/ta_common.js"></script>
+	<script type="text/javascript" src="/js/libs/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="/js/dataTables_sohotax.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			// dataTable 초기화
+			$("#slGrid").dataTables({
+				height: 1000,
+				columnName: ["dataSeq", "dealDt", "expItem", "custName", "salsSupAmt", "salsVatAmt",
+					"expSupAmt", "expVatAmt", "faSupAmt", "faVatAmt", "remark"
+				],
+				columnClass: [null, null, "dt-body-left", "dt-body-left", "dt-body-right", "dt-body-right",
+					"dt-body-right", "dt-body-right", "dt-body-right", "dt-body-right", "dt-body-left"
+				],
+				columnFormatType: [null, null, null, null, {
+					fmtType: "numberComma"
+				}, {
+					fmtType: "numberComma"
+				}, {
+					fmtType: "numberComma"
+				}, {
+					fmtType: "numberComma"
+				}, {
+					fmtType: "numberComma"
+				}, {
+					fmtType: "numberComma"
+				}, null],
+				columnRender: ["fn.checkBoxRender(data, row)", null, null, null, null, null, null, null, null,
+					null, null
+				],
+				columnRenderType: ["string", null, null, null, null, null, null, null, null, null, null],
+				ajaxYn: "Y",
+				filter: false,
+				paging: true
+					//,columnOrderable : ["false","true"]
+					,
+				len: 10
+			});
+
+			$.fn.dataTable.ext.pager.numbers_length = 9;
+
+			$.dataTables.setDynamicPagingStyle();
+
+			$.dataTables.checkBoxAllSelect("checkAll", "dataSeq", "slGrid");
+
+			// 분기/반기/연간 click event
+			$(".quarter li").click(function () {
+				$("#srhMonth").val(""); // 월별 콤보박스 초기화
+				$("#srhType").val("QY");
+				$("#srhTypeVal").val($("#" + $(this).attr("name")).val());
+			});
+
+			// 월별 콤보박스 change event
+			$("#srhMonth").change(function () {
+				if ($(this).val() != "") {
+					$('.quarter li').each(function () {
+						$(".quarter li").removeClass('active');
+					});
+					$("#srhType").val("Month");
+					$("#srhTypeVal").val($(this).val());
+				} else {
+					$("#srhType").val("");
+					$("#srhTypeVal").val("");
+				}
+			});
+
+			// 조회버튼 click event
+			$("#btnSearch").click(function () {
+				fn.search();
+			});
+
+			// 엑셀다운버튼 click event
+			$("#btnExcel").click(function () {
+				fn.excel();
+			});
+
+			// 입력방법 click event
+			$("#btnHelp").click(function () {
+				fancybox_open_width("/sd/SD_30412.html", "800px", "7F3401425D07331D0040263B40013B", "yes");
+
+				return false;
+			});
+
+			// 직접입력 click event
+			$("#btnInsert").click(function () {
+				fancybox_open_width_height("/sd/SD_30413.html", "400px", "470px",
+					"7F3401425D07331D0040263B40013B", "yes");
+
+				return false;
+			});
+
+			// 인증정보 등록 및 자료 가져오기
+			$("#btnScrData").click(function () {
+				if ("001" == "002") {
+					alert("개인회원은 직접입력을 통한 간편장부 작성만 가능합니다.");
+				} else {
+					fancybox_open_width_height("/sd/SD_30414.html?srhYear=" + $("#srhYear").val(), "650px",
+						"500px", "7F3401425D07331D0040263B40013B", "yes");
+				}
+
+				return false;
+			});
+
+			// 삭제버튼 click event
+			$("#btnDelete").click(function () {
+				var selChkBox = $.dataTables.checkData("dataSeq", "slGrid");
+				if (selChkBox == null || selChkBox.length == 0) {
+					alert("삭제할 데이터를 선택해주세요.");
+					return false;
+				}
+
+				var msg = "정말 삭제하시겠습니까?";
+
+				if (confirm(msg)) {
+					var dataSeq = new Array();
+
+					$.each(selChkBox, function (idx, selChk) {
+						dataSeq.push(selChk.value);
+					});
+
+					$("#dataSeq").val(dataSeq.join());
+
+					f_post_submit("/sd/SD_30411_DL.html", "7F3401425D07331D0040263B40013B", "f_call_result2");
+				}
+
+				return false;
+			});
+
+			$(document).on("click", ".dataSeq", function () {
+				if ($(this).is(':checked')) {
+					$(this).closest('tr').addClass("selected");
+				} else {
+					$(this).closest('tr').removeClass("selected");
+				}
+			});
+		});
+
+		var fn = {
+
+			// 조회
+			search: function () {
+				if ($("#srhYear").val() == "") {
+					alert("년도를 선택해주세요.");
+					return false;
+				}
+
+				if ($("#srhType").val() == "") {
+					alert("월별/분기/반기/연간 중 하나를 선택해주세요.");
+					return;
+				}
+
+				f_post_submit("/sd/SD_30411_SL1.html", "7F3401425D07331D0040263B40013B", "f_call_result1");
+
+				return false;
+			},
+
+			// dataTable 체크박스
+			checkBoxRender: function (data, row) {
+				if (row.dataCls == 'HE' || row.dataCls == 'HS') {
+					return "<input type='checkbox' name='dataSeq' value='" + data + "' class='dataSeq' />";
+				} else {
+					return "";
+				}
+			},
+
+			// 엑셀다운
+			excel: function () {
+				if ($("#srhYear").val() == "") {
+					alert("년도를 선택해주세요.");
+					return false;
+				}
+
+				if ($("#srhType").val() == "") {
+					alert("월별/분기/반기/연간 중 하나를 선택해주세요.");
+					return;
+				}
+
+				var url = "/sd/SD_30411_DX.html";
+				var inputs = '';
+				inputs += '<input type="hidden" name="srhType" value="' + $("#srhType").val() + '" />';
+				inputs += '<input type="hidden" name="srhTypeVal" value="' + $("#srhTypeVal").val() + '" />';
+				inputs += '<input type="hidden" name="srhYear" value="' + $("#srhYear").val() + '" />';
+
+				progress.start();
+
+				// Session Check후 정상일때 url호출
+				$.post("../cm/CM_SESSION_VALID.html", "", function (result) {
+						progress.stop();
+
+						if (result.status) {
+							// request를 보낸다.
+							jQuery('<form action="' + url + '" method="post">' + inputs + '</form>').appendTo(
+								'body').submit().remove();
+						} else {
+							alert(result.status_msg);
+
+							f_go_login("7F3401425D07331D0040263B40013B");
+						}
+					}, 'json')
+					.fail(function (request, status, error) {
+						var errorMsg = "code:" + request.status + "\n" + "message:" + request.responseText +
+							"\n" + "error:" + error;
+						console.log(errorMsg);
+
+						alert(error);
+					});
+			},
+
+			// 인증정보등록 및 자료 가져오기 팝업에서 상세보기 팝업
+			detailPop: function () {
+				fancybox_open_width_height("/sd/SD_30415.html?srhYear=" + $("#srhYear").val(), "750px", "700px",
+					"7F3401425D07331D0040263B40013B", "yes");
+
+				return false;
+			},
+
+			// 인증정보등록 및 자료 가져오기 팝업에서 추가정보가져오기 팝업
+			addInfo: function () {
+				var regCnt = $("#regCnt").val();
+				var src = "";
+
+				if (regCnt < 0) {
+					// 등록된 인증정보가 있음. 자료가져오기 팝업을 띄움
+					src = '/vt/VT_30215.do';
+				} else {
+					// 등록된 인증정보가 없음. 인증정보등록 팝업을 띄움
+					src = '/vt/VT_30214.do';
+				}
+
+				fancybox_open_width_height(src, "800px", "900px", "7F3401425D07331D0040263B40013B", "yes");
+
+				return false;
+			},
+
+			// 인증정보등록 및 자료 가져오기 팝업에서 신규등록 팝업(VT_30214)
+			addInfoReg: function () {
+				var w = 800;
+				var h = 770;
+				var winPos = f_open_window_pos(w, h);
+				var left = winPos[0];
+				var top = winPos[1];
+
+				var uri =
+					"http://www.nicesoho.co.kr/sc/SC_20301_D1.html?custInf=EIv8bkJp5Bl4MeYpwPwOo7RSTh1hmaz3OA3jDLXqg9mzvgJAjC%2FliovGCieK0jBWM%2BqqfUSbo%2FtB4cTnSB4l2aXvgfo3jvXX0XKWbO0%2FL5A%3D&dummy=" +
+					Math.random();
+				var options = "width=" + w + ", height=" + h +
+					",menubar=no,resizable=no,scrollbars=yes,status=no,toolbar=no, top=" + top + ", left=" + left;
+
+				openDialog(uri, "newPop", options, function (newPop) {
+					fn.addInfo();
+				});
+			}
+		}
+
+		var openDialog = function (uri, name, options, closeCallback) {
+			var newPop = window.open(uri, name, options);
+			var interval = window.setInterval(function () {
+				try {
+					if (newPop == null || newPop.closed) {
+						window.clearInterval(interval);
+						closeCallback(newPop);
+					}
+				} catch (e) {}
+			}, 1000);
+
+			if (window.focus) {
+				setTimeout(function () {
+					newPop.focus();
+				}, 1000);
+			}
+
+			return newPop;
+		};
+
+		function f_call_result1(result) {
+			if (result.status) {
+				$("#sumAmtTxt").html("매출합계 : " + String(result.sdSimpleLedgerVO.salsSum).addComma() +
+					"원&nbsp;&nbsp;&nbsp;&nbsp;비용합계 : " + String(result.sdSimpleLedgerVO.expSum).addComma() + "원");
+
+				$.dataTables.searchForAjax("/sd/SD_30411_SL2.html", "slGrid");
+			} else if (result.status_msg != "") {
+				alert(result.status_msg);
+			} else {
+				// 조회시 오류가 발생하였습니다.
+				alert("조회시 오류가 발생하였습니다.");
+			}
+		}
+
+		function f_call_result2(result) {
+			if (result.status) {
+				alert("삭제하였습니다.");
+
+				fn.search();
+			} else if (result.status_msg != "") {
+				alert(result.status_msg);
+			} else {
+				// 삭제중 오류가 발생하였습니다.
+				alert("삭제중 오류가 발생하였습니다.");
+			}
+		}
+	</script>
+</head>
+
+<body>
+	<div class="loading_wrap HeightAuto" style="height: 888px;">
+		<div class="box_img">
+			<p>Loading...</p>
+		</div>
+		<div class="loading_bg HeightAuto" style="height: 888px;"></div>
+	</div>
+	<div id="wrap board-view">
+		<script type="text/javascript">
+			$(function () {
+				//메뉴  클릭시 프로그레스 처리
+				$(".logo, .mypage").find("a").click(function () {
+					progress.start();
+				});
+
+				//메뉴  클릭시 프로그레스 처리
+				$(".dep01, .dep02").find("a").click(function () {
+
+					if ($(this).attr("target") != "_blank") {
+						progress.start();
+					}
+				});
+
+			});
+		</script>
+
+		<!-- header_n -->
+
+		<div id="wrap">
+			<div id="td__header_wrap">
+				<div class="td__header">
+					<div class="td__header-depth1">
+						<ul class="item5">
+							<li>
+								<a href="javascript:f_location_href_nosession('/vr/VR_03002.do');">부가세환급지원</a>
+							</li>
+							<li>
+								<a href="javascript:f_location_href_nosession('/vt/VT_30111.do');">부가가치세 자가신고</a>
+							</li>
+							<li class="active">
+								<a href="javascript:f_location_href_nosession('/sd/SD_30111.do');">종합소득세 자가신고</a>
+							</li>
+							<li>
+								<a href="javascript:f_location_href_nosession('/as/AS_02101_SL.do');">세무상담</a>
+							</li>
+							<li>
+								<a href="javascript:f_location_href_nosession('/bizmap/BS_20111.do');">상권분석</a>
+							</li>
+						</ul>
+					</div>
+					<div class="td__header-block">
+						<div class="td__header-top">
+							<div class="td__inner-container">
+								<h1>
+									<a href="../cm/main.html">
+										<img src="/images/td/common/sub_logo.gif" alt="로고">
+									</a>
+								</h1>
+								<div class="login-area">
+									<div class="login-inner">
+										<ul class="login-btn">
+											<li>
+												<a href="javascript:f_location_href_nosession('/my/MY_B0111.do');"
+													class="progress">마이페이지</a>
+											</li>
+										</ul>
+										<button class="btn_logout">로그아웃</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="td__header-bottom">
+							<div class="td__header-depth2">
+								<ul>
+									<li>
+										<a href="javascript:f_location_href_nosession('/sd/SD_30112.do');">종합소득세 정의</a>
+									</li>
+									<li>
+										<a href="javascript:f_location_href_nosession('/sd/SD_30211.do');">신고절차 미리보기</a>
+									</li>
+									<li class="active">
+										<a href="javascript:f_location_href_nosession('/sd/SD_30411.do');">간편장부 작성</a>
+									</li>
+									<li>
+										<a href="javascript:f_location_href_nosession('/sd/SD_30511.do');">신고서 작성</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- //header_n -->
+		<script type="text/javascript" src="/js/niceTopMenu.js"></script>
+		<form id="form" name="form" method="post">
+			<input type="hidden" name="srhType" id="srhType" value="QY">
+			<input type="hidden" name="srhTypeVal" id="srhTypeVal" value="01010630">
+			<input type="hidden" name="dataSeq" id="dataSeq">
+			<input type="hidden" name="regCnt" id="regCnt" value="290">
+			<div id="td__container">
+				<div class="td__contents_wrap">
+					<div class="td__contents">
+						<div class="sohotex-wrap">
+							<h1 class="ta-subpage-title mb-small">
+								간편장부 작성
+								<div class="notice-btn">
+									<a href="javascript:f_call_30211_pop1('7F3401425D07331D0040263B40013B');"
+										class="in_btn">종합소득세 신고 왜 필요하죠?</a>
+								</div>
+							</h1>
+							<div class="ta-total-simplebook-block">
+								<p class="ta-total-important-text">
+									간편장부는 소규모 사업자를 위해서 작성하는 장부로 매출(수입), 비용(지출), 고정자산 구입에 관한<br>내용을 날짜 순서대로 기록하면
+									됩니다.(<span style="color: #0E8BE5">부가가치세 자가신고 이용 회원은 자동으로 작성됩니다.</span>)
+								</p>
+								<div class="ta-total-explanation-btn">
+									<p>
+										나이스택스를 처음 이용하는 회원은 홈택스, 여신금융협회, 카드사 매출∙매입자료를<br>가져오기 위해 인증정보 등록 및 자료 가져오기를 실행해야
+										합니다.
+									</p>
+									<a href="javascript:;" id="btnScrData">인증정보 등록 및 <br>자료 가져오기</a>
+								</div>
+							</div>
+							<div class="ta-total-simplebook-block">
+								<div class="ta-total-search-wrap">
+									<div class="search-title">
+										<p>검색조건</p>
+									</div>
+									<div class="search-contents">
+										<div class="simple-search-select">
+											<select name="srhYear" id="srhYear">
+												<option value="">년도</option>
+												<option value="2017">2017년</option>
+												<option value="2018">2018년</option>
+												<option value="2019" selected="selected">2019년</option>
+												<option value="2020">2020년</option>
+											</select>
+										</div>
+										<div class="simple-search-select assortment_spacing">
+											<select name="srhMonth" id="srhMonth">
+												<option value="">월별</option>
+												<option value="1">1월</option>
+												<option value="2">2월</option>
+												<option value="3">3월</option>
+												<option value="4">4월</option>
+												<option value="5">5월</option>
+												<option value="6">6월</option>
+												<option value="7">7월</option>
+												<option value="8">8월</option>
+												<option value="9">9월</option>
+												<option value="10">10월</option>
+												<option value="11">11월</option>
+												<option value="12">12월</option>
+											</select>
+										</div>
+										<input type="hidden" id="1Q" value="01010331">
+										<input type="hidden" id="2Q" value="04010630">
+										<input type="hidden" id="3Q" value="07010930">
+										<input type="hidden" id="4Q" value="10011231">
+										<input type="hidden" id="1H" value="01010630">
+										<input type="hidden" id="2H" value="07011231">
+										<input type="hidden" id="1Y" value="01011231">
+										<ul class="quarter quarter-year">
+											<li name="1Q">
+												<p>1분기</p>
+											</li>
+											<li name="2Q">
+												<p>2분기</p>
+											</li>
+											<li name="3Q">
+												<p>3분기</p>
+											</li>
+											<li name="4Q" class="assortment_spacing">
+												<p>4분기</p>
+											</li>
+										</ul>
+										<ul class="quarter quarter-month">
+											<li name="1H" class="active">
+												<p>상반기</p>
+											</li>
+											<li name="2H" class="">
+												<p>하반기</p>
+											</li>
+											<li name="1Y" class="">
+												<p>연간</p>
+											</li>
+										</ul>
+									</div>
+									<div class="search-view-btn">
+										<input type="button" id="btnSearch" value="조회">
+									</div>
+								</div>
+							</div>
+							<div class="ta-total-simplebook-block">
+								<div class="ta-total-table-wrap">
+									<div class="ta-total-table-top">
+										<p id="sumAmtTxt">매출합계 : 130,366,413원&nbsp;&nbsp;&nbsp;&nbsp;비용합계 : 31,346,486원
+										</p>
+										<div class="ta-total-table-btn-wrap">
+											<a href="javascript:;" id="btnExcel" class="width-100 blue_line">엑셀다운</a>
+											<a href="javascript:;" id="btnHelp" class="width-100 blue_line">입력방법</a>
+											<a href="javascript:;" id="btnInsert" class="width-100">직접입력</a>
+											<a href="javascript:;" id="btnDelete" class="width-65 gray">삭제</a>
+										</div>
+									</div>
+									<div class="ta-total-table-bottom">
+										<div class="ta-total-list-table common_datatable">
+											<div id="slGrid_wrapper" class="dataTables_wrapper no-footer">
+												<div class="dataTables_scroll" style="height: 427px;">
+													<div class="dataTables_scrollHead"
+														style="overflow: hidden; position: relative; border: 0px; width: 100%;">
+														<div class="dataTables_scrollHeadInner"
+															style="box-sizing: content-box; width: 940px; padding-right: 0px;">
+															<table
+																style="width: 940px; table-layout: fixed; word-break: break-all; margin-left: 0px;"
+																class="dataTable no-footer" role="grid">
+																<thead>
+																	<tr role="row">
+																		<th rowspan="2" scope="col" class="sorting_asc"
+																			tabindex="0" aria-controls="slGrid"
+																			colspan="1" style="width: 35px;"
+																			aria-label=": activate to sort column descending"
+																			aria-sort="ascending"><input type="checkbox"
+																				name="checkAll" title="전체선택"></th>
+																		<th rowspan="2" scope="col" class="sorting"
+																			tabindex="0" aria-controls="slGrid"
+																			colspan="1" style="width: 79px;"
+																			aria-label="일자: activate to sort column ascending">
+																			일자</th>
+																		<th rowspan="2" scope="col"
+																			class="dt-body-left sorting" tabindex="0"
+																			aria-controls="slGrid" colspan="1"
+																			style="width: 79px;"
+																			aria-label="거래내용: activate to sort column ascending">
+																			거래내용</th>
+																		<th rowspan="2" scope="col"
+																			class="dt-body-left sorting" tabindex="0"
+																			aria-controls="slGrid" colspan="1"
+																			style="width: 119px;"
+																			aria-label="거래처: activate to sort column ascending">
+																			거래처</th>
+																		<th colspan="2" scope="col" rowspan="1">매출(수입)
+																		</th>
+																		<th colspan="2" scope="col" rowspan="1">비용(지출)
+																		</th>
+																		<th colspan="2" scope="col" rowspan="1">고정자산 구입
+																		</th>
+																		<th rowspan="2" scope="col"
+																			class="dt-body-left sorting" tabindex="0"
+																			aria-controls="slGrid" colspan="1"
+																			style="width: 144px;"
+																			aria-label="비고: activate to sort column ascending">
+																			비고</th>
+																	</tr>
+																	<tr role="row">
+																		<th class="bl_vi dt-body-right sorting"
+																			tabindex="0" aria-controls="slGrid"
+																			rowspan="1" colspan="1" style="width: 79px;"
+																			aria-label="금액: activate to sort column ascending">
+																			금액</th>
+																		<th class="dt-body-right sorting" tabindex="0"
+																			aria-controls="slGrid" rowspan="1"
+																			colspan="1" style="width: 79px;"
+																			aria-label="부가세: activate to sort column ascending">
+																			부가세</th>
+																		<th class="dt-body-right sorting" tabindex="0"
+																			aria-controls="slGrid" rowspan="1"
+																			colspan="1" style="width: 79px;"
+																			aria-label="금액: activate to sort column ascending">
+																			금액</th>
+																		<th class="dt-body-right sorting" tabindex="0"
+																			aria-controls="slGrid" rowspan="1"
+																			colspan="1" style="width: 79px;"
+																			aria-label="부가세: activate to sort column ascending">
+																			부가세</th>
+																		<th class="dt-body-right sorting" tabindex="0"
+																			aria-controls="slGrid" rowspan="1"
+																			colspan="1" style="width: 79px;"
+																			aria-label="금액: activate to sort column ascending">
+																			금액</th>
+																		<th class="dt-body-right sorting" tabindex="0"
+																			aria-controls="slGrid" rowspan="1"
+																			colspan="1" style="width: 79px;"
+																			aria-label="부가세: activate to sort column ascending">
+																			부가세</th>
+																	</tr>
+																</thead>
+															</table>
+														</div>
+													</div>
+													<div class="dataTables_scrollBody"
+														style="position: relative; overflow: auto; width: 100%; height: 385px;">
+														<table id="slGrid"
+															style="width: 100%; table-layout: fixed; word-break: break-all;"
+															class="dataTable no-footer" role="grid">
+															<colgroup>
+																<col style="width:35px">
+																<col style="width:80px">
+																<col style="width:80px">
+																<col style="width:120px">
+																<col style="width:80px">
+																<col style="width:80px">
+																<col style="width:80px">
+																<col style="width:80px">
+																<col style="width:80px">
+																<col style="width:80px">
+																<col style="*">
+															</colgroup>
+															<thead>
+																<tr role="row" style="height: 0px;">
+																	<th rowspan="2" scope="col" class="sorting_asc"
+																		aria-controls="slGrid" colspan="1"
+																		style="width: 35px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;"
+																		aria-label=": activate to sort column descending"
+																		aria-sort="ascending">
+																		<div class="dataTables_sizing"
+																			style="height:0;overflow:hidden;"><input
+																				type="checkbox" name="checkAll"
+																				title="전체선택"></div>
+																	</th>
+																	<th rowspan="2" scope="col" class="sorting"
+																		aria-controls="slGrid" colspan="1"
+																		style="width: 79px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;"
+																		aria-label="일자: activate to sort column ascending">
+																		<div class="dataTables_sizing"
+																			style="height:0;overflow:hidden;">일자</div>
+																	</th>
+																	<th rowspan="2" scope="col"
+																		class="dt-body-left sorting"
+																		aria-controls="slGrid" colspan="1"
+																		style="width: 79px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;"
+																		aria-label="거래내용: activate to sort column ascending">
+																		<div class="dataTables_sizing"
+																			style="height:0;overflow:hidden;">거래내용</div>
+																	</th>
+																	<th rowspan="2" scope="col"
+																		class="dt-body-left sorting"
+																		aria-controls="slGrid" colspan="1"
+																		style="width: 119px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;"
+																		aria-label="거래처: activate to sort column ascending">
+																		<div class="dataTables_sizing"
+																			style="height:0;overflow:hidden;">거래처</div>
+																	</th>
+																	<th colspan="2" scope="col" rowspan="1"
+																		style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 0px;">
+																		<div class="dataTables_sizing"
+																			style="height:0;overflow:hidden;">매출(수입)
+																		</div>
+																	</th>
+																	<th colspan="2" scope="col" rowspan="1"
+																		style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 0px;">
+																		<div class="dataTables_sizing"
+																			style="height:0;overflow:hidden;">비용(지출)
+																		</div>
+																	</th>
+																	<th colspan="2" scope="col" rowspan="1"
+																		style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 0px;">
+																		<div class="dataTables_sizing"
+																			style="height:0;overflow:hidden;">고정자산 구입
+																		</div>
+																	</th>
+																	<th rowspan="2" scope="col"
+																		class="dt-body-left sorting"
+																		aria-controls="slGrid" colspan="1"
+																		style="width: 144px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;"
+																		aria-label="비고: activate to sort column ascending">
+																		<div class="dataTables_sizing"
+																			style="height:0;overflow:hidden;">비고</div>
+																	</th>
+																</tr>
+																<tr role="row" style="height: 0px;">
+																	<th class="bl_vi dt-body-right sorting"
+																		aria-controls="slGrid" rowspan="1" colspan="1"
+																		style="width: 79px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;"
+																		aria-label="금액: activate to sort column ascending">
+																		<div class="dataTables_sizing"
+																			style="height:0;overflow:hidden;">금액</div>
+																	</th>
+																	<th class="dt-body-right sorting"
+																		aria-controls="slGrid" rowspan="1" colspan="1"
+																		style="width: 79px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;"
+																		aria-label="부가세: activate to sort column ascending">
+																		<div class="dataTables_sizing"
+																			style="height:0;overflow:hidden;">부가세</div>
+																	</th>
+																	<th class="dt-body-right sorting"
+																		aria-controls="slGrid" rowspan="1" colspan="1"
+																		style="width: 79px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;"
+																		aria-label="금액: activate to sort column ascending">
+																		<div class="dataTables_sizing"
+																			style="height:0;overflow:hidden;">금액</div>
+																	</th>
+																	<th class="dt-body-right sorting"
+																		aria-controls="slGrid" rowspan="1" colspan="1"
+																		style="width: 79px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;"
+																		aria-label="부가세: activate to sort column ascending">
+																		<div class="dataTables_sizing"
+																			style="height:0;overflow:hidden;">부가세</div>
+																	</th>
+																	<th class="dt-body-right sorting"
+																		aria-controls="slGrid" rowspan="1" colspan="1"
+																		style="width: 79px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;"
+																		aria-label="금액: activate to sort column ascending">
+																		<div class="dataTables_sizing"
+																			style="height:0;overflow:hidden;">금액</div>
+																	</th>
+																	<th class="dt-body-right sorting"
+																		aria-controls="slGrid" rowspan="1" colspan="1"
+																		style="width: 79px; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;"
+																		aria-label="부가세: activate to sort column ascending">
+																		<div class="dataTables_sizing"
+																			style="height:0;overflow:hidden;">부가세</div>
+																	</th>
+																</tr>
+															</thead>
+
+
+															<tbody>
+																<tr role="row" class="odd">
+																	<td class="sorting_1"></td>
+																	<td>2019-06-29</td>
+																	<td class=" dt-body-left">상품매입비</td>
+																	<td class=" dt-body-left">GS25궁동상지점</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">2,000</td>
+																	<td class=" dt-body-right">200</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-left">~6838</td>
+																</tr>
+																<tr role="row" class="even">
+																	<td class="sorting_1"></td>
+																	<td>2019-06-28</td>
+																	<td class=" dt-body-left">기타</td>
+																	<td class=" dt-body-left">롯데리아 서대문역</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">2,818</td>
+																	<td class=" dt-body-right">282</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-left">~6838</td>
+																</tr>
+																<tr role="row" class="odd">
+																	<td class="sorting_1"></td>
+																	<td>2019-06-28</td>
+																	<td class=" dt-body-left">기타</td>
+																	<td class=" dt-body-left">충남식품</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">8,181</td>
+																	<td class=" dt-body-right">819</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-left">~6838</td>
+																</tr>
+																<tr role="row" class="even">
+																	<td class="sorting_1"></td>
+																	<td>2019-06-28</td>
+																	<td class=" dt-body-left">기타</td>
+																	<td class=" dt-body-left">(주)아워홈풍산서대문점</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">5,454</td>
+																	<td class=" dt-body-right">546</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-left">~6838</td>
+																</tr>
+																<tr role="row" class="odd">
+																	<td class="sorting_1"></td>
+																	<td>2019-06-28</td>
+																	<td class=" dt-body-left">상품매입비</td>
+																	<td class=" dt-body-left">비지에프리테일(씨유충정로역점)</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">2,909</td>
+																	<td class=" dt-body-right">291</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-left">~6838</td>
+																</tr>
+																<tr role="row" class="even">
+																	<td class="sorting_1"></td>
+																	<td>2019-06-27</td>
+																	<td class=" dt-body-left">기타</td>
+																	<td class=" dt-body-left">김밥천국</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">5,909</td>
+																	<td class=" dt-body-right">591</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-left">~6838</td>
+																</tr>
+																<tr role="row" class="odd">
+																	<td class="sorting_1"></td>
+																	<td>2019-06-27</td>
+																	<td class=" dt-body-left">기타</td>
+																	<td class=" dt-body-left">(주)아워홈동아일보충정로사옥</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">4,818</td>
+																	<td class=" dt-body-right">482</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-left">~6838</td>
+																</tr>
+																<tr role="row" class="even">
+																	<td class="sorting_1"></td>
+																	<td>2019-06-27</td>
+																	<td class=" dt-body-left">상품매입비</td>
+																	<td class=" dt-body-left">비지에프리테일(씨유충정로역점)</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">6,363</td>
+																	<td class=" dt-body-right">637</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-left">~6838</td>
+																</tr>
+																<tr role="row" class="odd">
+																	<td class="sorting_1"></td>
+																	<td>2019-06-26</td>
+																	<td class=" dt-body-left">기타</td>
+																	<td class=" dt-body-left">강남면옥</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">53,181</td>
+																	<td class=" dt-body-right">5,319</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-left">~6838</td>
+																</tr>
+																<tr role="row" class="even">
+																	<td class="sorting_1"></td>
+																	<td>2019-06-26</td>
+																	<td class=" dt-body-left">기타</td>
+																	<td class=" dt-body-left">(주)아워홈풍산서대문점</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">5,454</td>
+																	<td class=" dt-body-right">546</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-right">0</td>
+																	<td class=" dt-body-left">~6838</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</div>
+												<div class="dataTables_paginate paging_full_numbers"
+													id="slGrid_paginate"><a class="paginate_button first disabled"
+														aria-controls="slGrid" data-dt-idx="0" tabindex="0"
+														id="slGrid_first"><span class="icon first"></span><span
+															class="text">처음으로</span></a><a
+														class="paginate_button previous disabled" aria-controls="slGrid"
+														data-dt-idx="1" tabindex="0" id="slGrid_previous"><span
+															class="icon prev"></span><span
+															class="text">이전</span></a><span><a
+															class="paginate_button current" aria-controls="slGrid"
+															data-dt-idx="2" tabindex="0">1</a><a
+															class="paginate_button " aria-controls="slGrid"
+															data-dt-idx="3" tabindex="0">2</a><a
+															class="paginate_button " aria-controls="slGrid"
+															data-dt-idx="4" tabindex="0">3</a><a
+															class="paginate_button " aria-controls="slGrid"
+															data-dt-idx="5" tabindex="0">4</a><a
+															class="paginate_button " aria-controls="slGrid"
+															data-dt-idx="6" tabindex="0">5</a><a
+															class="paginate_button " aria-controls="slGrid"
+															data-dt-idx="7" tabindex="0">6</a><a
+															class="paginate_button " aria-controls="slGrid"
+															data-dt-idx="8" tabindex="0">7</a><span
+															class="ellipsis">…</span><a class="paginate_button "
+															aria-controls="slGrid" data-dt-idx="9"
+															tabindex="0">88</a></span><a class="paginate_button next"
+														aria-controls="slGrid" data-dt-idx="10" tabindex="0"
+														id="slGrid_next"><span class="icon next"></span><span
+															class="text">다음</span></a><a class="paginate_button last"
+														aria-controls="slGrid" data-dt-idx="11" tabindex="0"
+														id="slGrid_last"><span class="icon last"></span><span
+															class="text">마지막으로</span></a></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<script type="text/javascript">
+			$(document).ready(function () {
+				// 회사소개
+				$(".nicednr").click(function () {
+					window.open("http://www.nicednr.co.kr");
+					return false;
+				});
+
+				// 제휴문의
+				$(".UG_A0411").click(function () {
+					fancybox_open_width("/ug/UG_A0411.html", "700px", "", "yes", false);
+					return false;
+				});
+
+				// 개인정보처리방침
+				$(".UG_A0131").click(function () {
+					fancybox_open_width("/ug/UG_A0131.html", "700px", "", "yes", false);
+					return false;
+				});
+
+				// 이용약관
+				$(".UG_A0121").click(function () {
+					fancybox_open_width("/ug/UG_A0121.html", "700px", "", "yes", false);
+					return false;
+				});
+
+				// 고객센터
+				$(".UG_A0111").click(function () {
+					f_location_href_nosession("/ug/UG_A0111.html");
+					return false;
+				});
+
+				// 전자세금 계산서
+				$(".tax_bill").click(function () {
+					window.open("https://www.nicebill.co.kr/cm/main.html");
+					return false;
+				});
+
+				// 휴폐업 조회
+				$(".check_biz").click(function () {
+					window.open("http://www.nicedata.co.kr/as/AS_30401.html");
+					return false;
+				});
+
+				// 서울보증보험 안내
+				$(".sgic").click(function () {
+					window.open("http://www.nicedata.co.kr/as/AS_40601.html");
+					return false;
+				});
+			});
+		</script>
+		<div id="td__footer_wrap">
+			<div class="td__footer">
+				<div class="td__footer-top">
+					<ul>
+						<li><a href="javascript:;" class="nicednr">회사소개</a></li>
+						<li><a href="javascript:;" class="UG_A0411">제휴문의</a></li>
+						<li><a href="javascript:;" class="UG_A0131"><b>개인정보처리방침</b></a></li>
+						<li><a href="javascript:;" class="UG_A0121">이용약관</a></li>
+						<li><a href="javascript:;" class="UG_A0111">고객센터</a></li>
+						<li class="mo_right">
+							<a href="https://m.taxdiet.co.kr/nm/NM_20001.html">
+								<div class="mo_img">
+									<img src="/images/td/common/ico_mobile.png" alt="">
+								</div>
+								모바일버전
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="td__footer-bottom">
+					<ul>
+						<li>NICE 디앤알(주)</li>
+						<li>대표 : 강용구</li>
+						<li class="last">통신판매업 신고번호 : 제2012-서울구로-1033호</li>
+						<li>사업자등록번호 : 107-87-08207</li>
+						<li class="last">서울특별시 서대문구 충정로 36 7층</li>
+						<li>TEL : 1588-5659</li>
+						<li class="last">FAX : 788-9001</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="common-quick-menu qm-sub">
+			<ul>
+				<li class="tax_bill">
+					<a href="#none">
+						<img src="/images/common/quick_icon_1.png" alt="전자세금계산서">
+						전자세금<br>계산서
+					</a>
+				</li>
+				<li class="check_biz">
+					<a href="#none">
+						<img src="/images/common/quick_icon_2.png" alt="휴폐업조회">
+						휴폐업<br>조회
+					</a>
+				</li>
+				<li class="sgic">
+					<a href="#none">
+						<img src="/images/common/quick_icon_3.png" alt="서울보즘보험안내">
+						서울보증보험<br>안내
+					</a>
+				</li>
+			</ul>
+		</div>
+		<!-- //footer_n -->
+		<iframe id="sessionFrame" name="sessionFrame" width="10" height="10" src="javascript:void 0;" title="로그인처리용"
+			style="display:none"></iframe>
+		<script type="text/javascript" src="/js/imageChecker.js"></script>
+		<script type="text/javascript">
+			var title = document.title;
+			document.title = title + ".";
+
+
+
+			ImageNotExistProcess.process("boardBox");
+		</script>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-36649342-23"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-36649342-23');
+		</script>
+	</div>
+
+</body>
+
+</html>

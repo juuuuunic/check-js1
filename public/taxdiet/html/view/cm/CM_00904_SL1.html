@@ -1,0 +1,350 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>택스다이어트: CM_00904_SL1(우편번호검색)</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="/css/soho_default.css">
+<script src="/js/libs/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+var resultDefaultText = "<p class=\"result_text\">"
+					+ "<strong>도로명+건물번호</strong> 또는 <strong>건물명</strong> 또는 <strong>동/읍/리</strong>를 입력해주세요."
+					+ "</p>"
+					+ "<p class=\"result_text_small\">예) 세종대로 110동 또는 남정동 4-2</p>";
+$(function(){
+	$("input").keydown(function(e) {
+		if(e.keyCode == 13) { // enter key was pressed
+			$('#zipSrch').click();
+		}
+	});
+	
+	$('#zipSrch').click(function() {
+		if( validation() == false ) return false;
+		
+		$('#current_page').val(1);
+		$("input[name=siDo]").val(encodeURIComponent( $("#siDo").val() ));
+		$("input[name=siGunGu]").val(encodeURIComponent( $("#siGunGu").val() ));
+		$("input[name=srchText]").val(encodeURIComponent( $("#srchText").val() ));
+		$('#form').attr('action', '../cm/CM_00904_SL1.html').submit();	
+	});
+		
+	$("#siDo").change(function(){
+		sigunguSet( $(this).val() );
+	});
+	
+	$("#srchText").click(function(){
+		$("#resultText").html(resultDefaultText);
+	});
+	
+	init();
+	
+});
+
+
+function init(){
+	
+	var siDo = "";
+	
+    if( siDo != "" ){
+    	$("#siDo").val(siDo);
+    	sigunguSet(siDo);
+    }
+    
+    var siGunGu = "";
+    if( siGunGu == "" && siDo == "" ) activeSet( "siGunGu",   "Y" );
+	
+    var srchText = "";
+    var rsCnt = "";
+    
+    var resultText = "";
+    if( srchText != null && srchText != "" ) {
+    	
+    	//resultText += "<p><strong>\""+srchText+"\"</strong>에 대한 결과가 <strong class='co_red'>"+rsCnt+"건</strong> 검색되었습니다.</p>";
+    
+    	resultText += "<p class=\"result_text\"><strong>\""+srchText+"\"</strong>에 대한 결과가 <strong class=\"co_red\">"+rsCnt+"</strong>건 검색되었습니다.</p>";
+    	
+    	$("#resultText").html(resultText);
+    }
+    
+}
+
+function srch(){
+	
+	var srchText = $("#srchText").val();
+	//srchText = srchText.replace(/"  "/g, " ");
+	
+	$.ajax({
+		url : "../cm/CM_00904_SL4.html"
+		,type : "post"
+		,dataType : "json"
+		//,async : false
+		,data : {
+			srchText : srchText,
+			siDo 	: $("#siDo").val(),
+			siGunGu : $("#siGunGu").val(),
+			current_page : $('#current_page').val(),
+			totalSizeByArea : 0
+		}
+		,success : function(result){
+			
+			var rsList = result.rsList;
+			var item = "";
+			
+			if( $("#addrList tr").length > 0 ) {
+				$("#addrList tr").remove();
+			}
+			
+			if( rsList == null || rsList.length == 0 ){
+				item = 	"<tr>"
+					+  	"	<td colspan='3'>조회된 결과가 없습니다.</td>"
+					+	"</tr>";
+				$("#addrList").html(item);
+			} else {
+				
+				for( idx=0; idx<rsList.length; idx++){
+					var obj = rsList[idx];					
+					item += ""
+						item += "<tr>";
+						item += "	<th rowspan=\"2\" scope=\"row\">"+obj.zipCode+"</th>";
+						item += "	<td>";
+						item += "		<span class=\"address_type tp1\">도로명주소</span>";
+						item += "		<span class=\"addredd_detail\">";
+						item += "			<a href=\"javascript:selectAddr('"+obj.zipCode+"','"+obj.roadAddr+"');\" class=\"zipVal\">"+obj.roadAddr + "</a>"
+						item += "		</span>";
+						item += "	</td>";
+						item += "</tr>";
+						item += "<tr>";
+						item += "	<td>";
+						item += "		<span class=\"address_type tp2\">지번주소</span>";
+						item += "		<span class=\"addredd_detail\">"+obj.jibunAddr+"</span>";
+						item += "	</td>";
+						item += "</tr>";
+
+				}
+				$("#addrList tbody").html(item);
+			}
+			$("#pageList").html(result.PageList);
+		
+		}
+		,error : function(){
+			alert("조회 오류입니다.");
+		}
+	});
+}
+	
+function movePage(page){
+	$('#current_page').val(page);
+	srch();
+}
+
+function validation(){
+	
+	var siDo = $('#siDo').val();
+	if( siDo == "" ){
+		$("#resultText").html("시/도를 선택해주세요.");
+		return false;
+	}
+	var srchText = $("#srchText").val();
+	if( srchText.trim() == ""){
+		$("#resultText").html(resultDefaultText);
+		$("#srchText").focus();
+		return false;
+	}
+	if( srchText.trim().length <2 ){
+		$("#resultText").html("주소를 2글자 이상입력해주세요.");
+		return false;
+	}
+	
+	if( srchText.split(' ').length > 7 ){
+		$("#resultText").html("띄어쓰기는 7회까지 가능합니다.");
+		return false;
+	}
+	
+	// 검색어 Validation
+	var srchTextPtn1 = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+	if( srchTextPtn1.test(srchText) == true ){
+		$("#resultText").html("특수문자는 검색할 수 없습니다.");
+	    return false;
+	}
+	
+	var fsNumPtnTp1 = /^[0-9]*-*[0-9]*$/;
+	var fsNumPtnTp2 = /^[0-9]*$/;
+	
+	if( fsNumPtnTp1.test( srchText ) || fsNumPtnTp2.test( srchText ) ){
+		$("#resultText").html("동/읍/면/리 또는 건물명 등을 같이 입력해주세요.<br>예) 남정동 4-2");
+		return false;
+	}	
+}
+
+function activeSet( id, yn ){
+	//var text = id=="siGunGu"?"시/군/구":"읍/면"
+	var text = "시/군/구";
+	$("#"+id).attr("disabled", yn=="Y"?true:false );
+	$("#"+id).css("background-color", yn=="Y"?"#f5f5f5":"#ffffff" );
+	$("#"+id).html("<option value=''>"+text+"</option>");
+}
+
+function sigunguSet( siDo ){
+	$.ajax({
+		url : "../cm/CM_00904_SL2.html"
+		,type : "post"
+		,dataType : "json"
+		,async : false
+		,data : {
+			siDo : siDo
+		}
+		, success : function(resultData, status) {
+			
+			var list = resultData.sigunguList;
+			
+			activeSet( "siGunGu", "N" );
+			$("#siGunGu").html("");
+			var item = "";
+			if( list == null ){
+				if( $("#siDo").val() == "" ) {
+					activeSet( "siGunGu", "Y" );
+				} else {
+					item = "<option value='none'>시/군/구 없음</option>";
+					$("#siGunGu").html(item);
+				}
+			} else {
+				item = "<option value=''>시/군/구 전체</option>"; $("#siGunGu").html(item);
+				var siGunGu = "";
+				for( var i=0; i<list.length; i++ ){
+					var val = list[i];
+					var selectYn = val==siGunGu?"selected":"";  
+					item = "<option value='"+val+"' "
+						 + selectYn
+						 + " >"+val+"</option>";
+					$("#siGunGu").append(item);
+				}
+			}
+		}
+		,error : function(){
+			alert('시/군/구 검색오류');
+		}
+	});
+}
+
+function selectAddr( zipCode, addr ){
+	
+	var zipCodeId = $("#zipCodeId", opener.document).val();
+	var addrId    = $("#addrId", opener.document).val();
+	if( typeof zipCodeId != "undefined" && typeof addrId != "undefined" ){
+		if( zipCodeId != "" ){
+			$("#" + zipCodeId, opener.document).val(zipCode);	
+		}
+		if( addrId != "" ){
+			$("#" + addrId, opener.document).val(addr);	
+		}
+	}else if( typeof zipCodeId == "undefined" && typeof addrId != "undefined" ){
+		if( addrId != "" ){
+			$("#" + addrId, opener.document).val(addr);	
+		}
+	}else if( typeof zipCodeId != "undefined" && typeof addrId == "undefined" ){
+		if( zipCodeId != "" ){
+			$("#" + zipCodeId, opener.document).val(zipCode);	
+		}
+	}else{
+		$("#ozipCode", 	opener.document).val(zipCode);
+		$("#oaddr1", 	opener.document).val(addr);
+		$("#addrCls", 	opener.document).val("N");	
+	}
+	
+	self.close();
+}
+
+</script>
+</head>
+<body>
+	<form id="form" name="form" method="post">
+		<input type="hidden" name="current_page" value="1" id="current_page" />
+		<input type="text" name="temp" style="display: none;"/>
+		<div id="wrap">
+			<div class="lp-zipcode-wrap">
+				<div class="lp-header">
+					<div class="zc_title">
+						<p class="title">주소검색</p>
+					</div>
+				</div>
+				<div class="lp-container">
+					<div class="zc_search_wrap">
+						<ul>
+							<li>
+								<!-- 시/도&nbsp; --><!-- 최대7글자 -->
+								<select id="siDo" class="type1">
+									<option value="">시/도 선택</option>
+									<option value="서울특별시">서울특별시</option>
+									<option value="경기도">경기도</option>
+									<option value="인천광역시">인천광역시</option>
+									<option value="강원도">강원도</option>
+									<option value="충청북도">충청북도</option>
+									<option value="세종특별자치시">세종특별자치시</option>
+									<option value="충청남도">충청남도</option>
+									<option value="대전광역시">대전광역시</option>
+									<option value="경상북도">경상북도</option>
+									<option value="대구광역시">대구광역시</option>
+									<option value="울산광역시">울산광역시</option>
+									<option value="부산광역시">부산광역시</option>
+									<option value="경상남도">경상남도</option>
+									<option value="전라북도">전라북도</option>
+									<option value="전라남도">전라남도</option>
+									<option value="광주광역시">광주광역시</option>
+									<option value="제주특별자치도">제주특별자치도</option>
+									</select>
+								<input type="hidden" name="siDo" />
+							</li>
+							<li>
+								<!-- 시/군/구&nbsp; --><!-- 최대9글자 -->
+								<select id="siGunGu" class="type2">
+									<option value="">시/군/구</option>
+								</select>
+								<input type="hidden" name="siGunGu" />
+							</li>
+							<li>
+								<input type="text" id="srchText" size="35" value="" placeholder="예) 세종대로 110 또는 남정동 4-2"/>
+								<input type="hidden" name="srchText" />
+							</li>
+							<li>
+								<input type="button" id="zipSrch" value="검색" class="base_btn_color dark">
+							</li>
+						</ul>
+					</div>
+					<div class="zc_result_wrap">
+						<div class="zc_result active">
+							<div class="zc_result_text_wrap" id="resultText">
+								<p class="result_text">
+									<strong>도로명+건물번호</strong> 또는 <strong>건물명</strong> 또는 <strong>동/읍/리</strong>를 입력해주세요.
+								</p>
+								<p class="result_text_small">
+									예) 세종대로 110동 또는 남정동 4-2
+								</p>
+							</div>
+						</div>
+						
+						<div class="zc_result">
+							<div class="zc_result_text_wrap">
+								<p class="result_text">
+									<strong>"수유로"</strong>에 대한 결과가 <strong class="co_red">523</strong>건 검색되었습니다.
+								</p>
+							</div>
+						</div>
+						
+					</div>
+					<div class="zc_table_wrap active">
+						<table id="addrList" width="100%" class="zc_table" summary="주소가 우편번호, 도로명주소, 지번주소 순으로 되어있다.">
+							<caption>주소검색 내역</caption>
+							<colgroup>
+								<col width="15%">
+								<col width="85%">
+							</colgroup>
+							<tbody>
+								</tbody>
+						</table>
+						</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</body>
+</html>

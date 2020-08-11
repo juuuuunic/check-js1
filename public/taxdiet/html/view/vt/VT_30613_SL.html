@@ -1,0 +1,383 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots"      content="noindex,nofollow" />
+<meta name="language"    content="ko" />
+<meta name="copyright"   content="copyrights 2019 NICE Data" />
+<meta name="author"      content="NICE Data" />
+<title>택스다이어트: 30311(부가가치세자가신고>신고서작성-1>관할세무서찾기)</title>
+
+<link rel="stylesheet" type="text/css" href="/css/default.css">
+<link rel="stylesheet" type="text/css" href="/css/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/soho_default.css">
+<link rel="stylesheet" type="text/css" href="/css/soho_sub_default.css">
+
+<!--  공통 -->
+<script src="/js/libs/jquery-1.11.1.min.js"></script>
+<script src="/js/niceCommon.js"></script>
+<script src="/js/common-util.js"></script>
+<script src="/js/libs/jquery.fancybox.js"></script>
+<script src="/js/libs/jquery.placeholder.js"></script>
+<script src="/js/libs/jquery-ui.js"></script>
+<script src="/js/moment.js"></script>
+
+<script src="/js/libs/jquery.dialog.min.js"></script>
+
+<script src="/js/common.js"></script>
+<script src="/js/progress.js"></script>
+<script src="/js/browserVersion.js"></script>
+<script src="/js/libs/jquery.easing.1.3.js"></script>
+<script src="/js/libs/jquery.mask.js"></script>
+
+<script src="/js/libs/jquery.cookie.js"></script>
+<script src="/js/cookie.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+
+<script type="text/javascript">
+
+$(function(){
+	// gnb 로고 옆에 현재 머물고 있는 1뎁스 메뉴 표시
+	$("ul.gnb_depth1 > li").each(function(index){
+		if($(this).attr("class") == "on"){
+			$("div.logo-wrap > h2").html($(this).text().trim());
+		}
+	})
+	
+	
+	// 로그아웃
+	$(document).on("click", ".btn_logout", function(data){
+		if (confirm("로그아웃 하시겠습니까?")) {
+			
+			var $form = $("<form/>",{id:"logoutForm",method:"post", action:"../cm/nTdLogout.html"});
+			$("body").append($form);
+			$form.submit();
+		}
+	});
+	
+	
+	$("#loginBtn").click(function(){
+		if($.trim($("#membId").val()) == "") {
+			alert("회원아이디를 입력하세요.");
+			$("#membId").focus();
+			return false;
+		}
+		
+		if($.trim($("#pswd").val()) == "") {
+			alert("비밀번호를 입력하세요.");
+			$("#pswd").focus();
+			return false;
+		}
+
+		$.removeCookie("saveid", {path : '/'});
+
+		if ($("#chk_save_id").prop("checked")) {
+			$.cookie("saveid", $.trim($("#membId").val()), {expires: 365, path : '/'});
+		}
+
+		doLogin();
+
+		return false;
+	});
+
+	
+	$("#btn_login").click(function(){
+
+		var param	= "";
+		
+		
+		param = "7F2227421532331D000D26173151566C0737";
+
+		location.href="../cm/nTdLogin.do?returnURL=" + param;
+	});
+	
+	$("#loginForm input[name=pswd]").keyup(function(e) {
+		if (e.keyCode == KeyCode.ENTER) {
+			$("#loginBtn").click();
+		}
+	});
+	
+	
+	$(".btn_joinMember").click(function(){
+		
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A2D5910065E0016262341250F130D2100204935215D3F07" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+});
+	
+function fnLayerClose(){
+	try{
+		parent.$.fancybox.close();
+	}catch(exception){}
+}
+var membEtcRefresh = function(){
+	$.post("../cm/CM_00001_UP1.html", "", "");
+}
+var isLogin = function(){
+	
+			return true;
+				
+}
+
+// 미사용
+function fnLogin(returnURL){
+	if(!isLogin()){
+		var msg	= "로그인이 필요합니다.\n회원이 아니시면 회원가입을 해주시기 바랍니다.";
+		
+		alert(msg);
+		
+		if(typeof(returnURL) == "undefined") {
+			returnURL = location.pathname;
+		}
+
+		location.href = "../cm/nTdLogin.do?returnURL="+returnURL;
+		
+		return false;
+	}
+	return true;
+}
+
+function fnIeLimitCheck(){
+	var limitVersion	= 8;
+	var ieVersion		= getIeVersion();
+
+	if(getCookie("NoMoreBrowserPopup") != "yes"){
+		if(ieVersion){
+			if(ieVersion <= limitVersion){
+				WindowUtil.open({
+					  windowURL		: "/popup/popup_ieWarning.html"
+					, windowName	: "popup_browserWarning"
+					, width			: 600
+					, height		: 741
+				});
+			}
+		}
+	}
+}
+
+function doLogin() {
+	if($("#loginForm > input#redirectURL").length === 0){
+		$("<input>").attr({
+			  type	: "hidden"
+			, id	: "redirectURL"
+			, name	: "redirectURL"
+			, value : "https://t-renewal.taxdiet.co.kr/my/MY_B0111.html"
+		}).appendTo("#loginForm");
+	}
+	else if ($("#redirectURL").val()=="") {
+		$("#redirectURL").val("https://t-renewal.taxdiet.co.kr/my/MY_B0111.html");
+	}
+	else {
+		$("#redirectURL").val(location.href);	
+	}
+
+	if ($("#returnURL").val() != "") {
+		$("#redirectURL").val("");
+	}
+
+	$("#loginForm").attr("action", "../cm/nTdSsoLoginProc.html");
+	$("#loginForm").attr("target", "_self");
+	$("#loginForm").submit();
+}
+</script>
+<script type="text/javascript" src="/js/ta_common.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#btnSearch").click(function() {
+		
+		var schTxtVal = $("#schTxt").val();
+		if($.trim(schTxtVal).length < 2) {
+			alert("검색어는 두글자이상 입력해야 합니다.");
+			$("#schTxt").focus();
+		} else {
+			f_form_submit("../vt/VT_30613_SL.html", "7F2227421532331D000D263B40013B");
+		}
+
+		return false;
+	});
+
+	// 엔터키 검색
+	$("#schTxt").on("keypress", function(e) { 
+		if(e.keyCode == 13) {
+			$("#btnSearch").click();
+		}
+	});
+	
+	$(".taxOffcNm").click(function() {
+		var taxOffcNo = $(this).closest("tr").find(".taxOffcNo").val();
+		parent.fn.setTaxOffc(taxOffcNo, $(this).text());
+	});
+});
+
+</script>
+</head>
+<body>
+  <form id="form" name="form" method="post">
+    <div class="lp-ta-wrap">
+        <div class="lp-header">
+            <p>관할세무서 찾기</p>
+        </div>
+        <div class="lp-container">
+            <div class="ta-pull-block">
+                <div class="pull-right">
+                	<input type="text" style="display: none;" />
+                    <input type="text" name="schTxt" id="schTxt" value="" class="width-170">
+                    <input type="button" value="조회" id="btnSearch" class="base_btn_color middle width-110">
+                </div>
+            </div>
+            <div class="lp-ta-content">
+                <div class="ta-list-table ta-table-scroll">
+                    <table>
+                        <colgroup>
+                            <col style="width:90px">
+                            <col style="width:80px">
+                            <col style="width:80px">
+                            <col style="width:70px">
+                            <col style="width:*">
+                            <col style="width:90px">
+                        </colgroup>
+                        <thead>
+                            <th>시도</th>
+                            <th>시군구</th>
+                            <th>읍면동</th>
+                            <th>리</th>
+                            <th>관할세무서</th>
+                            <th>법정동코드</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                                <td style="text-align: left">대전광역시</td>
+                                <td style="text-align: left">동구</td>
+                                <td style="text-align: left">장척동</td>
+                                <td style="text-align: left"></td>
+                                <td style="text-align: left">
+                                	<a href="javascript:;" class="taxOffcNm">대전</a>
+                                	<input type="hidden" name="taxOffcNo" value="305" class="taxOffcNo">
+                                </td>
+                                <td style="text-align: left">3011014000</td>
+                            </tr>
+                          <tr>
+                                <td style="text-align: left">대전광역시</td>
+                                <td style="text-align: left">동구</td>
+                                <td style="text-align: left">소호동</td>
+                                <td style="text-align: left"></td>
+                                <td style="text-align: left">
+                                	<a href="javascript:;" class="taxOffcNm">대전</a>
+                                	<input type="hidden" name="taxOffcNo" value="305" class="taxOffcNo">
+                                </td>
+                                <td style="text-align: left">3011014100</td>
+                            </tr>
+                          <tr>
+                                <td style="text-align: left">대전광역시</td>
+                                <td style="text-align: left">동구</td>
+                                <td style="text-align: left">구도동</td>
+                                <td style="text-align: left"></td>
+                                <td style="text-align: left">
+                                	<a href="javascript:;" class="taxOffcNm">대전</a>
+                                	<input type="hidden" name="taxOffcNo" value="305" class="taxOffcNo">
+                                </td>
+                                <td style="text-align: left">3011014200</td>
+                            </tr>
+                          <tr>
+                                <td style="text-align: left">대전광역시</td>
+                                <td style="text-align: left">동구</td>
+                                <td style="text-align: left">삼괴동</td>
+                                <td style="text-align: left"></td>
+                                <td style="text-align: left">
+                                	<a href="javascript:;" class="taxOffcNm">대전</a>
+                                	<input type="hidden" name="taxOffcNo" value="305" class="taxOffcNo">
+                                </td>
+                                <td style="text-align: left">3011014300</td>
+                            </tr>
+                          <tr>
+                                <td style="text-align: left">대전광역시</td>
+                                <td style="text-align: left">동구</td>
+                                <td style="text-align: left">상소동</td>
+                                <td style="text-align: left"></td>
+                                <td style="text-align: left">
+                                	<a href="javascript:;" class="taxOffcNm">대전</a>
+                                	<input type="hidden" name="taxOffcNo" value="305" class="taxOffcNo">
+                                </td>
+                                <td style="text-align: left">3011014400</td>
+                            </tr>
+                          <tr>
+                                <td style="text-align: left">대전광역시</td>
+                                <td style="text-align: left">동구</td>
+                                <td style="text-align: left">하소동</td>
+                                <td style="text-align: left"></td>
+                                <td style="text-align: left">
+                                	<a href="javascript:;" class="taxOffcNm">대전</a>
+                                	<input type="hidden" name="taxOffcNo" value="305" class="taxOffcNo">
+                                </td>
+                                <td style="text-align: left">3011014500</td>
+                            </tr>
+                          <tr>
+                                <td style="text-align: left">대전광역시</td>
+                                <td style="text-align: left">중구</td>
+                                <td style="text-align: left">은행동</td>
+                                <td style="text-align: left"></td>
+                                <td style="text-align: left">
+                                	<a href="javascript:;" class="taxOffcNm">대전</a>
+                                	<input type="hidden" name="taxOffcNo" value="305" class="taxOffcNo">
+                                </td>
+                                <td style="text-align: left">3014010100</td>
+                            </tr>
+                          <tr>
+                                <td style="text-align: left">대전광역시</td>
+                                <td style="text-align: left">중구</td>
+                                <td style="text-align: left">선화동</td>
+                                <td style="text-align: left"></td>
+                                <td style="text-align: left">
+                                	<a href="javascript:;" class="taxOffcNm">대전</a>
+                                	<input type="hidden" name="taxOffcNo" value="305" class="taxOffcNo">
+                                </td>
+                                <td style="text-align: left">3014010200</td>
+                            </tr>
+                          <tr>
+                                <td style="text-align: left">대전광역시</td>
+                                <td style="text-align: left">중구</td>
+                                <td style="text-align: left">목동</td>
+                                <td style="text-align: left"></td>
+                                <td style="text-align: left">
+                                	<a href="javascript:;" class="taxOffcNm">대전</a>
+                                	<input type="hidden" name="taxOffcNo" value="305" class="taxOffcNo">
+                                </td>
+                                <td style="text-align: left">3014010300</td>
+                            </tr>
+                          <tr>
+                                <td style="text-align: left">대전광역시</td>
+                                <td style="text-align: left">중구</td>
+                                <td style="text-align: left">중촌동</td>
+                                <td style="text-align: left"></td>
+                                <td style="text-align: left">
+                                	<a href="javascript:;" class="taxOffcNm">대전</a>
+                                	<input type="hidden" name="taxOffcNo" value="305" class="taxOffcNo">
+                                </td>
+                                <td style="text-align: left">3014010400</td>
+                            </tr>
+                          </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="lp-ta-btn-wrap">
+                <input type="button" data-fancybox-close value="닫기" class="base_btn_color gray width-90 lp-ta-close" onclick="parent.$.fancybox.close();">
+            </div>
+        </div>
+    </div>
+  </form>
+</body>
+</html>

@@ -1,0 +1,1114 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots"      content="noindex,nofollow" />
+<meta name="language"    content="ko" />
+<meta name="copyright"   content="copyrights 2019 NICE Data" />
+<meta name="author"      content="NICE Data" />
+<title>택스다이어트: VR_03007(부가세환급지원>부가세환급지원)</title>
+
+<link rel="stylesheet" type="text/css" href="/css/default.css">
+<link rel="stylesheet" type="text/css" href="/css/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/soho_default.css">
+<link rel="stylesheet" type="text/css" href="/css/soho_sub_default.css">
+
+<!--  공통 -->
+<script src="/js/libs/jquery-1.11.1.min.js"></script>
+<script src="/js/niceCommon.js"></script>
+<script src="/js/common-util.js"></script>
+<script src="/js/libs/jquery.fancybox.min.js"></script>
+<script src="/js/libs/jquery.placeholder.min.js"></script>
+<script src="/js/libs/jquery-ui.min.js"></script>
+<script src="/js/moment.min.js"></script>
+
+<script src="/js/libs/jquery.dialog.min.js"></script>
+
+<script src="/js/common.js"></script>
+<script src="/js/progress.min.js"></script>
+<script src="/js/browserVersion.min.js"></script>
+<script src="/js/libs/jquery.easing.1.3.min.js"></script>
+<script src="/js/libs/jquery.mask.min.js"></script>
+
+<script src="/js/libs/jquery.cookie.min.js"></script>
+<script src="/js/cookie.min.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+
+<script type="text/javascript">
+
+$(function(){
+	// gnb 로고 옆에 현재 머물고 있는 1뎁스 메뉴 표시
+	$("ul.gnb_depth1 > li").each(function(index){
+		if($(this).attr("class") == "on"){
+			$("div.logo-wrap > h2").html($(this).text().trim());
+		}
+	})
+	
+	
+	// 로그아웃
+	$(document).on("click", ".btn_logout", function(data){
+		if (confirm("로그아웃 하시겠습니까?")) {
+			
+			var $form = $("<form/>",{id:"logoutForm",method:"post", action:"../cm/nTdLogout.html"});
+			$("body").append($form);
+			$form.submit();
+		}
+	});
+	
+	
+	$("#loginBtn").click(function(){
+		if($.trim($("#membId").val()) == "") {
+			alert("회원아이디를 입력하세요.");
+			$("#membId").focus();
+			return false;
+		}
+		
+		if($.trim($("#pswd").val()) == "") {
+			alert("비밀번호를 입력하세요.");
+			$("#pswd").focus();
+			return false;
+		}
+
+		$.removeCookie("saveid", {path : '/'});
+
+		if ($("#chk_save_id").prop("checked")) {
+			$.cookie("saveid", $.trim($("#membId").val()), {expires: 365, path : '/'});
+		}
+
+		doLogin();
+
+		return false;
+	});
+
+	
+	$("#btn_login").click(function(){
+
+		var param	= "";
+		
+		
+		param = "7F220B42157233061B17111540013B";
+
+		location.href="../cm/nTdLogin.do?returnURL=" + param;
+	});
+	
+	$("#loginForm input[name=pswd]").keyup(function(e) {
+		if (e.keyCode == KeyCode.ENTER) {
+			$("#loginBtn").click();
+		}
+	});
+	
+	
+	$(".btn_joinMember").click(function(){
+		
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A16010741200D152A3E062545033D5E220C" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+});
+	
+function fnLayerClose(){
+	try{
+		parent.$.fancybox.close();
+	}catch(exception){}
+}
+var membEtcRefresh = function(){
+	$.post("../cm/CM_00001_UP1.html", "", "");
+}
+var isLogin = function(){
+	
+			return true;
+				
+}
+
+// 미사용
+function fnLogin(returnURL){
+	if(!isLogin()){
+		var msg	= "로그인이 필요합니다.\n회원이 아니시면 회원가입을 해주시기 바랍니다.";
+		
+		alert(msg);
+		
+		if(typeof(returnURL) == "undefined") {
+			returnURL = location.pathname;
+		}
+
+		location.href = "../cm/nTdLogin.do?returnURL="+returnURL;
+		
+		return false;
+	}
+	return true;
+}
+
+function fnIeLimitCheck(){
+	var limitVersion	= 8;
+	var ieVersion		= getIeVersion();
+
+	if(getCookie("NoMoreBrowserPopup") != "yes"){
+		if(ieVersion){
+			if(ieVersion <= limitVersion){
+				WindowUtil.open({
+					  windowURL		: "/popup/popup_ieWarning.html"
+					, windowName	: "popup_browserWarning"
+					, width			: 600
+					, height		: 741
+				});
+			}
+		}
+	}
+}
+
+function doLogin() {
+	if($("#loginForm > input#redirectURL").length === 0){
+		$("<input>").attr({
+			  type	: "hidden"
+			, id	: "redirectURL"
+			, name	: "redirectURL"
+			, value : "https://www.taxdiet.co.kr/my/MY_B0111.html"
+		}).appendTo("#loginForm");
+	}
+	else if ($("#redirectURL").val()=="") {
+		$("#redirectURL").val("https://www.taxdiet.co.kr/my/MY_B0111.html");
+	}
+	else {
+		$("#redirectURL").val(location.href);	
+	}
+
+	if ($("#returnURL").val() != "") {
+		$("#redirectURL").val("");
+	}
+
+	$("#loginForm").attr("action", "../cm/nTdSsoLoginProc.html");
+	$("#loginForm").attr("target", "_self");
+	$("#loginForm").submit();
+}
+</script>
+<script type="text/javascript">
+var isDetail = "";
+
+$(document).ready(function(){
+	// 거래일자 마스크
+	$(".input_date").mask("9999-99-99");
+
+	isDetail = "";
+
+	$(".searchGbn").click(function() {
+		var radioValue = $(this).val();
+
+		if (radioValue == "day") {
+			hideExclude("change-day");
+		} else if (radioValue == "month") {
+			hideExclude("change-month");
+		} else if (radioValue == "qurt") {
+			hideExclude("change-quarter");
+		}
+	});
+
+	
+	$("#srchBtn").click(function(){
+		$(".input_date").mask("00000000");	//날짜 포멧 제거
+
+		if($(":radio[name='searchGbn']:checked").val() == "day") {
+			if(!isValidYMD($("#calendar1").val(), $("#calendar2").val())){
+				$(".input_date").mask("9999-99-99");
+				return false;
+			}
+		}
+
+		// 환급분류
+		var vatTarSetVluList = "";
+
+		$("input:checkbox[name='vatTarSetVluBtn']").each(function() {
+			if(this.checked){
+				vatTarSetVluList += "," + $(this).val();
+			}
+		});
+
+		vatTarSetVluList = vatTarSetVluList.substring(1);
+
+		$("#vatTarSetVluList").val(vatTarSetVluList);
+		$("#isDetail").val(isDetail);
+		$("#orderName").val("");
+		$("#orderGbn").val("");
+
+		movePage("1");
+	});
+
+	
+		$(".txptCls").show();
+	
+
+ 	// 출력
+	$(".tax_print").click(function(){
+	    if (getIeVersion()) {
+			progress.start();
+
+			// Session Check후 정상일때 url호출
+			$.post("../cm/CM_SESSION_VALID.html", "", function(result) {
+			    progress.stop();
+
+				if (result.status) {
+					$(".input_date").mask("00000000");	//날짜 포멧 제거
+
+					if($(".searchGbn").val() == "day"){
+						$("#inqStrtDt").val(document.form.srchInsDtFrom.value);
+						$("#inqEndDt").val(document.form.srchInsDtTo.value);
+
+						if(!isValidYMD(document.form.srchInsDtFrom.value, document.form.srchInsDtTo.value)){
+							$(".input_date").mask("9999-99-99");
+							return false;
+						}
+					}
+
+					WindowUtil.open({
+				  		windowURL : "",
+				    	windowName : "TAXPRINT",
+				    	width : 1000,
+				        height : 680
+					});
+
+					$("#form").attr("encoding", "application/x-www-form-urlencoded");
+			    	$("#form").attr("action", "../vr/VR_01035_PR.html");
+			    	$("#form").attr("target", "TAXPRINT");
+			    	$("#form").submit();
+
+			    	$(".input_date").mask("9999-99-99");
+				}
+				else {
+					alert(result.status_msg);
+
+					f_go_login("7F220B42157233061B17111540013B");
+				}
+			}, "json")
+			.fail(function(request,status,error){
+		   		var errorMsg = "code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error;
+
+		   		console.log(errorMsg);
+
+				progress.stop();
+
+				alert(error);
+			});
+	    }
+	    else {
+	    	alert("출력기능은 IE 브라우저에서만 지원합니다.");
+	    }
+
+		return false;
+	});
+
+	
+	var userTxptCls = "V101";	// 사용자 과세유형
+
+	$(".vat_change_popup").click(function() {
+	    if(userTxptCls == "V155"){
+	    	alert("면세사업자에게는 제공되지 않은 서비스입니다.");
+	    	return false;
+	    }
+
+	   	var chknum = $(".check_change:checked").length;
+
+	   	if(chknum == 0){
+			alert("처리할 항목이 없습니다.");
+	   		return false;
+	   	}
+
+	   	$("#isDetail").val(isDetail);
+
+	   	fancybox_open_width("../vr/VR_01022_SL.html", "500px", "7F220B42157233061B17111540013B", "yes");
+   	});
+
+	
+	$(".excel_down_popup").click(function() {
+		var param = "";
+
+		$(".input_date").mask("00000000");	//날짜 포멧 제거
+
+		param += "../vr/VR_03007_SL1.html";
+		param += f_from_data();
+
+	   	fancybox_open_width(param, "500px", "7F220B42157233061B17111540013B", "yes");
+
+    	$(".input_date").mask("9999-99-99");
+	});
+
+	
+	$(".hometax_cert_popup").click(function() {
+		var param = "";
+
+		$(".input_date").mask("00000000");	//날짜 포멧 제거
+
+		param += "../vr/VR_03007_SL2.html";
+		param += f_from_data();
+
+	   	fancybox_open_width(param, "750px", "7F220B42157233061B17111540013B", "yes", true, "auto");
+
+    	$(".input_date").mask("9999-99-99");
+	});
+
+  	
+   	$("#check_all").click(function() {
+   		if($(this).is(":checked")) {
+   			$(".check_change:not(:disabled)").prop("checked", true);
+   		}
+   		else {
+   			$(".check_change").prop("checked", false);
+   		}
+   	});
+
+   	
+   	$(".check_change").click(function(){
+   		var allCnt     = $(".check_change:not(:disabled)").length;
+   		var checkedCnt = $(".check_change:not(:disabled):checked").length;
+
+   		if(allCnt == checkedCnt){
+   			$("#check_all").prop("checked", true);
+   		}
+   		else {
+   			$("#check_all").prop("checked", false);
+   		}
+   	});
+
+	// 부가세 대상여부 지정
+	$(".selectVatTarSetVlu").change(function() {
+		var $this_tr		 = $(this).closest("tr");
+		var bef_vatTarSetVlu = $this_tr.find(".bef_vatTarSetVlu").val();		
+		var h_vatTarSetVlu	 = $this_tr.find(".selectVatTarSetVlu").val();		
+		var h_prcs_dttm		 = $this_tr.find(".h_prcs_dttm").val();				
+		var h_prcs_srno		 = $this_tr.find(".h_prcs_srno").val();				
+		var h_use_amt		 = $this_tr.find(".h_use_amt").val();				
+		var h_service_charge = $this_tr.find(".h_service_charge").val();		
+    	var h_prsn_corp_cls  = $this_tr.find(".h_prsn_corp_cls").val();
+    	var h_appr_no 		 = $this_tr.find(".h_appr_no").val();
+    	var h_card_comp_cls  = $this_tr.find(".h_card_comp_cls").val();    	
+		var rpstIndsCode	 = $this_tr.find(".rpst_inds_code").val();			
+		var pgYn			 = $this_tr.find(".pgYn").val();					
+		var carYn			 = $this_tr.find(".carYn").val();					
+
+		$("#h_vatTarSetVlu").val(h_vatTarSetVlu);			
+		$("#h_prcsDttm").val(h_prcs_dttm);					
+		$("#h_prcsSrno").val(h_prcs_srno);					
+		$("#h_useAmt").val(h_use_amt);						
+		$("#h_serviceCharge").val(h_service_charge);		
+		$("#h_prsnCorpCls").val(h_prsn_corp_cls);
+		$("#h_appr_no").val(h_appr_no);
+		$("#h_card_comp_cls").val(h_card_comp_cls);
+
+		if(bef_vatTarSetVlu == "002" && h_vatTarSetVlu == "001") {
+			if (!confirm("				 부가세대상여부를 변경하시겠습니까?\n[승차권,항공권,입장권,유흥주점,골프연습장,보험료,금융거래수수료,\n  이미용,목욕 등 사용분은 매입세액이 불공제 됩니다.]")){
+				$this_tr.find(".selectVatTarSetVlu").val(bef_vatTarSetVlu);
+				return false;
+			}
+		}
+		else if(carYn == "Y" && (bef_vatTarSetVlu == "002" || bef_vatTarSetVlu == "003") && h_vatTarSetVlu == "001") {
+			if (!confirm("						   부가세대상여부를 변경하시겠습니까?\n[개별소비세(舊, 특별소비세)가 부과되는 차량 관련 사용분은 매입세액이 불공제 됩니다.]")) {
+				$this_tr.find(".selectVatTarSetVlu").val(bef_vatTarSetVlu);
+				return false;
+			}
+		}
+		else if(h_vatTarSetVlu == "004") {
+			if (!confirm("당해 거래가 농,축,수,임산물이 맞습니까?")) {
+				h_vatTarSetVlu = "002";
+				$("#h_vatTarSetVlu").val(h_vatTarSetVlu);
+			}
+			else {
+				if(pgYn == "Y" && (bef_vatTarSetVlu == "002" || bef_vatTarSetVlu == "003" || bef_vatTarSetVlu == "004") && (h_vatTarSetVlu == "001" || h_vatTarSetVlu == "004")) {
+					// 실거래처 입력팝업 호출
+					f_cust_reg_pop();
+
+					$this_tr.find(".selectVatTarSetVlu").val(bef_vatTarSetVlu);
+					return false;
+				}
+			}
+		}
+		else {			
+			if (!confirm("부가세대상여부를 변경하시겠습니까?")) {
+				$this_tr.find(".selectVatTarSetVlu").val(bef_vatTarSetVlu);	
+				return false;
+			}
+		}
+
+		
+		if((h_vatTarSetVlu == "001" || h_vatTarSetVlu == "004") && (rpstIndsCode == "006" || rpstIndsCode == "057")) {
+			// 실거래처 입력팝업 호출
+			f_cust_reg_pop();
+
+			$this_tr.find(".selectVatTarSetVlu").val(bef_vatTarSetVlu);
+
+			return false;
+		}
+
+		f_post_submit("../vr/VR_01001_UP3.html", "7F220B42157233061B17111540013B", "f_call_result1");
+
+		return false;
+	});
+
+	
+	$(".aff_corp_info_popup").click(function() {
+	   	var $this_tr = $(this).closest("tr");
+		var param = "";
+
+		param += "../vr/VR_01019_SL.html";
+		param += "?prcsYmd=" + $this_tr.find(".h_prcs_dttm").val();
+		param += "&prcsDttm=" + $this_tr.find(".h_prcs_dttm").val();
+		param += "&prcsSrno=" + $this_tr.find(".h_prcs_srno").val();
+		param += "&h_vatTarSetVlu=" + $this_tr.find(".bef_vatTarSetVlu").val();
+		param += "&h_prcsDttm=" + $this_tr.find(".h_prcs_dttm").val();
+		param += "&h_prcsSrno=" + $this_tr.find(".h_prcs_srno").val();
+		param += "&h_useAmt=" + $this_tr.find(".h_use_amt").val();
+		param += "&h_serviceCharge=" + $this_tr.find(".h_service_charge").val();
+		param += "&h_prsnCorpCls=" + $this_tr.find(".h_prsn_corp_cls").val();
+		param += "&h_appr_no=" + $this_tr.find(".h_appr_no").val();
+		param += "&h_card_comp_cls=" + $this_tr.find(".h_card_comp_cls").val();
+		param += "&search_type=1";
+
+	   	fancybox_open_width(param, "740px", "7F220B42157233061B17111540013B", "yes", true, "auto");
+	});
+
+	$("select[name='demmUseYn']").change(function(){
+		var demmUseYn = $(this).val();
+
+		
+		if(demmUseYn == "Y"){
+			var trElem = $(this).closest("tr");
+
+			if(trElem.find(".selectVatTarSetVlu").val() != "004"){
+				trElem.find(".selectVatTarSetVlu").val("004");
+				trElem.find(".selectVatTarSetVlu").change();
+			}
+		}
+		
+	});
+	
+});
+
+$(window).load(function(){
+	// 조회기간 설정
+	$("input:radio[name=searchGbn]:checked").click();
+
+	// 환급분류
+	var splitCode = $("#vatTarSetVluList").val().split(",");
+
+	for (var idx in splitCode) {
+		$("input:checkbox[name='vatTarSetVluBtn'][value=" + splitCode[idx] + "]").prop("checked", true);
+	}
+});
+
+function orderBy(param){
+	if($("#orderName").val() == param){
+		if($("#orderGbn").val() == "" || $("#orderGbn").val() == "DESC"){
+			$("#orderGbn").val("ASC");
+		}else{
+			$("#orderGbn").val("DESC");
+		}
+	}else{
+		$("#orderGbn").val("ASC");
+	}
+
+	$("#orderName").val(param);
+
+	movePage(1);
+}
+
+function movePage(page){
+	$(".input_date").mask("00000000");	//날짜 포멧 제거
+
+	$("#current_page").val(page);
+	$("#form").attr("target", "_self");
+
+	f_form_submit_nosession("../vr/VR_03007.html");
+}
+
+function f_from_data() {
+	var param = "";
+
+	param += "?searchGbn=" + $(":radio[name='searchGbn']:checked").val();
+	param += "&srchInsDtFrom=" + $("#calendar1").val();
+	param += "&srchInsDtTo=" + $("#calendar2").val();
+	param += "&searchYear=" + $("#search_year").val();
+	param += "&searchMonth=" + $("#search_month").val();
+	param += "&qurtSearchYear=" + $("#qurt_search_year").val();
+	param += "&qurtSearchMonth=" + $("#qurt_search_month").val();
+	param += "&cardCompClsNo=" + $("#cardCompClsNo").val();
+	param += "&affCorpName=" + $("#affCorpName").val();
+	param += "&inqStrtDt=" + $("#inqStrtDt").val();
+	param += "&inqEndDt=" + $("#inqEndDt").val();
+	param += "&isDetail=" + $("#isDetail").val();
+	param += "&h_vatTarSetVlu=" + $("#h_vatTarSetVlu").val();
+	param += "&current_page=" + $("#current_page").val();
+	param += "&orderName=" + $("#orderName").val();
+	param += "&orderGbn=" + $("#orderGbn").val();
+	param += "&vatTarSetVluList=" + $("#vatTarSetVluList").val();
+
+	return param;
+}
+
+// 실거래처등록
+function f_cust_reg_pop() {
+	var w = 800;
+	var h = 800;
+	var winPos = f_open_window_pos(w, h);
+	var left = winPos[0];
+	var top = winPos[1];
+	var uri = "";
+
+	uri += "../vr/VR_02101_SL.html";
+	uri += "?prcsYmd=" + $("#h_prcsDttm").val();
+	uri += "&prcsSrno=" + $("#h_prcsSrno").val();
+	uri += "&h_vatTarSetVlu=" + $("#h_vatTarSetVlu").val();
+	uri += "&h_prcsDttm=" + $("#h_prcsDttm").val();
+	uri += "&h_prcsSrno=" + $("#h_prcsSrno").val();
+	uri += "&h_useAmt=" + $("#h_useAmt").val();
+	uri += "&h_serviceCharge=" + $("#h_serviceCharge").val();
+	uri += "&h_prsnCorpCls=" + $("#h_prsnCorpCls").val();
+	uri += "&h_appr_no=" + $("#h_appr_no").val();
+	uri += "&search_type=W";
+
+  	var options = "width=" + w + ", height=" + h + ",menubar=no,resizable=no,scrollbars=yes,status=no,toolbar=no, top=" + top + ", left=" + left;
+
+  	openDialog(uri, "newPop", options, function(newPop) {
+  		movePage($("#current_page").val());
+  	});
+}
+
+var openDialog = function(uri, name, options, closeCallback) {
+  	var newPop = window.open(uri, name, options);
+  	var interval = window.setInterval(function() {
+		try {
+			if (newPop == null || newPop.closed) {
+	        	window.clearInterval(interval);
+	            closeCallback(newPop);
+			}
+		}
+	    catch (e) {}
+	}, 1000);
+
+	if(window.focus){
+		setTimeout(function(){
+			newPop.focus();
+		}, 1000);
+	}
+
+	return newPop;
+};
+
+function f_call_result1(result) {
+	if (result.status) {
+		alert("변경되었습니다.");
+
+		$("#isDetail").val(isDetail);
+		$("#form").attr("target", "_self");
+
+		movePage($("#current_page").val());
+	}
+	else if (result.status_msg != "") {
+		alert(result.status_msg);
+	}
+	else {
+		alert("변경에 실패 하였습니다.");
+	}
+}
+</script>
+</head>
+<body>
+<script type="text/javascript">
+$(function(){
+    //메뉴  클릭시 프로그레스 처리
+    $(".logo, .mypage").find("a").click(function(){ progress.start();});
+    
+  	//메뉴  클릭시 프로그레스 처리
+    $(".dep01, .dep02").find("a").click(function(){
+    	
+    	if($(this).attr("target") != "_blank" ) {
+    		progress.start();
+    	}
+    });
+        
+});
+</script>
+
+	<!-- header_n -->
+
+	<div id="wrap">
+		<div id="td__header_wrap">
+			<div class="td__header">
+				<div class="td__header-depth1">
+					<ul class="item5">
+					<li class="active">
+								<a href="javascript:f_location_href_nosession('../vr/VR_03002.html');">부가세환급지원</a>
+							</li>
+						<li >
+								<a href="javascript:f_location_href_nosession('../vt/VT_30111.html');">부가가치세 자가신고</a>
+							</li>
+						<li >
+								<a href="javascript:f_location_href_nosession('../sd/SD_30111.html');">종합소득세 자가신고</a>
+							</li>
+						<li >
+								<a href="javascript:f_location_href_nosession('../as/AS_02101_SL.html');">세무상담</a>
+							</li>
+						<li >
+								<a href="javascript:f_location_href_nosession('../bizmap/BS_20111.html');">상권분석</a>
+							</li>
+						</ul>
+				</div>
+				<div class="td__header-block">
+                    <div class="td__header-top">
+						<div class="td__inner-container">
+							<h1>
+								<a href="../cm/main.html">
+									<img src="/images/td/common/sub_logo.gif" alt="로고">
+								</a>
+							</h1>
+							<div class="login-area">
+								<div class="login-inner">
+								<ul class="login-btn">
+											<li>
+													<a href="javascript:f_location_href_nosession('../my/MY_B0111.html');" class="progress">마이페이지</a>
+												</li>
+											</ul>
+										<button class="btn_logout">로그아웃</button>
+									</div>
+							</div>
+						</div>
+					</div>
+					<div class="td__header-bottom">
+						<div class="td__header-depth2">
+							<ul>
+							<li >
+											<a href="javascript:f_location_href_nosession('../vr/VR_03002.html');">서비스 소개</a>
+										</li>
+									<li class="active">
+											<a href="javascript:f_location_href_nosession('../vr/VR_03007.html');">부가세환급확인</a>
+										</li>
+									<li >
+											<a href="javascript:f_location_href_nosession('../vr/VR_03008.do?pass=Y');">비제휴카드 추가등록</a>
+										</li>
+									<li >
+											<a href="javascript:f_location_href_nosession('../vr/VR_01012_SL.html');">부가세환급설정</a>
+										</li>
+									</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //header_n -->
+<script type="text/javascript" src="/js/niceTopMenu.js"></script><div id="td__container">
+	<div class="td__contents_wrap">
+		<div class="td__contents">
+			<div class="td__tit-block">
+				<h3 class="sub__tit">부가세 환급확인</h3>
+			</div>
+			<form id="form" name="form" method="post">
+			<input type="hidden" id="vatTarSetVluNmCode" name="vatTarSetVluNmCode" value="" />
+			<input type="hidden" id="h_prcsDttm" name="h_prcsDttm" />
+			<input type="hidden" id="h_prcsSrno" name="h_prcsSrno" />
+			<input type="hidden" id="h_vatTarSetVlu" name="h_vatTarSetVlu" />
+			<input type="hidden" id="h_useAmt" name="h_useAmt" />
+			<input type="hidden" id="h_serviceCharge" name="h_serviceCharge" />
+			<input type="hidden" id="h_prsnCorpCls" name="h_prsnCorpCls" />
+			<input type="hidden" id="h_appr_no" name="h_appr_no" />
+			<input type="hidden" id="h_card_comp_cls" name="h_card_comp_cls" />
+			<input type="hidden" id="current_page" name="current_page" value="" />
+			<input type="hidden" id="orderName" name="orderName" value="" />
+			<input type="hidden" id="orderGbn" name="orderGbn" value="" />
+			<input type="hidden" id="vatTarSetVluList" name="vatTarSetVluList" value="001,002,003,004" />
+			<input type="hidden" id="isDetail" name="isDetail" />
+			<input type="hidden" id="inqStrtDt" name="inqStrtDt" />
+			<input type="hidden" id="inqEndDt" name="inqEndDt" />
+			<input type="hidden" id="txptCls" value="V101" />
+			<div class="td__sub-con">
+				<div class="td__search-box">
+					<div class="box-section">
+						<div class="inner-left">조회기간</div>
+						<div class="inner-right">
+							<ul class="radio-list">
+								<li>
+									<label>
+										<input type="radio" name="searchGbn" class="searchGbn" value="day" checked="checked" /> 일자별
+									</label>
+								</li>
+								<li>
+									<label>
+										<input type="radio"  name="searchGbn" class="searchGbn" value="month"  /> 월별
+									</label>
+								</li>
+								<li>
+									<label>
+										<input type="radio" name="searchGbn" class="searchGbn" value="qurt" /> 분기별
+									</label>
+								</li>
+							</ul>
+							<div class="search-hidden">
+								<div class="td__calendar-wrap change-day">
+									<input type="text" id="calendar1" name="srchInsDtFrom" value="20200101" class="input_date" />
+									<div class="txt">~</div>
+									<input type="text" id="calendar2" name="srchInsDtTo" value="20200424" class="input_date" />
+									<div class="icon"></div>	
+								</div>
+								<div class="td__select-wrap change-month">
+									<select id="search_year" name="searchYear">
+	                                <option value="2020">2020</option>
+	                                <option value="2019">2019</option>
+	                                <option value="2018">2018</option>
+	                                <option value="2017">2017</option>
+	                                <option value="2016">2016</option>
+	                                <option value="2015">2015</option>
+	                                <option value="2014">2014</option>
+	                                <option value="2013">2013</option>
+	                                <option value="2012">2012</option>
+	                                <option value="2011">2011</option>
+	                                <option value="2010">2010</option>
+	                                </select>
+									<div class="txt">년</div>
+									<select id="search_month" name="searchMonth">
+		                                <option value="0">1</option>
+		                                <option value="1">2</option>
+		                                <option value="2">3</option>
+		                                <option value="3">4</option>
+		                                <option value="4">5</option>
+		                                <option value="5">6</option>
+		                                <option value="6">7</option>
+		                                <option value="7">8</option>
+		                                <option value="8">9</option>
+		                                <option value="9">10</option>
+		                                <option value="10">11</option>
+		                                <option value="11">12</option>
+		                                </select>
+									<div class="txt">월</div>
+								</div>
+								<div class="td__select-wrap change-quarter">
+									<select name="qurtSearchYear" id="qurt_search_year">
+	                                <option value="2020">2020</option>
+	                                <option value="2019">2019</option>
+	                                <option value="2018">2018</option>
+	                                <option value="2017">2017</option>
+	                                <option value="2016">2016</option>
+	                                <option value="2015">2015</option>
+	                                <option value="2014">2014</option>
+	                                <option value="2013">2013</option>
+	                                <option value="2012">2012</option>
+	                                <option value="2011">2011</option>
+	                                <option value="2010">2010</option>
+	                                </select>
+									<div class="txt">년</div>
+									<select name="qurtSearchMonth" id="qurt_search_month" style="width: 150px;">
+										<option value="01010331"  />1기예정(1~3월)</option>
+										<option value="04010630"  />1기확정(4~6월)</option>
+										<option value="01010630"  />1기확정(1~6월)</option>
+										<option value="07010930"  />2기예정(7~9월)</option>
+										<option value="10011231"  />2기확정(10~12월)</option>
+										<option value="07011231"  />2기확정(7~12월)</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="box-section">
+						<div class="inner-left">환급분류</div>
+						<div class="inner-right">
+							<ul class="check-list--btn">
+								<li>
+									<label for="checkBtn1_0">
+										<input type="checkbox" name="vatTarSetVluBtn" value="001" class="vatTarSetVlu" id="checkBtn1_0">
+										<span>대상</span>
+									</label>
+								</li>
+								<li>
+									<label for="checkBtn1_1">
+										<input type="checkbox" name="vatTarSetVluBtn" value="002" class="vatTarSetVlu" id="checkBtn1_1">
+										<span>비대상</span>
+									</label>
+								</li>
+								<li>
+									<label for="checkBtn1_2">
+										<input type="checkbox" name="vatTarSetVluBtn" value="003" class="vatTarSetVlu" id="checkBtn1_2">
+										<span>미분류</span>
+									</label>
+								</li>
+								<li>
+									<label for="checkBtn1_3">
+										<input type="checkbox" name="vatTarSetVluBtn" value="004" class="vatTarSetVlu" id="checkBtn1_3">
+										<span>의제매입</span>
+									</label>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="box-section">
+						<div class="inner-left">카드번호</div>
+						<div class="inner-right">
+							<select id="cardCompClsNo" name="cardCompClsNo" class="card" style="width: 150px;">
+								<option value="">전체</option>
+								<option value="000-2222" >비제휴카드-2222</option>
+								</select>
+						</div>
+					</div>
+					<div class="box-section">
+						<div class="inner-left">가맹점명</div>
+						<div class="inner-right">
+							<input type="text" id="affCorpName" name="affCorpName" value="" style="width:50%;" maxlength="50" />
+							<button id="srchBtn" class="search-submit">조회</button>
+						</div>
+					</div>
+				</div>
+				<div class="td__target-txt">
+					<p>
+						고객님이 선택한 과세유형은 <a href="javascript:fancybox_open_width('../vr/VR_01029.html', '450px', '7F220B42157233061B17111540013B', 'yes');" style="text-decoration: underline;">
+						일반과세자</a>입니다.<br>
+						조회기간 내 기준 부가세환급 예상액은 <strong>0</strong> 원입니다.
+					</p>
+				</div>
+				<div class="td__table-set1">
+					<table>
+						<col style="width: 20%;">
+						<col style="width: 20%;">
+						<col style="width: 20%;">
+						<col style="width: 20%;">
+						<col style="width: 20%;">
+						<thead>
+							<tr>
+								<th scope="col">부가세 환급분류</th>
+								<th scope="col">건수</th>
+								<th scope="col">이용금액</th>
+								<th scope="col">공급가액</th>
+								<th scope="col">세액</th>
+							</tr>
+						</thead>
+						<tbody>
+						<tr>
+										<td>대상</td>
+										<td>0</td>
+										<td class="tar">0</td>
+										<td class="tar">0</td>
+										<td class="tar">0</td>
+									</tr>
+									<tr>
+										<td>비대상</td>
+										<td>0</td>
+										<td class="tar">0</td>
+										<td class="tar">0</td>
+										<td class="tar">0</td>
+									</tr>
+									<tr>
+										<td>미분류</td>
+										<td>0</td>
+										<td class="tar">0</td>
+										<td class="tar">0</td>
+										<td class="tar">0</td>
+									</tr>
+									<tr>
+										<td>의제</td>
+										<td>0</td>
+										<td class="tar">0</td>
+										<td class="tar">0</td>
+										<td class="tar">0</td>
+									</tr>
+									</tbody>
+						<tfoot>
+							<tr>
+								<td>합계</td>
+								<td>0</td>
+								<td class="tar">0</td>
+								<td class="tar">0</td>
+								<td class="tar">0</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+				<div class="td__table-set2">
+					<p class="table-comment">
+						간이과세사업자는 업종별 부가율에 따라 실제 부가가치세 신고 시 대상 세액이 달라집니다.<br>
+						<span class="positive">붉은 배경색은 가맹점명을 클릭하여 분류기준 확인 후 대상여부를 확인해 주세요.</span><br>
+						<span class="negative">파란 배경색은 사용자가 정보를 수정한 매입내역입니다.</span>
+					</p>
+					<div class="td__table-btn-set all">
+						<a href="javascript:fancybox_open_width('../vr/VR_01017_SL.html', '500px', '7F220B42157233061B17111540013B', 'yes');" class="table-btn">부가세 판단기준</a>
+						<a href="javascript:;" class="table-btn tax_print">출력</a>											
+						<a href="javascript:;" class="table-btn vat_change_popup">선택변경</a>
+						<a href="javascript:;" class="table-btn excel_down_popup">엑셀 다운로드</a>
+						<a href="javascript:;" class="table-btn hometax_cert_popup">홈택스 신고자료</a>
+					</div>
+					<table>
+						<col style="width: 4%;">
+						<col style="width: 12%;">
+						<col style="width: 13%;">
+						<col style="width: 13%;">
+						<col style="width: 7%;">
+						<col style="width: *;">
+						<col style="width: 10%;">
+						<col style="width: 10%;">
+						<col style="width: 10%;">
+						<thead>
+							<tr>
+								<th scope="col">
+									<input type="checkbox" name="checkAll" id="check_all" />
+								</th>
+								<th scope="col" onclick="orderBy('APPR_DT')" style="cursor:pointer">일자</th>
+								<th scope="col" onclick="orderBy('CARD_NM')" style="cursor:pointer">카드구분</th>
+								<th scope="col" class="txptCls" onclick="orderBy('VAT_TAR_SET_VLU')" style="display: none;cursor:pointer">부가세 환급</th>
+								<th scope="col" onclick="orderBy('AFF_CORP_TXTN_CLS')" style="cursor:pointer">과세구분</th>
+								<th scope="col" onclick="orderBy('AFF_CORP_NAME')" style="cursor:pointer">가맹점명</th>
+								<th scope="col" onclick="orderBy('USE_AMT')" style="cursor:pointer">이용금액</th>
+								<th scope="col" onclick="orderBy('SUP_AMT')" style="cursor:pointer">공급가액</th>
+								<th scope="col" onclick="orderBy('VAT_AMT')" style="cursor:pointer">세액</th>
+								</tr>
+						</thead>
+						<tbody>
+							<tr>
+			                   	<td colspan="10">조회된 결과가 없습니다.</td>
+							</tr>    		
+							</tbody>
+					</table>
+					<div class="table-bottom">
+						<p class="comment">※ 부가세 환급분류를 대상, 비대상으로 선택함에 따른 책임은 전적으로 사업자 본인에게 귀속됩니다.</p>
+						<p class="total">총<span>0</span>건</p>
+					</div>
+				</div>
+
+				<div class="paginate_wrap">
+					<div class="paginate">
+						<p class="first arrow"><span class="icon"></span><span class="text">처음으로</span></p><p class="pre arrow"><span class="icon"></span><span class="text">이전</span></p><ol class="number"><li>1</li></ol><p class="next arrow"><span class="icon"></span><span class="text">다음</span></p><p class="last arrow"><span class="icon"></span><span class="text">마지막으로</span></p></div>
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	// 회사소개
+	$(".nicednr").click(function() {
+		window.open("http://www.nicednr.co.kr");
+		return false;
+	});
+
+	// 제휴문의
+	$(".UG_A0411").click(function() {
+		fancybox_open_width("../ug/UG_A0411.html", "700px", "", "yes", false);
+		return false;
+	});
+
+	// 개인정보처리방침
+	$(".UG_A0131").click(function() {
+		fancybox_open_width("../ug/UG_A0131.html", "700px", "", "yes", false);
+		return false;
+	});
+
+	// 이용약관
+	$(".UG_A0121").click(function() {
+		fancybox_open_width("../ug/UG_A0121.html", "700px", "", "yes", false);
+		return false;
+	});
+
+	// 고객센터
+	$(".UG_A0111").click(function() {
+		f_location_href_nosession("../ug/UG_A0111.html");
+		return false;
+	});
+	
+	$(".tax_bill").click(function() {
+		window.open("http://www.nicedata.co.kr/ti/TI_10000.html");
+		return false;
+	});
+	
+	$(".check_biz").click(function() {
+		window.open("http://www.nicedata.co.kr/as/AS_30401.html");
+		return false;
+	});
+	
+	$(".sgic").click(function() {
+		window.open("http://www.nicedata.co.kr/as/AS_40601.html");
+		return false;
+	});
+});
+</script>
+<div id="td__footer_wrap">
+	<div class="td__footer">
+		<div class="td__footer-top">
+			<ul>
+				<li><a href="javascript:;" class="nicednr">회사소개</a></li>
+				<li><a href="javascript:;" class="UG_A0411">제휴문의</a></li>
+				<li><a href="javascript:;" class="UG_A0131"><b>개인정보처리방침</b></a></li>
+				<li><a href="javascript:;" class="UG_A0121">이용약관</a></li>
+				<li><a href="javascript:;" class="UG_A0111">고객센터</a></li>
+				<li class="mo_right">
+					<a href="https://m.taxdiet.co.kr/nm/NM_20001.html">
+						<div class="mo_img">
+							<img src="/images/td/common/ico_mobile.png" alt=""/>
+						</div>
+						모바일버전
+					</a>
+				</li>
+				</ul>
+		</div>
+		<div class="td__footer-bottom">
+			<ul>
+				<li>NICE 디앤알(주)</li>
+				<li>대표 : 강용구</li>
+				<li class="last">통신판매업 신고번호 : 제2012-서울구로-1033호</li>
+				<li>사업자등록번호 : 107-87-08207</li>
+				<li class="last">서울특별시 서대문구 충정로 36 7층</li>
+				<li>TEL : 1588-5659</li>
+				<li class="last">FAX : 788-9001</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="common-quick-menu qm-sub">
+	<ul>
+		<li class="tax_bill">
+			<a href="#none">
+				<img src="/images/common/quick_icon_1.png" alt="전자세금계산서"/>
+				전자세금<br />계산서
+			</a>
+		</li>
+		<li class="check_biz">
+			<a href="#none">
+				<img src="/images/common/quick_icon_2.png" alt="휴폐업조회"/>
+				휴폐업<br />조회
+			</a>
+		</li>
+		<li class="sgic">
+			<a href="#none">
+				<img src="/images/common/quick_icon_3.png" alt="서울보즘보험안내"/>
+				서울보증보험<br />안내
+			</a>
+		</li>
+	</ul>
+</div>
+<!-- //footer_n -->	
+<iframe id="sessionFrame" name="sessionFrame" width="10" height="10" src="javascript:void 0;" title="로그인처리용" style="display:none"></iframe>
+<script type="text/javascript" src="/js/imageChecker.js"></script>
+<script type="text/javascript">
+
+
+var title = document.title;
+document.title	= title + "·"; 
+
+
+
+ImageNotExistProcess.process("boardBox");
+</script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-36649342-23"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-36649342-23');
+</script></body>
+</html>

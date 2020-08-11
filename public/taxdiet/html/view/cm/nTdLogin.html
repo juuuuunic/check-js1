@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="robots"      content="noindex,nofollow" />
+<meta name="language"    content="ko" />
+<meta name="copyright"   content="copyrights 2019 NICE Data" />
+<meta name="author"      content="NICE Data" />
+<title>택스다이어트: nTdLogin(웹 로그인)</title>
+
+<link rel="stylesheet" type="text/css" href="/css/default.css">
+<link rel="stylesheet" type="text/css" href="/css/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/soho_default.css">
+<link rel="stylesheet" type="text/css" href="/css/soho_sub_default.css">
+
+<!--  공통 -->
+<script src="/js/libs/jquery-1.11.1.min.js"></script>
+<script src="/js/niceCommon.js"></script>
+<script src="/js/common-util.js"></script>
+<script src="/js/libs/jquery.fancybox.js"></script>
+<script src="/js/libs/jquery.placeholder.js"></script>
+<script src="/js/libs/jquery-ui.js"></script>
+<script src="/js/moment.js"></script>
+
+<script src="/js/libs/jquery.dialog.min.js"></script>
+
+<script src="/js/common.js"></script>
+<script src="/js/progress.js"></script>
+<script src="/js/browserVersion.js"></script>
+<script src="/js/libs/jquery.easing.1.3.js"></script>
+<script src="/js/libs/jquery.mask.js"></script>
+
+<script src="/js/libs/jquery.cookie.js"></script>
+<script src="/js/cookie.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+
+<script type="text/javascript">
+
+$(function(){
+	// gnb 로고 옆에 현재 머물고 있는 1뎁스 메뉴 표시
+	$("ul.gnb_depth1 > li").each(function(index){
+		if($(this).attr("class") == "on"){
+			$("div.logo-wrap > h2").html($(this).text().trim());
+		}
+	})
+	
+	
+	// 로그아웃
+	$(document).on("click", ".btn_logout", function(data){
+		if (confirm("로그아웃 하시겠습니까?")) {
+			
+			var $form = $("<form/>",{id:"logoutForm",method:"post", action:"../cm/nTdLogout.html"});
+			$("body").append($form);
+			$form.submit();
+		}
+	});
+	
+	
+	$("#loginBtn").click(function(){
+		if($.trim($("#membId").val()) == "") {
+			alert("회원아이디를 입력하세요.");
+			$("#membId").focus();
+			return false;
+		}
+		
+		if($.trim($("#pswd").val()) == "") {
+			alert("비밀번호를 입력하세요.");
+			$("#pswd").focus();
+			return false;
+		}
+
+		$.removeCookie("saveid", {path : '/'});
+
+		if ($("#chk_save_id").prop("checked")) {
+			$.cookie("saveid", $.trim($("#membId").val()), {expires: 365, path : '/'});
+		}
+
+		doLogin();
+
+		return false;
+	});
+
+	
+	$("#btn_login").click(function(){
+
+		var param	= "";
+		
+		
+		param = "7F145042553204503B1F235F40013B";
+
+		location.href="../cm/nTdLogin.do?returnURL=" + param;
+	});
+	
+	$("#loginForm input[name=pswd]").keyup(function(e) {
+		if (e.keyCode == KeyCode.ENTER) {
+			$("#loginBtn").click();
+		}
+	});
+	
+	
+	$(".btn_joinMember").click(function(){
+		
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A2D5910065E0016262341250F130D2100204935215D3F07" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+});
+	
+function fnLayerClose(){
+	try{
+		parent.$.fancybox.close();
+	}catch(exception){}
+}
+var membEtcRefresh = function(){
+	$.post("../cm/CM_00001_UP1.html", "", "");
+}
+var isLogin = function(){
+	
+			return true;
+				
+}
+
+// 미사용
+function fnLogin(returnURL){
+	if(!isLogin()){
+		var msg	= "로그인이 필요합니다.\n회원이 아니시면 회원가입을 해주시기 바랍니다.";
+		
+		alert(msg);
+		
+		if(typeof(returnURL) == "undefined") {
+			returnURL = location.pathname;
+		}
+
+		location.href = "../cm/nTdLogin.do?returnURL="+returnURL;
+		
+		return false;
+	}
+	return true;
+}
+
+function fnIeLimitCheck(){
+	var limitVersion	= 8;
+	var ieVersion		= getIeVersion();
+
+	if(getCookie("NoMoreBrowserPopup") != "yes"){
+		if(ieVersion){
+			if(ieVersion <= limitVersion){
+				WindowUtil.open({
+					  windowURL		: "/popup/popup_ieWarning.html"
+					, windowName	: "popup_browserWarning"
+					, width			: 600
+					, height		: 741
+				});
+			}
+		}
+	}
+}
+
+function doLogin() {
+	if($("#loginForm > input#redirectURL").length === 0){
+		$("<input>").attr({
+			  type	: "hidden"
+			, id	: "redirectURL"
+			, name	: "redirectURL"
+			, value : "https://t-renewal.taxdiet.co.kr/my/MY_B0111.html"
+		}).appendTo("#loginForm");
+	}
+	else if ($("#redirectURL").val()=="") {
+		$("#redirectURL").val("https://t-renewal.taxdiet.co.kr/my/MY_B0111.html");
+	}
+	else {
+		$("#redirectURL").val(location.href);	
+	}
+
+	if ($("#returnURL").val() != "") {
+		$("#redirectURL").val("");
+	}
+
+	$("#loginForm").attr("action", "../cm/nTdSsoLoginProc.html");
+	$("#loginForm").attr("target", "_self");
+	$("#loginForm").submit();
+}
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var saveId = $.cookie("saveid");
+
+	if(saveId != "null" && saveId != null) {
+		$("#membId").val(saveId);
+		$("#chk_save_id").prop("checked", true);
+
+		$("#pswd").focus();
+	}
+	else {
+		$("#membId").focus();
+	}
+});
+</script>
+</head>
+<body>
+	<form id="loginForm" name="loginForm" method="post">
+	<input type="hidden" name="popupLogin" />
+    <input type="hidden" id="returnURL" name="returnURL" value="7F1450425C213D554D1C2A" />
+    <input type="hidden" name="relevantMenu" value="" />
+    <input type="hidden" id="redirectURL" name="redirectURL" value="" />
+		<div id="wrap HeightAuto">
+			<div class="lp-login-window-wrap">
+				<div class="lp-header">
+					<a href="https://t-renewal.taxdiet.co.kr/cm/main.html">
+						<h1 class="title">택스다이어트</h1>
+					</a>
+				</div>
+				<div class="lp-container">
+					<div class="login_input_wrap">
+						<div class="input_left">
+							<div class="login_input1">
+								<input name="membId" type="text" id="membId" style="ime-mode:disabled;" maxlength="50" placeholder="아이디 : 6~12자리 입력" >
+							</div>
+							<div class="login_input1">
+								<input name="pswd" type="password" id="pswd" maxlength="16" placeholder="비밀번호 : 영문자, 숫자, 특수문자를 포함한 8~16자리 입력">
+							</div>
+							<label for="chk_save_id">
+								<input type="checkbox" id="chk_save_id" />
+							</label>
+							<label for="chk_save_id">아이디 저장</label>
+						</div>
+						<div class="input_right">
+							<input type="button" id="loginBtn" data-onlylogin="Y" value="로그인">
+						</div>
+					</div>
+					<ul class="text_wrap">
+						<li>
+							<div class="left">
+								아이디/비밀번호를 잊으셨나요?
+							</div>
+							<div class="right">
+								<a href="javascript:;" move="https://t-renewal.nicedata.co.kr/jm/JM_40101.html" class="btn_joinMember">ID 찾기</a>
+								/
+								<a href="javascript:;" move="https://t-renewal.nicedata.co.kr/jm/JM_50101.html" class="btn_joinMember">PW 찾기</a>
+							</div>
+						</li>
+						<li>
+							<div class="left">
+								회원이 아니신가요?
+							</div>
+							<div class="right">
+								<a href="javascript:;" move="https://t-renewal.nicedata.co.kr/jm/JM_10101.html" class="btn_joinMember">회원가입</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="lp-footer">
+					<ul class="login_notices">
+						<li>서비스를 이용하신 후 정보 보호를 위해 반드시 로그아웃 하시기 바랍니다.</li>
+						<li>
+							비밀번호는 주기적으로 변경하시고, 타인에게 노출되지 않도록 주의하시기
+							<br/>바랍니다. (로그인 후 마이페이지에서 변경합니다.)
+						</li>
+					</ul>
+					<ul class="login_copyright">
+						<li>
+							<a href="http://www.nicednr.co.kr/" target="_blank">회사소개</a>
+						</li>
+						<li>
+							<strong>
+								<a href="javascript:;" data-fancybox data-src="../ug/UG_A0131.html" class="lp-login">개인정보처리방침</a>
+							</strong>
+						</li>
+						<li>
+							<a href="javascript:;" data-fancybox data-src="../ug/UG_A0121.html" class="lp-login">이용약관</a>
+						</li>
+						<li>
+							<a href="javascript:f_location_href_nosession('../ug/UG_A0111.html');">고객센터</a>
+						</li>
+					</ul>
+					<p class="login_copyright_text">Copyright ⓒ NICE D&R Inc. All rights reserved.</p>
+				</div>
+			</div>
+		</div>
+	</form>
+</body>
+</html>
