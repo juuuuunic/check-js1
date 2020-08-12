@@ -54,7 +54,7 @@
     .contents .conn-content .conn_area .btn-box li::after { border-color: #c7c7c7; }
     .contents .conn-content .conn_area .conn_area-list { margin-top: 10px; }
     .contents .conn-content .conn_area .conn_area-list li { width: 100%; height: 29px; color: #8b8a8a; line-height: 29px; text-align: center; }
-    .contents .conn-content .conn_area .conn_area-list li:not(.list-non ) { display: none; float: left; width: 80px; text-align: left; background-color: #ededed; border-radius: 30px; padding: 0 8px; box-sizing: border-box; }
+    .contents .conn-content .conn_area .conn_area-list li:not(.list-non ) { float: left; width: 80px; text-align: left; background-color: #ededed; border-radius: 30px; padding: 0 8px; box-sizing: border-box; }
     .contents .conn-content .conn_area .conn_area-list li:not(.list-non )+li:not(.list-non ) { margin-left: 10px; }
     .contents .conn-content .conn_area .conn_area-list .list_close { position: relative; float: right; width: 11px; height: 1px; text-align: right; background-color: #c3c3c3; transform: rotate(45deg); margin-top: 14px; cursor: pointer;}
     .contents .conn-content .conn_area .conn_area-list .list_close::after { content: ''; position: absolute; top: 0; left: 0; width: 11px; height: 1px; background-color: #c3c3c3; transform: rotate(90deg);}

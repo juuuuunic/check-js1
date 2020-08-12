@@ -3,11 +3,11 @@
 /* font */
     @font-face {
         font-family: "BM Hanna";
+        font-style: normal;
+        font-weight: normal;
         src: url("/fonts/BMHANNA_11yrs_otf.otf") format("embedded-opentype"), 
         url("/fonts/BMHANNA_11yrs_ttf.ttf") format("truetype"), 
-        url("/fonts/BMHANNA_11yrs.woff") format("woff");
-        font-weight: normal;
-        font-style: normal; }
+        url("/fonts/BMHANNA_11yrs.woff") format("woff"); }
     @font-face {
         font-family: 'Noto Sans Korean';
         font-style: normal;
@@ -48,7 +48,7 @@
     button { display: inline-block; padding: 0; margin: 0; border: 0; background: none; -webkit-border-radius: 0; border-radius: 0; -webkit-appearance: none; }
     table, td, th { border-collapse: collapse; border: 0; text-align: left; border: 1px solid gray;  }
     em {font-style: normal;}    
-    body, html { font-family: "Noto Sans KR", sans-serif; font-size: 13px; font-weight: 300; line-height: 1; color: #3d3d3d; -webkit-font-smoothing: antialiased; margin: 0; padding: 0; }
+    body, html { font-family: "Noto Sans Korean", sans-serif; font-size: 13px; font-weight: 300; line-height: 1; color: #3d3d3d; -webkit-font-smoothing: antialiased; margin: 0; padding: 0; }
     html {-webkit-text-size-adjust: 100%; }
     iframe { -webkit-border: 0; border: 0; }
     .blind {display: block; position: absolute !important; top: -9999px; left: -9999px; width: 1px; height: 1px; margin: 0; padding: 0; border: 0; color: transparent; } 
