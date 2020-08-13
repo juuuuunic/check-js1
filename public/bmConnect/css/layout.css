@@ -45,7 +45,7 @@
                     transform: rotate(135deg);
         }
 
-    .contents .conn-content .conn_form .conn-guide > span::before { content: ''; display: inline-block; width: 16px; height: 16px; background: no-repeat url('/images/common/ico_info.png') center; background-size: cover; vertical-align: -3px; margin-right: 5px; }
+    .contents .conn-content .conn_form .conn-guide > span::before { content: ''; display: inline-block; width: 16px; height: 16px; background: no-repeat url('../images/common/ico_info.png') center; background-size: cover; vertical-align: -3px; margin-right: 5px; }
     .contents .conn-content .conn_delivery .conn-guide > span,
     .contents .conn-content .conn_area .conn-guide > span { color: #797979;}
     .contents .conn-content .conn_delivery .btn-box li::after,

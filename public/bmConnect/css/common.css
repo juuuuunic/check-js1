@@ -69,7 +69,7 @@
     .button-primary-line { color: #018aff; border: 1px solid #018aff; }
     .button-gray-line { text-align: left; color: #595959; padding: 0 10px; border: 1px solid #eee; }
     /** checkbox/ radio **/
-    input[type=checkbox] { width: 21px; height: 21px; background: no-repeat url('/images/common/ico_radio.png') left; background-size: cover; vertical-align: bottom; margin-right: 10px; }
+    input[type=checkbox] { width: 21px; height: 21px; background: no-repeat url('../images/common/ico_radio.png') left; background-size: cover; vertical-align: bottom; margin-right: 10px; }
     input[type=checkbox]+label { color: #595959; line-height: 21px; cursor: pointer; }
     input[type=checkbox]:checked { background-position: center; }
     /** file **/
@@ -80,9 +80,9 @@
 /* popup */
     body.fixed { overflow: hidden; }
     .__pop-basic input[type="checkbox"] { width: 18px; height: 18px; border: 1px solid #d2d2d2; box-sizing: border-box; cursor: pointer; }
-    .__pop-basic input[type="checkbox"]:checked { background: no-repeat url('/images/common/ico_checkbox.png'); background-size: cover; border: 0; }
+    .__pop-basic input[type="checkbox"]:checked { background: no-repeat url('../images/common/ico_checkbox.png'); background-size: cover; border: 0; }
     .__pop-basic input[type="radio"] { width: 11px; height: 11px; border: 1px solid #575757; -webkit-border-radius: 11px; border-radius: 11px; cursor: pointer; }
-    .__pop-basic input[type="radio"]:checked { background: no-repeat url('/images/common/ico_radio.png') right; background-size: cover; border: 0; }
+    .__pop-basic input[type="radio"]:checked { background: no-repeat url('../images/common/ico_radio.png') right; background-size: cover; border: 0; }
     
     .__pop-basic { display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; font-size: 0; text-align: center; padding: 0 25px; box-sizing: border-box; z-index: 5000; }
     .__pop-basic:before { content: ""; display: inline-block; vertical-align: middle; width: 0; height: 100%; }
