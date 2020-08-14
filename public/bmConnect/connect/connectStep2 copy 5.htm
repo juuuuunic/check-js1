@@ -56,17 +56,19 @@ $(function(){
         $.each(arr, function(element) { 
             $('input[name=delivery-area_list]').each(function() { 
                 var area =  $(this).next('label').text();
-                if(area == arr[element]) {
-                    $(this).prop('checked', true);       
-                    $(this).attr('data-val','1')
-                }         
+                if(area == arr[element]) $(this).prop('checked', true);                
             });
         });
 
-        //체크 변화 유무
+        $('input[name=delivery-area_list]:checked').change(function() {
+            console.log($(this))
+        }) 
+        //선택한 지역 리스트 추가
         $(document).on('change', 'input[name=delivery-area_list]', function() {
-            var chked = $("input[name=delivery-area_list]:checked");
+            var chk = $(".delivery-area input");
+            var chked = $(".delivery-area input:checked");
             var cnt = chked.length;
+            //var area = $(this).prop('checked',true).next('label').text();
             
             //선택 개수 제한
             if(cnt > 3){
@@ -74,24 +76,34 @@ $(function(){
             }
 
             //다음버튼
-            $("#pop-next").off('click').on('click', function() {                
-                  
-                $('input[name=delivery-area_list]').each(function() {
-                    var label = $(this).next('label').text();
-                    
-                    //선택 지역 리스트 추가
-                    if($(this).is(':checked') == true) {
-                        if(!arr.includes(label)) { //활동지역이 배열에 없을 때       
-                            $(".conn_area-list").append('<li>'+label+'<span class="list_close"></span></li>');
-                            $(".list-non").stop().hide();  
-                        }
-                    } 
-                    //선택해제 지역 리스트 삭제
-                    else {
-                        $(".conn_area-list > li:contains('"+ label +"')").remove();
-                    }
+            $("#pop-next").off("click").on('click', function() {  
+                var array = new Array(); 
+                $('input[name=delivery-area_list]:checked').each(function() {
+                    array.push($(this).next('label').text());
+                }); 
+
+               //중복제거
+                array = array.filter(function(val) {
+                    return arr.indexOf(val) == -1;
                 });
-                return false;
+
+                for(var i=0; i<array.length; i++) {
+                    $(".conn_area-list").append('<li>'+array[i]+'<span class="list_close"></span></li>');
+                    $(".list-non").stop().hide();  
+                }
+                //해제 체크박스 리스트 제거
+                
+                
+                // chked.each(function() {
+                //     array.push($(this).next('label').text());
+                //     //console.log(array.length)
+                //     if(!arr.includes(array)) { //활동지역이 배열에 없을 때
+                //         for(var i=0; i<array.length; i++) {
+                //             $(".conn_area-list").append('<li>'+array[i]+'<span class="list_close"></span></li>');
+                //             $(".list-non").stop().hide();  
+                //         }
+                //     }
+                // });
             });
            
         });
