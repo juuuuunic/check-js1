@@ -1,0 +1,79 @@
+/* header */
+    header { width: 100%; height: 56px; border-bottom: 1px solid #e8e8e8; box-sizing: border-box; }
+    header .logo { text-align: center; padding-top: 18px; }
+    header .logo > a { display: inline-block; width: 117px; height: 21px; color: transparent; background: no-repeat url('/images/common/logo.png') center; background-size: cover; }
+
+/* section */
+    .contents section { margin-top: 30px; padding: 0 20px; } 
+    .contents section > div { margin-top: 30px; } 
+    .contents .conn-info ul { display: table; margin-left: auto; margin-right: auto; }
+    .contents .conn-info li { float: left; width: 9px; height: 9px; font-size: 0; text-align: center; line-height: 20px; background-color: #d9d9d9; -webkit-border-radius: 9px; border-radius: 9px; margin-top: 5px; }
+    .contents .conn-info li+li { margin-left: 15px; }
+    .contents .conn-info li.on { width: 21px; height: 21px; font-size: 12px; color: #fff; line-height: 20px; background-color: #018aff; -webkit-border-radius: 21px; border-radius: 21px; margin-top: 0; }
+    .contents .conn-content .conn_title > span { display: block; font-size: 22px; color: #272727; letter-spacing: -1px; }
+    .contents .conn-content .conn_title > span+span { margin-top: 10px; }
+    .contents .conn-content .conn-guide { border: 0 !important; line-height: 1 !important; margin-bottom: 10px; }
+    .contents .conn-content .conn-guide > span.middot::before { content: '·'; display: inline-block; width: 8px; height: 100%; left: 0; }
+    .contents .conn-content .conn-notice { display: inline-block; font-size: 11px; padding-top: 10px; }
+
+
+    .contents .conn-content .conn_box li { position: relative; font-size: 15px; line-height: 46px; border: 1px solid #eee; padding: 0 11px; box-sizing: border-box; }
+    .contents .conn-content .conn_box.conn_box-type1 li+li { border-top: 0; }
+    .contents .conn-content .conn_box.conn_box-type2 li+li { margin-top: 4px; }
+    .contents .conn-content .conn_box li span { font-size: 15px; margin-right: 4px; }
+    .contents .conn-content .conn_box li input[type=checkbox] { margin-right: 10px; }
+    .contents .conn-content .conn_box li input[type=checkbox]#terms-all:checked {background-position: right;}
+    .contents .conn-content .conn_box li .conn_box-drop { display: none; max-height: 235px; overflow-y: auto; }
+    .contents .conn-content .conn_box li > i { float: right; margin-top: 18px; margin-right: 10px; cursor: pointer; }
+    .contents .conn-content .conn_box li > i:before, 
+    .contents .conn-content .conn_box li > i:after {
+        content: "";
+        position: absolute;
+        background-color: #aaa;
+        width: 2px;
+        height: 8px;        
+        -webkit-transition: all 0.25s ease-in-out;
+        transition: all 0.25s ease-in-out;
+    }    
+    .contents .conn-content .conn_box li > i:before { transform: translate(2px, 0) rotate(45deg); }
+    .contents .conn-content .conn_box li > i:after { transform: translate(-2px, 0) rotate(-45deg); }    
+    /** active **/
+    .contents .conn-content .conn_box li.is-active > i:before { transform: translate(-2px, 0) rotate(45deg); }
+    .contents .conn-content .conn_box li.is-active > i:after { transform: translate(2px, 0) rotate(-45deg); }
+
+
+    .contents .conn-content .conn_box.conn_box-type2 .conn_box-drop { position: absolute; width: 100%; left: 0; top: auto; z-index: 5; cursor: pointer; }
+    .contents .conn-content .conn_box.conn_box-type2 .conn_box-drop > div { 
+        height: auto; line-height: auto; background-color: #f8f8f8;
+        border: 1px solid #eee; border-top: 0; padding: 0 11px; box-sizing: border-box; cursor: pointer;
+    }
+    .contents .conn-content .conn_terms .conn_box .conn_box-drop { height: 100px; font-size: 11px; color: #929292; background-color: #f2f2f2; margin-bottom: 12px; padding: 10px 12px; box-sizing: border-box; }
+    .contents .conn-content .conn_delivery .conn_box .conn_box-drop,
+    .contents .conn-content .conn_area .conn_box .conn_box-drop { top: 47px; }    
+    .contents .conn-content .conn_area .conn_box .slct-area2 { pointer-events: none; }
+    .contents .conn-content .conn_area .conn_box .slct-area2 .conn_box-drop { display: none; }
+    .contents .conn-content .conn_delivery .conn_box .conn_box-drop > div,
+    .contents .conn-content .conn_area .conn_box .conn_box-drop > div { height: 46px; line-height: 46px; }
+
+
+    .contents .conn-content .conn_cert .conn-guide::before { content: ''; display: inline-block; width: 16px; height: 16px; background: no-repeat url('/images/common/ico_guide.png') center; background-size: cover; vertical-align: -3px; margin-right: 5px; }
+    .contents .conn-content .conn_how > a { display: inline-block; padding-bottom: 8px; border-bottom: 1px solid #898989; }
+    .contents .conn-content .conn_how > a > i { display: inline-block; position: relative; top: 4px; width: 15px; height: 15px; border: 1px solid #595959; -webkit-border-radius: 15px; border-radius: 15px; margin-left: 9px; box-sizing: border-box; }
+    .contents .conn-content .conn_how > a > i::before { content: ''; position: absolute; left: 3px; top: 4px; width: 4px; height: 4px; border-bottom: 1px solid #595959; border-right: 1px solid #595959; transform: rotate(-45deg); }
+
+    .contents .conn-content .conn_form li+li { margin-top: 20px; }
+    .contents .conn-content .conn_form .form-row {width: 100%; position: relative;}
+    .contents .conn-content .conn_form .form-row input { display: block; width: 100%; border-bottom: 1px solid #eee; margin-top: 14px; padding-bottom: 7px; box-sizing: border-box; }
+    .contents .conn-content .conn_form .form-row .btn-file+label,
+    .contents .conn-content .conn_form .form-row .btn-file_remove+label {position: absolute; bottom: 8px; right: 0; width: 77px; height: 24px; line-height: 22px; -webkit-border-radius: 20px; border-radius: 20px;}
+    .contents .conn-content .conn_form .form-row .conn-notice { color: #bfbfbf; }
+    .contents .btn-box li { position: relative; width: 100%; height: 45px; line-height: 45px; box-sizing: border-box; cursor: pointer; }
+    .contents .btn-box li+li { margin-top: 5px; }
+
+/* footer */
+    footer { margin: 30px 0 35px 0; padding: 0 20px; }
+    footer li { color: #adadad; }
+    footer li+li { margin-top: 6px; }
+    footer li.contact { margin-bottom: 11px; }
+
+

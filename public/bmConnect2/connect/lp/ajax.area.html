@@ -1,0 +1,80 @@
+<script>
+    $(".delivery-area input:checkbox").on("click" , function(){
+        var cnt = $(".delivery-area input:checked").length;
+        if(cnt > 3){
+            $(this).prop('checked', false);
+        }
+    });
+</script>
+<div class="__pop-basic _pop-ajax">
+    <div class="inner">
+        <div class="title">
+            <h1 class="lp-title">배달 활동 지역</h1>
+            <input type="button" id="pop-close" class="blind" value="닫기" onclick="ajaxClose('._pop-ajax');"> 
+            <label for="pop-close"></label>
+        </div>
+        <div class="desc">
+            <ul class="delivery-area clearfix">
+                <li>
+                    <input type="checkbox" id="gangnam-gu" name="delivery-area_list">
+                    <label for="gangnam-gu">강남구</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="seocho-gu" name="delivery-area_list">
+                    <label for="seocho-gu">서초구</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="seodaemun-gu" name="delivery-area_list">
+                    <label for="seodaemun-gu">서대문구</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="mapo-gu" name="delivery-area_list">
+                    <label for="mapo-gu">마포구</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="yangcheon-gu" name="delivery-area_list">
+                    <label for="yangcheon-gu">양천구</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="nowon-gu" name="delivery-area_list">
+                    <label for="nowon-gu">노원구</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="yeongdeungpo-gu" name="delivery-area_list">
+                    <label for="yeongdeungpo-gu">영등포구</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="dongjak-gu" name="delivery-area_list">
+                    <label for="dongjak-gu">동작구</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="geumcheon-gu" name="delivery-area_list">
+                    <label for="geumcheon-gu">금천구</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="songpa-gu" name="delivery-area_list">
+                    <label for="songpa-gu">송파구</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="gwangjin-gu" name="delivery-area_list">
+                    <label for="gwangjin-gu">광진구</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="guro-gu" name="delivery-area_list">
+                    <label for="guro-gu">구로구</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="eunpyeong-gu" name="delivery-area_list">
+                    <label for="eunpyeong-gu">은평구</label>
+                </li>
+            </ul>
+        </div>
+        <ul class="pop-exit">
+            <li>
+                <label for="pop-next" class="blind">다음</label>
+                <input type="submit" id="pop-next" class="button-primary" value="다음" onclick="ajaxClose('._pop-ajax');">
+            </li>
+        </ul>
+    </div>
+    <div class="bg"></div>     
+</div>

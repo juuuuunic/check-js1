@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>약관동의</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="우아한청년들 라이더지원시스템">
+<meta property="og:title" content="우아한청년들 라이더지원시스템">
+
+<!--style -->
+<link href="/css/global.css" rel="stylesheet">
+
+<!--js -->
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/js/common.js"></script>
+
+<script>
+$(function(){
+    //다음
+    $(".btn-next").click(function(){
+        if(!fnChkTerms() || !fnChkInput()) {
+            return false;
+        }
+
+        document.location.href = "./connectStep2.html";
+        return false;
+    });
+
+    
+    var chk = $('input[type=checkbox]:not(#terms-all)');
+    //전체동의 true
+    $("#terms-all").change(function () {
+        var $this = $(this);
+        var checked = $this.prop('checked'); // checked 문자열 참조(true, false)
+        // console.log(checked);
+        chk.prop('checked', checked);
+
+    });
+    //전체동의 false
+    chk.change(function () {
+        var selectAll = true;
+        for (var i = 0; i < chk.length; i++) {
+            if (!chk[i].checked) {
+                selectAll = false;
+                break;
+            }
+        }
+        $('#terms-all').prop('checked', selectAll);
+    });    
+   
+});
+</script>
+</head>
+
+<body>
+<!-- header -->
+<header>
+    <h1 class="logo"><a href="./connectStep1.html">배민커넥트</a></h1>
+</header>
+<!-- //header -->
+
+<!-- contents -->
+<div class="contents">   
+    <section class="conn-info">
+        <ul class="clearfix">
+            <li class="on">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </section>
+    <section class="conn-content">
+        <h3 class="conn_title">
+            <span>배민커넥트 서비스약관에</span>
+            <span>동의해주세요</span>
+        </h3>
+
+        <!-- conn_terms -->
+        <div class="conn_terms">
+            <ul class="conn_box conn_box-type1">
+                <li>
+                    <input id="terms-all" data-ref="termsAll" type="checkbox">
+                    <label for="terms-all"><strong>전체동의</strong></label>
+                </li>
+                <li>
+                    <input name="termsPrivacy" data-ref="termsPrivacy" id="terms-privacy" type="checkbox">
+                    <label for="terms-privacy"><span class="txt_red">[필수]</span>개인정보 수집 및 이용동의</label>
+                    <i onclick="dropDown(this);"></i>
+                    <div class="conn_box-drop" tabindex="0">
+                        1.약관동의 및 신청자 정보 입력
+                    </div>
+                </li>
+                <li>
+                    <input name="termsPromotion" data-ref="termsPromotion" id="terms-promotion" type="checkbox">
+                    <label for="terms-promotion"><span class="txt_red">[선택]</span>프로모션 정보 수신 동의</label>
+                    <i onclick="dropDown(this);"></i>
+                    <div class="conn_box-drop" tabindex="0">
+                        1.약관동의 및 신청자 정보 입력
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- //conn_terms -->
+
+        <!-- conn_cert -->
+        <div class="conn_cert">
+            <p class="conn-guide">배민커넥트는 <em class="txt_red">만 19세 이상부터</em> 누구나 지원 가능합니다.</p>                    
+            <ul class="btn-box">
+                <li><input type="button" class="btn-get-code button-primary" value="인증하기"  onclick="ajaxLink('./lp/ajax.continue.html','GET',''); return false;" ></li>
+            </ul>
+        </div>        
+        <div class="conn_how">
+            <a  href="javascript:void(0)" onclick="ajaxLink('./lp/ajax.phone.html','GET',''); return false;" class="cert_type2">본인 명의 휴대폰이 없는 경우<i></i></a>
+        </div>
+        <!-- //conn_cert -->
+
+        <!-- conn_form -->
+        <div class="conn_form">      
+            <ul>
+                <li class="form-row">
+                    <label for="name">이름</label>
+                    <input id="name" name="name" type="text" maxlength="20" value="홍길동" disabled>
+                </li>
+                <li class="form-row">
+                    <label for="phone">휴대폰 번호</label>
+                    <input id="phone" name="phone" data-ref="phone" type="tel" maxlength="11" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" value="010-111-1234" aria-invalid="true" disabled>
+                </li>
+                <li class="form-row">
+                    <label for="birthday">생년월일</label>
+                    <input id="birthday" name="birthday" type="text" maxlength="20" value="2020.08.14" disabled >
+                </li>
+                <li class="form-row">
+                    <label for="address">거주지 주소</label>
+                    <input id="address" data-ref="address" type="text" placeholder="ex) 서울시 송파구 00동" maxlength="100">
+                </li>
+                <li class="form-row">
+                    <label for="email1">이메일 주소</label>
+                    <input id="email1" name="email1" type="text" placeholder="이메일 주소 입력" aria-invalid="true">
+                </li>
+                <li class="form-row">
+                    <label for="referral ">추천인코드</label>
+                    <input id="referral " name="referral " type="text" placeholder="(선택입력) 추천인이 있는 경우에만 입력하세요.">
+                </li>
+            </ul>
+        </div>
+        <!-- //conn_form -->
+    </section>
+    <section class="conn-btn">
+        <ul class="btn-box">
+            <li><input type="submit" class="button-primary btn-next" value="다음"></li>
+        </ul>
+    </section>
+</div>
+<!-- //contents -->
+
+<!-- footer -->
+<footer>
+    <ul class="company-info">
+        <li class="contact">상담 채널 : 카카오톡 배민커넥트 (9시~21시)</li>
+        <li>서울 송파구 올림픽로35다길 32 9층</li>
+        <li>대표이사 윤현준 │ 사업자등록번호 417-87-00193</li>
+        <li>㈜우아한청년들</li>
+    </ul>
+</footer>
+<!-- //footer -->
+</body>
+</html>

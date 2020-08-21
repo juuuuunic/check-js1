@@ -1,0 +1,105 @@
+@charset "UTF-8";
+
+/* font */
+    @font-face {
+    font-family: 'Noto Sans Korean';
+    font-style: normal;
+    font-weight: 400;
+    src: local("Noto Sans Regular"), local("NotoSans-Regular"),
+    url("https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/fonts/eot/NotoSansKR-Regular-Hestia.eot"), 
+    url("https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/fonts/eot/NotoSansKR-Regular-Hestia.eot?#iefix") format("embedded-opentype"), 
+    url("https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/fonts/woff/NotoSansKR-Regular-Hestia.woff") format("woff"), 
+    url("https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/fonts/otf/NotoSansKR-Regular-Hestia.otf") format("opentype"); }
+  
+    @font-face {
+    font-family: 'Noto Sans Korean';
+    font-style: normal;
+    font-weight: 700;
+    src: local("Noto Sans Bold"), local("NotoSans-Bold"), 
+    url("https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/fonts/eot/NotoSansKR-Bold-Hestia.eot"), 
+    url("https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/fonts/eot/NotoSansKR-Bold-Hestia.eot?#iefix") format("embedded-opentype"), 
+    url("https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/fonts/woff/NotoSansKR-Bold-Hestia.woff") format("woff"), 
+    url("https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/fonts/otf/NotoSansKR-Bold-Hestia.otf") format("opentype"); }
+    
+  
+  
+/* reset */
+    html, body { width: 100%; height: 100%; }
+    html, body, div, span, p, iframe, section, 
+    dl, dt, dd, ul, ol, li, 
+    table, caption, thead, tbody, tfoot, tr, th, td, 
+    a, img, address, hr, pre, em, 
+    h1, h2, h3, h4, h5, h6 
+    { margin: 0; padding: 0; text-decoration: none; font-weight: normal; font-style: normal; vertical-align: baseline; 
+    font-size: 100%; line-height: 1; letter-spacing: -0.034em; color: #383838; font-family: "Noto Sans Korean"; -webkit-font-smoothing: antialiased; }
+    b, strong { font-weight: bold; }
+    fieldset, legend {display:none;}
+    img { width: 100%; border: none; }
+    dl, dt, dd, ul, ol, li { list-style: none; }
+    table, td, th { border-collapse: collapse; border: 0; border-spacing: 0; text-align: left; border: 1px solid gray;  }
+    blockquote, q {quotes:none;}
+    del {text-decoration:line-through;}
+    input { font-family: inherit; -webkit-appearance: none; -moz-appearance: none; appearance: none; outline: none; }
+    input, textarea { display: inline-block; padding: 0; margin: 0; border: 0; background: none; font: inherit; resize: none; outline: 0; }
+    input::-ms-clear { display: none; }
+    input:focus,
+    button:focus { outline: none; }
+    input::-webkit-input-placeholder,
+    textarea::-webkit-input-placeholder { color: #bfbfbf; }
+    button { display: inline-block; padding: 0; margin: 0; border: 0; background: none; -webkit-border-radius: 0; border-radius: 0; -webkit-appearance: none; }
+    a { color: inherit; text-decoration: none; }
+    a:link, a:hover, a:visited, a:active {text-decoration:none; display:inline;}
+
+/* 공통 */
+    .blind {display: block; position: absolute !important; top: -9999px; left: -9999px; width: 1px; height: 1px; margin: 0; padding: 0; border: 0; color: transparent; } 
+    .none {display: none !important;}
+    /* float clear */
+    .clearfix:after { clear: both; display: block; content: ""; height: 0; visibility: hidden;} 
+    * html .clearfix { height: 1px; }
+    .clearfix { display: block; min-height: 1px; }
+
+/* layout: 1rem=16px */
+    body, html { font-size: 16px; -webkit-transition: all .5s ease; -moz-transition: all .5s ease; transition: all .5s ease; }
+    hr { width: 100%; height: 2px; background-color: #434343; margin: 2.313rem 0; }
+    input.type1 { width: 100%; height: auto; -webkit-border: 1px solid; border: 1px solid; box-sizing: border-box; }
+    input.type1+label {vertical-align: 0.25rem;}
+    input[type=text].type1 { width: 100%; height: 2.938rem; padding-left: 1.063rem; -webkit-border-color: #e4e4e4; border-color: #e4e4e4; }
+    input[type=radio].type1 { width: 1.25rem; height: 1.25rem; -webkit-border-color: #cbcad0; border-color: #cbcad0; -webkit-border-radius: 50%; border-radius: 1.25rem; margin-right: 0.3125rem; }
+    input[type=radio].type1:checked { background: no-repeat url('../images/checked_radio.png'); background-size: cover; -webkit-border: 0; border: 0; }
+    .color-primary { color: #1c7ced; }
+    .wrap { height: 100%; background-color: #fff; }
+    .container { position: relative; padding: 0 1.375rem; box-sizing: border-box; }
+    .logo { position: absolute; max-width: 6.125rem; top: 1.063rem; left: 1.375rem; }
+    .btn-primary { color: #fff; background-color: #1c7ced; }
+
+    .content { display: table; width: 100%; height: inherit; }
+    .content.HeightAuto > .inner { display: table-cell; vertical-align: middle; }
+    .content:not(.HeightAuto) { font-size: 0.875rem; padding-top: 6rem; box-sizing: border-box; }
+    .content .title { font-size: 1.375rem; font-weight: 400; }
+    .content .title > span { display: block; font-size: 0.875rem; color: #797979; margin-top: 0.8125rem; }
+    .content .cont-img { max-width: 7.813rem; height: 6.125rem; margin: 0 auto; }
+    .content .cont-txt { line-height: 1.5; text-align: center; margin-top: 1.25rem; }
+    .content .cont-txt.cont-info { margin-top: 3.125rem ; }
+    .content .cont-top .input-box { margin-top: 0.625rem; }
+    .content .cont-top input[type=text]#number { margin-top: 1.438rem; }
+    .content .cont-top .input-box > li { float: left; line-height: 20px; }
+    .content .cont-top .input-box > li+li { margin-left: 1.375rem; }
+    .content .cont-bott .input-box { margin-top: 1.563rem; }
+    .content .cont-bott .input-box > li+li { margin-top: 1.25rem; }
+
+    footer { position: fixed; width: 100%; left: 0; bottom: 0; }
+    footer > input { width: 100%; height: 3.75rem; line-height: 3.75rem; font-size: 1.063rem; }
+    
+   
+    @media screen and (min-width: 720px){
+        body, html {font-size: 32px;}
+    }
+    
+    @media screen and (max-width: 719px){
+        body, html {font-size: 16px;}
+    }
+    
+    @media screen and (max-width: 359px){
+        body, html {font-size: 13px;}
+    }
+    

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+	<title>Self-diagnosis</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../css/self.diagnosis2.css">
+
+	<script src="../js/libs/jquery-3.4.1.min.js"></script>
+	<script src="../js/common.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+		});
+	</script>
+</head>
+<body>
+    <!-- content -->
+    <div class="content">
+        <p>오늘 발생한 증상을 선택하세요.</p>
+        <span>모든 문항은 예/아니오로 응답해주세요.</span>
+        <h3 class="dx-subject""><i class="fa fa-exclamation-circle" aria-hidden="true"></i> 자가 진단 설문 문항</h3>
+        <ul class="dx-list dx-type1">
+            <li>
+                <p>37.5도 이상의 발열 증상이 있다.</p>
+                <input type="radio" tabindex="0" name="fever" id="fever1" class="lHidden" value="Y">
+                <label for="fever1">예</label>
+                <input type="radio" tabindex="0" name="fever" id="fever2" class="lHidden" value="N">
+                <label for="fever2">아니오</label>
+            </li>
+            <li>
+                <p>기침이나 마른 기침 증상이 있다.</p>
+                <input type="radio" tabindex="0" name="cough" id="cough1" class="lHidden" value="Y">
+                <label for="cough1">예</label>
+                <input type="radio" tabindex="0" name="cough" id="cough2" class="lHidden" value="N">
+                <label for="cough2">아니오</label>
+            </li>
+            <li>
+                <p>목이 계속 건조하고 무언가 삼키면 아픈 증상이 있다.</p>
+                <input type="radio" tabindex="0" name="throat" id="throat1" class="lHidden" value="Y">
+                <label for="throat1">예</label>
+                <input type="radio" tabindex="0" name="throat" id="throat2" class="lHidden" value="N">
+                <label for="throat2">아니오</label>
+            </li>
+            <li>
+                <p>평상시 보다 호흡을 하기가 어렵고 숨이 가뿐  증상이 있다.</p>
+                <input type="radio" tabindex="0" name="breath" id="breath1" class="lHidden" value="Y">
+                <label for="breath1">예</label>
+                <input type="radio" tabindex="0" name="breath" id="breath2" class="lHidden" value="N">
+                <label for="breath2">아니오</label>
+            </li>
+            <li>
+                <p>코가 막혀 냄새가 잘 느껴지지 않는 증상이 있다.</p>
+                <input type="radio" tabindex="0" name="smell" id="smell1" class="lHidden" value="Y">
+                <label for="smell1">예</label>
+                <input type="radio" tabindex="0" name="smell" id="smell2" class="lHidden" value="N">
+                <label for="smell2">아니오</label>
+            </li>
+            <li>
+                <p>근육통이 있다.</p>
+                <input type="radio" tabindex="0" name="muscle" id="muscle1" class="lHidden" value="Y">
+                <label for="muscle1">예</label>
+                <input type="radio" tabindex="0" name="muscle" id="muscle2" class="lHidden" value="N">
+                <label for="muscle2">아니오</label>
+            </li>
+            <li>
+                <p>폐가 있는 위치에 통증이 있다.</p>
+                <input type="radio" tabindex="0" name="lung" id="lung1" class="lHidden" value="Y">
+                <label for="lung1">예</label>
+                <input type="radio" tabindex="0" name="lung" id="lung2" class="lHidden" value="N">
+                <label for="lung2">아니오</label>
+            </li>
+            <li>
+                <p>몸에 오한이  있다.</p>
+                <input type="radio" tabindex="0" name="chills" id="chills1" class="lHidden" value="Y">
+                <label for="chills1">예</label>
+                <input type="radio" tabindex="0" name="chills" id="chills2" class="lHidden" value="N">
+                <label for="chills2">아니오</label>
+            </li>
+            <li>
+                <p>지끈거리는 두통이 있다.</p>
+                <input type="radio" tabindex="0" name="headache" id="headache1" class="lHidden" value="Y">
+                <label for="headache1">예</label>
+                <input type="radio" tabindex="0" name="headache" id="headache2" class="lHidden" value="N">
+                <label for="headache2">아니오</label>
+            </li>
+            <li>
+                <p>잘못 먹은 것이 없는데 갑자기 설사 증상이 있다.</p>
+                <input type="radio" tabindex="0" name="diarrhea" id="diarrhea1" class="lHidden" value="Y">
+                <label for="diarrhea1">예</label>
+                <input type="radio" tabindex="0" name="diarrhea" id="diarrhea2" class="lHidden" value="N">
+                <label for="diarrhea2">아니오</label>
+            </li>
+        </ul>
+        <h3 class="dx-subject"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> 접촉 및 동선 확인 설문 문항</h3>
+        <ul class="dx-list dx-type2">            
+            <li>
+                <p>최근 1개월 이내에 해외에 다녀온 적이 있다.</p>
+                <input type="radio" tabindex="0" name="abroad1" id="" class="lHidden" value="Y">
+                <label for="abroad1">예</label>
+                <input type="radio" tabindex="0" name="abroad2" id="" class="lHidden" value="N">
+                <label for="abroad2">아니오</label>
+            </li>           
+            <li>
+                <p>최근 1개월 이내에 해외에 다녀온 사람과 접촉한 적이 있다.</p>
+                <input type="radio" tabindex="0" name="contact" id="contact1" class="lHidden" value="Y">
+                <label for="contact1">예</label>
+                <input type="radio" tabindex="0" name="contact" id="contact2" class="lHidden" value="N">
+                <label for="contact2">아니오</label>
+            </li>           
+            <li>
+                <p>확진자 동선과 겹친 경우가 있다.</p>
+                <input type="radio" tabindex="0" name="tracing" id="tracing1" class="lHidden" value="Y">
+                <label for="tracing1">예</label>
+                <input type="radio" tabindex="0" name="tracing" id="tracing2" class="lHidden" value="N">
+                <label for="tracing2">아니오</label>
+            </li>
+        </ul>
+    </div>
+    <input type="button" class="button-primary btn-complete" value="선택 완료">
+    <!-- content -->
+</div>
+</body>
+</html>

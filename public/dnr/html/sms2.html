@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+	<title>NICE D&R</title>
+	<link rel="stylesheet" type="text/css" href="../css/sms.css">
+
+	<script src="../js/libs/jquery-3.4.1.min.js"></script>
+	<script src="../js/common.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+		});
+	</script>
+</head>
+<body>
+<div class="wrap">
+	<div class="container">
+		<!-- logo -->
+		<h1 class="logo"><img src="../images/logo.png" alt="NIICE D&R 로고"></h1>
+		<!-- //logo -->
+		
+		<!-- content -->
+		<div class="content">
+			<div class="inner">
+				<div class="cont-top">
+					<h3 class="title color-primary">전화번호<span>전화번호를 입력해 주세요.</span></h3>
+					<input type="text" id="number" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="-없이 숫자만 입력" class="type1"> 
+					<ul class="clearfix input-box">
+						<li>
+							<input type="radio" name="sms-check" id="sms-check1" class="type1" checked>
+							<label for="sms-check1">계속 문자 수신 희망</label>
+						</li>
+						<li>
+							<input type="radio" name="sms-check" id="sms-check2" class="type1">
+							<label for="sms-check2">정보 수신 거절</label>
+						</li>
+					</ul>
+				</div>
+				<hr>
+				<div class="cont-bott">
+					<p>거절 사유</p>
+					<ul class="input-box">
+						<li>
+							<input type="radio" name="sms-rsn" id="sms-rsn1" class="type1" checked>
+							<label for="sms-rsn1">전화번호 바뀜</label>
+						</li>
+						<li>
+							<input type="radio" name="sms-rsn" id="sms-rsn2" class="type1">
+							<label for="sms-rsn2">조사에 관심 없음</label>
+						</li>
+						<li>
+							<input type="radio" name="sms-rsn" id="sms-rsn3" class="type1">
+							<label for="sms-rsn3">단순거절</label>
+						</li>
+						<li>
+							<input type="radio" name="sms-rsn" id="sms-rsn4" class="type1">
+							<label for="sms-rsn4">기타</label>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- //content -->
+
+	<!-- footer -->
+	<footer>
+		<input type="button" class="btn-primary" value="전송">
+	</footer>
+	<!-- //footer -->
+</div>
+</body>
+</html>

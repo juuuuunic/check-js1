@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+<title></title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!--style-->
+<link rel="stylesheet" type="text/css" href="/css/common.css" />
+<link rel="stylesheet" type="text/css" href="/css/layout.css" />
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+
+<!--js-->
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+$(function ajaxpopup(popupurl,popupFile,popupfileId) {
+  $('.popup_btn').click(function() {
+        popupFile   = $(this).attr('data-src'),
+        popupurl    = './popup/' + popupFile + '.html',
+        popupfileId = '#'+popupFile;
+
+    var popup_box = document.createElement('div');
+        popup_box.id= 'poup_box';
+
+    var ifrm     = document.createElement('iframe');
+        ifrm.src = popupurl;
+        ifrm.id  = popupFile;
+        popup_box.append(ifrm);
+
+     $.ajax({
+        url: popupurl,
+        dataType: 'html',
+        success: function(data) {
+          $('body').append(popup_box);
+          funlod ();
+        }
+      });
+
+    function funlod (){
+       $(popupfileId).load(function(){
+       $(popupfileId).contents().find('.iframe_close_btn').click(function(){
+       $(popupfileId).remove();
+       $('#poup_box').remove();
+       });
+     });
+    }
+
+  });
+ 
+});
+</script>
+<style>
+  #poup_box{position:fixed; top:0;left:0; width:100vw;height: 100vh; background: rgba(0,0,0,0.7);}
+  iframe{border: 0; background: #ccc;border:1px solid #222;position: absolute;width: 50vw; height: 50vh; left:50%; top:50%; margin: -25vh 0 0 -25vw;}
+</style>
+<body>
+<div>
+  <a href="javascript:;" class="popup_btn" data-src="popup01">popup_btn1</a>
+  <a href="javascript:;" class="popup_btn" data-src="popup02">popup_btn2</a>
+  <a href="javascript:;" class="popup_btn" data-src="popup03">popup_btn3</a>
+</div>
+</body>
+</html>

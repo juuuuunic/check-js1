@@ -1,0 +1,193 @@
+@charset "UTF-8";
+/*
+html5doctor.com Reset Stylesheet
+v1.6.1
+Last Updated: 2010-09-17
+Author: Richard Clark - http://richclarkdesign.com
+Twitter: @rich_clark
+*/
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+body {
+    line-height:1;
+}
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section {
+    display:block;
+}
+
+nav ul {
+    list-style:none;
+}
+
+blockquote, q {
+    quotes:none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content:'';
+    content:none;
+}
+
+a {
+    margin:0;
+    padding:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+/* change colours to suit your needs */
+ins {
+    background-color:#ff9;
+    color:#000;
+    text-decoration:none;
+}
+
+/* change colours to suit your needs */
+mark {
+    background-color:#ff9;
+    color:#000;
+    font-style:italic;
+    font-weight:bold;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+    border-bottom:1px dotted;
+    cursor:help;
+}
+
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+/* change border colour to suit your needs */
+hr {
+    display:block;
+    height:1px;
+    border:0;  
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+}
+
+input, select {
+    vertical-align:middle;
+}
+
+
+/* font */
+    @font-face {
+    font-family: "BM Hanna";
+    font-style: normal;
+    font-weight: normal;
+    src: url("/fonts/BMHANNA_11yrs_otf.otf") format("embedded-opentype"), 
+    url("/fonts/BMHANNA_11yrs_ttf.ttf") format("truetype"), 
+    url("/fonts/BMHANNA_11yrs.woff") format("woff"); }
+
+    @font-face {
+    font-family: 'Noto Sans Korean';
+    font-style: normal;
+    font-weight: 400;
+    src: local("Noto Sans Regular"), local("NotoSans-Regular"),
+    url("https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/fonts/eot/NotoSansKR-Regular-Hestia.eot"), 
+    url("https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/fonts/eot/NotoSansKR-Regular-Hestia.eot?#iefix") format("embedded-opentype"), 
+    url("https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/fonts/woff/NotoSansKR-Regular-Hestia.woff") format("woff"), 
+    url("https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/fonts/otf/NotoSansKR-Regular-Hestia.otf") format("opentype"); }
+  
+    @font-face {
+    font-family: 'Noto Sans Korean';
+    font-style: normal;
+    font-weight: 700;
+    src: local("Noto Sans Bold"), local("NotoSans-Bold"), 
+    url("https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/fonts/eot/NotoSansKR-Bold-Hestia.eot"), 
+    url("https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/fonts/eot/NotoSansKR-Bold-Hestia.eot?#iefix") format("embedded-opentype"), 
+    url("https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/fonts/woff/NotoSansKR-Bold-Hestia.woff") format("woff"), 
+    url("https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/fonts/otf/NotoSansKR-Bold-Hestia.otf") format("opentype"); }
+    
+  
+  
+/* 공통: 1rem = 16px */
+    b, strong { font-weight: bold; }
+    h1, h2, h3, h4, h5, h6, p, dl, dt, dd { margin: 0; }
+    ul, ol, li { margin: 0; padding: 0; list-style: none; }
+    img { width: 100%; height: auto; }
+    figure, figcaption { margin: 0; padding: 0; }
+    cite { font-style: normal; }
+    a { color: inherit; text-decoration: none; }
+    input { font-family: inherit; -webkit-appearance: none; -moz-appearance: none; appearance: none; outline: none; }
+    input, textarea { display: inline-block; padding: 0; margin: 0; border: 0; background: none; font: inherit; resize: none; outline: 0; }
+    input::-ms-clear { display: none; }
+    input:focus,
+    button:focus { outline: none; }
+    input::-webkit-input-placeholder,
+    textarea::-webkit-input-placeholder { color: #cbcbcb; }
+    button { display: inline-block; padding: 0; margin: 0; border: 0; background: none; -webkit-border-radius: 0; border-radius: 0; -webkit-appearance: none; }
+    table, td, th { border-collapse: collapse; border: 0; text-align: left; border: 1px solid gray;  }
+    em {font-style: normal;}    
+    body, html { font-family: "Noto Sans Korean", sans-serif; font-size: 16px; font-weight: 300; line-height: 1; color: #383838; -webkit-font-smoothing: antialiased; margin: 0; padding: 0; }
+    html {-webkit-text-size-adjust: 100%; }
+    iframe { -webkit-border: 0; border: 0; }
+    .blind {display: block; position: absolute !important; top: -9999px; left: -9999px; width: 1px; height: 1px; margin: 0; padding: 0; border: 0; color: transparent; } 
+    .none {display: none !important;}
+    /* float clear */
+    .clearfix:after { clear: both; display: block; content: ""; height: 0; visibility: hidden;} 
+    * html .clearfix { height: 1px; }
+    .clearfix { display: block; min-height: 1px; }
+
+/* layout */
+    body, html { -webkit-transition: all .5s ease; -moz-transition: all .5s ease; transition: all .5s ease; }
+    input, textarea { width: 100%; height: 47px; padding-left: 17px; -webkit-border: 1px solid #e4e4e4; border: 1px solid #e4e4e4; box-sizing: border-box; }
+    hr { width: 100%; height: 2px; background-color: #434343; margin: 37px 0; }
+    input[type=radio] { width: 20px; height: 20px; -webkit-border-radius: 50%; border-radius: 20px; margin-right: 7px; }
+    input[type=radio]:checked { background: no-repeat url(/images/checked_radio.png); background-size: cover; -webkit-border: 0; border: 0; }
+    .color-primary { color: #1c7ced; }
+    .wrap { height: 100%; background-color: #fff; }
+    .container { position: relative; padding: 0 22px; box-sizing: border-box; }
+    .logo { position: absolute; max-width: 97px; top: 17px; left: 22px; }
+    .btn-primary { color: #fff; background-color: #1c7ced; }
+
+    .content { display: table; width: 100%; height: inherit; }
+    .content.HeightAuto > .inner { display: table-cell; vertical-align: middle; }
+    .content:not(.HeightAuto) { font-size: 14px; padding-top: 96px; box-sizing: border-box; }
+    .content .title { font-size: 22px; font-weight: 400; }
+    .content .title > span { display: block; font-size: 14px; color: #797979; margin-top: 13px; }
+    .content .cont-img { max-width: 125px; height: 98px; margin: 0 auto; }
+    .content .cont-txt { line-height: 1.5; text-align: center; margin-top: 28px; }
+    .content .cont-txt.cont-info { margin-top: 50px ; }
+    .content .cont-top .input-box { margin-top: 10px; }
+    .content .cont-top .input-box > li { float: left; }
+    .content .cont-top .input-box > li+li { margin-left: 22px; }
+    .content .cont-bott .input-box { margin-top: 25px; }
+    .content .cont-bott .input-box > li+li { margin-top: 20px; }
+    .content input[type=text]#number { margin-top: 23px; }
+
+    footer { position: fixed; width: 100%; left: 0; bottom: 0; }
+    footer > input { width: 100%; height: 60px; line-height: 60px; font-size: 17px; }
