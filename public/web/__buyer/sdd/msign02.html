@@ -29,7 +29,7 @@
                     return false;
                 }
 
-                document.location.href = "./msign03.php";
+                document.location.href = "./msign03.html";
                 return false;
             });
         
@@ -78,7 +78,7 @@
                 <div class="contents-chk__type2 input-row">
                     <div class="chk-subject">
                         1. 근로계약서 동의                        
-                        <i class="chk-view__txt" onclick="ajaxLink('./lp/ajax.agree.php','GET',''); return false;">보기</i>
+                        <i class="chk-view__txt" onclick="ajaxLink('./lp/ajax.agree.html','GET',''); return false;">보기</i>
                     </div>
                     <div class="chk-box">
                         <input name="essential" id="chk-list1" type="checkbox">
@@ -88,25 +88,25 @@
                 <div class="contents-chk__type2 input-row">
                     <div class="chk-subject">
                         2. 개인정보 수집 및 이용 동의서                        
-                        <i class="chk-view__txt" onclick="ajaxLink('./lp/ajax.agree.php','GET',''); return false;">보기</i>
+                        <i class="chk-view__txt" onclick="ajaxLink('./lp/ajax.agree.html','GET',''); return false;">보기</i>
                     </div>  
                     <div class="chk-box">
                         <input name="essential" id="chk-list2" type="checkbox">
                         <label for="chk-list2"><span class="notice">[필수]</span>기본 개인정보의 수집, 이용에 동의함</label>
-                        <i class="chk-view__angle" onclick="ajaxLink('./lp/ajax.agree.php','GET',''); return false;""></i>
+                        <i class="chk-view__angle" onclick="ajaxLink('./lp/ajax.agree.html','GET',''); return false;""></i>
                     </div>         
                     <div class="chk-box">
                         <input id="chk-list3" type="checkbox">
                         <label for="chk-list3"><span>[선택]</span>민감 정보의 수집 및 이용에 동의함</label>
-                        <i class="chk-view__angle" onclick="ajaxLink('./lp/ajax.agree.php','GET',''); return false;"""></i>
+                        <i class="chk-view__angle" onclick="ajaxLink('./lp/ajax.agree.html','GET',''); return false;"""></i>
                     </div>                           
                     <div class="chk-selct chk-selct__type">
                         근무유형 선택
-                        <i class="chk-view__txt" onclick="ajaxLink('./lp/ajax.type.php','GET',''); return false;">선택</i>
+                        <i class="chk-view__txt" onclick="ajaxLink('./lp/ajax.type.html','GET',''); return false;">선택</i>
                     </div>          
                     <div class="chk-selct">
                         계죄정보 입력
-                        <i class="chk-view__txt" onclick="ajaxLink('./lp/ajax.account.php','GET',''); return false;">입력</i>
+                        <i class="chk-view__txt" onclick="ajaxLink('./lp/ajax.account.html','GET',''); return false;">입력</i>
                     </div>         
                 </div>
             </form>
