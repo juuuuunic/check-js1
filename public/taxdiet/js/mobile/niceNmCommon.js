@@ -399,7 +399,7 @@ function fancybox_open(pSrc, returnURL, pSession) {
 			            ,slideShow  : false
 			            ,fullScreen : false
 			            ,thumbs     : false
-			            ,closeClickOutside : false
+						,closeClickOutside : false
 			        }
 			    });
 			}
@@ -662,3 +662,124 @@ function f_form_submit(pUrl, returnURL) {
 		alert("오류가 발생하였습니다.");
 	});
 }
+
+function fancybox_chk(pUrl, chk) {
+	$.fancybox.open({
+		src  : pUrl
+		,type : 'iframe'
+		,opts : {
+			iframe : {
+				scrolling : 'yes'
+			}
+			,closeBtn   : false
+			,slideShow  : false
+			,fullScreen : false
+			,thumbs     : false
+			,closeClickOutside : false
+			,onComplete : function() {	
+				// var chkElement = $('.fancybox-iframe').contents().find('.common-btn__btn');
+				// //var element = $('.fancybox-iframe').contents().find('.common-btn__btn');
+				// chkElement.on('click', function() {
+				// 	if($(this).attr('id') == 'btn_modify_submit') chk.prop("checked", true);
+				// 	else chk.prop("checked", false);
+				// });
+				//f_chk_input();
+			}, afterClose : function() {
+				// console.log($("input:checkbox[value='Y']:checked").length)
+				// if($("input:checkbox[value='Y']:checked").length == 2) $("input:checkbox[id='allCheck']").prop("checked", true);
+				// else $("input:checkbox[id='allCheck']").prop("checked", false);
+				// var inpElement = $("input:checkbox[value='Y']").prop("checked", true).length;
+				// //if(inpElement == true) alert('hihi')
+				// console.log(inpElement)
+			}
+		}
+	});
+}
+
+
+function fancybox_chk_open(pSrc, returnURL, pSession) {
+	
+	if (pSession==null) {
+		pSession = true;
+	}
+	if (pSession) {
+		// Session Check후 정상일때 url호출
+		$.post("/cm/CM_SESSION_VALID.do", "", function(result) {
+			if (result.status) {
+				$.fancybox.open({
+			        src  : pSrc
+			        ,type : 'iframe'
+			        ,opts : {
+			            iframe : {
+			                scrolling : 'yes'
+			            }
+			            ,closeBtn   : false
+			            ,slideShow  : false
+			            ,fullScreen : false
+			            ,thumbs     : false
+						,closeClickOutside : false
+			        }
+			    });
+			}
+			else {
+				alert(result.status_msg);
+	
+				f_go_login(returnURL);
+			}
+		}, 'json')
+		.fail(function(jqXHR) {
+		    //alert("URL 호출을 실패했습니다.");
+			alert("오류가 발생하였습니다.");
+		});
+	} else {
+		$.fancybox.open({
+	        src  : pSrc
+	        ,type : 'iframe'
+	        ,opts : {
+	            iframe : {
+	                scrolling : 'yes'
+	            }
+	            ,closeBtn   : false
+	            ,slideShow  : false
+	            ,fullScreen : false
+	            ,thumbs     : false
+				,closeClickOutside : false
+				,onComplete : function() {
+					
+					//f_chk_elements()
+					//console.log(f_chk_input(arguments))
+					//f_chk_input();
+					// var chkElement = $('.fancybox-iframe').contents().find('.common-btn__btn');
+					// chkElement.on('click', function() {
+					// 	if($(this).attr('id') == 'btn_modify_submit') alert('hihi') //chk.prop("checked", true);
+					// 	else chk.prop("checked", false);
+					// });
+				}, afterClose : function() {
+
+					
+				}
+	        }
+	    });
+	}
+}
+
+//var ifrm = getIframe(".fancybox-iframe");
+//console.log(ifrm.$("body > div"));
+
+// function f_chk_elements() {	
+// 	var btnElement = $('.fancybox-iframe').contents().find('.common-btn__btn');
+// 	var inpElement = $(".wrap").find("input:checkbox[name='checked']");
+// 	//console.log($(".wrap").find("input:checkbox[value='N']"))
+// 	btnElement.on('click', function() {
+// 		if($(this).attr('id') == 'btn_modify_submit') inpElement.prop("checked", true);
+
+// 		if(inpElement.length == 2) $("input:checkbox[id='allCheck']").prop("checked", true);
+// 		//else $("input:checkbox[id='allCheck']").prop("checked", false);
+// 	});
+// }
+
+// function f_chk_input() {
+// 	console.log(arguments)
+// 	return arguments;
+// }
+

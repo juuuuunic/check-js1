@@ -1,0 +1,385 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+
+<title>택스다이어트: NM_30011(상권분석)</title>
+<link rel="stylesheet" type="text/css" href="../../../css/mobile/default.css">
+<link rel="stylesheet" type="text/css" href="../../../css/mobile/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="../../../css/mobile/libs/jquery.fancybox-1.3.1.css">
+
+<script src="../../../js/mobile/libs/jquery-1.11.1.min.js"></script>
+<script src="../../../js/mobile/libs/jquery-ui.min.js"></script>
+<script src="../../../js/mobile/libs/jquery.easing.1.3.js"></script>
+<script src="../../../js/mobile/libs/jquery-ui.js"></script> <!-- dskim -->
+<script src="../../../js/mobile/libs/jquery.mask.min.js"></script>
+<script src="../../../js/mobile/libs/daterange.js"></script>
+
+<script src="../../../js/mobile/libs/jquery.validate-1.8.1.min.js"></script>
+<script src="../../../js/mobile/niceNmCommon.js"></script>
+<script src="../../../js/mobile/common-util.js"></script>
+
+<!-- layerpopup -->
+<script src="../../../js/mobile/libs/jquery.fancybox.min.js"></script>
+
+<!-- placeholder fix -->
+<script src="../../../js/mobile/libs/jquery.placeholder.js"></script>
+
+<script src="../../../js/mobile/libs/jquery.history.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+
+<script type="text/javascript">
+
+$(function(){
+	
+	$(".btn_joinMember").click(function(){
+			
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A2D594B41200D152A3E062545033D5E220C" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+	
+});
+
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){	
+
+
+	});
+</script>
+
+</head>
+<body>
+	<div class="wrap">
+		<!-- header -->
+		<div class="header header--white">
+			<div class="header__logo">
+				<a href="javascript:f_go_home();"><img src="../../../images/mobile/common/main_logo.png" alt="택스다이어트"></a>
+			</div>
+			<script type="text/javascript">
+			$(document).ready(function(){
+				$("#tax_bill").click(function() {
+					window.open("http://www.nicedata.co.kr/ti/TI_10000.html");
+					return false;
+				});
+				
+				$("#check_biz").click(function() {
+					window.open("http://www.nicedata.co.kr/as/AS_30401.html");
+					return false;
+				});
+				
+				$("#sgic").click(function() {
+					window.open("http://www.nicedata.co.kr/as/AS_40601.html");
+					return false;
+				});
+			});
+			</script>
+			<div class="header__gnb">
+				<input type="checkbox" class="gnb__btn" id="gnb__btn">
+				<label for="gnb__btn" class="gnb__btn__action">
+					<div class="spinner diagonal part-1"></div>
+					<div class="spinner horizontal"></div>
+					<div class="spinner diagonal part-2"></div>
+				</label>
+				<div class="gnb__contents">
+					<div class="gnb__contents__header">
+						<a href="../nm/NM_27011.html"><p class="login-info">나이스디앤알(주)</p></a>
+								</div>
+					<ul class="gnb__contents__menu">
+						<li>
+							<a href="../nm/NM_23011.html">
+								<i class="icon-set1"></i>부가세 환급지원
+							</a>
+						</li>
+						<li>
+							<a href="../nm/NM_29011.html">
+								<i class="icon-set2"></i>셀프택스 자가신고
+							</a>
+						</li>
+						<li>
+							<a href="../nm/NM_25011.html">
+								<i class="icon-set3"></i>세무상담
+							</a>
+						</li>
+						<li>
+							<a href="../nm/NM_30011.html">
+								<i class="icon-set5"></i>상권분석
+							</a>
+						</li>
+					</ul>
+					<div class="gnb__contents__service">
+						<div class="gnb__contents__service--top">
+							<p class="call_tit">
+								<i></i>고객만족센터
+							</p>
+							<div class="call_btn">
+								<a href="tel:1588-5659">통화하기</a>
+							</div>
+						</div>
+						<div class="gnb__contents__service--bottom">
+							<p class="service-number">1588-5659</p>
+							<p class="service-time">
+								상담시간: 09:00~18:00(금요일 17:00까지)<br/>
+								점심시간: 12:00~13:00<br />
+								주말, 공휴일 휴무<br />
+							</p>
+						</div>
+					</div>
+					<div class="gnb__contents__qiuck">
+						<ul>
+							<li>
+								<a href="#none" id="tax_bill">
+									<img src="../../../images/mobile/common/quick_icon_1.png" alt="전자세금계산서"/>
+									전자세금<br/>계산서
+								</a>
+							</li>
+							<li>
+								<a href="#none" id="check_biz">
+									<img src="../../../images/mobile/common/quick_icon_2.png" alt="휴폐업조회"/>
+									휴폐업<br/>조회
+								</a>
+							</li>
+							<li>
+								<a href="#none" id="sgic">
+									<img src="../../../images/mobile/common/quick_icon_3.png" alt="서울보증보험안내"/>
+									서울보증보험<br/>안내
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="header__hidden-bg"></div>
+		</div>
+		<!-- //header -->
+
+		<!-- container -->
+		<div class="container">
+			<div class="inner-container mypage-con">
+				<div class="analysis">
+					<div class="consulting__header">
+						<div class="header-inner">
+							<p class="tit">상권분석</p>
+						</div>
+					</div>
+					<div class="anal-txt">
+						<h3><b>소개 및 이용 안내</b></h3>
+						<span>
+							상권분석은 내 지역 상권에 대한 경쟁업체 수와 매출,
+							유동인구 특성 등 성공사업에 필요한 핵심정보를 제공하고 있습니다.
+						</span>
+					</div>
+					<div class="anal-content anal-content__info">
+						<!-- 왜 -->
+						<div class="anal-grid__why">
+							<h5 class="sub"><b>상권분석은 왜 필요할까요?</b></h5>
+							<span>
+								
+							</span>
+							<ul>
+								<li class="anal-grid__result">
+									택스다이어트의 상권분석 서비스는 상권의 특성과 유형,
+									주변 시설, 경쟁 업소의 수, 업종 평균 매출액, 업종 경기 수준 등 창업 성공에 중요한 필수정보를 제공합니다.
+								</li>
+								<li class="anal-grid__report">
+									<div>
+										<div class="anal-grid__img"></div>
+										<span><b>유동인구는 많은데 왜 장사가 안되는 걸까요?</b></span>
+										<span>유동인구의 연령대가 사업 아이템과 맞지 않을 수도 있습니다.</span>
+									</div>
+									<div>
+										<div class="anal-grid__img"></div>
+										<span><b>대로변이라 위치가 좋은 데도 장사가 잘 안됩니다. 이유가 뭘까요?</b></span>
+										<span>주변 상권에 유사 서비스 점포가 많은 것은 아닐까요?</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<!-- //왜 -->
+						
+						<!-- 성과 -->
+						<div class="anal-grid__outcome">
+							<h5 class="sub"><b>상권정보를 이용해 창출할 수 있는 성과는?</b></h5>
+							<ul>
+								<li class="anal-grid__report">
+									<div>
+										<div class="anal-grid__img"></div>
+										<span>자기 점포의 상황, 소비자 특성, 소비행태를 정략적인 수치자료로 파악 가능</span>
+									</div>
+									<div>
+										<div class="anal-grid__img"></div>
+									<span>경쟁업체의 매출, 경쟁점을 이용하는 고객들의 인구통꼐적 특성, 소비행동 등 파악</span>
+									</div>
+									<div>
+										<div class="anal-grid__img"></div>
+										<span>상권정보 활용 마케팅의 시작단계인 <br>'사업 환경 분석' 가능</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<!-- //성과 -->
+
+						<!-- 정보 -->
+						<div class="anal-grid__data">
+							<h5 class="sub"><b>상권분석으로 알 수 있는 정보는?</b></h5>
+							<ul>
+								<li class="anal-grid__result">
+									상권분석 보고서 서비스를 통해 아래와 같이 업종과 상권 특성에 관한 의미있는 정보를 얻을 수 있습니다.
+								</li>
+								<li class="anal-grid__report">									
+									<div>
+										<div class="anal-grid__img"></div>
+										<h3><b>특정 상권에 대한 업종 현황</b></h3>
+										<span class="middot">특정 상권 및 업종에 대한 총 업체수, 상권내 업종 비율, 전월대비 업체수의 증감</span>
+										<span class="middot">점포 수 & 전체 고객의 수</span>
+									</div>
+									<div>
+										<div class="anal-grid__img"></div>
+										<h3><b>특정 상권에 대한 매출 현황</b></h3>
+										<span class="middot">업종 평균 매출, 상위 20% 매출, 하위 20% 매출 월별 평균 매출의 증감, 계절적 특성 및 타지역과의 매출 비교</span>
+										<span class="middot">점포 수 & 전체 고객의 수</span>
+									</div>
+									<div>
+										<div class="anal-grid__img"></div>
+										<h3><b>특정 상권에 대한 고객 현황</b></h3>
+										<span class="middot">해당 업종에 대한 고객 연령 분석</span>
+										<span class="middot">해당 업종에 대한 고격 연령 변화 추이</span>
+										<span class="middot">해당 업종에 대한 요일별, 시간대별 고객 추이</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<!-- //정보 -->
+
+						<!-- 상권 구성요소 -->
+						<div class="anal-grid__table">
+							<div class="table-type5 table-type5__1 anal-table">
+								<table summary="상권의 구성 요소들에 관한 테이블입니다.">
+									<colgroup>
+										<col style="width: 40%">
+										<col style="width: 60%">
+									</colgroup>
+									<thead>
+										<tr>
+											<th colspan="2"><b>상권의 구성 요소들<b></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th><b>상권 내 점포 현황<b></th>
+											<td>점포 수, 업종 분포, 임대조건, 영업 활성도, 보증금 및 권리금 시세 등</td>
+										</tr>
+										<tr>
+											<th><b>유동인구 현황<b></th>
+											<td>상원으로 유입되는 연령별 &middot; 성별 &middot; 계층별 유동인구량 및 이들의 소비성향</td>
+										</tr>
+										<tr>
+											<th><b>주요 이동로 및 동선<b></th>
+											<td>상권 내 인구들의 흐름, 주요 유입통로 및 유입 후 이동선, 랜드마크 등</td>
+										</tr>
+										<tr>
+											<th><b>교통 여건<b></th>
+											<td>자가용 또는 대중교통으로 접근할 수 있는 교통 인프라, 접근성 파악</td>
+										</tr>
+										<tr>
+											<th><b>배후 세력현황<b></th>
+											<td>지속적으로 유입되는 인근 지역 거주민의 소득 &middot; 소비수준, 거주형태 등</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- //상권 구성요소 -->
+
+						<!-- 이용하기 버튼 -->
+						<div class="anal-grid__btn">
+							<h5 class="grid__btn-tit"><b>상권분석보고서를 이용하려면?</b></h5>
+							<div class="common-btn bottom-btn--fixed">
+								<a href="#none" onclick="return false;" class="common-btn__btn common-btn__btn--wide">상권분석 보고서 이용하기</a>
+							</div>
+							<span class="notice anal-notice">상권분석보고서는 <em class="negative">건당 11,000</em>원의 서비스 이용요급이 부과됩니다.</span>
+						</div>
+						<!-- //이용하기 버튼 -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- //container -->
+
+		<!-- footer -->
+		<div class="footer">
+			<script src="../../../js/mobile/common.js"></script>
+
+			<script type="text/javascript">
+			$(document).ready(function(){
+				// 이용약관
+				$(".NM_22012_001").click(function() {
+					fancybox_open("../nm/NM_22012.do?termCode=001", null, false);
+					return false;
+				});
+
+				// 개인정보처리방침
+				$(".NM_22012_002").click(function() {
+					fancybox_open("../nm/NM_22012.do?termCode=002", null, false);
+					return false;
+				});
+
+				// PC버전
+				$(".PC").click(function() {
+					location.href = "https://t-renewal.taxdiet.co.kr/cm/main.html";
+					return false;
+				});
+			});
+			</script>
+
+			<ul class="footer__terms">
+				<li>
+					<a href="javascript:;" class="NM_22012_001">이용약관</a>
+				</li>
+				<li>
+					<a href="javascript:;" class="NM_22012_002">개인정보처리방침</a>
+				</li>
+				<li>
+					<a href="javascript:;" class="PC">PC버전</a>
+				</li>
+			</ul>
+			<p class="footer__copyright">Ⓒ NICE D&R Ltd.</p>
+
+			<!--
+			<div class="terms-wrap HeightAuto use-terms">
+				<iframe src="" id="terms" name="terms" frameborder="0"></iframe>
+			</div>
+			-->
+			<!-- 택스다이어트 모바일 전용 구글 애널리틱스 (PC용은 별도로 있음) -->
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-36649342-22"></script>
+			<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-36649342-22');
+			</script>
+		</div>
+		<!-- //footer -->
+		<div class="top-btn" style="display:none;">
+			<span>맨위로</span>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<div class="_pop-basic _pop-ajax">
+    <div class="_pop-wrap">
+        <!-- inner -->   
+        <div class="inner">
+            <h1 class="title"><b>계약 내용을 꼼꼼히 확인하셨나요?</b></h1>
+            <div class="_pop-close__x" onclick="ajaxClose('._pop-ajax');">닫기</div>
+            <!-- content -->
+            <div class="contents">
+                <form name="p1">
+                    <div class="input-row">
+                        <label class="middot">계약명 :</label> <input type="text" class="agrmn-name" readonly>
+                    </div>
+                    <div class="input-row">
+                        <label class="middot">계약서 발신자 :</label> <input type="text" class="agrmn-sender" readonly>
+                    </div>
+                    <div class="input-row">
+                        <label class="middot">계약일자 :</label> <input type="text" class="agrmn-date" readonly>
+                    </div>
+                </form>
+                <p>
+                    본인은 위 계약 내용을 모두 숙지하였으며, 본 계약서에 전자서명함으로써 계약 내용에 동의하는 것으로 합니다.
+                </p>
+            </div>  
+            <!-- //content -->
+        </div>
+        <!-- //inner -->
+        
+        <!-- btn-box -->
+        <ul class="btn-box clearfix">
+            <li>
+                <input type="button" class="_pop-close button-dim" value="취소" onclick="ajaxClose('._pop-ajax');">
+            </li>
+            <li>
+                <input type="button" class="_pop-done button-primary" value="확인" onclick="ajaxClose('._pop-ajax');">
+            </li>
+        </ul>
+        <!-- //btn-box -->
+    </div>    
+    
+    <div class="_pop-bg"></div>
+</div>

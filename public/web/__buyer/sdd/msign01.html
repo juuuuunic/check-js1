@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>▒ 나이스다큐 (전자구매시스템)▒</title>
+    
+    <meta charset="EUC-KR">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=5.0,user-scalable=yes">
+
+    <!--style -->
+    <link rel="stylesheet" type="text/css" href="/public/web/__buyer/html/css/style_msign2.css">
+
+    <!--js -->
+    <script language="javascript" type="text/javascript" src="/public/web/__buyer/html/js/jquery/jquery-3.1.1.min.js"></script>
+	<script language="javascript" type="text/javascript" src="/public/web/__buyer/html/js/jquery/jquery-ui.min.js"></script>
+	<script language="javascript" type="text/javascript" src="/public/web/__buyer/html/js/jquery/jquery.easing.1.3.js"></script>
+	<script language="javascript" type="text/javascript" src="/public/web/__buyer/html/js/common.js"></script>
+	<script language="javascript" type="text/javascript" src="/public/web/__buyer/html/js/lib.validate.js"></script>
+
+
+<script>
+    $(function(){
+        //동의 후 인증하기
+        document.querySelector('.btn-submit').addEventListener('click', function() {
+            if(!fnChkbox('f1', '계약내용 확인 후 ‘동의함’에 체크해 주세요.')) {
+                return false;
+            }
+
+            document.location.href = "./msign02.php";
+            return false;
+        });
+
+        
+        const form = document.forms['f1'];        
+        for(let i=0; i<form.elements.essential.length; i++) {
+            //전체동의 
+            document.querySelector('#chk-all').addEventListener('click', function(e) {
+                if(this.checked === true) form.elements.essential[i].checked = true;
+                else form.elements.essential[i].checked = false;
+            });
+
+            //개인정보 동의 
+            form.elements.essential[i].addEventListener('change', function(e) {
+                let chked = true;
+                if (!form.elements.essential[i].checked) {
+                    chked = false;
+                    //break;
+                }
+                document.querySelector('#chk-all').checked = chked;
+            });
+        };
+    
+    });
+
+</script>
+
+
+<body>
+<!-- header -->
+<header>
+    <h1 class="logo"><a href="./msign01.html">나이스다큐</a></h1>
+</header>
+<!-- //header --><!-- container -->
+<div class="container">   
+    <!-- info -->
+    <section class="info">
+        <ul class="clearfix">
+            <li class="is-active">1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+    </section>   
+    <!-- //info -->
+
+    <!-- title -->
+    <section class="title inner">
+        <h3>
+            <span>계약자 본인인증</span>
+        </h3>
+        <p>
+            계약 내용 확인을 위해 본인인증이 필요합니다. 
+            원하시는 방법으로 인증을 진행해 주세요.
+        </p>
+    </section>
+    <!-- //title -->
+
+    <!-- contents -->
+    <section class="contents inner">
+        <!-- contents-how -->
+        <div class="contents-how">
+            <h5 class="title-type1">휴대폰 본인인증</h5>
+            <span class="middot">계약서 발신자가 입력한 전화번호와 다르거나, 본인 명의의 휴대폰이 아닌 경우 인증이 이루어지지 않습니다.</span>
+            <span class="middot">인증이 이우러지지 않는 경우, 계약서 발신자에게 문의하시기 바랍니다.</span>            
+        </div>
+        <!-- //conn_how --> 
+
+        <!-- _lp-open -->
+        <div class="_lp-open">
+            <a href="javascript:void(0)" onclick="ajaxLink('./lp/ajax.sender.php','GET',''); return false;" class="_lp-open__type1">계약서 발신자 확인하기<i></i></a>
+        </div>
+        <!-- //_lp-open -->
+
+        <!-- contents-chk -->
+        <div class="contents-chk1">
+            <form name="f1" method="post">
+                <div class="contents-chk__type1 input-row">
+                    <div class="chk-box">
+                        <input id="chk-all" type="checkbox">
+                        <label for="chk-all"><strong>전체동의</strong></label>
+                    </div>
+                </div>
+                <div class="contents-chk__type1 input-row">
+                    <div class="chk-box">
+                        <input name="essential" id="chk-list1" type="checkbox">
+                        <label for="chk-list1"><span class="notice">[필수]</span>개인정보 수집 및 이용동의</label>
+                        <i class="chk-view__angle" onclick="dropDown(this);"></i>
+                    </div>                   
+                    <div class="chk-view__drop">
+                        1.약관동의 및 신청자 정보 입력<br>
+                        1) 개인정보 수집 및 이용 동의<br>
+                        우아한청년들은 개인정보보호법, 정보통신망 이용촉진 및 정보보호 등에 관한 법률 등 관련 법령사으이 개인정보보호 규정을 준수하며, 지원자의 개인정보보호에 최선을 다하고
+                    </div>
+                </div>
+                <div class="contents-chk__type1 input-row">                
+                    <div class="chk-box">
+                        <input name="essential" id="chk-list2" type="checkbox">
+                        <label for="chk-list2"><span class="notice">[필수]</span>개인정보 제공 동의</label>
+                        <i class="chk-view__angle" onclick="dropDown(this);"></i>
+                    </div>
+                    <div class="chk-view__drop">
+                        1.약관동의 및 신청자 정보 입력<br>
+                        1) 개인정보 수집 및 이용 동의<br>
+                        우아한청년들은 개인정보보호법, 정보통신망 이용촉진 및 정보보호 등에 관한 법률 등 관련 법령사으이 개인정보보호 규정을 준수하며, 지원자의 개인정보보호에 최선을 다하고
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- //contents-chk -->
+    </section>
+    <!-- //contents -->
+
+    <!-- btn-box -->
+    <section class="btn-box inner">
+        <div><input type="submit" class="button-primary btn-submit" value="동의 후 인증하기"></li></div>
+    </section>
+    <!-- //btn-box -->
+</div>
+<!-- //container -->
+
+<!-- footer -->
+<!-- footer -->
+<footer>
+    <div class="inner">
+        <ul class="info-contact">
+            <li>
+                <div>
+                    <span>고객지원</span>
+                    <span>
+                        02.788.9097 | nicedocu@nicednr.co.kr
+                    </span>
+                </div>
+                <div>
+                    <span>상담시간</span>
+                    <span>
+                        09:00~18:00 | 점심시간 12:00~13:00 | 주말, 공휴일 휴무
+                    </span>
+                </div>
+            </li>
+            <li class="info-contact__copy">
+                <span>NICE D&R(NICE Data & Research) | 대표자 강용구</span>
+                <span>사업자등록번호 107-87-08207</span>
+                <span>통신판매업 신고번호 제2012-서울구로-103호</span>
+                <span>서울시 서대문구 충정로36(충정로3가)</span>
+                <span>Copyrightⓒ 2019 NICE D&R Inc, All Rights Reserved.</span>
+            </li>
+        </ul>
+    </div>
+</footer>
+<!-- //footer -->
+
+
+<script language="javascript" type="text/javascript" src="/public/web/__buyer/html/js/common2.js"></script>
+</body>
+</html>

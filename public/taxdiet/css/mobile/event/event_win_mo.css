@@ -1,0 +1,179 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700&display=swap&subset=korean');
+
+/* 요소(element) 여백 초기화  */
+html, body, div, span, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, blockquote, p, address, pre, cite, form, fieldset, input, textarea, select, table, th, td {
+	margin: 0;
+	padding: 0;
+}
+/* 제목요소 */
+h1, h2, h3, h4, h5, h6 {
+	font-size: 100%;
+	font-weight: normal;
+	padding: 0;
+	margin: 0;
+}
+/* 테두리 없애기 */
+fieldset, img, abbr, acronym {
+	border: 0 none;
+}
+/* 링크밑줄 없애기 */
+a, button {
+	text-decoration: none !important;
+}
+button {
+	cursor: pointer;
+	border: 0;
+}
+button:hover, a:hover {
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+	text-decoration: none;
+}
+button, input, select, a {
+	outline: none !important;
+}
+/* 가리기 설정 */
+.hidden {
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	visibility: hidden;
+	padding: 0;
+	font-size: 0;
+	line-height: 0;
+	position: absolute;
+}
+/* 목록 */
+ol, ul, li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+/* 테이블 - 마크업에 'cellspacing="0"' 지정 함께 필요 */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	border: 0 none;
+}
+caption, th, td {
+	text-align: left;
+	font-weight: normal;
+}
+/* 텍스트 관련 요소 초기화 */
+address, caption, strong, em, cite {
+	font-weight: normal;
+	font-style: normal;
+}
+ins {
+	text-decoration: none;
+}
+del {
+	text-decoration: line-through;
+}
+/* 인용문 */
+blockquote:before, blockquote:after, q:before, q:after {
+	content: "";
+}
+blockquote, q {
+	quotes: "" "";
+}
+/* 수평선
+hr { display:none; }*/
+
+img {
+	margin: 0;
+	padding: 0;
+}
+/*인풋*/
+input, textarea {
+/*	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border-radius: 0px;
+	resize: none !important;*/
+}
+input[type='number'] {
+	-moz-appearance: textfield;
+}
+ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+ -webkit-appearance: none;
+}
+ input::placeholder, textarea::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+ color:#888 !important;
+ opacity: 1; /* Firefox */
+}
+ input:-ms-input-placeholder, textarea:-ms-input-placeholder { /* Internet Explorer 10-11 */
+ color:#888 !important;
+}
+ input::-ms-input-placeholder, textarea::-ms-input-placeholder { /* Microsoft Edge */
+ color:#888 !important;
+}
+
+/* Chrome, Safari용 스크롤 바 */
+::-webkit-scrollbar {
+width: 8px;
+height: 8px;
+}
+::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment {
+display: block;
+width: 8px;
+height: 8px;
+background: url() rgba(0,0,0,.5);
+}
+::-webkit-scrollbar-track {
+background: rgba(0,0,0,.1);
+}
+::-webkit-scrollbar-thumb {
+background: rgba(0,0,0,.2);/*bar*/
+}
+
+
+/** common **/
+	html, body {width: 100%; height: 100%;}
+	body {
+		font-family: 'Noto Sans KR', 'Dotum', 'Sans-serif';
+		font-size: 16px;
+		font-weight: normal;
+		line-height: 1.5;
+		color: #1b1b1b;
+		background: #fff;
+		word-break: break-all;
+	}
+	img {width: 100%;}
+	.popWrap {position: relative; width: 100%; height: 100%;}
+	.pop-layer {position: relative; z-index: 9999;}
+	.inner {width: 100%; max-width: 600px; margin: 0 auto;}
+
+/** header **/
+	header {position: relative; padding: 22px 0; background-color: #f0f4ff;}
+	.slogon {margin: 0 auto;}
+	.event_date {font-size: 14px; font-weight: bold; color: #142b4d; text-align: center; padding: 35px 0 20px;}
+	.event_date li:first-child {display: inline-block; width: 89px; color: #fff; line-height: 29px; background: #142b4d; border-radius: 50px; margin-bottom: 8px;}
+	header > span {display: block; font-size: 10px; font-weight: bold; text-align: center; letter-spacing: -0.5px; margin-top: 10px;}
+
+/** popup_contnet **/
+	section {padding: 15px 20px;}
+	.event_win > li {margin-bottom: 27px;}
+	.event_win > li h1  {font-size: 10px; font-weight: bold; margin-bottom: 8px;}
+	.event_win > li:first-child h1 {font-size: 12px; color: #476ee5;}
+	.event_win > li span {margin-right: 9px;}
+	.win_list {overflow: hidden;}
+	.win_list li {float: left; width: 50%; font-size: 10px; line-height: 2; box-sizing: border-box;}
+	.win_list li:nth-child(even) {padding-left: 20px;}
+	.event_txt {width: 100%; font-size: 10px; font-weight: 500; line-height: 1.5; text-align: center; letter-spacing: -1px; background-color: #f0f0f0; padding: 14px 0;}
+	section > span {display: block; font-size: 10px; text-align: center; margin-top: 10px;}
+
+
+/** pop_bottom **/
+	.pop_close {width: 100%; height: 40px; border-top: 1px solid #ebebeb; box-sizing: border-box;}
+	.pop_close a {float: left; width: 50%; font-size: 13px; color: #5d5d5d; line-height: 40px; text-align: center; box-sizing: border-box;}
+	.pop_close a:last-child {border-left: 1px solid #ebebeb;}
+
+/** modal-close **/
+	.modal-close {position: absolute; top: 15px; right: 5px; width: 20px;}
+	.modal-close:before {content: ''; display: inline-block; width: 1px; height: 20px; margin-left: 0.93740px; background-color: #959595; transform: rotate(45deg);}
+	.modal-close:after {content: ''; width: 1px; height: 20px; background-color: #959595; transform: rotate(-45deg); display: inline-block;}

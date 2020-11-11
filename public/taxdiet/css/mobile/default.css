@@ -3204,3 +3204,223 @@ body.fixed {
   .header__gnb .gnb__contents__scroll {overflow-y: hidden;}
   .header__gnb .gnb__contents__qiuck {position: absolute;}
 }
+
+
+/** 200625 이준희 추가: 약관동의 **/
+p.notice_message {display: none; margin-top: 5px;}
+p.notice_message.nm_red {color: #ff4b4b;}
+p.notice_message.nm_blue {color: #0e8be5;}
+
+.terms-block {padding: 0 15px; box-sizing: border-box;}
+.terms-block .terms__tit {font-size: 20px; text-align: center; margin: 10px 0 46px;}
+.terms-block .terms__tit p {font-size: 15px; line-height: 1.6; margin-top: 24px;}
+.terms-block .terms__tit span {display: inline-block; font-size: 12px; color: #666; line-height: 1.5; text-align: justify; margin-top: 10px;}
+.terms__list > li+li {margin-top: 40px;}
+.terms__list h3 {font-size: 18px; padding-bottom: 20px; margin-bottom: 20px; border-bottom: 2px solid #252525; box-sizing: border-box;}
+.terms__list strong {display: none;}
+.terms__list .terms__list-box li {font-size: 13px;}
+.terms__list .terms__list-box li::after {content: ''; display: table; clear: both;}
+.terms__list .terms__list-type01 li+li,
+.terms__list .terms__list-type03 li+li {margin-top: 20px;}
+.terms__list .terms__list-type02 li+li {margin-top: 5px;}
+
+.terms__list .terms__list-type01 input[type="checkbox"].big + label span  {position: relative; width: 20px; height: 20px; background: none; border: 1px solid #cacaca; border-radius: 20px; margin-right: 14px;}
+.terms__list .terms__list-type01 input[type="checkbox"].big:checked + label span::before {content: ''; position: absolute; width: 12px; height: 12px; left: 3px; top: 3px; background-color: #2749b0; border-radius: 10px;}
+.terms__list .terms__list-type02 li .cradType_A {display: none;}
+.terms__list .terms__list-type02 select {font-size: 12px; color: #5d5d5d;}
+.terms__list .terms__list-type02 span,
+.terms__list .terms__list-type02 em {float: left; font-size: 12px; color: #5d5d5d; line-height: 34px; text-align: center;}
+.terms__list .terms__list-type02 span {width: 8.75%;}
+.terms__list .terms__list-type02 em {width: 7%;}
+.terms__list .terms__list-type02 input {float: left; width: 30.75%;}
+
+.terms__list .terms__list-type03 li:last-child {font-size: 12px; line-height: 1.5; background-color: #f5f5f5; padding: 12px 15px; box-sizing: border-box;}
+.terms__list .terms__list-type03 label {line-height: 35px;}
+.terms__list .terms__list-type03 div {width: 70%; float: right;}
+
+/** 200625 이준희 추가: 상권분석 **/
+  /*** 공통 ***/
+  .table-type5 table {width: 100%; border-top: solid 2px #252525;}
+  .table-type5 table th,
+  .table-type5 table td {line-height: 1.3; padding: 8px; border: solid 1px #ebebeb;}
+  .table-type5 table th:first-child, .table-type5 table td:first-child {border-left: 0;}
+  .table-type5 table th:last-child, .table-type5 table td:last-child {border-right: 0;}
+  .table-type5 table thead th {background: #f5f5f5; text-align: center; border-left: 0; border-right: 0;}
+  .table-type5.table-type5__2 table tbody th {background: #f5f5f5;}
+  .table-type5.table-type5__3 table th {text-align: center;}
+  .table-type5.table-type5__3 thead th+th {border-left: 1px solid #ebebeb;}
+  .table-type6 table {width: 100%;}
+  .table-type6 table th,
+  .table-type6 table td {font-size: 13px; line-height: 1.3; padding: 10px; border: solid 1px #ebebeb; text-align: center;}
+  .table-type6 table  tbody th {text-align: left;}
+
+  /*** 상권분석 ***/
+  .analysis .hidden {display: none;}
+  .analysis .first {padding-top: 0 !important; margin-top: 0 !important;}
+  .analysis .last {padding-bottom: 0 !important; margin-bottom: 0 !important;}
+  .analysis .border-last {border: 0 !important;}
+  .analysis .notice {font-size: 11px; text-align: center;}
+  .analysis .middot {position: relative; padding-left: 6px;}
+  .analysis .middot::before {content: '.'; position: absolute; left: 0; top: -4px;}
+  .analysis h1 {font-size: 17px; margin-bottom: 12px;}
+  .analysis h3 {font-size: 15px; margin-bottom: 12px;}
+  .analysis h5 {margin-bottom: 12px;}
+  .analysis .foldder {position: relative; float: right; width: 24px; height: 24px; border: 1px solid #acacac; -webkit-border-radius: 50%; border-radius: 50%; margin-top: -1px;} 
+  .analysis .foldder::before, 
+  .analysis .foldder::after {content: ""; position: absolute; background-color:#252525; width: 2px; height: 8px; transition: all 0.25s ease-in-out 0s;}
+  .analysis .foldder::before {transform: translate(8px, 7px) rotate(45deg);}
+  .analysis .foldder::after {transform: translate(12px, 7px) rotate(-45deg);}
+  .analysis .is-active .foldder::before {transform: translate(8px, 8px) rotate(-45deg);}
+  .analysis .is-active .foldder::after {transform: translate(12px, 8px) rotate(45deg);}
+  .analysis .anal-table > .notice {width: 100% !important; text-align: right; margin: 6px 0;}
+  .analysis .table-caption {text-align: left !important;}  
+  .analysis > div[class*="anal-"] {font-size: 14px; line-height: 1.3; word-break: keep-all; margin-top: 26px; padding: 0 15px; box-sizing: border-box;}  
+  .analysis .anal-txt h1 {font-size: 20px; text-align: center;}
+  .analysis .anal-txt h3 {font-size: 17px;}
+  .analysis .anal-txt > ul {width: 100%; height: auto; border: 3px solid #dcdcdc; margin-top: 20px; padding: 15px; box-sizing: border-box;}
+  .analysis .anal-txt > ul li+li {margin-top: 6px;}
+  .analysis .anal-txt > ul li::after {content: ''; display: table; clear: both;}
+  .analysis .anal-txt > ul span {float: left; width: 104px;}
+  .analysis .anal-txt > ul span:last-child {width: calc(100% - 104px);}   
+  .analysis .anal-content > div[class*="anal-"] span {position: relative; display: block;}
+  .analysis .anal-content > div[class*="anal-"]:not(.anal-grid__select) ul li+li {margin-top: 17px;}
+  .analysis .anal-content > div[class*="anal-"] .sub {line-height: 14px; border-left: 3px solid #2849b0; padding-left: 7px; box-sizing: border-box;} 
+  .analysis .anal-content > div[class*="anal-grid"] {margin-bottom: 26px;}
+  .analysis .anal-content .anal-grid__report > div {text-align: center; margin: 0 auto; padding: 17px 0; border-bottom: 1px solid #dcdcdc; box-sizing: border-box;}
+  .analysis .anal-content .anal-grid__report .table-type6 {width: 100%; text-align: left;}
+  .analysis .anal-content .anal-grid__expert > p {margin-bottom: 8px;}
+  .analysis .anal-content .anal-grid__expert > p::before {content: ''; width: 22px; height: 18px; display: inline-block; margin-right: 6px; background: no-repeat url(/images/mobile/chat_icon.png); vertical-align: -6px; padding-bottom: 10px;}
+  .analysis .anal-content .anal-grid__expert > span {margin-bottom: 23px; line-height: 1.5 !important;}
+  .analysis .anal-content .anal-grid__expert .anal-table {margin-top: 15px;}
+  .analysis .anal-content .anal-grid__sub p {margin-bottom: 12px;}
+  .analysis .anal-content .anal-grid__sub span {line-height: 1.5 !important;}
+  .analysis .anal-content .anal-grid__drop {position: relative; width: 100%; height: 38px; line-height: 38px; font-size: 13px; text-align: center; background-color: #f5f5f5; border-top: 1px solid #dcdcdc; border-bottom: 1px solid #dcdcdc; cursor: pointer;}
+  .analysis .anal-content .anal-grid__drop::before {content: ''; position: absolute; right: 122px; top: 18px; width: 0; height: 0; border: 5px solid transparent; border-top: 5px solid #000} 
+
+  /** 소개 및 이용안내 **/
+  .analysis .consulting__header {background: no-repeat center bottom url(/images/mobile/analysis_header_bg.jpg); background-size: cover;}
+  .analysis .anal-content__info .anal-grid__img {margin: 0 auto 15px; background-image: url(/images/mobile/analysis_ir1jpg.png); background-repeat: no-repeat;}
+  .analysis .anal-content__info .anal-grid__why .anal-grid__report > div {text-align: left; border: 1px solid #e5e5e5; padding: 17px 10px;} 
+  .analysis .anal-content__info .anal-grid__why .anal-grid__report > div+div {border-top: 0;}
+  .analysis .anal-content__info .anal-grid__why .anal-grid__report span {padding-left: 38px; margin-top: 15px;}
+  .analysis .anal-content__info .anal-grid__why .anal-grid__report span::before {content: 'Q'; position: absolute; left: 0; top: 50%; -webkit-transform: translateY(-50%); transform: translateY(-50%); width: 28px; height: 28px; font-weight: bold; color: #fff; line-height: 26px; background-color: #009be6; -webkit-border-radius: 50%; border-radius: 50%; padding-left: 8px;}
+  .analysis .anal-content__info .anal-grid__why .anal-grid__report span:last-child::before {content: 'A'; color: #009be6; background-color: #e5e5e5; padding-left: 9px;}
+  .analysis .anal-content__info .anal-grid__why .anal-grid__report div .anal-grid__img {width: 129px; height: 59px; background-position: center top;}
+  .analysis .anal-content__info .anal-grid__why .anal-grid__report div:nth-child(2) .anal-grid__img {background-position: center -59px;}
+  .analysis .anal-content__info .anal-grid__outcome .anal-grid__report div {border: 0; max-width: 280px;}
+  .analysis .anal-content__info .anal-grid__outcome .anal-grid__report div .anal-grid__img {width: 129px; height: 85px; background-position: center -117px;}
+  .analysis .anal-content__info .anal-grid__outcome .anal-grid__report div:nth-child(2) .anal-grid__img {background-position: center -202px;}
+  .analysis .anal-content__info .anal-grid__outcome .anal-grid__report div:nth-child(3) .anal-grid__img {background-position: center -288px;}  
+  .analysis .anal-content__info .anal-grid__data .anal-grid__report > div {border: 0; text-align: left;}
+  .analysis .anal-content__info .anal-grid__data .anal-grid__report > div .anal-grid__img {width: 129px; height: 97px; background-position: center -373px;}
+  .analysis .anal-content__info .anal-grid__data .anal-grid__report > div:nth-child(2) .anal-grid__img {background-position: center -469px;}
+  .analysis .anal-content__info .anal-grid__data .anal-grid__report > div:nth-child(3) .anal-grid__img {background-position: center -565px;}
+  .analysis .anal-content__info .anal-grid__table table tbody th {text-align: center;}
+  .analysis .anal-content__info .anal-grid__btn .grid__btn-tit {text-align: center; margin-bottom: 0;}
+  .analysis .anal-content__info .anal-grid__btn .common-btn.bottom-btn--fixed {padding: 20px 0 10px;}
+  
+
+  /** 상권분석 이용 **/
+  .analysis .anal-grid__select > div {margin-top: 20px;}
+  .analysis .anal-grid__select .slct__radio::after {content: ''; display: table; clear: both;} 
+  .analysis .anal-grid__select .slct__radio li {float: left; margin-right: 15px;} 
+  .analysis .anal-grid__select .slct__radio li input[type=radio] {width: 16px; height: 16px; vertical-align: middle;} 
+  .analysis .anal-grid__select .slct-box > div {margin-top: 10px;} 
+  .analysis .anal-grid__select .slct-box select {position: relative; width: 100%; height: 45px; line-height: 45px;} 
+  .analysis .anal-grid__select .slct-box select+select {margin-top: 5px;}
+  .analysis .anal-grid__select .slct-box > .slct__btn::after {content: ''; display: table; clear: both;}
+  .analysis .anal-grid__select .slct-box > .slct__btn li {}
+  .analysis .anal-grid__select .slct-box > .slct__btn button {float: right; margin-left: 5px; border: 0; background-color: transparent; width: 86px; height: 30px; line-height: 28px; -webkit-border-radius: 3px; border-radius: 4px; box-sizing: border-box; cursor: pointer;}
+  .analysis .anal-grid__select .slct-box > .slct__btn .btn-grey {color: #fff; background-color: #535353;}
+  .analysis .anal-grid__select .slct-box > .slct__btn .btn-grey__border {color: #535353; border: 1px solid #535353;}
+  .analysis .anal-grid__select .slct-box .slct-box__drop {display: none; position: absolute; top: 43px; left: 0; width: 100%; height: auto; background-color: #fff; border: 1px solid #dcdcdc; box-sizing: border-box; z-index: 10;}
+  .analysis .anal-grid__select .slct-box .slct-box__drop div:hover {background-color: #f1f1f1;}
+  .analysis .anal-grid__select .slct-box .slct-box__drop div {padding: 0 10px;}
+  .analysis .anal-grid__select .slct-box .slct-box__drop div+div {border-top: 1px solid #dcdcdc;}
+
+  /*** 상권분석 서비스 ***/  
+  .analysis .anal-content__service .anal-grid__img {margin: 0 auto 12px; background-image: url(/images/mobile/analysis_ir2.png); background-repeat: no-repeat;}
+  .analysis .anal-content__service .anal-grid__report > div > span {display: table; max-width: 280px; margin: 0 auto;}
+  .analysis .anal-content__service .anal-grid__clsfc > div {margin-top: 10px;}
+  .analysis .anal-content__service .anal-grid__clsfc .anal-grid__drop {margin: 0; border-top: 0;}
+  .analysis .anal-content__service .anal-grid__clsfc .table-caption {margin-bottom: 10px;}
+  .analysis .anal-content__service .anal-grid__clsfc .anal-table__active table tbody th {text-align: center;}
+  .analysis .anal-content__service .anal-grid__trend .trend-bar::after {content: ''; display: table; clear: both;}
+  .analysis .anal-content__service .anal-grid__trend .trend-bar > div {position: relative; float: left; width: 20%; line-height: 30px; text-align: center; background-color: #eee; margin-top: 17px;}
+  .analysis .anal-content__service .anal-grid__trend .trend-bar > div:first-child {border-top-left-radius: 20px; border-bottom-left-radius: 20px;}
+  .analysis .anal-content__service .anal-grid__trend .trend-bar > div:last-child {border-top-right-radius: 20px; border-bottom-right-radius: 20px;}
+  .analysis .anal-content__service .anal-grid__trend .trend-bar > div:first-child::before,
+  .analysis .anal-content__service .anal-grid__trend .trend-bar > div:last-child::before {content: '나쁨'; position: absolute; font-size: 12px; top: -25px; left: 50%; transform: translateX(-50%); color: #292929;}
+  .analysis .anal-content__service .anal-grid__trend .trend-bar > div:last-child::before {content: '좋음';}
+  .analysis .anal-content__service .anal-grid__trend .trend-bar > div.on {color: #fff; background-color: #2849b0;}
+  .analysis .anal-content__service .anal-grid__trend .trend-point {text-align: center;}
+  .analysis .anal-content__service .anal-grid__cmptt .anal-table table tbody td,
+  .analysis .anal-content__service .anal-grid__sales .anal-table table tbody td {text-align: center;}
+  .analysis .anal-content__service .anal-grid__cstmr .anal-grid__clsfc:first-child table tbody th {text-align: center;}
+  .analysis .anal-content__service .anal-grid__cstmr .anal-grid__clsfc:first-child ul {display: grid; grid-template-columns: repeat(3, 1fr);}
+  .analysis .anal-content__service .anal-grid__cstmr .anal-grid__clsfc:first-child ul li {position: relative; text-align: center; margin-top: 0;}
+  .analysis .anal-content__service .anal-grid__cstmr .anal-grid__clsfc:first-child ul li::before { display: block; font-size: 12px; font-weight: bold; text-align: center; color: #1b3a9c; margin-bottom: -10px;}
+  .analysis .anal-content__service .anal-grid__cstmr .anal-grid__clsfc:first-child ul li:first-child::before {content: '주거인구';}
+  .analysis .anal-content__service .anal-grid__cstmr .anal-grid__clsfc:first-child ul li:nth-child(2)::before {content: '직장인구';}
+  .analysis .anal-content__service .anal-grid__cstmr .anal-grid__clsfc:first-child ul li:nth-child(3)::before {content: '유입인구';}
+  .analysis .anal-content__service .anal-grid__cstmr .anal-grid__clsfc:first-child ul li:first-child .anal-grid__img {width: 76px; height: 76px; background-position: left -202px;}
+  .analysis .anal-content__service .anal-grid__cstmr .anal-grid__clsfc:first-child ul li:nth-child(2) .anal-grid__img {width: 76px; height: 76px; background-position: -76px -202px;}
+  .analysis .anal-content__service .anal-grid__cstmr .anal-grid__clsfc:first-child ul li:nth-child(3) .anal-grid__img {width: 76px; height: 76px; background-position: -152px -202px;}
+  .analysis .anal-content__service .anal-grid__cstmr .anal-table__week table td:nth-child(1) .anal-grid__img {width: 68px; height: 60px; background-position: left -279px;}
+  .analysis .anal-content__service .anal-grid__cstmr .anal-table__week table td:nth-child(2) .anal-grid__img {width: 68px; height: 60px; background-position: -68px -279px;}
+  .analysis .anal-content__service .anal-grid__cstmr .anal-table__fTime table td:nth-child(1) .anal-grid__img {width: 68px; height: 60px; background-position: left -339px;}
+  .analysis .anal-content__service .anal-grid__cstmr .anal-table__fTime table td:nth-child(2) .anal-grid__img {width: 68px; height: 60px ; background-position: -68px -339px;}
+  .analysis .anal-content__service .anal-grid__cstmr .anal-table__cTime table td:nth-child(1) .anal-grid__img {width: 66px; height: 49px; background-position: -136px -339px;}
+  .analysis .anal-content__service .anal-grid__cstmr .anal-table__cTime table td:nth-child(2) .anal-grid__img {width: 66px; height: 49px; background-position: -202px -339px;}
+  .analysis .anal-content__service .anal-grid__cstmr .anal-table__female table td:nth-child(1) .anal-grid__img {width: 87px; height: 68px; background-position: -268px -202px;}
+  .analysis .anal-content__service .anal-grid__cstmr .anal-table__female table td:nth-child(2) .anal-grid__img {width: 40px; height: 68px; background-position: -228px -202px;}
+  .analysis .anal-content__service .anal-grid__cstmr .anal-table__male table td:nth-child(1) .anal-grid__img {width: 87px; height: 68px; background-position: -268px -271px;}
+  .analysis .anal-content__service .anal-grid__cstmr .anal-table__male table td:nth-child(2) .anal-grid__img {width: 40px; height: 68px; background-position: -228px -271px;}
+  .analysis .anal-content__service .anal-grid__cstmr .anal-table__usage table td:nth-child(1) .anal-grid__img {width: 72px; height: 56px; background-position: -363px -202px;}
+  .analysis .anal-content__service .anal-grid__cstmr .anal-table__usage table td:nth-child(2) .anal-grid__img {width: 72px; height: 56px; background-position: -363px -271px;}
+
+  /**** 변동 이미지 ****/
+    /*평균매출*/
+    .analysis .anal-content__service .anal-grid__img.sls__level1 {width: 66px; height: 53px; background-position: left top;}   
+    .analysis .anal-content__service .anal-grid__img.sls__level2 {width: 66px; height: 53px; background-position: left -68px;} 
+    .analysis .anal-content__service .anal-grid__img.sls__level3 {width: 66px; height: 53px; background-position: left -136px;}
+    /*매출성장률*/
+    .analysis .anal-content__service .anal-grid__img.sls__grwth1 {width: 66px; height: 65px; background-position: -68px top;}   
+    .analysis .anal-content__service .anal-grid__img.sls__grwth2 {width: 66px; height: 65px; background-position: -68px -68px;} 
+    .analysis .anal-content__service .anal-grid__img.sls__grwth3 {width: 66px; height: 65px; background-position: -68px -136px;}
+    /*매출액*/
+    .analysis .anal-content__service .anal-grid__img.sls__fgrs1 {width: 66px; height: 49px; background-position: -136px top;}   
+    .analysis .anal-content__service .anal-grid__img.sls__fgrs2 {width: 66px; height: 49px; background-position: -136px -68px;} 
+    .analysis .anal-content__service .anal-grid__img.sls__fgrs3 {width: 66px; height: 49px; background-position: -136px -136px;}
+    /*이용건수*/
+    .analysis .anal-content__service .anal-grid__img.sls__usage1 {width: 146px; height: 60px; background-position: -202px top;}   
+    .analysis .anal-content__service .anal-grid__img.sls__usage2 {width: 146px; height: 60px; background-position: -202px -68px;} 
+    .analysis .anal-content__service .anal-grid__img.sls__usage3 {width: 146px; height: 60px; background-position: -202px -136px;}   
+    /*점포수*/
+    .analysis .anal-content__service .anal-grid__img.sls__store1 {width: 86px; height: 66px; background-position: -349px top;} 
+    .analysis .anal-content__service .anal-grid__img.sls__store2 {width: 86px; height: 66px; background-position: -349px -68px;}
+    .analysis .anal-content__service .anal-grid__img.sls__store3 {width: 86px; height: 66px; background-position: -349px -136px;}
+    /*업력분석*/
+    .analysis .anal-content__service .anal-grid__img.sls__hstry1 {width: 66px; height: 68px; background-position: -436px top;}   
+    .analysis .anal-content__service .anal-grid__img.sls__hstry2 {width: 66px; height: 68px; background-position: -436px -68px;} 
+    .analysis .anal-content__service .anal-grid__img.sls__hstry3 {width: 66px; height: 68px; background-position: -436px -136px;}
+    /*유동인구수*/
+    .analysis .anal-content__service .anal-grid__img.sls__population1 {width: 66px; height: 60px; background-position: -436px -202px;}   
+    .analysis .anal-content__service .anal-grid__img.sls__population2 {width: 66px; height: 68px; background-position: -436px -271px;}
+    .analysis .anal-content__service .anal-grid__img.sls__population3 {width: 66px; height: 68px; background-position: -436px -339px;}
+    /*연령별 여성*/
+    .analysis .anal-content__service .anal-grid__img.sls__female1 {width: 66px; height: 60px; background-position: right top;}   
+    .analysis .anal-content__service .anal-grid__img.sls__female2 {width: 66px; height: 60px; background-position: right -68px;} 
+    .analysis .anal-content__service .anal-grid__img.sls__female3 {width: 66px; height: 60px; background-position: right -136px;}
+    .analysis .anal-content__service .anal-grid__img.sls__female4 {width: 66px; height: 60px; background-position: right -202px;}
+    .analysis .anal-content__service .anal-grid__img.sls__female5 {width: 66px; height: 60px; background-position: right -271px;}
+    .analysis .anal-content__service .anal-grid__img.sls__female6 {width: 66px; height: 60px; background-position: right -339px;}
+    .analysis .anal-content__service .anal-grid__img.sls__female7 {width: 66px; height: 60px; background-position: right bottom;}
+    /*연령별 남성*/
+    .analysis .anal-content__service .anal-grid__img.sls__male1 {width: 66px; height: 60px; background-position: -503px top;}   
+    .analysis .anal-content__service .anal-grid__img.sls__male2 {width: 66px; height: 60px; background-position: -503px -68px;} 
+    .analysis .anal-content__service .anal-grid__img.sls__male3 {width: 66px; height: 60px; background-position: -503px -136px;}
+    .analysis .anal-content__service .anal-grid__img.sls__male4 {width: 66px; height: 60px; background-position: -503px -202px;}
+    .analysis .anal-content__service .anal-grid__img.sls__male5 {width: 66px; height: 60px; background-position: -503px -271px;}
+    .analysis .anal-content__service .anal-grid__img.sls__male6 {width: 66px; height: 60px; background-position: -503px -339px;}
+    .analysis .anal-content__service .anal-grid__img.sls__male7 {width: 66px; height: 60px; background-position: -503px bottom;}

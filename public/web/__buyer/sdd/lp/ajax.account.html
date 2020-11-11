@@ -1,0 +1,52 @@
+ <script>
+        $(function(){
+            document.querySelector('._pop-submit').addEventListener('click', function() {
+                if(!fnChkInput('p2', '계약 발신자가 입력 요청한 항목에 모두 입력해 주세요.')) {
+                    return false;
+                }
+
+                ajaxClose('._pop-ajax');
+                return false;
+            });
+        });
+</script>
+
+<div class="_pop-basic _pop-ajax">
+    <div class="_pop-wrap">
+        <!-- inner -->   
+        <div class="inner">
+            <h1 class="title">2. 개인정보 수집 및 이용 동의서</h1>
+            <div class="_pop-close__x" onclick="ajaxClose('._pop-ajax');">닫기</div>
+            <!-- content -->
+            <div class="contents contents-input__account">
+                <p>4) 계좌번호 입력</p>
+                <form name="p2">
+                    <div class="input-row">
+                        <input type="text" name="essential" placeholder="예금주명">
+                    </div>
+                    <div class="input-row">
+                        <input type="text" name="essential" placeholder="은행명">
+                    </div>
+                    <div class="input-row">
+                        <input type="text" name="essential" placeholder="계좌번호" onkeyup="javascript:onlyNumber(this);">
+                    </div>
+                </form>
+            </div>
+            <!-- //content -->
+        </div>
+        <!-- //inner -->
+        
+        <!-- btn-box -->
+        <ul class="btn-box clearfix">
+            <li>
+                <input type="button" class="_pop-close button-dim" value="취소" onclick="ajaxClose('._pop-ajax');">
+            </li>
+            <li>
+                <input type="submit"" class="_pop-submit button-primary" value="확인">
+            </li>
+        </ul>
+        <!-- //btn-box -->
+    </div>    
+    
+    <div class="_pop-bg"></div>
+</div>

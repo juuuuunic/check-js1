@@ -1,0 +1,395 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+
+<title>택스다이어트: NM_30011(상권분석)</title>
+<link rel="stylesheet" type="text/css" href="../../../css/mobile/default.css">
+<link rel="stylesheet" type="text/css" href="../../../css/mobile/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="../../../css/mobile/libs/jquery.fancybox-1.3.1.css">
+
+<script src="../../../js/mobile/libs/jquery-1.11.1.min.js"></script>
+<script src="../../../js/mobile/libs/jquery-ui.min.js"></script>
+<script src="../../../js/mobile/libs/jquery.easing.1.3.js"></script>
+<script src="../../../js/mobile/libs/jquery-ui.js"></script> <!-- dskim -->
+<script src="../../../js/mobile/libs/jquery.mask.min.js"></script>
+<script src="../../../js/mobile/libs/daterange.js"></script>
+
+<script src="../../../js/mobile/libs/jquery.validate-1.8.1.min.js"></script>
+<script src="../../../js/mobile/niceNmCommon.js"></script>
+<script src="../../../js/mobile/common-util.js"></script>
+
+<!-- layerpopup -->
+<script src="../../../js/mobile/libs/jquery.fancybox.min.js"></script>
+
+<!-- placeholder fix -->
+<script src="../../../js/mobile/libs/jquery.placeholder.js"></script>
+
+<script src="../../../js/mobile/libs/jquery.history.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+
+<script type="text/javascript">
+
+$(function(){
+	
+	$(".btn_joinMember").click(function(){
+			
+		var url	= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A2D594B41200D152A3E062545033D5E220C" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+	
+});
+
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		//단일/복수 선택
+		$("input[name='area']").on('change' ,function() {
+			if($(this).attr('id') == 'area2') $(".slct__btn").removeClass('hidden');
+			else { 
+				$(".slct__btn").addClass('hidden');
+				if($(".dong").length > 1) $(".dong").not($(".dong")[0]).remove();
+			}
+		});
+		
+		//지역추가
+		$(".slct__btn-add").on('click' ,function() {
+			var dongOpt = $("#dong").html();
+			var addArea = '';
+				addArea += '<select id="dong'+ $('.dong').length++ +'" class="dong">'+ dongOpt +'</select>';
+			var select__box = $(this).parent().prev('div')
+			select__box.append(addArea)
+
+			if($(".dong").length >  4) $(this).addClass('hidden');
+			else {
+				$(this).removeClass('hidden');
+				$(this).siblings().removeClass('hidden');
+			}
+		});
+
+		//지역삭제
+		$(".slct__btn-remove").on('click' ,function() {
+			$('.dong:last-child').remove();
+			
+			if($(".dong").length == 1 ) $(this).addClass('hidden');
+			else  {
+				$(this).removeClass('hidden');
+				$(this).siblings().removeClass('hidden');
+			}
+		});
+
+		//지역선택
+		$.ajax({
+			url : "hangjungdong.jsp",
+			type : "GET",
+			data : {},
+			dataType : 'SCRIPT',
+			async: false, 
+			//dataType : 'JSON',
+			success : function(data) {
+				var $sido = $('#sido')
+				var $sigugun = $('#sigugun')
+				var $dong = $('.dong')
+
+				$.each(hangjungdong.sido, function(index, code) {
+					$sido.append(fn_option(code.sido, code.codeNm));
+				});
+
+				
+				$sido.change(function(){	
+					$sigugun.empty();
+					$sigugun.append(fn_option('','시군구'));
+					$.each($dong, function() {
+						$('.dong').empty();
+						$('.dong').append(fn_option('','읍면동'));
+					})
+					
+					$.each(hangjungdong.sigugun, function(idx, code){
+						if($('#sido > option:selected').val() == code.sido)
+							$('#sigugun').append(fn_option(code.sigugun, code.codeNm));
+					});
+				});
+
+				$sigugun.change(function(){
+					$.each($dong, function() {
+						$('.dong').empty();
+						$('.dong').append(fn_option('','읍면동'));
+						$('.dong option:eq("")').attr('selected', 'selected');
+					})
+
+					$.each(hangjungdong.dong, function(idx, code){
+						if($('#sido > option:selected').val() == code.sido && $('#sigugun > option:selected').val() == code.sigugun)
+							$('.dong').append(fn_option(code.sigugun+'0'+code.dong, code.codeNm));
+					});
+
+				});
+			}
+		});
+
+	});
+	
+	
+	function fn_option(code, name){
+		return '<option value="' + code +'">' + name +'</option>';
+	}
+
+</script>
+
+</head>
+<body>
+	<div class="wrap">
+		<!-- header -->
+		<div class="header header--white">
+			<div class="header__logo">
+				<a href="javascript:f_go_home();"><img src="../../../images/mobile/common/main_logo.png" alt="택스다이어트"></a>
+			</div>
+			<script type="text/javascript">
+			$(document).ready(function(){
+				$("#tax_bill").click(function() {
+					window.open("http://www.nicedata.co.kr/ti/TI_10000.html");
+					return false;
+				});
+				
+				$("#check_biz").click(function() {
+					window.open("http://www.nicedata.co.kr/as/AS_30401.html");
+					return false;
+				});
+				
+				$("#sgic").click(function() {
+					window.open("http://www.nicedata.co.kr/as/AS_40601.html");
+					return false;
+				});
+			});
+			</script>
+			<div class="header__gnb">
+				<input type="checkbox" class="gnb__btn" id="gnb__btn">
+				<label for="gnb__btn" class="gnb__btn__action">
+					<div class="spinner diagonal part-1"></div>
+					<div class="spinner horizontal"></div>
+					<div class="spinner diagonal part-2"></div>
+				</label>
+				<div class="gnb__contents">
+					<div class="gnb__contents__header">
+						<a href="../nm/NM_27011.html"><p class="login-info">나이스디앤알(주)</p></a>
+								</div>
+					<ul class="gnb__contents__menu">
+						<li>
+							<a href="../nm/NM_23011.html">
+								<i class="icon-set1"></i>부가세 환급지원
+							</a>
+						</li>
+						<li>
+							<a href="../nm/NM_29011.html">
+								<i class="icon-set2"></i>셀프택스 자가신고
+							</a>
+						</li>
+						<li>
+							<a href="../nm/NM_25011.html">
+								<i class="icon-set3"></i>세무상담
+							</a>
+						</li>
+						<li>
+							<a href="../nm/NM_30011.html">
+								<i class="icon-set5"></i>상권분석
+							</a>
+						</li>
+					</ul>
+					<div class="gnb__contents__service">
+						<div class="gnb__contents__service--top">
+							<p class="call_tit">
+								<i></i>고객만족센터
+							</p>
+							<div class="call_btn">
+								<a href="tel:1588-5659">통화하기</a>
+							</div>
+						</div>
+						<div class="gnb__contents__service--bottom">
+							<p class="service-number">1588-5659</p>
+							<p class="service-time">
+								상담시간: 09:00~18:00(금요일 17:00까지)<br/>
+								점심시간: 12:00~13:00<br />
+								주말, 공휴일 휴무<br />
+							</p>
+						</div>
+					</div>
+					<div class="gnb__contents__qiuck">
+						<ul>
+							<li>
+								<a href="#none" id="tax_bill">
+									<img src="../../../images/mobile/common/quick_icon_1.png" alt="전자세금계산서"/>
+									전자세금<br/>계산서
+								</a>
+							</li>
+							<li>
+								<a href="#none" id="check_biz">
+									<img src="../../../images/mobile/common/quick_icon_2.png" alt="휴폐업조회"/>
+									휴폐업<br/>조회
+								</a>
+							</li>
+							<li>
+								<a href="#none" id="sgic">
+									<img src="../../../images/mobile/common/quick_icon_3.png" alt="서울보증보험안내"/>
+									서울보증보험<br/>안내
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="header__hidden-bg"></div>
+		</div>
+		<!-- //header -->
+
+		<!-- container -->
+		<div class="container">
+			<div class="inner-container mypage-con">
+				<div class="analysis">
+					<div class="consulting__header">
+						<div class="header-inner">
+							<p class="tit">상권분석</p>
+						</div>
+					</div>
+					<div class="anal-txt">
+						<h3><b>상권분석 이용하기</b></h3>
+						<p>지역 선택 후 업종을 선택하세요. 사업자 정보보호를 위해 선택하신 상권 내 동종업종의 점포수가 5개 미만인 경우, 분석정보를 제공하지 않습니다.</p>
+					</div>
+					<!-- content -->
+					<div class="anal-content">
+						<div class="anal-grid__select">
+							<h3><b>단일/복수 지역 선택</b></h3>
+							<ul class="slct__radio">
+								<li>
+									<input type="radio" id="area1" name="area" checked>
+									<label for="area1">단일지역 선택</label>
+								</li>
+								<li>
+									<input type="radio" id="area2" name="area">
+									<label for="area2">복수지역 선택</label>
+								</li>
+							</ul>
+							<!-- 지역선택 -->
+							<div class="slct-box slct__area">
+								<p><b>&middot; 지역선택</b></p>
+								<div class="slct-list">
+									<select id="sido">
+										<option>광역시도</option>
+									</select>
+									<select id="sigugun">
+										<option>시군구</option>
+									</select>
+									<select id="dong" class="dong">
+										<option>읍면동</option>
+									</select>
+								</div>
+								<div class="slct__btn hidden">
+									<button type="button" class="slct__btn-add btn-grey">지역 추가</button>
+									<button type="button" class="slct__btn-remove btn-grey__border hidden">지역 삭제</button>
+								</div>
+							</div>
+							<!-- //지역선택 -->
+
+							<!-- 업종선택 -->
+							<div class="slct-box slct__type">
+								<p><b>&middot; 업종선택</b></p>
+								<div class="selt-list">
+									<select id="lgCat">
+										<option>대분류</option>
+									</select>
+									<select id="mdCat">
+										<option>중분류</option>
+									</select>
+									<select id="subCat">
+										<option>소분류</option>
+									</select>
+								</div>
+							</div>
+							<!-- //업종선택 -->
+						</div>
+						<div class="common-btn bottom-btn--fixed">
+							<a href="#none" onclick="return false;" class="common-btn__btn common-btn__btn--wide">상권분석 보고서 생성</a>
+						</div>
+					</div>
+					<!-- //content -->
+				</div>
+			</div>
+		</div>
+		<!-- //container -->
+
+		<!-- footer -->
+		<div class="footer">
+			<script src="../../../js/mobile/common.js"></script>
+
+			<script type="text/javascript">
+			$(document).ready(function(){
+				// 이용약관
+				$(".NM_22012_001").click(function() {
+					fancybox_open("../nm/NM_22012.do?termCode=001", null, false);
+					return false;
+				});
+
+				// 개인정보처리방침
+				$(".NM_22012_002").click(function() {
+					fancybox_open("../nm/NM_22012.do?termCode=002", null, false);
+					return false;
+				});
+
+				// PC버전
+				$(".PC").click(function() {
+					location.href = "https://t-renewal.taxdiet.co.kr/cm/main.html";
+					return false;
+				});
+			});
+			</script>
+
+			<ul class="footer__terms">
+				<li>
+					<a href="javascript:;" class="NM_22012_001">이용약관</a>
+				</li>
+				<li>
+					<a href="javascript:;" class="NM_22012_002">개인정보처리방침</a>
+				</li>
+				<li>
+					<a href="javascript:;" class="PC">PC버전</a>
+				</li>
+			</ul>
+			<p class="footer__copyright">Ⓒ NICE D&R Ltd.</p>
+
+			<!--
+			<div class="terms-wrap HeightAuto use-terms">
+				<iframe src="" id="terms" name="terms" frameborder="0"></iframe>
+			</div>
+			-->
+			<!-- 택스다이어트 모바일 전용 구글 애널리틱스 (PC용은 별도로 있음) -->
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-36649342-22"></script>
+			<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-36649342-22');
+			</script>
+		</div>
+		<!-- //footer -->
+		<div class="top-btn" style="display:none;">
+			<span>맨위로</span>
+		</div>
+	</div>
+</body>
+</html>

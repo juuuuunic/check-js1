@@ -4089,3 +4089,19 @@ input[type=button].common-btn.line_btn {
 ������� ������ 
 END
 */
+
+
+/** 200625 이준희 추가: 약관동의 **/
+.td__terms-list {margin-top: -25px;}
+.td__terms-list > li+li {margin-top: 40px;}
+.td__terms-list > li h3 {font-size: 18px; font-weight: bold; color: #222; margin-bottom: 12px;}
+.td__terms-list .ta__terms-block li+li {font-size: 13px; color: #8c8c8c; line-height: 1; margin-top: 8px;}
+.td__terms-list .ta__terms-block strong {color: #ff4b4b;}
+.td__terms-list .ta__terms-block .ta__terms-type01 {width: 100%; height: 236px; font-size: 13px; border: 1px solid #d2d2d2; padding: 20px 18px; box-sizing: border-box; overflow-y: scroll;}
+.td__terms-list .ta__terms-block .ta__terms-checkbox input[type="checkbox"] {width: 14px; height: 14px; border-color: #d2d2d2; -webkit-border-radius: 0; border-radius: 0; vertical-align: top;}
+.ta__terms-type02 table th, .ta__terms-type02 table td {padding: 8px 0 8px 16px; border-bottom: 1px solid #e9e9e9; box-sizing: border-box;}
+.ta__terms-type02 table th {font-size: 13px; font-weight: bold; color: #383838; background-color: #f8f8f8;}
+.ta__terms-type02 table td.cradType_A {display: none;}
+.ta__terms-type02 table td input,
+.ta__terms-type02 table td select {width: 455px; height: 34px;}
+

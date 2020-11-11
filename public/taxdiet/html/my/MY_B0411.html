@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="robots" content="noindex,nofollow" />
+	<meta name="language" content="ko" />
+	<meta name="copyright" content="copyrights 2019 NICE Data" />
+	<meta name="author" content="NICE Data" />
+	<title>택스다이어트: MY_B0411(마이페이지>회사정보)</title>
+
+	<link rel="stylesheet" type="text/css" href="/css/default.css">
+	<link rel="stylesheet" type="text/css" href="/css/libs/jquery-ui.css">
+	<link rel="stylesheet" type="text/css" href="/css/soho_default.css">
+	<link rel="stylesheet" type="text/css" href="/css/soho_sub_default.css">
+
+	<!--  공통 -->
+	<script src="/js/libs/jquery-1.11.1.min.js"></script>
+	<script src="/js/niceCommon.js"></script>
+	<script src="/js/common-util.js"></script>
+	<script src="/js/libs/jquery.fancybox.min.js"></script>
+	<script src="/js/libs/jquery.placeholder.min.js"></script>
+	<script src="/js/libs/jquery-ui.min.js"></script>
+	<script src="/js/moment.min.js"></script>
+
+	<script src="/js/libs/jquery.dialog.min.js"></script>
+
+	<script src="/js/common.js"></script>
+	<script src="/js/progress.min.js"></script>
+	<script src="/js/browserVersion.min.js"></script>
+	<script src="/js/libs/jquery.easing.1.3.min.js"></script>
+	<script src="/js/libs/jquery.mask.min.js"></script>
+
+	<script src="/js/libs/jquery.cookie.min.js"></script>
+	<script src="/js/cookie.min.js"></script>
+
+	<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+
+	<script type="text/javascript">
+		$(function () {
+			// gnb 로고 옆에 현재 머물고 있는 1뎁스 메뉴 표시
+			$("ul.gnb_depth1 > li").each(function (index) {
+				if ($(this).attr("class") == "on") {
+					$("div.logo-wrap > h2").html($(this).text().trim());
+				}
+			})
+
+
+			// 로그아웃
+			$(document).on("click", ".btn_logout", function (data) {
+				if (confirm("로그아웃 하시겠습니까?")) {
+
+					var $form = $("<form/>", {
+						id: "logoutForm",
+						method: "post",
+						action: "../cm/nTdLogout.html"
+					});
+					$("body").append($form);
+					$form.submit();
+				}
+			});
+
+
+			$("#loginBtn").click(function () {
+				if ($.trim($("#membId").val()) == "") {
+					alert("회원아이디를 입력하세요.");
+					$("#membId").focus();
+					return false;
+				}
+
+				if ($.trim($("#pswd").val()) == "") {
+					alert("비밀번호를 입력하세요.");
+					$("#pswd").focus();
+					return false;
+				}
+
+				$.removeCookie("saveid", {
+					path: '/'
+				});
+
+				if ($("#chk_save_id").prop("checked")) {
+					$.cookie("saveid", $.trim($("#membId").val()), {
+						expires: 365,
+						path: '/'
+					});
+				}
+
+				doLogin();
+
+				return false;
+			});
+
+
+			$("#btn_login").click(function () {
+
+				var param = "";
+
+
+				param = "7F4B2442220033240040263B40013B";
+
+				location.href = "../cm/nTdLogin.html?returnURL=" + param;
+			});
+
+			$("#loginForm input[name=pswd]").keyup(function (e) {
+				if (e.keyCode == KeyCode.ENTER) {
+					$("#loginBtn").click();
+				}
+			});
+
+
+			$(".btn_joinMember").click(function () {
+
+				var url = $(this).attr("move");
+
+				if (typeof jmForm == "undefined") {
+					var $form = $("<form/>", {
+						id: "jmForm",
+						name: "jmForm",
+						method: "get",
+						action: url
+					});
+
+					$("body").append($form);
+					$("<input/>").attr({
+						type: "hidden",
+						name: "referrUrl",
+						value: "623C2734237F434A16010741200D152A3E062545033D5E220C"
+					}).appendTo("#jmForm");
+
+				} else {
+					$("#jmForm").attr("action", url);
+				}
+				$("#jmForm").attr('target', '_blank').submit();
+
+			});
+		});
+
+		function fnLayerClose() {
+			try {
+				parent.$.fancybox.close();
+			} catch (exception) {}
+		}
+		var membEtcRefresh = function () {
+			$.post("../cm/CM_00001_UP1.html", "", "");
+		}
+		var isLogin = function () {
+
+			return true;
+
+		}
+
+		// 미사용
+		function fnLogin(returnURL) {
+			if (!isLogin()) {
+				var msg = "로그인이 필요합니다.\n회원이 아니시면 회원가입을 해주시기 바랍니다.";
+
+				alert(msg);
+
+				if (typeof (returnURL) == "undefined") {
+					returnURL = location.pathname;
+				}
+
+				location.href = "../cm/nTdLogin.html?returnURL=" + returnURL;
+
+				return false;
+			}
+			return true;
+		}
+
+		function fnIeLimitCheck() {
+			var limitVersion = 8;
+			var ieVersion = getIeVersion();
+
+			if (getCookie("NoMoreBrowserPopup") != "yes") {
+				if (ieVersion) {
+					if (ieVersion <= limitVersion) {
+						WindowUtil.open({
+							windowURL: "/popup/popup_ieWarning.html",
+							windowName: "popup_browserWarning",
+							width: 600,
+							height: 741
+						});
+					}
+				}
+			}
+		}
+
+		function doLogin() {
+			if ($("#loginForm > input#redirectURL").length === 0) {
+				$("<input>").attr({
+					type: "hidden",
+					id: "redirectURL",
+					name: "redirectURL",
+					value: "https://www.taxdiet.co.kr../my/MY_B0111.html"
+				}).appendTo("#loginForm");
+			} else if ($("#redirectURL").val() == "") {
+				$("#redirectURL").val("https://www.taxdiet.co.kr../my/MY_B0111.html");
+			} else {
+				$("#redirectURL").val(location.href);
+			}
+
+			if ($("#returnURL").val() != "") {
+				$("#redirectURL").val("");
+			}
+
+			$("#loginForm").attr("action", "../cm/nTdSsoLoginProc.html");
+			$("#loginForm").attr("target", "_self");
+			$("#loginForm").submit();
+		}
+	</script>
+	<script src="/js/libs/jquery.validate-1.8.1.min.js"></script>
+	<script src="/js/libs/jquery.form-3.02.min.js"></script>
+	<script type="text/javascript">
+		var isAllowFileExt = "jpg,jpeg,gif,png,bmp";
+		var maxUploadSize_stmp = 204800;
+		var maxUploadSize_bizCrtf = 614400;
+		var fileMaxSize = 0;
+		var $fileObj_target;
+		var target_class_name = "";
+		var $file_obj_array = new Array();
+
+		// 카드발급내역조회 페이징
+		function movePage(page) {
+			$("#current_page").val(page);
+			$("#form").attr("target", "_self");
+
+			f_form_submit_nosession("..../my/MY_B0411.html");
+		}
+
+		function changeEbill(ebillYn) {
+			var msg;
+
+			if (ebillYn == "Y") {
+				msg =
+					"전자계산서로 변경 후 발행하는 계산서는 국세청으로 전송됩니다.<br />국세청 전송을 원하시지 않을 경우 웹계산서를 선택하셔야 합니다.<br /><font color='red'>※ 단, 국세청 전송 후 수정이 필요한 경우 수정전자계산서를 발행하셔야 합니다.</font>";
+			} else {
+				msg = "웹계산서로  변경 후 발행하는 계산서는 국세청으로 전송되지 않습니다.<br />국세청 전송을 원하시는 경우 전자계산서를 선택하셔야 합니다.";
+			}
+
+			alert(msg);
+		}
+
+
+		$(function () {
+			// Mask
+			$("#corpNo").mask("000000-0000000"); // 법인번호
+			$("#rpsrRrno1").mask("000000"); // 주민번호1
+			$("#txactRgtNo").mask("000-00-00000"); // 세무사 사업자번호
+
+			$("#rpstTelNo").mask("00000000000000000000"); // 회사전화번호
+			$("#telNo").mask("00000000000000000000"); // 사업장 전화번호
+			$("#faxNo").mask("00000000000000000000"); // 사업장 팩스번호
+
+			// 200623 이준희 추가01 시작 
+			$("#clientTelNo").mask("00000000000000000000"); // 담당자 전화번호
+			$("#clientHpNo").mask("00000000000000000000"); // 담당자 휴대전화번호
+			// 200623 이준희 추가01 끝  
+
+			// 사업자유형 선택에 따라 간이과세자 부가가치율 입력항목 화면제어
+			$("#txptCls").change(function () {
+				if ($(this).val() == "V102") {
+					$(".my_company_last").show();
+				} else {
+					$("#etVatRate").val("");
+					$(".my_company_last").hide();
+				}
+			}).change();
+
+			// 우편번호
+			$("#btnZip").click(function () {
+				WindowUtil.open({
+					width: 610,
+					height: 600,
+					scrollbars: 1,
+					resizable: 0,
+					windowName: "zipcode",
+					windowURL: "../cm/CM_00904_SL1.html"
+				});
+				return false;
+			});
+
+			// 이미지미리보기
+			$(".show_img").click(function () {
+				var call_url = $(this).attr("href");
+
+				progress.start();
+
+				// Session Check후 정상일때 url호출
+				$.post("../cm/CM_SESSION_VALID.html", "", function (result) {
+						progress.stop();
+
+						if (result.status) {
+							WindowUtil.open({
+								width: 610,
+								height: 600,
+								scrollbars: 0,
+								resizable: 0,
+								windowName: "",
+								windowURL: call_url
+							});
+						} else {
+							f_go_login("7F4B2442220033240040263B40013B");
+						}
+					}, "json")
+					.fail(function (request, status, error) {
+						var errorMsg = "code:" + request.status + "\n" + "message:" + request
+							.responseText + "\n" + "error:" + error;
+
+						console.log(errorMsg);
+
+						progress.stop();
+
+						alert(error);
+					});
+
+				return false;
+			});
+
+			// 차량공제유형 저장
+			$(".btn_car_save").click(function () {
+				if (confirm("수정하시겠습니까?")) {
+					var $tr = $(this).closest("tr");
+					var cardNo = $tr.find(".cardNo").val(); // 카드번호
+					var carDdctCls = $tr.find(".carDdctCls").val(); // 공제휴형
+
+					f_ajax_submit("..../my/MY_B0411_UP2.html", "json", {
+						cardNo: cardNo,
+						carDdctCls: carDdctCls,
+						current_page: '1'
+					}, "7F4B2442220033240040263B40013B", "f_call_result1");
+				}
+
+				return false;
+			});
+
+			$("#btn_cancel").click(function () {
+				var message = "취소 하시겠습니까?";
+
+				return confirm(message);
+			});
+
+			$("#form").validate({
+				rules: {
+					'shop' : { required:true, maxBytes:100 }
+					,'rpstTelNo' : { number:true, maxBytes:20 }
+					,'rpsrName' : { required:true, maxBytes:100 }
+					,'rpsrRrno1' : { required:true, minlength:6, number:true }
+					,'telNo' : { number:true, maxBytes:20 }
+					,'faxNo' : { number:true, maxBytes:20 }
+					,'txptCls' : { required:true }
+					// 200623 이준희 추가02 시작 
+					,'hpNo' : { number:true, maxBytes:20 }
+					,'clientName' : { maxBytes:100 }
+					,'dptName' : { maxBytes:100 }
+					,'clientTelNo' : { number:true, maxBytes:20 }
+					,'clientHpNo' : { number:true, maxBytes:20 }
+					// 200623 이준희 추가02 끝 
+				},
+				names: {
+					'shop': '상호명'
+					,'rpstTelNo': '회사전화번호'
+					,'rpsrName': '대표자명'
+					,'rpsrRrno1': '대표자생년월일'
+					,'telNo': '사업장 전화번호'
+					,'hpNo': '휴대전화번호'
+					,'faxNo': '사업장 팩스번호'
+					,'txptCls': '사업자유형'
+					// 200623 이준희 추가03 시작 
+					,'clientName': '담담자명'
+           			,'dptName': '담당부서'
+					,'clientTelNo': '담당자 전화번호'
+					,'clientHpNo': '담당자 휴대전화번호'
+					// 200623 이준희 추가03 끝 
+				},
+				messages: {
+					'txptCls': {
+						required: "사업자유형 항목은 반드시 선택해야 합니다."
+					}
+				},
+				onsubmit: false
+			});
+
+			$.validator.addMethod(
+				// 전화번호 검증
+				'validPhone',
+				function (value, element) {
+					return ($.trim(value) == '' || value.isPhoneNumber());
+				}, '전화번호 형식이 잘못되었습니다.'
+			);
+
+			// 저장 
+			$("#btn_modify").click(function () {
+				if (!$("#form").valid()) {
+					return false;
+				}
+
+				// 주민번호 체크		
+				if ($("#rpsrRrno2").val() != "" && ($("#rpsrRrno2").val() != $("#rpsrRrno2").attr(
+						"placeholder"))) {
+					// 주민번호 숫자인지 체크
+					if (!NumberUtil.isNumber($("#rpsrRrno2").val())) {
+						alert("올바른 주민등록번호가 아닙니다.");
+						$("#rpsrRrno2").val("");
+						$("#rpsrRrno2").focus();
+
+						return false;
+					}
+
+					$("#rpsrRrno").val($("#rpsrRrno1").val() + $("#rpsrRrno2").val());
+
+					if (!$("#rpsrRrno").val().isJumin()) {
+						alert("올바른 주민등록번호가 아닙니다.");
+						return false;
+					}
+
+					$("#chkRpsrRrno").val($("#rpsrRrno").val());
+				} else {
+					$("#rpsrRrno").val("");
+					$("#chkRpsrRrno").val($("#rpsrRrno1").val() + $("#rpsrRrno2").attr("placeholder"));
+				}
+
+				if ($("#txptCls").val() == "V102" && $("#etVatRate").val() == "") {
+					alert("부가가치율은 반드시 선택하셔야 합니다.");
+					$(".help_text").click();
+					$("#etVatRate").focus();
+					return false;
+				}
+
+				// 세무사 사업자번호 변경 확인
+				var txactRgtNoEl = document.getElementById("txactRgtNo");
+
+				if (txactRgtNoEl.value != "" && txactRgtNoEl.value != txactRgtNoEl.defaultValue) {
+					if (confirm(
+							"입력한 수임세무사에게 카드이용내역을 제공함에 동의합니다.\n(단, 수임세무사가 당사 웹 회원으로 가입한 경우 제공됩니다.\n\n수정하시겠습니까?"
+							)) {
+						txactRgtNoEl.defaultValue = txactRgtNoEl.value;
+					} else {
+						txactRgtNoEl.value = txactRgtNoEl.defaultValue;
+						txactRgtNoEl.focus();
+						return false;
+					}
+				} else if (!confirm("수정하시겠습니까?")) {
+					return false;
+				}
+
+				// 법정동명
+				if ($("#templgdnCode").val() != "") {
+					$("#lgdnCode").val($("#templgdnCode").val());
+				}
+
+				// 파일명 저장
+				$("#stmpImagName").val($(".stmpImagFile").val());
+				$("#bizCrtfUrlFileName").val($(".bizCrtfUrlFile").val());
+				$("#bankbookFileNmTemp").val($(".bkcpyUplFile").val());
+
+				// 파일업로드시 formData 방식이 ie11에서 오류가 발생하는 경우가 있어서 ajaxSubmit방식을 사용함:유일하게 현재 페이지만 오류 발생
+				f_ajax_submit_content("..../my/MY_B0411_UP1.html", "7F4B2442220033240040263B40013B",
+					"f_call_result2");
+
+				return false;
+			});
+
+			$file_obj_array["stmpImagFile"] = $(".stmpImagFile").clone(true);
+			$file_obj_array["bizCrtfUrlFile"] = $(".bizCrtfUrlFile").clone(true);
+
+			// 첨부 파일 실행
+			$(".edt_file").bind("change", function (e) {
+				target_class_name = $.trim(this.className.replace("edt_file", ""));
+
+				//정상파일 및 확장자 체크
+				if (target_class_name == "stmpImagFile") {
+					fileMaxSize = maxUploadSize_stmp;
+				} else {
+					fileMaxSize = maxUploadSize_bizCrtf;
+				}
+
+				$("#fileMaxSize").val(fileMaxSize);
+
+				if (FileFunc.attachFile(this, target_class_name)) {
+					$fileObj_target = this;
+				}
+
+				return false;
+			});
+
+			var FileFunc = {
+				// 첨부 파일 실행
+				attachFile: function (obj, class_name) {
+					var file_name = obj.value;
+					file_name = file_name.substring(file_name.lastIndexOf("\\") + 1, file_name.length);
+					// file ext check
+					if (file_name == "") {
+						return false;
+					} else if (!FileFunc.attachFileExtChk(file_name)) {
+						alert("업로드시 허용하지 않는 파일 형식입니다.");
+						FileFunc.createFileObj(obj, class_name);
+						return false;
+					}
+
+					if (!FileFunc.attachFileSizeChk(obj.files[0].size)) {
+						var $file_alert_info = new Array();
+
+						$file_alert_info["stmpImagFile"] = {
+							msg: "도장이미지 업로드 가능한 파일사이즈는 최대 200K 입니다."
+						};
+						$file_alert_info["bizCrtfUrlFile"] = {
+							msg: "사업자등록증 업로드 가능한 파일사이즈는 최대 600K 입니다."
+						};
+
+						alert($file_alert_info[class_name].msg);
+
+						FileFunc.createFileObj(obj, class_name);
+
+						return false;
+					}
+
+					return true;
+				},
+				// 첨부 파일 확장자 유효성 검사
+				attachFileExtChk: function (file_name) {
+					if (file_name.lastIndexOf(".") == -1) {
+						return false;
+					}
+
+					var ext = file_name.substring(file_name.lastIndexOf(".") + 1, file_name.length)
+						.toLowerCase();
+					var ext_array = isAllowFileExt.split(",");
+					var ext_array_length = ext_array.length;
+
+					for (var i = 0; i < ext_array_length; i++) {
+						if (ext_array[i] == ext) {
+							return true;
+						}
+					}
+
+					return false;
+				},
+				// 첨부 파일 크기 유효성 검사
+				attachFileSizeChk: function (fileSize) {
+					if (fileSize > fileMaxSize) {
+						return false;
+					}
+
+					return true;
+				},
+				// 첨부 파일 객체 재생성
+				createFileObj: function (obj, class_name) {
+					initFileObj(obj, class_name);
+				}
+			};
+
+			// 도장/사업자등록증 이미지 삭제
+			$(".btn_img_del").click(function () {
+				if (confirm("삭제하시겠습니까?")) {
+					// 삭제할 파일 일련번호
+					var fileSeq = $(this).closest("li").find(":hidden").val();
+
+					$("#fileSeq").val(fileSeq);
+
+					// 삭제시킬 파일 일련번호 외에는 모두 값을 초기화한다.
+					$("#stimagUplFileSeq, #bcrtfUplFileSeq").each(function () {
+						if ($(this).val() != fileSeq) {
+							$(this).val("");
+						}
+					});
+
+					f_post_submit("..../my/MY_B0411_DL1.html", "7F4B2442220033240040263B40013B",
+						"f_call_result3");
+				}
+
+				return false;
+			});
+
+			$(".lp-login").fancybox({
+				closeBtn: false,
+				slideShow: false,
+				fullScreen: false,
+				thumbs: false,
+				closeClickOutside: false,
+				smallBtn: "yes",
+				iframe: {
+					scrolling: "yes",
+					css: {
+						width: "700px"
+					}
+				}
+			});
+		});
+
+		function f_call_result1(result) {
+			if (result.status) {
+				alert("수정되었습니다.");
+			} else if (result.status_msg != "") {
+				alert(result.status_msg);
+			} else {
+				alert("처리 중 오류가 발생하였습니다.");
+			}
+		}
+
+		function f_call_result2(result) {
+			if (result.status) {
+				alert("저장되었습니다.");
+
+				f_form_submit_nosession("..../my/MY_B0411.html");
+			} else if (result.status_msg != "") {
+				var $file_alert_info = new Array();
+
+				$file_alert_info["stmpFile"] = {
+					file_msg: "도장이미지는 ",
+					size_msg: "도장이미지 업로드 가능한 파일사이즈는 최대 200K 입니다."
+				};
+				$file_alert_info["bizCrtfFile"] = {
+					file_msg: "사업자등록증은 ",
+					size_msg: "사업자등록증 업로드 가능한 파일사이즈는 최대 600K 입니다."
+				};
+
+				if (result.status_msg == "ATTACH_FILE_EXT") {
+					alert($file_alert_info[result.file_type].file_msg + "업로드시 허용하지 않는 파일 형식입니다.");
+
+					initFileObj($fileObj_target, target_class_name);
+				} else if (result.status_msg == "ATTACH_MAX_SIZE") {
+					alert($file_alert_info[result.file_type].size_msg);
+
+					initFileObj($fileObj_target, target_class_name);
+				} else {
+					alert(result.status_msg);
+				}
+			} else {
+				alert("저장중 오류가 발생하였습니다.");
+			}
+		}
+
+		function f_call_result3(result) {
+			if (result.status) {
+				alert("삭제하였습니다.");
+
+				f_form_submit_nosession("..../my/MY_B0411.html");
+			} else if (result.status_msg != "") {
+				alert(result.status_msg);
+			} else {
+				alert("삭제에 실패하였습니다.");
+			}
+		}
+
+		function initFileObj(obj, class_name) {
+			if (getIeVersion()) {
+				$(obj).replaceWith($(obj).clone(true));
+				$file_obj_array[class_name] = $("." + class_name).clone(true);
+			} else if (class_name == "bizCrtfUrlFile") {
+				$("#bizCrtfFile").val("");
+			} else if (class_name == "stmpImagFile") {
+				$("#stmpFile").val("");
+			}
+		}
+	</script>
+</head>
+
+<body>
+	<div id="wrap board-view">
+		<script type="text/javascript">
+			$(function () {
+				//메뉴  클릭시 프로그레스 처리
+				$(".logo, .mypage").find("a").click(function () {
+					progress.start();
+				});
+
+				//메뉴  클릭시 프로그레스 처리
+				$(".dep01, .dep02").find("a").click(function () {
+
+					if ($(this).attr("target") != "_blank") {
+						progress.start();
+					}
+				});
+
+			});
+		</script>
+
+		<!-- header_n -->
+
+		<div id="wrap">
+			<div id="td__header_wrap">
+				<div class="td__header">
+					<div class="td__header-depth1">
+						<ul class="item5">
+							<li>
+								<a href="javascript:f_location_href_nosession('/vr/VR_03002.html');">부가세환급지원</a>
+							</li>
+							<li>
+								<a href="javascript:f_location_href_nosession('/vt/VT_30111.html');">부가가치세 자가신고</a>
+							</li>
+							<li>
+								<a href="javascript:f_location_href_nosession('/sd/SD_30111.html');">종합소득세 자가신고</a>
+							</li>
+							<li>
+								<a href="javascript:f_location_href_nosession('/as/AS_02101_SL.html');">세무상담</a>
+							</li>
+							<li>
+								<a href="javascript:f_location_href_nosession('/bizmap/BS_20111.html');">상권분석</a>
+							</li>
+						</ul>
+					</div>
+					<div class="td__header-block">
+						<div class="td__header-top">
+							<div class="td__inner-container">
+								<h1>
+									<a href="../cm/main.html">
+										<img src="/images/td/common/sub_logo.gif" alt="로고">
+									</a>
+								</h1>
+								<div class="login-area">
+									<div class="login-inner">
+										<ul class="login-btn">
+											<li>
+												<a href="javascript:f_location_href_nosession('../my/MY_B0111.html');"
+													class="progress">마이페이지</a>
+											</li>
+										</ul>
+										<button class="btn_logout">로그아웃</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="td__header-bottom">
+							<div class="td__header-depth2">
+								<ul>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- //header_n -->
+		<script type="text/javascript" src="/js/niceTopMenu.js"></script>
+		<div id="container">
+			<div class="contents_wrap columns">
+				<div class="contents columns_wrap">
+					<h3 class="my_title">
+						<strong>강용구</strong>님의 회원정보
+					</h3>
+					<div class="contents full_width">
+						<script type="text/javascript">
+							$(document).ready(function () {
+								// 이용중인 서비스
+								$(".mp_info_btn").click(function () {
+									fancybox_open_width("../my/MY_B0312.html", "700px", "", "yes");
+
+									return false;
+								});
+							});
+						</script>
+						<div class="my_infomation_wrap">
+							<form name="form_profile" id="form_profile" method="post" enctype="multipart/form-data">
+								<div class="my_left">
+									<div class="pic_wrap">
+										<div class="thumbnail">
+											<div class="centered">
+												<a href="../my/MY_B0311.do#pic_file">
+													<img src="/images/common/user_img_nopic.gif"
+														onerror="this.src='/images/common/user_img_nopic.gif'"
+														width="156px" height="158px" alt="프로필사진">
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="my_right">
+									<ul class="my_info_list">
+										<li>
+											<dl>
+												<dt>가입일</dt>
+												<dd>2011-04-21</dd>
+											</dl>
+										</li>
+										<li>
+											<dl>
+												<dt>최근 방문일</dt>
+												<dd>2020-06-18 10:23</dd>
+											</dl>
+										</li>
+										<li>
+											<dl>
+												<dt>아이디</dt>
+												<dd>nice2122</dd>
+											</dl>
+										</li>
+										<li>
+											<dl>
+												<dt>사용자 등급</dt>
+												<dd>
+
+													사업자카드 회원
+													<a href="javascript:;" class="mp_info_btn">이용중인 서비스</a>
+												</dd>
+											</dl>
+										</li>
+										<li>
+											<dl>
+												<dt>연락처</dt>
+												<dd>011-****-6784</dd>
+											</dl>
+										</li>
+										<li>
+											<dl>
+												<dt>이메일</dt>
+												<dd>hjkang@nicednr.co.kr</dd>
+											</dl>
+										</li>
+										<li>
+											<dl>
+												<dt>작성글 수</dt>
+												<dd>9</dd>
+											</dl>
+										</li>
+										<li>
+											<dl>
+												<dt>작성 댓글 수</dt>
+												<dd>0</dd>
+											</dl>
+										</li>
+									</ul>
+								</div>
+							</form>
+						</div>
+						<div class="my_contents_wrap">
+							<div class="my_tab_wrap">
+
+
+
+
+
+
+								<ul class="my_tab">
+									<li>
+										<a href="../my/MY_B0111.html">활동내역</a>
+									</li>
+									<li>
+										<a href="../my/MY_B0211.html">결제내역</a>
+									</li>
+									<li>
+										<a href="../my/MY_B0311.html">회원정보</a>
+									</li>
+									<li class="short active">
+										<a href="../my/MY_B0411.html">회사정보</a>
+									</li>
+									<!-- 2019.11.06 세무주치의 기능 사용안함 : 이강호 책임님 확인
+									<li  >
+										<a href="../my/MY_B0511.html">세무주치의</a>
+									</li>
+									-->
+									<li>
+										<a href="../my/MY_B0611.html">ID발급관리</a>
+									</li>
+									<li>
+										<a href="../my/MY_B0811.html">인증정보관리</a>
+									</li>
+									<li>
+										<a href="../my/MY_B0911.html">세무정보관리</a>
+									</li>
+									<li>
+										<a href="../my/MY_B0711.html">회원탈퇴</a>
+									</li>
+								</ul>
+
+
+
+							</div>
+							<div class="my_contents">
+								<form id="form" name="form" method="post" enctype="multipart/form-data">
+									<input type="hidden" name="gbn" value="M">
+									<input type="hidden" name="id" value="distTaxOffcCode">
+									<input type="hidden" name="fileSeq" id="fileSeq"><input type="hidden"
+										id="current_page" name="current_page" value="1">
+									<input type="hidden" id="rpsrRrno" name="rpsrRrno">
+									<input type="hidden" id="chkRpsrRrno" name="chkRpsrRrno">
+									<input type="hidden" id="fileName" name="fileName">
+									<input type="hidden" name="allowFileExt" id="allowFileExt"
+										value="jpg,jpeg,gif,png,bmp">
+									<input type="hidden" name="fileMaxSize" id="fileMaxSize" value="0">
+									<h4>
+										회사 기본정보
+										<p><span>*</span> 표시는 필수 항목입니다.</p>
+									</h4>
+									<div class="member_profile_wrap">
+										<ul class="mp_wrap">
+											<li class="half">
+												<dl>
+													<dt>
+														사업자 등록번호
+													</dt>
+													<dd>
+														107-87-08207<input id="bizNo" name="bizNo" type="hidden"
+															value="1078708207">
+													</dd>
+												</dl>
+											</li>
+											<li class="half">
+												<dl>
+													<dt>
+														<label for="corpNo">법인등록번호</label>
+													</dt>
+													<dd>
+														<input id="corpNo" name="corpNo" type="text"
+															value="1101113877101" maxlength="14" autocomplete="off">
+													</dd>
+												</dl>
+											</li>
+											<li class="half">
+												<dl>
+													<dt>
+														<label for="shop">상호명 <span>*</span></label>
+													</dt>
+													<dd>
+														<input id="shop" name="shop" type="text" value="나이스디앤알(주)"
+															maxlength="50">
+													</dd>
+												</dl>
+											</li>
+											<li class="half">
+												<dl>
+													<dt>
+														<label for="my_cp_ceo_pn">대표자 주민등록번호 <span>*</span></label>
+													</dt>
+													<dd>
+														<ul class="colum3">
+															<li>
+																<input name="rpsrRrno1" type="text" id="rpsrRrno1"
+																	value="630220" maxlength="6" autocomplete="off">
+															</li>
+															<li class="short">-</li>
+															<li>
+																<input name="rpsrRrno2" type="text" id="rpsrRrno2"
+																	placeholder="1******" value="" maxlength="7">
+															</li>
+														</ul>
+													</dd>
+												</dl>
+											</li>
+											<li class="half">
+												<dl>
+													<dt>
+														<label for="rpsrName">대표자명 <span>*</span></label>
+													</dt>
+													<dd>
+														<input id="rpsrName" name="rpsrName" type="text" value="강용구"
+															maxlength="50">
+													</dd>
+												</dl>
+											</li>
+											<li class="half">
+												<dl>
+													<dt>
+														<label for="hpNo">휴대전화 번호 <span>*</span></label>
+													</dt>
+													<dd>
+														<input id="hpNo" name="hpNo" type="text" value="027889000"
+															maxlength="20" autocomplete="off">
+													</dd>
+												</dl>
+											</li>
+											<li class="half">
+												<dl>
+													<dt>
+														<label for="telNo">사업장 전화번호</label>
+													</dt>
+													<dd>
+														<input id="telNo" name="telNo" type="text" value="027889000" maxlength="20" autocomplete="off">
+													</dd>
+												</dl>
+											</li>
+											<li class="half">
+												<dl>
+													<dt>
+														<label for="rpsrName">E-mail</label>
+													</dt>
+													<dd>
+														<input id="rpsrName" name="rpsrName" type="text" value=""
+															maxlength="50">
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<dl>
+													<dt>
+														<label for="faxNo">사업장 팩스번호</label>
+													</dt>
+													<dd>
+														<input id="faxNo" name="faxNo" type="text" value="027889001"
+															maxlength="20" autocomplete="off">
+													</dd>
+												</dl>
+											</li>
+											<li style="height: auto;">
+												<dl>
+													<dt class="height2">
+														주소
+													</dt>
+													<dd>
+														<ul class="my_mp_depth2">
+															<input id="addrCls" name="addrCls" type="hidden" value="N">
+															<li class="line1">
+																<input id="ozipCode" name="ozipCode" class="width-150"
+																	readonly="readonly" type="text" value="03741"
+																	size="7">&nbsp;
+																<input type="button" id="btnZip" value="우편번호"
+																	class="base_btn_color gray">
+															</li>
+															<li class="line2">
+																<input id="oaddr1" name="oaddr1" class="add_long"
+																	readonly="readonly" type="text"
+																	value="서울특별시 서대문구 충정로 36 (충정로3가)" size="50">&nbsp;
+																<input id="oaddr2" name="oaddr2" class="add_short"
+																	type="text" value="7층" size="32">
+															</li>
+														</ul>
+													</dd>
+												</dl>
+											</li>
+											<li class="half">
+												<dl>
+													<dt>
+														<label for="clientTelNo">담당자 전화번호</label>
+													</dt>
+													<dd>
+														<input id="clientTelNo" name="clientTelNo" type="text" value=""
+															maxlength="20" autocomplete="off">
+													</dd>
+												</dl>
+											</li>
+											<li class="half">
+												<dl>
+													<dt>
+														<label for="clientHpNo">담당자 휴대전화번호 <span>*</span></label>
+													</dt>
+													<dd>
+														<input id="clientHpNo" name="clientHpNo" type="text" value=""
+															maxlength="20" autocomplete="off">
+													</dd>
+												</dl>
+											</li>
+											<li class="half">
+												<dl>
+													<dt>
+														<label for="clientName">담당자명</label>
+													</dt>
+													<dd>
+														<input id="clientName" name="clientName" type="text" value=""
+															maxlength="50" autocomplete="off">
+													</dd>
+												</dl>
+											</li>
+											<li class="half">
+												<dl>
+													<dt>
+														<label for="dptName">담당부서</label>
+													</dt>
+													<dd>
+														<input id="dptName" name="dptName" type="text" value="" autocomplete="off">
+													</dd>
+												</dl>
+											</li>
+											<li class="half">
+												<dl>
+													<dt>
+														가입일자
+													</dt>
+													<dd>
+														2011-04-21
+													</dd>
+												</dl>
+											</li>
+											<li class="half">
+												<dl>
+													<dt>
+														이메일 수신 주기
+													</dt>
+													<dd>
+														<select id="emailRecpCyclCode" name="emailRecpCyclCode">
+															<option value="001">1주</option>
+															<option value="002">2주</option>
+															<option value="003">한달</option>
+														</select>
+													</dd>
+												</dl>
+											</li>
+											<li class="secend_last">
+												<dl>
+													<dt>
+														사업자 유형
+													</dt>
+													<dd>
+														<select id="txptCls" name="txptCls">
+															<option value="">선택</option>
+															<option value="V101" selected="selected">일반</option>
+															<option value="V102">간이</option>
+															<option value="V155">면세</option>
+															<option value="V999">기타</option>
+														</select>
+													</dd>
+												</dl>
+											</li>
+											<li class="last my_company_last" style="display: none;">
+												<dl>
+													<dt class="line2">
+														간이과세자<br>부가가치율
+													</dt>
+													<dd>
+														<select id="etVatRate" name="etVatRate">
+															<option value="" selected="selected">선택</option>
+															<option value="001">5%</option>
+															<option value="002">10%</option>
+															<option value="003">20%</option>
+															<option value="004">30%</option>
+														</select>
+														<div class="my_cp_help_wrap">
+															<span class="help_text">도움말</span>
+															<div class="help_box">
+																<span class="help_close_btn">닫기</span>
+																<p class="title">간이과세자 부가가치율 항목에서 회원님의 업태를 참고하시기 바랍니다.
+																</p>
+																<div class="help_table_wrap">
+																	<table width="100%" class="MY1_table2 private"
+																		summary="간이과세자 부가가치율이 업태, 간이과세자 부가가치율 순으로 정리되어있다.">
+																		<caption>간이과세자 부가가치율 항목</caption>
+																		<colgroup>
+																			<col width="65%">
+																			<col width="35%">
+																		</colgroup>
+																		<thead>
+																			<tr>
+																				<th scope="col">업태</th>
+																				<th scope="col">간이과세자 부가가치율</th>
+																			</tr>
+																		</thead>
+																		<tbody>
+																			<tr>
+																				<td>전기, 가스·증기 및 수도사업</td>
+																				<td>5%</td>
+																			</tr>
+																			<tr>
+																				<td>소매업, 재생용재료수집·판매업, 음식점업</td>
+																				<td>10%</td>
+																			</tr>
+																			<tr>
+																				<td>제조업, 농업·임업·어업, 숙박업, 운수 및 통신업</td>
+																				<td>20%</td>
+																			</tr>
+																			<tr>
+																				<td>건설업, 부동산임대업, 기타서비스업</td>
+																				<td>30%</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+														</div>
+													</dd>
+												</dl>
+											</li>
+										</ul>
+									</div>
+									<p class="my_cp_comment">
+										고객님께서 수임세무사 정보를 입력 후, 수임세무사 당사 웹 회원으로 가입하면 별도의 인증절차 없이 고객님의 카드이용내역과 세금계산서 발행 및
+										수취 내역을 활용하여 부가세 등 세무신고를 편리하게 할 수 있습니다.<br>
+										<strong>수임 세무사에 당사 웹 회원가입(무료) 안내를 필히 해 주시기 바랍니다.</strong>
+									</p>
+									<div class="member_profile_wrap">
+										<ul class="mp_wrap">
+											<li class="half">
+												<dl>
+													<dt>
+														<label for="txactRgtNo">세무사 사업자번호</label>
+													</dt>
+													<dd>
+														<input name="txactRgtNo" type="text" id="txactRgtNo"
+															value="134-86-15180" maxlength="12" autocomplete="off">
+													</dd>
+												</dl>
+											</li>
+											<li class="half">
+												<dl>
+													<dt>
+														<label for="tastCtfc">세무사 연락처</label>
+													</dt>
+													<dd>
+														<input name="tastCtfc" type="text" id="tastCtfc"
+															value="023336666">
+													</dd>
+												</dl>
+											</li>
+											<li>
+												<dl>
+													<dt>
+														<label for="txactShop">세무사 상호</label>
+													</dt>
+													<dd>
+														<input name="txactShop" type="text" id="txactShop"
+															value="나이스세무법인">
+													</dd>
+												</dl>
+											</li>
+										</ul>
+									</div>
+									<h4>
+										세금계산서 관리
+										<p><span>*</span> 표시는 필수 항목입니다.</p>
+									</h4>
+									<div class="member_profile_wrap">
+										<ul class="mp_wrap">
+											<li class="half">
+												<dl>
+													<dt>
+														세금계산서 종류
+													</dt>
+													<dd>
+														전자세금계산서</dd>
+												</dl>
+											</li>
+											<li class="half">
+												<dl>
+													<dt>
+														계산서 종류
+													</dt>
+													<dd>
+														<ul class="my_mp_depth2">
+															<li>
+																<label>
+																	<input type="radio" name="ebillYn" value="N"
+																		data-fancybox="" data-src="../my/MY_B0411_POP1.html"
+																		class="lp-login">
+																	웹 계산서
+																</label>
+															</li>
+															<li class="pw_ml15">
+																<label>
+																	<input type="radio" name="ebillYn" value="Y"
+																		checked="" data-fancybox=""
+																		data-src="../my/MY_B0411_POP2.html"
+																		class="lp-login">
+																	전자계산서
+																</label>
+															</li>
+														</ul>
+													</dd>
+												</dl>
+											</li>
+											<li class="half">
+												<dl>
+													<dt>
+														<label for="bizCond">업태</label>
+													</dt>
+													<dd>
+														<input name="bizCond" type="text" id="bizCond" value="부동산업">
+													</dd>
+												</dl>
+											</li>
+											<li class="half">
+												<dl>
+													<dt>
+														<label for="bizItem">종목</label>
+													</dt>
+													<dd>
+														<input name="bizItem" type="text" id="bizItem"
+															value="주거용 건물 임대업(일반주택임대)">
+													</dd>
+												</dl>
+											</li>
+											<li class="half">
+												<dl>
+													<dt>
+														<label for="bizCrtfFile">사업자등록증</label>
+													</dt>
+													<dd>
+														<input type="file" name="bizCrtfFile" id="bizCrtfFile"
+															class="bizCrtfUrlFile edt_file">
+													</dd>
+												</dl>
+											</li>
+											<li class="half">
+												<dl>
+													<dt class="line2">
+														<label for="my_cp_stamp">
+															도장이미지 <br>
+															<span class="text_gray">(세금계산서용)</span>
+														</label>
+													</dt>
+													<dd>
+														<ul class="my_mp_depth2">
+															<li>
+																<a href="../my/MY_B0412.html?fileSeq=17110A0E06173E37360C"
+																	class="show_img" title="" alt="">
+																	1078708207.gif</a>
+															</li>
+															<li class="file_input active">
+																<input type="button" value="삭제"
+																	class="base_btn_color gray width-90 btn_img_del">
+																<input id="stimagUplFileSeq" name="stimagUplFileSeq"
+																	type="hidden" value="17110A0E06173E37360C"><input
+																	id="stmpImagName" name="stmpImagName" type="hidden"
+																	value="1078708207.gif"></li>
+														</ul>
+													</dd>
+												</dl>
+											</li>
+											<li class="half last">
+												<dl>
+													<dt class="line2">
+														<label for="evatSdsmsTrmsYn">
+															계산서 발송시<br>SMS전송여부
+														</label>
+													</dt>
+													<dd>
+														<input id="evatSdsmsTrmsYn1" name="evatSdsmsTrmsYn"
+															type="checkbox" value="Y" checked="checked"><input
+															type="hidden" name="_evatSdsmsTrmsYn" value="on"></dd>
+												</dl>
+											</li>
+											<li class="half">
+												<dl>
+													<dt class="line2">
+														<label for="brkBizYn">
+															계산서수탁<br>사업자여부
+														</label>
+													</dt>
+													<dd>
+														<input id="brkBizYn1" name="brkBizYn" type="checkbox" value="Y"
+															checked="checked"><input type="hidden" name="_brkBizYn"
+															value="on"></dd>
+												</dl>
+											</li>
+										</ul>
+									</div>
+									<h4>제휴카드 발급 내역조회</h4>
+									<div class="table_wrap not_paginate">
+										<table width="100%" class="MY1_table3 private"
+											summary="결제내역이 결제일자, 결제구분, 카드사, 승인번호, 결제금액, 결제내역 순으로 정리되어있다.">
+											<caption>결제내역 리스트</caption>
+											<colgroup>
+												<col width="9%">
+												<col width="13%">
+												<col width="6%">
+												<col width="11%">
+												<col width="5%">
+												<col width="11%">
+												<col width="12%">
+												<col width="9%">
+												<col width="9%">
+												<col width="9%">
+												<col width="6%">
+											</colgroup>
+											<thead>
+												<tr>
+													<th scope="col">카드사</th>
+													<th scope="col">카드번호</th>
+													<th scope="col">성명</th>
+													<th scope="col">주민등록번호</th>
+													<th scope="col">직위</th>
+													<th scope="col">핸드폰</th>
+													<th scope="col">이메일</th>
+													<th scope="col">카드발급일자</th>
+													<th scope="col">카드해지일자</th>
+													<th scope="col">차량공제유형</th>
+													<th scope="col">저장</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>비제휴카드</td>
+													<td>9445-****-****-5035</td>
+													<td>나이스데이터</td>
+													<td>-</td>
+													<td>-</td>
+													<td>0117876784</td>
+													<td>myh@nicedata.co.kr</td>
+													<td>2017-09-21</td>
+													<td></td>
+													<td class="input_td">
+														<select class="edt_select carDdctCls">
+															<option value="Y">대상</option>
+															<option value="N" selected="selected">비대상</option>
+															<option value="X">미분류</option>
+														</select>
+													</td>
+													<td class="input_td">
+														<input type="button" value="저장"
+															class="base_btn_color gray btn_car_save">
+														<input type="hidden" value="9445420830815035" class="cardNo">
+													</td>
+												</tr>
+												<tr>
+													<td>비제휴카드</td>
+													<td>5531-****-****-1909</td>
+													<td>나이스데이터</td>
+													<td>-</td>
+													<td>-</td>
+													<td>0117876784</td>
+													<td>myh@nicedata.co.kr</td>
+													<td>2017-09-21</td>
+													<td></td>
+													<td class="input_td">
+														<select class="edt_select carDdctCls">
+															<option value="Y">대상</option>
+															<option value="N" selected="selected">비대상</option>
+															<option value="X">미분류</option>
+														</select>
+													</td>
+													<td class="input_td">
+														<input type="button" value="저장"
+															class="base_btn_color gray btn_car_save">
+														<input type="hidden" value="5531420014761909" class="cardNo">
+													</td>
+												</tr>
+												<tr>
+													<td>비제휴카드</td>
+													<td>4902-****-****-9553</td>
+													<td>나이스데이터</td>
+													<td>-</td>
+													<td>-</td>
+													<td>01045010322</td>
+													<td>hyebin2768@naver.com</td>
+													<td>2015-03-18</td>
+													<td></td>
+													<td class="input_td">
+														<select class="edt_select carDdctCls">
+															<option value="Y">대상</option>
+															<option value="N" selected="selected">비대상</option>
+															<option value="X">미분류</option>
+														</select>
+													</td>
+													<td class="input_td">
+														<input type="button" value="저장"
+															class="base_btn_color gray btn_car_save">
+														<input type="hidden" value="4902208187159553" class="cardNo">
+													</td>
+												</tr>
+												<tr>
+													<td>비제휴카드</td>
+													<td>9411-****-****-5596</td>
+													<td>나이스데이터</td>
+													<td>-</td>
+													<td>-</td>
+													<td>01045010322</td>
+													<td>hyebin2768@naver.com</td>
+													<td>2015-03-13</td>
+													<td></td>
+													<td class="input_td">
+														<select class="edt_select carDdctCls">
+															<option value="Y">대상</option>
+															<option value="N" selected="selected">비대상</option>
+															<option value="X">미분류</option>
+														</select>
+													</td>
+													<td class="input_td">
+														<input type="button" value="저장"
+															class="base_btn_color gray btn_car_save">
+														<input type="hidden" value="9411818005945596" class="cardNo">
+													</td>
+												</tr>
+												<tr>
+													<td>비제휴카드</td>
+													<td>3562-****-****-5032</td>
+													<td>나이스데이터</td>
+													<td>-</td>
+													<td>-</td>
+													<td>02-788-9000</td>
+													<td>hyebin2768@naver.com</td>
+													<td>2014-12-20</td>
+													<td></td>
+													<td class="input_td">
+														<select class="edt_select carDdctCls">
+															<option value="Y">대상</option>
+															<option value="N" selected="selected">비대상</option>
+															<option value="X">미분류</option>
+														</select>
+													</td>
+													<td class="input_td">
+														<input type="button" value="저장"
+															class="base_btn_color gray btn_car_save">
+														<input type="hidden" value="3562970619935032" class="cardNo">
+													</td>
+												</tr>
+												<tr>
+													<td>비제휴카드</td>
+													<td>4330-****-****-0117</td>
+													<td>나이스데이터</td>
+													<td>-</td>
+													<td>-</td>
+													<td>02-788-9000</td>
+													<td>hyebin2768@naver.com</td>
+													<td>2014-12-20</td>
+													<td></td>
+													<td class="input_td">
+														<select class="edt_select carDdctCls">
+															<option value="Y">대상</option>
+															<option value="N" selected="selected">비대상</option>
+															<option value="X">미분류</option>
+														</select>
+													</td>
+													<td class="input_td">
+														<input type="button" value="저장"
+															class="base_btn_color gray btn_car_save">
+														<input type="hidden" value="4330288623350117" class="cardNo">
+													</td>
+												</tr>
+												<tr>
+													<td>비제휴카드</td>
+													<td>1024-****-****-1024</td>
+													<td>경영지원실</td>
+													<td>-</td>
+													<td>-</td>
+													<td>02-788-9000</td>
+													<td>hyebin2768@naver.com</td>
+													<td>2014-07-22</td>
+													<td></td>
+													<td class="input_td">
+														<select class="edt_select carDdctCls">
+															<option value="Y">대상</option>
+															<option value="N">비대상</option>
+															<option value="X" selected="selected">미분류</option>
+														</select>
+													</td>
+													<td class="input_td">
+														<input type="button" value="저장"
+															class="base_btn_color gray btn_car_save">
+														<input type="hidden" value="1024102410241024" class="cardNo">
+													</td>
+												</tr>
+												<tr>
+													<td>비제휴카드</td>
+													<td>6060-****-****-2017</td>
+													<td>나이스데이터</td>
+													<td>-</td>
+													<td>-</td>
+													<td>02-788-9000</td>
+													<td>customer@mail1.nicedata.co.kr</td>
+													<td>2014-02-13</td>
+													<td></td>
+													<td class="input_td">
+														<select class="edt_select carDdctCls">
+															<option value="Y">대상</option>
+															<option value="N" selected="selected">비대상</option>
+															<option value="X">미분류</option>
+														</select>
+													</td>
+													<td class="input_td">
+														<input type="button" value="저장"
+															class="base_btn_color gray btn_car_save">
+														<input type="hidden" value="6060452442832017" class="cardNo">
+													</td>
+												</tr>
+												<tr>
+													<td>비제휴카드</td>
+													<td>4518-****-****-3013</td>
+													<td>나이스데이터</td>
+													<td>-</td>
+													<td>-</td>
+													<td>02-788-9000</td>
+													<td>customer@mail1.nicedata.co.kr</td>
+													<td>2014-01-27</td>
+													<td></td>
+													<td class="input_td">
+														<select class="edt_select carDdctCls">
+															<option value="Y">대상</option>
+															<option value="N" selected="selected">비대상</option>
+															<option value="X">미분류</option>
+														</select>
+													</td>
+													<td class="input_td">
+														<input type="button" value="저장"
+															class="base_btn_color gray btn_car_save">
+														<input type="hidden" value="4518426677213013" class="cardNo">
+													</td>
+												</tr>
+												<tr>
+													<td>비제휴카드</td>
+													<td>9490-****-****-3600</td>
+													<td>경영지원실</td>
+													<td>-</td>
+													<td>-</td>
+													<td>0113840485</td>
+													<td>swatman7@nicedata.co.kr</td>
+													<td>2010-07-01</td>
+													<td></td>
+													<td class="input_td">
+														<select class="edt_select carDdctCls">
+															<option value="Y" selected="selected">대상</option>
+															<option value="N">비대상</option>
+															<option value="X">미분류</option>
+														</select>
+													</td>
+													<td class="input_td">
+														<input type="button" value="저장"
+															class="base_btn_color gray btn_car_save">
+														<input type="hidden" value="9490190765593600" class="cardNo">
+													</td>
+												</tr>
+											</tbody>
+										</table>
+										<div class="paginate_wrap">
+											<div class="paginate">
+												<p class="first arrow" onclick="javascript:movePage(&quot;1&quot;);">
+													<span class="icon"></span><span class="text">처음으로</span></p>
+												<p class="pre arrow"><span class="icon"></span><span
+														class="text">이전</span></p>
+												<ol class="number">
+													<li class="active"><a href="javascript:movePage('1');">1</a></li>
+													<li><a href="javascript:movePage('2');">2</a></li>
+													<li><a href="javascript:movePage('3');">3</a></li>
+													<li><a href="javascript:movePage('4');">4</a></li>
+													<li><a href="javascript:movePage('5');">5</a></li>
+													<li><a href="javascript:movePage('6');">6</a></li>
+													<li><a href="javascript:movePage('7');">7</a></li>
+													<li><a href="javascript:movePage('8');">8</a></li>
+													<li><a href="javascript:movePage('9');">9</a></li>
+													<li><a href="javascript:movePage('10');">10</a></li>
+												</ol>
+												<p class="next arrow" onclick="javascript:movePage('11');"><span
+														class="icon"></span><span class="text">다음</span></p>
+												<p class="last arrow" onclick="javascript:movePage('34');"><span
+														class="icon"></span><span class="text">마지막으로</span></p>
+											</div>
+										</div>
+									</div>
+									<h4>부가정보</h4>
+									<div class="member_profile_wrap">
+										<ul class="mp_wrap">
+											<li class="half last">
+												<dl>
+													<dt>
+														세무서명
+													</dt>
+													<dd>
+														<label for="distTaxOffcCodeName">
+															<input id="distTaxOffcCodeName" name="distTaxOffcCodeName"
+																class="lp-login btn_style layer_popup"
+																data-src="../my/MY_B0413.html"
+																a="123" data-fancybox="distTaxOffcCodeName"
+																readonly="readonly" type="text" value="마포"></label>
+														<input id="distTaxOffcCode" name="distTaxOffcCode" type="hidden"
+															value="105"></dd>
+												</dl>
+											</li>
+											<li class="half">
+												<dl>
+													<dt>
+														법정동명
+													</dt>
+													<dd>
+														<label for="lgdnCodeName">
+															<input id="lgdnCodeName" name="lgdnCodeName"
+																class="lp-login btn_style layer_popup"
+																data-src="../my/MY_B0414.html" data-fancybox="lgdnCodeName"
+																readonly="readonly" type="text"
+																value="서울특별시 마포구 아현동 "></label>
+														<input id="lgdnCode" name="lgdnCode" type="hidden"
+															value="1144010100"><input type="hidden" id="templgdnCode">
+													</dd>
+												</dl>
+											</li>
+										</ul>
+									</div>
+								</form>
+								<ul class="base_bottom_btn">
+									<li>
+										<input type="reset" id="btn_cancel" value="취소" class="base_btn_color dark">
+									</li>
+									<li>
+										<input type="button" id="btn_modify" value="저장" class="base_btn_color">
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<script type="text/javascript">
+				$(document).ready(function () {
+					// 회사소개
+					$(".nicednr").click(function () {
+						window.open("http://www.nicednr.co.kr");
+						return false;
+					});
+
+					// 제휴문의
+					$(".UG_A0411").click(function () {
+						fancybox_open_width("../ug/UG_A0411.html", "700px", "", "yes", false);
+						return false;
+					});
+
+					// 개인정보처리방침
+					$(".UG_A0131").click(function () {
+						fancybox_open_width("../ug/UG_A0131.html", "700px", "", "yes", false);
+						return false;
+					});
+
+					// 이용약관
+					$(".UG_A0121").click(function () {
+						fancybox_open_width("../ug/UG_A0121.html", "700px", "", "yes", false);
+						return false;
+					});
+
+					// 고객센터
+					$(".UG_A0111").click(function () {
+						f_location_href_nosession("../ug/UG_A0111.html");
+						return false;
+					});
+
+					// 전자세금 계산서
+					$(".tax_bill").click(function () {
+						window.open("https://www.nicebill.co.kr/cm/main.html");
+						return false;
+					});
+
+					// 휴폐업 조회
+					$(".check_biz").click(function () {
+						window.open("http://www.nicedata.co.kr/as/AS_30401.html");
+						return false;
+					});
+
+					// 서울보증보험 안내
+					$(".sgic").click(function () {
+						window.open("http://www.nicedata.co.kr/as/AS_40601.html");
+						return false;
+					});
+				});
+			</script>
+			<div id="td__footer_wrap">
+				<div class="td__footer">
+					<div class="td__footer-top">
+						<ul>
+							<li><a href="javascript:;" class="nicednr">회사소개</a></li>
+							<li><a href="javascript:;" class="UG_A0411">제휴문의</a></li>
+							<li><a href="javascript:;" class="UG_A0131"><b>개인정보처리방침</b></a></li>
+							<li><a href="javascript:;" class="UG_A0121">이용약관</a></li>
+							<li><a href="javascript:;" class="UG_A0111">고객센터</a></li>
+							<li class="mo_right">
+								<a href="https://m.taxdiet.co.kr/nm/NM_20001.html">
+									<div class="mo_img">
+										<img src="/images/td/common/ico_mobile.png" alt="">
+									</div>
+									모바일버전
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="td__footer-bottom">
+						<ul>
+							<li>NICE 디앤알(주)</li>
+							<li>대표 : 강용구</li>
+							<li class="last">통신판매업 신고번호 : 제2012-서울구로-1033호</li>
+							<li>사업자등록번호 : 107-87-08207</li>
+							<li class="last">서울특별시 서대문구 충정로 36 7층</li>
+							<li>TEL : 1588-5659</li>
+							<li class="last">FAX : 788-9001</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="common-quick-menu qm-sub">
+				<ul>
+					<li class="tax_bill">
+						<a href="#none">
+							<img src="/images/common/quick_icon_1.png" alt="전자세금계산서">
+							전자세금<br>계산서
+						</a>
+					</li>
+					<li class="check_biz">
+						<a href="#none">
+							<img src="/images/common/quick_icon_2.png" alt="휴폐업조회">
+							휴폐업<br>조회
+						</a>
+					</li>
+					<li class="sgic">
+						<a href="#none">
+							<img src="/images/common/quick_icon_3.png" alt="서울보즘보험안내">
+							서울보증보험<br>안내
+						</a>
+					</li>
+				</ul>
+			</div>
+			<!-- //footer_n -->
+			<iframe id="sessionFrame" name="sessionFrame" width="10" height="10" src="javascript:void 0;" title="로그인처리용"
+				style="display:none"></iframe>
+			<script type="text/javascript" src="/js/imageChecker.js"></script>
+			<script type="text/javascript">
+				var title = document.title;
+				document.title = title + ".";
+
+
+
+				ImageNotExistProcess.process("boardBox");
+			</script>
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-36649342-23"></script>
+			<script>
+				window.dataLayer = window.dataLayer || [];
+
+				function gtag() {
+					dataLayer.push(arguments);
+				}
+				gtag('js', new Date());
+
+				gtag('config', 'UA-36649342-23');
+			</script>
+		</div>
+</body>
+
+</html>

@@ -1,0 +1,465 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+
+<title>택스다이어트</title>
+<link rel="stylesheet" type="text/css" href="/css/mobile/default.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/mobile/libs/jquery.fancybox-1.3.1.css">
+
+<script src="/js/mobile/libs/jquery-1.11.1.min.js"></script>
+<script src="/js/mobile/libs/jquery-ui.min.js"></script>
+<script src="/js/mobile/libs/jquery.easing.1.3.js"></script>
+<script src="/js/mobile/libs/jquery-ui.js"></script> <!-- dskim -->
+<script src="/js/mobile/libs/jquery.mask.min.js"></script>
+<script src="/js/mobile/libs/daterange.js"></script>
+
+<script src="/js/mobile/libs/jquery.validate-1.8.1.min.js"></script>
+<script src="/js/mobile/niceNmCommon.js"></script>
+<script src="/js/mobile/common-util.js"></script>
+
+<!-- layerpopup -->
+<script src="/js/mobile/libs/jquery.fancybox.min.js"></script>
+
+<!-- placeholder fix -->
+<script src="/js/mobile/libs/jquery.placeholder.js"></script>
+
+<script src="/js/mobile/libs/jquery.history.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+<script type="text/javascript">
+
+$(function(){
+	
+	$(".btn_joinMember").click(function(){
+			
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A5A5A3C0B1801322B21410D334B2E12" }).appendTo("#jmForm");
+			$("<input/>").attr({type:"hidden", name:"hmpUrl", value:"taxdiet_m" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+	
+});
+
+</script>
+<!-- // 공통 -->
+
+<script type="text/javascript">
+$(document).ready(function(){
+	fnAllAgree();
+	fnSelected();
+	
+	// mask
+	$('#card_no1, #card_no2').mask("9999");
+	$('#card_no3').mask("999999");  
+
+	// 확인
+	$("#btn_modify_submit").click(function(){
+		if(!fnCheckAgree()){
+			return false;
+		}
+
+		// 카드 체크	
+		var Gbn = $("select[name='cradType']").val();
+		if(Gbn == "C"){
+			if($("#card_no1").val() == ''){
+				alert("카드번호를 입력해주세요."); 
+				$("#card_no1").focus();
+				return false;
+			}
+		
+			if($("#card_no2").val() == ''){
+				alert("카드번호를 입력해주세요."); 
+				$("#card_no2").focus();
+				return false;
+			}	    	
+			
+			$("#card_no").val($("#card_no1").val()+$("#card_no2").val());
+		
+		} else if(Gbn == "A"){
+			if($("#card_no3").val() == ''){
+				alert("카드번호를 입력해주세요."); 
+				$("#card_no3").focus();
+				return false;
+			}
+			
+			$("#card_no").val($("#card_no3").val());
+			
+		} else {
+			alert("카드번호를 입력해주세요.");
+			return false;
+		}
+
+		// 비밀번호 체크
+		var op = $('#pswd').val(); 
+		var np = $('#re_pswd').val();
+		if($("#pswd").val() != "" || $("#re_pswd").val() != ""){
+			if(op != np){
+				//alert("비밀번호가 일치하지 않습니다.");
+				alert("비밀번호를 동일하게 입력하십시오.");
+				$("#pswd").focus();
+				
+				return;			
+			}
+		};		
+
+		var message	= "완료하시겠습니까?";		
+		if(confirm(message)) {
+
+		};
+		
+		return false;
+	});
+	
+	// 취소
+	$("#btn_modify_cencel").click(function(){
+		var message	= "약관동의를 하시지 않으면 서비스를 이용하실 수 없으며, 입력하신 정보가 삭제됩니다. 취소 하시겠습니까?";
+
+		if(confirm(message)) {
+			$(".terms__list .terms__list-box input").val('');
+		};
+		return false;		
+	});
+
+
+});
+// 이용약관 동의
+function fnCheckAgree(){
+	if($("#agree_check1").prop("checked") != true){
+		//alert("이용약관에 동의해 주세요.");
+		alert("회원 필수약관에 동의하셔야 서비스를 이용하실 수 있습니다.");
+		$("#agree_check1").focus();
+		return false;
+		
+	} else if($("#agree_check2").prop("checked") != true){
+		//alert("개인정보 수집 및 이용안내에 동의해 주세요.");
+		alert("회원 필수약관에 동의하셔야 서비스를 이용하실 수 있습니다.");
+		$("#agree_check2").focus();
+		return false;
+	}
+	
+	return true;
+}
+
+// 이용약관 모두선택
+function fnAllAgree(){
+	
+	$("input:checkbox[id='allCheck']").click(function(){
+		var chk = $(this).is(":checked"); //.attr('checked');
+		if(chk) $("input:checkbox[value='Y']").prop("checked", true);
+		else $("input:checkbox[value='Y']").prop("checked", false);
+	});
+
+	$("input:checkbox[value='Y']").click(function(){
+		if($("input:checkbox[value='Y']").is(":checked")){
+			$("input:checkbox[id='allCheck']").prop("checked", false);
+		} 
+		if($("input:checkbox[value='Y']:checked").length == 2) {
+			$("input:checkbox[id='allCheck']").prop("checked", true);
+		}
+	});
+}; 
+
+// 카드선택
+function fnSelected() {
+	$("select[name='cradType']").click(function(){
+		if($(this).val() == "C"){			
+			$(".cradType_A").stop().hide();
+			$(".cradType_C").stop().show();
+			$("#card_no3").val("");			
+		} else if($(this).val() == "A"){
+			$(".cradType_C").stop().hide();
+			$(".cradType_A").stop().show();
+			$("#card_no1, #card_no2").val("");
+		}
+	});
+}
+
+</script>
+</head>
+<body>
+	<div class="wrap">
+		<div class="header header--white">
+			<div class="header__logo">
+				<a href="javascript:;"><img src="/images/mobile/common/main_logo.png" alt="택스다이어트"></a>
+			</div>
+			<script type="text/javascript">
+			$(document).ready(function(){
+				$("#tax_bill").click(function() {
+					window.open("http://www.nicedata.co.kr/ti/TI_10000.html");
+					return false;
+				});
+				
+				$("#check_biz").click(function() {
+					window.open("http://www.nicedata.co.kr/as/AS_30401.html");
+					return false;
+				});
+				
+				$("#sgic").click(function() {
+					window.open("http://www.nicedata.co.kr/as/AS_40601.html");
+					return false;
+				});
+			});
+			</script>
+			<div class="header__gnb">
+				<input type="checkbox" class="gnb__btn" id="gnb__btn">
+				<label for="gnb__btn" class="gnb__btn__action">
+					<div class="spinner diagonal part-1"></div>
+					<div class="spinner horizontal"></div>
+					<div class="spinner diagonal part-2"></div>
+				</label>
+				<div class="gnb__contents">
+					<div class="gnb__contents__header">
+						<p class="login-info">로그인 해주세요</p>
+						<div class="login-btn">
+							<a href="../cm/ndsLoginNm.html?main_login=Y">로그인</a>
+						</div>
+					</div>
+					<div class="gnb__contents__scroll">
+						<ul class="gnb__contents__menu">
+							<li>
+								<a href="../nm/NM_23011.html">
+									<i class="icon-set1"></i>부가세 환급지원
+								</a>
+							</li>
+							<li>
+								<a href="../nm/NM_29011.html">
+									<i class="icon-set2"></i>셀프택스 자가신고
+								</a>
+							</li>
+							<li>
+								<a href="../nm/NM_25011.html">
+									<i class="icon-set3"></i>세무상담
+								</a>
+							</li>
+							<li>
+								<a href="../nm/NM_30011.html">
+									<i class="icon-set5"></i>상권분석
+								</a>
+							</li>
+						</ul>
+						<div class="gnb__contents__service">
+							<div class="gnb__contents__service--top">
+								<p class="call_tit">
+									<i></i>고객만족센터
+								</p>
+								<div class="call_btn">
+									<a href="tel:1588-5659">통화하기</a>
+								</div>
+							</div>
+							<div class="gnb__contents__service--bottom">
+								<p class="service-number">1588-5659</p>
+								<p class="service-time">
+									상담시간: 09:00~18:00(금요일 17:00까지)<br/>
+									점심시간: 12:00~13:00<br />
+									주말, 공휴일 휴무<br />
+								</p>
+							</div>
+						</div>
+						<div class="gnb__contents__qiuck">
+							<ul>
+								<li>
+									<a href="#none" id="tax_bill">
+										<img src="/images/mobile/common/quick_icon_1.png" alt="전자세금계산서"/>
+										전자세금<br/>계산서
+									</a>
+								</li>
+								<li>
+									<a href="#none" id="check_biz">
+										<img src="/images/mobile/common/quick_icon_2.png" alt="휴폐업조회"/>
+										휴폐업<br/>조회
+									</a>
+								</li>
+								<li>
+									<a href="#none" id="sgic">
+										<img src="/images/mobile/common/quick_icon_3.png" alt="서울보증보험안내"/>
+										서울보증보험<br/>안내
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="header__hidden-bg"></div>
+        </div>
+        
+		<div class="container">
+            <div class="inner-container">
+				
+				<form id="form" name="form" method="post">
+					<input type="hidden" name="card_no" id="card_no">
+
+					<div class="terms-block">
+						<div class="terms__tit">
+							<h3>NICE DNR 회원 필수 항목 동의</h3>
+							<p>나이스디앤알 통합회원 정책의<br> 필수약관에 동의해 주세요.</p>
+							<span>서비스 이용약관 동의 및 발급받으신 제휴카드 인증이 완료되어야 택스다이어트 서비스를 이용하실 수 있으며, 개인정보 보호를 위해 초기에 발급받으신 비밀번호를 새로운 비밀번호로 변경해 주세요.</span>
+						</div>
+						<ul class="terms__list">
+							<li class="terms__list-type01">
+								<h3>필수 회원약관 동의</h3>
+								<ul class="terms__list-box">
+									<li>										
+										<input type="checkbox" id="agree_check1" class="big terms" name="check" value="Y" title="나이스디앤알 서비스 이용 약관에 동의합니다. (필수)">
+										<label for="agree_check1"><span></span></label>
+										<a href="#none" class="NM_22012_001">나이스디앤알 서비스 이용약관에 동의합니다. (필수)</a>
+									</li>                                
+									<li>								
+										<input type="checkbox" id="agree_check2" class="big terms" name="check" value="Y" title="개인정보의 수집 및 이용에 동의합니다. (필수)">
+										<label for="agree_check2"><span></span></label>
+										<a href="#none" class="NM_22012_001">개인정보의 수집 및 이용에 동의합니다. (필수)</a>
+									</li>
+									<li>								
+										<input type="checkbox" id="allCheck" name="allCheck" class="big" title="회원가입을 위한 필수사항에 전체 동의합니다.">
+										<label for="allCheck">
+											<span></span>회원가입을 위한 필수사항에 전체 동의합니다.
+										</label>
+									</li>
+								</ul>
+							</li>
+							
+							<li class="terms__list-type02">
+								<h3>사업자 제휴(신용카드) 발급 정보</h3>
+								<ul class="terms__list-box">
+									<li>
+										<select name="cradType">
+											<option value="C">카드번호 16자리 사업자카드(제휴)</option>
+											<option value="A">카드번호 15자리 사업자카드(제휴)</option>
+										</select>
+									</li>
+									
+									<li>
+										<div class="cradType_C">
+											<span>XXXX</span><!--
+											--><em>-</em><!--
+											--><input type="text" title="카드번호 16자리 사업자카드(제휴)" name="card_no1" value="" id="card_no1" onkeydown="onlyNumber(this)" maxlength="4" oninput="maxLengthCheck(this)" autocomplete="off"><!--												
+											--><em>-</em><!--
+											--><span>XXXX</span><!--
+											--><em>-</em><!--
+											--><input type="text" title="카드번호 16자리 사업자카드(제휴)" name="card_no2" value="" id="card_no2" onkeydown="onlyNumber(this)" maxlength="4" oninput="maxLengthCheck(this)" autocomplete="off">
+										</div>
+										<div class="cradType_A">
+											<span>XXXX</span><!--
+											--><em>-</em><!--
+											--><input type="text" title="카드번호 15자리 사업자카드(제휴)" name="card_no3" value="" id="card_no3" onkeydown="onlyNumber(this)" maxlength="6" oninput="maxLengthCheck(this)" autocomplete="off"><!--
+											--><em>-</em><!--
+											--><span>XXXX</span>
+										</div>
+									</li>                               	
+								</ul>
+							</li>
+
+							<li class="terms__list-type03">
+								<h3>비밀번호 설정</h3>
+								<ul class="terms__list-box">
+									<li>                            
+										<label for="pswd">
+											비밀번호 
+										</label>
+										<div>
+											<input type="password" title="비밀번호"" name="pswd" id="pswd" placeholder="영문자, 숫자, 특수문자 조합  8~16자리" maxlength="16" autocomplete="off">      
+											<!-- <strong class="notmatch note">유효성 체크 안내 메시지 출력</strong>  -->
+										</div>
+									</li>
+									<li>
+										<label for="re_pswd">
+											비밀번호 확인 
+										</label>
+										<div>
+											<input type="password" title="비밀번호 확인"" name="re_pswd" id="re_pswd" placeholder="비밀번호 재입력" maxlength="16" autocomplete="off">
+											<!-- <strong class="notmatch re_note">유효성 체크 안내 메시지 출력</strong> -->
+										</div>    
+									</li>
+									<li>
+										비밀번호는 영문자, 특수, 특수문자를 포함한 8~16자리로 <br>설정하셔야 됩니다.
+									</li>
+								</ul>
+							</li>
+						
+						</ul>
+					</div>
+				</form>
+				
+				<div class="bottom-btn--fixed common-btn common-btn--half">
+					<button id="btn_modify_cencel" class="common-btn__btn common-btn__btn--gray">취소</button>
+					<button id="btn_modify_submit" class="common-btn__btn">완료</button>
+				</div>
+
+            </div>
+        </div>
+
+        <div class="footer">
+			<script src="/js/mobile/common.js"></script>
+
+			<script type="text/javascript">
+			$(document).ready(function(){
+				// 이용약관
+				$(".NM_22012_001").click(function() {
+					fancybox_open("../nm/NM_22012_001.html", null, false);
+					return false;
+				});
+
+				// 개인정보처리방침
+				$(".NM_22012_002").click(function() {
+					fancybox_open("../nm/NM_22012_002.html", null, false);
+					return false;
+				});
+
+				// PC버전
+				$(".PC").click(function() {
+					location.href = "https://t-renewal.taxdiet.co.kr/cm/main.html";
+					return false;
+				});
+			});
+			</script>
+
+			<ul class="footer__terms">
+				<li>
+					<a href="javascript:;" class="NM_22012_001">이용약관</a>
+				</li>
+				<li>
+					<a href="javascript:;" class="NM_22012_002">개인정보처리방침</a>
+				</li>
+				<li>
+					<a href="javascript:;" class="PC">PC버전</a>
+				</li>
+			</ul>
+			<p class="footer__copyright">Ⓒ NICE D&R Ltd.</p>
+
+			<!--
+			<div class="terms-wrap HeightAuto use-terms">
+				<iframe src="" id="terms" name="terms" frameborder="0"></iframe>
+			</div>
+			-->
+			<!-- 택스다이어트 모바일 전용 구글 애널리틱스 (PC용은 별도로 있음) -->
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-36649342-22"></script>
+			<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-36649342-22');
+			</script>
+		</div>
+		<div class="top-btn" style="display:none;">
+			<span>맨위로</span>
+		</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1653 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,width=device-width,height=device-height" />
+
+<title>택스다이어트: NM_30013(상권분석)</title>
+<link rel="stylesheet" type="text/css" href="../../../css/mobile/default.css">
+<link rel="stylesheet" type="text/css" href="../../../css/mobile/libs/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="../../../css/mobile/libs/jquery.fancybox-1.3.1.css">
+
+<script src="../../../js/mobile/libs/jquery-1.11.1.min.js"></script>
+<script src="../../../js/mobile/libs/jquery-ui.min.js"></script>
+<script src="../../../js/mobile/libs/jquery.easing.1.3.js"></script>
+<script src="../../../js/mobile/libs/jquery-ui.js"></script> <!-- dskim -->
+<script src="../../../js/mobile/libs/jquery.mask.min.js"></script>
+<script src="../../../js/mobile/libs/daterange.js"></script>
+
+<script src="../../../js/mobile/libs/jquery.validate-1.8.1.min.js"></script>
+<script src="../../../js/mobile/niceNmCommon.js"></script>
+<script src="../../../js/mobile/common-util.js"></script>
+
+<!-- layerpopup -->
+<script src="../../../js/mobile/libs/jquery.fancybox.min.js"></script>
+
+<!-- placeholder fix -->
+<script src="../../../js/mobile/libs/jquery.placeholder.js"></script>
+
+<script src="../../../js/mobile/libs/jquery.history.js"></script>
+
+<link rel="shortcut icon" type="image/x-icon" href="/images/favicon/taxdiet_favicon.ico" />
+
+<script type="text/javascript">
+
+$(function(){
+	
+	$(".btn_joinMember").click(function(){
+			
+		var url		= $(this).attr("move");
+		
+		if(typeof jmForm == "undefined"){
+			var $form	= $("<form/>",{id:"jmForm", name:"jmForm", method:"get", action:url});
+			
+			$("body").append($form);
+			$("<input/>").attr({type:"hidden", name:"referrUrl", value:"623C2734237F434A2D594B41200D152A3E062545033D5E220C" }).appendTo("#jmForm");
+			
+		} else {
+			$("#jmForm").attr("action", url);
+		}
+		$("#jmForm").attr('target', '_blank').submit();
+		
+	});
+	
+});
+
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){	
+
+		//접기
+		$(".foldder").on('click', function() {
+			var $parents = $(this).parent().parent()
+			$parents.toggleClass('is-active').children('ul').slideToggle();
+			if($parents.hasClass('is-active')) $parents.addClass('is-active').children('ul').slideUp();
+			else $parents.removeClass('is-active').children('ul').slideDown();
+		});
+		//상세보기
+		$(".anal-grid__drop").on('click', function() {
+			var $target = $(this).next('.anal-table__active')
+			$target.toggleClass('is-active').slideToggle();
+			if($target.hasClass('is-active')) $target.addClass('is-active').slideUp();
+			else $target.removeClass('is-active').slideDown();
+		}).trigger('click');
+
+	});
+	
+</script>
+
+</head>
+<body>
+	<div class="wrap">
+		<!-- header -->
+		<div class="header header--white">
+			<div class="header__logo">
+				<a href="javascript:f_go_home();"><img src="../../../images/mobile/common/main_logo.png" alt="택스다이어트"></a>
+			</div>
+			<script type="text/javascript">
+			$(document).ready(function(){
+				$("#tax_bill").click(function() {
+					window.open("http://www.nicedata.co.kr/ti/TI_10000.html");
+					return false;
+				});
+				
+				$("#check_biz").click(function() {
+					window.open("http://www.nicedata.co.kr/as/AS_30401.html");
+					return false;
+				});
+				
+				$("#sgic").click(function() {
+					window.open("http://www.nicedata.co.kr/as/AS_40601.html");
+					return false;
+				});
+			});
+			</script>
+			<div class="header__gnb">
+				<input type="checkbox" class="gnb__btn" id="gnb__btn">
+				<label for="gnb__btn" class="gnb__btn__action">
+					<div class="spinner diagonal part-1"></div>
+					<div class="spinner horizontal"></div>
+					<div class="spinner diagonal part-2"></div>
+				</label>
+				<div class="gnb__contents">
+					<div class="gnb__contents__header">
+						<a href="../nm/NM_27011.html"><p class="login-info">나이스디앤알(주)</p></a>
+								</div>
+					<ul class="gnb__contents__menu">
+						<li>
+							<a href="../nm/NM_23011.html">
+								<i class="icon-set1"></i>부가세 환급지원
+							</a>
+						</li>
+						<li>
+							<a href="../nm/NM_29011.html">
+								<i class="icon-set2"></i>셀프택스 자가신고
+							</a>
+						</li>
+						<li>
+							<a href="../nm/NM_25011.html">
+								<i class="icon-set3"></i>세무상담
+							</a>
+						</li>
+						<li>
+							<a href="../nm/NM_30011.html">
+								<i class="icon-set5"></i>상권분석
+							</a>
+						</li>
+					</ul>
+					<div class="gnb__contents__service">
+						<div class="gnb__contents__service--top">
+							<p class="call_tit">
+								<i class="foldder"></i>고객만족센터
+							</p>
+							<div class="call_btn">
+								<a href="tel:1588-5659">통화하기</a>
+							</div>
+						</div>
+						<div class="gnb__contents__service--bottom">
+							<p class="service-number">1588-5659</p>
+							<p class="service-time">
+								상담시간: 09:00~18:00(금요일 17:00까지)<br/>
+								점심시간: 12:00~13:00<br />
+								주말, 공휴일 휴무<br />
+							</p>
+						</div>
+					</div>
+					<div class="gnb__contents__qiuck">
+						<ul>
+							<li>
+								<a href="#none" id="tax_bill">
+									<img src="../../../images/mobile/common/quick_icon_1.png" alt="전자세금계산서"/>
+									전자세금<br/>계산서
+								</a>
+							</li>
+							<li>
+								<a href="#none" id="check_biz">
+									<img src="../../../images/mobile/common/quick_icon_2.png" alt="휴폐업조회"/>
+									휴폐업<br/>조회
+								</a>
+							</li>
+							<li>
+								<a href="#none" id="sgic">
+									<img src="../../../images/mobile/common/quick_icon_3.png" alt="서울보증보험안내"/>
+									서울보증보험<br/>안내
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="header__hidden-bg"></div>
+		</div>
+		<!-- //header -->
+
+		<!-- container -->
+		<div class="container">
+			<div class="inner-container mypage-con">
+				<div class="analysis">
+					<div class="anal-txt">
+						<h1><b>
+							NICEBIZMAP 상권분석 서비스<br>
+							(NICE D&R)
+						</b></h1>
+						<ul>
+							<li>
+								<span class="middot positive"><b>기준 데이터</b></span>
+								<span>YYYY년 MM월 상권분석데이터</span>
+							</li>
+							<li>
+								<span class="middot positive"><b>지정주소</b></span>
+								<span>#시도 #시군구 #행정동</span>
+							</li>
+							<li>
+								<span class="middot positive"><b>선택업종</b></span>
+								<span>#대분류 > #중분류 > <b>#소분류</b></span>
+							</li>
+						</ul>
+					</div>
+					<!-- content -->
+					<div class="anal-content anal-content__service">
+						<!-- 상권현황 -->
+						<div class="anal-grid__current">
+							<h3><b>1. 상권현황</b><i class="foldder"></i></h3>
+							<ul>
+								<li class="anal-grid__result">
+									#행정동 상권은 #상권유형 상권이며, 상권 내 #소분류 업종의 점포수는 nn개로 분석되었습니다.
+								</li>
+								<li>
+									<div class="table-type5 table-type5__2">
+										<table summary="상권현황에 관한 테이블입니다.">
+											<colgroup>
+												<col style="width: 40%">
+												<col style="width: 60%">
+											</colgroup>
+											<tbody>
+												<tr>
+													<th><b>상권명<b></th>
+													<td>#행정동 상권</td>
+												</tr>
+												<tr>
+													<th><b>상권유형<b></th>
+													<td>#상권유형1 nn%(#상권유형2 nn%, #상권유형3 nn%, #상권유형4 nn%, 그 외 nn%)</td>
+												</tr>
+												<tr>
+													<th><b>사실현황<b></th>
+													<td>관공서 n개, 교육기간 n개, 금융기간 n개, 버스정류장 n개, 지하철역(xx역, xx역 ...)</td>
+												</tr>
+												<tr>
+													<th><b>#소분류 점포수<b></th>
+													<td>nn개</td>
+												</tr>
+												<tr>
+													<th><b>전체업종 점포수<b></th>
+													<td>n,nnn개</td>
+												</tr>
+												<tr>
+													<th><b>#소분류 업종 비중<b></th>
+													<td>n,nn%</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</li>
+								<li class="anal-grid__sub">
+									<p class="middot"><b>상권유형</b></p>
+									<span>① 주거지역(주거인구 비율이 높은 지역)</span>
+									<span>② 상업지역(상업시설 비율이 높은 지역)</span>
+									<span>③ 직장오피스가(직장 및 오피스 비율이 높은 지역)</span>
+									<span>④ 역세권(지하철 역 반경 250m에 위치한 지역)</span>
+									<span>⑤ 기타교통중심지(버스터미널 또는 공항 주변 지역)</span>
+									<span>⑥ 대학/학원가(인근에 대학교 또는 학원가가 있는 지역)</span>
+									<span>⑦ 특수시설(대형병원, 관공서, 휴게소 주변 지역)</span>
+									<span>⑧ 공업중심지역(공업용지 비율이 높은 지역)</span>
+									<span>⑨ 기타</span>
+								</li>
+							</ul>
+						</div>
+						<!-- //상권현황 -->
+
+						<!-- 상권지도 -->
+						<div class="anal-grid__map">
+							<h3><b>2. 상권지도</b><i class="foldder"></i></h3>
+							<ul>
+								<li><img src="../../../images/mobile/map.png" alt="상권지도"></li>
+							</ul>
+						</div>
+						<!-- //상권지도 -->
+
+						<!-- 업종 경기동향 -->
+						<div class="anal-grid__trend">
+							<h3><b>3. 업종 경기동향</b><i class="foldder"></i></h3>							
+							<ul>
+								<li class="anal-grid__result">
+									#행정동 #소분류 업종의 yyyy년 mm월 매출수준은 전월 대비 n.nn포인트 증가한 nn.nn포인트 입니다.<br>
+									(기준 : #시도의 행정동 #소분류 업종 평균 매출액을 100포인트로 환산)
+								</li>
+								<li class="trend-bar">
+									<div class="on">1</div>
+									<div>2</div>
+									<div>3</div>
+									<div>4</div>
+									<div>5</div>
+								</li>
+								<li class="trend-point">
+									#행정동 #소분류 업종 매출수준 :<br>
+									nn.nn 포인트 (yyyy년 mm월 기준)
+								</li>
+								<li class="anal-grid__report">
+									<div>
+										<h3><b>평균매출</b></h3>										
+										<div class="anal-grid__img sls__level1"></div>
+										<span>#행정동의 #소분류 업종 6개월 평균 매출 수준은 nn.nn 포인트 입니다.</span>
+									</div>
+									<div>
+										<h3><b>#행정동</b></h3>										
+										<div class="anal-grid__img sls__level2"></div>
+										<span>인접 #행정동 #소분류 업종 중 6개월 평균 매출이 가장 높은 곳은</span>
+										<span>#행정동이며 nn.nn포인트 입니다.</span>
+									</div>
+									<div class="last border-last">
+										<h3><b>#행정동</b></h3>										
+										<div class="anal-grid__img sls__level3"></div>
+										<span>인접 #행정동 #소분류 업종 중 6개월 평균 매출이 가장 낮은 곳은</span>
+										<span>#행정동이며 nn.nn포인트 입니다.</span>
+									</div>
+								</li>
+								<!-- 상세보기 -->
+								<li class="anal-grid__drop">상세보기</li>
+								<li class="table-type6 table-type6__1 anal-table anal-table__active">
+									<p class="table-caption"><b>주변지역과 업종 매출수준 비교</b></p>
+									<span class="notice">단위: 포인트</span>
+									<table summary="주변지역과 업종 매출수준을 비교한 테이블입니다.">
+										<colgroup>
+											<col style="width: 40%">
+											<col style="width: 30%">
+											<col style="width: 30%">
+										</colgroup>
+										<thead>
+											<tr>
+												<th></th>
+												<th colspan="2"><b>매출수준</b></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<th rowspan="6"><b>#시도 행정군 평균<b></th>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<th rowspan="6"><b>#행정동<b></th>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<th rowspan="6"><b>#행정동<b></th>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+										</tbody>
+									</table>
+								</li>
+								<!-- //상세보기 -->
+								<!-- 전문가 의견 -->
+								<li class="anal-grid__expert">
+									<p><b>전문가 의견</b></p>
+									<span class="middot">
+										업종 매출수준은 매월 상위광역시도 전체의 점포별 평균 매출수준에 비해 
+										선택한 지역의 매출수준이 높고 낮음을 파악하여 선택지역의 업종 경기수준을 비교해볼 수 있는 지표입니다.
+									</span>
+									<span class="middot">
+										선택지역의 경기가 좋고 나쁨은 상위광역시도 평균 100포인트)을 기준으로 살펴볼 수 있습니다. 
+										예를 들어, 소공동의 이번 달 업종 매출수준이 100포인트일 경우 
+										상위광역시도인 서울특별시 평균과 업종경기가 비슷한 수준임을, 
+										126포인트일 경우 서울특별시 평균의 1.26배 수준으로 업종 경기가 좋음을, 
+										84포인트일 경우 서울특별시 평균의 0.84배 수준으로 업종경기가 좋지 않음을 의미합니다.
+									</span>
+									<span class="middot">
+										선택지역의 업종 매출수준을 주변 행정동과 순위로 비교 하여 사업의 시장 경기를 판단할 수 있습니다. 
+										예를 들어, 서울특별시에 위치한 상권이라면 서울특별시 전체 행정동과 비교하여 업종 매출수준이 
+										상위 20%안에 들어가면 5(좋음)등급으로 판정됩니다. 또한, 업종 매출수준을 시계열별 (6개월)로 살펴보아 
+										향후 선택지역 내 해당 업종의 사업 성장 및 쇠퇴 여부를 가늠해 보시기 바랍니다.
+									</span>
+									<span class="middot">업종 매출수준 순위 : 선택지역의 업종 매출수준 값의 순위를 5단계로 구분하여 표시합니다.</span>
+									<div class="table-type5 table-type5__3 anal-table">
+										<table summary="상권의 구성 요소들에 관한 테이블입니다.">
+											<colgroup>
+												<col style="width: 40%">
+												<col style="width: 60%">
+											</colgroup>
+											<thead>
+												<tr>
+													<th><b>순위<b></th>
+													<th><b>업종 매출수준<b></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th><b>1(나쁨)<b></th>
+													<td>업종 매출수준이 인천광역시 내 0~20%일 경우</td>
+												</tr>
+												<tr>
+													<th><b>2<b></th>
+													<td>업종 매출수준이 인천광역시 내 20%~40%일 경우</td>
+												</tr>
+												<tr>
+													<th><b>3<b></th>
+													<td>업종 매출수준이 인천광역시 내 40%~60%일 경우</td>
+												</tr>
+												<tr>
+													<th><b>4<b></th>
+													<td>업종 매출수준이 인천광역시 내 60%~80%일 경우</td>
+												</tr>
+												<tr>
+													<th><b>5<b></th>
+													<td>업종 매출수준이 인천광역시 내 80%~100%일 경우</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</li>
+								<!-- //전문가 의견 -->
+							</ul>
+						</div>
+						<!-- //업종 경기동향 -->
+
+						<!-- 매출 분석 -->
+						<div class="anal-grid__sales">
+							<h3><b>4. 매출 분석</b><i class="foldder"></i></h3>
+							<ul>
+								<li class="anal-grid__result">
+									#행정동 #소분류 업종의 yyyy년 mm월 매출액은 nnn만원으로 추정되며, 
+									이는 #시도 대비 nn.nn% 낮은 것으로 분석되었습니다.
+								</li>
+								<li class="table-type5 table-type5__3 anal-table">	
+									<p class="table-caption"><b>#행정동 #소분류 업종 매출</b></p>
+									<span class="notice">yyyy년 mm월 기준</span>
+									<table summary="업종 매출수준에 관한 테이블입니다.">
+										<colgroup>
+											<col style="width: *">
+										</colgroup>
+										<thead>
+											<tr>
+												<th>평균</th>
+												<th>중간값</th>
+												<th>상위 20%</th>
+												<th>하위 20%</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>Nnn만원</td>
+												<td>Nnn만원</td>
+												<td>Nnn만원</td>
+												<td>Nnn만원</td>
+											</tr>
+										</tbody>
+									</table>
+								</li>
+								<li class="anal-grid__report">
+									<div>
+										<h3><b>매출성장률</b></h3>										
+										<div class="anal-grid__img sls__grwth3"></div>
+										<span>#행정동 상권 기준 #소분류 업종의 6개월간 매출 월평균 성장률은</span>
+										<span>-n%로 감소세입니다.</span>
+									</div>
+									<div>
+										<h3><b>#시군구 대비</b></h3>										
+										<div class="anal-grid__img sls__fgrs1"></div>
+										<span>#행정동 상권 기준 #소분류 업종의 6개월간 평균 매출액은 #시군구 대비 n% 낮은것으로 추정됩니다.</span>
+									</div>
+									<div class="last border-last">
+										<h3><b>#시도 대비</b></h3>										
+										<div class="anal-grid__img sls__fgrs2"></div>
+										<span>#행정동 상권 기준 #소분류 업종의 6개월간 평균 매출액은 #시도 대비 n% 낮은것으로 추정됩니다.</span>
+									</div>
+								</li>
+								<!-- 상세보기 -->
+								<li class="anal-grid__drop">상세보기</li>
+								<li class="table-type6 table-type6__1 anal-table anal-table__active">
+									<p class="table-caption"><b>주변지역과 업종 매출수준 비교</b></p>
+									<span class="notice">단위: 포인트</span>
+									<table summary="주변지역과 업종 매출수준을 비교한 테이블입니다.">
+										<colgroup>
+											<col style="width: 40%">
+											<col style="width: 30%">
+											<col style="width: 30%">
+										</colgroup>
+										<thead>
+											<tr>
+												<th></th>
+												<th colspan="2"><b>매출수준</b></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<th rowspan="6"><b>#시도 행정군 평균<b></th>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<th rowspan="6"><b>#행정동<b></th>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<th rowspan="6"><b>#행정동<b></th>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+										</tbody>
+									</table>
+								</li>
+								<!-- //상세보기 -->
+								<!-- 전문가 의견 -->
+								<li class="anal-grid__expert">
+									<p><b>전문가 의견</b></p>
+									<span class="middot">
+										상권 평균 추정매출: 현재 지정한 범위 내에서 동종 업종으로 점포를 운영하는 사업장들의 평균매출입니다.
+										사업자 정보보호를 위해 4개 매장 이하인 경우에는 매출이 제공되지 않습니다.
+									</span>
+									<span class="middot">
+										평균값과 중간값을 동시에 제공하는 이유는 소수 점포에 의해 
+										평균값이 지나치게 높아지거나 낮아지는 현상이 나타나기 때문입니다. 
+										매출을 가늠하는 용도로 중간값이 더 적합하다면 중간값을 기준으로 판단하시기 바랍니다.
+									</span>
+									<span class="middot">
+										상권내 동일 업종 점포들의 매출액 범위를 파악하면 창업을 했을 때 
+										달성가능한 매출액 범위를 추정할 수 있습니다. 예를 들어 상권 평균 매출액이 3,000만원이고 하위 20%의 매출액이 1,000만원, 
+										상위 20%의 매출액이 5,000만원이라면 달성가능한 매출범위는 약 1,000만원~5,000만원이 될 것입니다. 
+										최저 1,000만원, 평균 3,000만원, 최고 5,000만원의 매출액을 달성한다고 가정하고 손익계산을 해 보시기 바랍니다.
+
+									</span>
+									<span class="middot">
+										타 상권과 평균매출액을 비교함으로써 지정 상권의 업종 상황을 알 수 있습니다. 
+										예를 들어 평균매출액이 타 상권에 비하여 높다면, 상권내 지정 업종은 이용 고객 수에 비하여 
+										점포수가 적다는 의미입니다. 자칫 창업에 유리한 상권이라고 판단할 수 있지만 
+										향후 창업자의 증가로 경쟁이 치열해 질 수 있음을 고려해야 합니다. 
+										반대로 평균매출액이 타 상권에 비하여 낮다면, 경쟁점포가 많거나 이용고객의 수가 적은 것이므로 
+										이를 극복하기 위한 전략이 있다면 창업에 유리한 상권이 될 수 도 있습니다.
+									</span>
+									<span class="middot last">
+										예비창업자가 월매출을 직접 추정할 때에는, 음식점을 예로 
+										고객이 1인당 평균적으로 지불하게 될 ‘객단가’와 ‘이용 가능한 좌석수’ 
+										그리고 점심시간과 저녁시간의 ‘회전율’을 파악하여 ‘객단가×이용 좌석수×회전율’ 공식으로 
+										일일 매출액을 추정한 후 영업일을 곱하여 기대되는 월매출을 계산할 수 있습니다.
+									</span>
+									<div class="table-type5 table-type5__3 anal-table">
+										<table summary="상권의 구성 요소들에 관한 테이블입니다.">
+											<colgroup>
+												<col style="width: 40%">
+												<col style="width: 60%">
+											</colgroup>
+											<thead>
+												<tr>
+													<th><b>순위<b></th>
+													<th><b>업종 매출수준<b></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th><b>1(나쁨)<b></th>
+													<td>업종 매출수준이 인천광역시 내 0~20%일 경우</td>
+												</tr>
+												<tr>
+													<th><b>2<b></th>
+													<td>업종 매출수준이 인천광역시 내 20%~40%일 경우</td>
+												</tr>
+												<tr>
+													<th><b>3<b></th>
+													<td>업종 매출수준이 인천광역시 내 40%~60%일 경우</td>
+												</tr>
+												<tr>
+													<th><b>4<b></th>
+													<td>업종 매출수준이 인천광역시 내 60%~80%일 경우</td>
+												</tr>
+												<tr>
+													<th><b>5<b></th>
+													<td>업종 매출수준이 인천광역시 내 80%~100%일 경우</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>							
+								</li>
+								<!-- //전문가 의견 -->
+							</ul>
+						</div>
+						<!-- //매출 분석 -->
+
+						<!-- 경쟁 분석 -->
+						<div class="anal-grid__cmptt">
+							<h3><b>5. 경쟁 분석</b><i class="foldder"></i></h3>
+							<ul>
+								<li class="anal-grid__result">
+									#행정동 #소분류 업종의 최근 6개월간 전체 이용건수는 감소/증가 추세, 
+									점포수는 증가/감소 추세이며 점포당 이용건수는 증가/감소 추세입니다.
+								</li>
+								<li class="anal-grid__report">
+									<div>
+										<h3><b>전체 이용건수</b></h3>										
+										<div class="anal-grid__img sls__usage1"></div>
+										<span>#행정동 상권 기준 #소분류 업종의 6개월간 전제 이용건수는</span>
+										<span>-n%로 감소세입니다.</span>
+									</div>
+									<div>
+										<h3><b>점포 수</b></h3>										
+										<div class="anal-grid__img sls__store1"></div>
+										<span>#행정동 상권 기준 #소분류 업종의 6개월간 점포수는</span>
+										<span>n%로 증가세입니다.</span>
+									</div>
+									<div class="last border-last">
+										<h3><b>점포당 이용건수</b></h3>										
+										<div class="anal-grid__img sls__store2"></div>
+										<span>#행정동 상권 기준 #소분류 업종의 6개월간 점포당 이용건수는</span>
+										<span>-n%로 감소세입니다.</span>
+									</div>
+								</li>
+								<!-- 상세보기 -->
+								<li class="anal-grid__drop">상세보기</li>
+								<li class="table-type6 table-type6__1 anal-table anal-table__active">
+									<p class="table-caption"><b>점포 수와 이용건수</b></p>
+									<span class="notice">단위: 전체이용건수(건), 점포 수(업체)</span>
+									<table summary="점포 수와 이용건수에 대한 테이블입니다.">
+										<colgroup>
+											<col style="width: 40%">
+											<col style="width: 30%">
+											<col style="width: 30%">
+										</colgroup>
+										<thead>
+											<tr>
+												<th></th>
+												<th colspan="2"><b>점포수/이용건수</b></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<th rowspan="6"><b>점포수(월말기준)<b></th>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<th rowspan="6"><b>전체이용건수(월)<b></th>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<th rowspan="6"><b>점포당 평균이용건수(월)<b></th>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+											<tr>
+												<td>YYYY년 MM월</td>
+												<td>NN.NN</td>
+											</tr>
+										</tbody>
+									</table>
+								</li>
+								<!-- //상세보기 -->	
+
+								<!-- 업력분석 -->
+								<li class="anal-grid__clsfc">
+									<p><b>업력분석</b></p>
+									<div class="anal-grid__result">
+										<span>
+											#행정동 #소분류 업종을 운영하는 점포들의 평균업력은 n.n년으로 #시도 평균 대비 긴/짧은 것으로 분석 되었습니다.
+											(업력은 사업체의 운영 연수를 말하며, 창업 후 사업의 연속성을 비교하여 가늠할 수 있습니다.)
+										</span>
+									</div>
+									<div class="anal-grid__report">
+										<div>
+											<h3><b>#시군구 대비 업력</b></h3>										
+											<div class="anal-grid__img sls__hstry1"></div>
+											<span>#행정동 상권 기준 #소분류 업종의 평균업력은</span>
+											<span>#시군구 (n.n년) 대비 n.n년 깁/짧습니다.</span>
+										</div>
+										<div class="border-last">
+											<h3><b>#시도 대비 업력</b></h3>										
+											<div class="anal-grid__img sls__hstry3"></div>
+											<span>#행정동 상권 기준 #소분류 업종의 평균업력은</span>
+											<span>#시군구 (n.n년) 대비 n.n년 깁/짧습니다.</span>
+										</div>
+									</div>
+									<!-- 상세보기 -->
+									<div class="anal-grid__drop">상세보기</div>
+									<div class="table-type5 table-type5__3 anal-table anal-table__active">
+										<p class="table-caption"><b>평균업력 비교</b></p>
+										<span class="notice">단위: 년</span>
+										<table summary="평균업력을 비교한 테이블입니다.">
+											<colgroup>
+												<col style="width: 30%">
+												<col style="width: 40%">
+												<col style="width: 30%">
+											</colgroup>
+											<thead>
+												<tr>
+													<th><b>#시도</b></th>
+													<th><b>#시군구</b></th>
+													<th><b>#행정동</b></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>n.n</td>
+													<td>n.n</td>
+													<td>n.n</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- //상세보기 -->										
+								</li>
+								<!-- //업력분석 -->							
+							</ul>
+						</div>
+						<!-- //경쟁 분석 -->
+
+						<!-- 고객 분석 -->
+						<div class="anal-grid__cstmr">
+							<h3><b>6. 고객 분석</b><i class="foldder"></i></h3>
+							<ul>
+								<!-- 고객군별 -->
+								<li class="anal-grid__clsfc">		
+									<p class="middot"><b>고객군별 현황</b></p>									
+									<div class="anal-grid__result">
+										#행정동 #소분류 업종을 이용하는 고객 분포는 주거인구 nn%, 직장인구 nn% 및 
+										유입인구 nn%로 구성되며 주거/직장/유입 인구가 가장 큰 비중을 차지하고 있습니다.			
+									</div>									
+									<div>
+										<ul>
+											<li>																				
+												<div class="anal-grid__img"></div>
+												<b>n.n%</b>
+											</li>
+											<li>																				
+												<div class="anal-grid__img"></div>
+												<b>n.n%</b>
+											</li>
+											<li>																				
+												<div class="anal-grid__img"></div>
+												<b>n.n%</b>
+											</li>
+										</ul>
+									</div>
+									<div class="table-type5 table-type5__2 anal-table">
+										<table summary="고객군별 현황에 관한 테이블입니다.">
+											<colgroup>
+												<col style="width: 35%">
+												<col style="width: 65%">
+											</colgroup>
+											<tbody>
+												<tr>
+													<th><b>주거인구</b></th>
+													<td>상권 내 거주인구</td>
+												</tr>
+												<tr>
+													<th><b>직장인구</b></th>
+													<td>상권 내 직장을 두고 출퇴근하는 인구</td>
+												</tr>
+												<tr>
+													<th><b>유입인구</b></th>
+													<td>주거인구와 직장인구에 포함되지 않는 외부 유입인구</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</li>
+								<!-- //고객군별 -->
+
+								<!-- 요일별 -->
+								<li class="anal-grid__clsfc">		
+									<p class="middot"><b>요일별 고객 이용 비중</b></p>							
+									<div class="anal-grid__result">
+										#행정동 #소분류 업종의 요일별 고객 이용 비중은 토요일이 가장 높고, 
+										월요일이 가장 낮은 것으로 추정되었습니다.
+									</div>
+									<div class="table-type6 table-type6__1 anal-table anal-table__week">
+										<table summary="고객들의 최다/최저이용 요일에 관한 테이블입니다.">
+											<colgroup>
+												<col style="width: *">
+											</colgroup>
+											<thead>
+												<tr>
+													<th><b>최다이용 요일</b></th>
+													<th><b>최저이용 요일</b></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>																									
+														<div class="anal-grid__img"></div>
+														<b>X요일 (n.n%)</b>
+													</td>
+													<td>																									
+														<div class="anal-grid__img"></div>
+														<b>X요일 (n.n%)</b>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- 상세보기 -->
+									<div class="anal-grid__drop">상세보기</div>
+									<div class="table-type5 table-type5__2 anal-table anal-table__active">
+										<p class="table-caption"><b>요일별 고객 이용 비중</b></p>
+										<span class="notice">단위: 년</span>
+										<table summary="요일별 고객 이용 비중에 관한 테이블입니다.">
+											<colgroup>
+												<col style="width: *">
+											</colgroup>
+											<tbody align="center">
+												<tr>
+													<th><b>월</b></th>
+													<td>n.n</td>
+												</tr>
+												<tr>
+													<th><b>화</b></th>
+													<td>n.n</td>
+												</tr>
+												<tr>
+													<th><b>수</b></th>
+													<td>n.n</td>
+												</tr>
+												<tr>
+													<th><b>목</b></th>
+													<td>n.n</td>
+												</tr>
+												<tr>
+													<th><b>금</b></th>
+													<td>n.n</td>
+												</tr>
+												<tr>
+													<th><b>토</b></th>
+													<td>n.n</td>
+												</tr>
+												<tr>
+													<th><b>일</b></th>
+													<td>n.n</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- //상세보기 -->
+									<!-- 전문가 의견 -->
+									<div class="anal-grid__expert">
+										<p><b>전문가 의견</b></p>
+										<span class="middot last">
+											상요일별 고객 이용비중: 상권 내에서 고객의 이용패턴을 요일별로 파악하여 사업전략에 활용하실 수 있습니다. 
+											예를 들어, 여의도 상권은 오피스상권이므로 주말보다는 평일이, 홍대 상권은 상업시설 밀집지역이므로 
+											주말 장사가 더 잘되는 것을 데이터를 통해 파악하실 수 있습니다. 
+											또한, 요일별 고객 이용비중이 낮은 요일을 휴무일로 정하거나 비중이 낮은 요일에 
+											할인이벤트를 실시하는 등 점포운영에 다양하게 활용하실 수 있습니다.
+										</span>
+										<!-- //전문가 의견 -->						
+									</div>
+								</li>
+								<!-- //요일별 -->
+
+								<!-- 시간대별 -->
+								<li class="anal-grid__clsfc">		
+									<p class="middot"><b>시간대별 고객 이용 비중</b></p>							
+									<div class="anal-grid__result">
+										<span>
+											#행정동 #소분류 업종에서 매출액이 가장 높은 시간은 nn~nn시 이며, 
+											매출건이 가장 높은 시간은 nn~nn시 입니다.
+										</span>			
+									</div>
+									<!-- 매출액 비중 -->
+									<div class="table-type6 table-type6__1 anal-tabl anal-table__fTime">
+										<p class="table-caption sub"><b>매출액 비중</b></p>
+										<table summary="시간에 따른 최다/최저 매출액에 관한 테이블입니다.">
+											<colgroup>
+												<col style="width: *">
+											</colgroup>
+											<thead>
+												<tr>
+													<th><b>최다 매출액 시간</b></th>
+													<th><b>최저 매출액 시간</b></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>																									
+														<div class="anal-grid__img"></div>
+														<span><b>Nn시 ~ nn시(n.n%)</b></span>
+													</td>
+													<td>																									
+														<div class="anal-grid__img"></div>
+														<span><b>Nn시 ~ nn시(n.n%)</b></span>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- //매출액 비중 -->
+									<!-- 매출건 비중 -->
+									<div class="table-type6 table-type6__1 anal-table anal-table__cTime">
+										<p class="table-caption sub"><b>매출건 비중</b></p>
+										<table summary="시간에 따른 최다/최저 매출액건 관한 테이블입니다.">
+											<colgroup>
+												<col style="width: *">
+											</colgroup>
+											<thead>
+												<tr>
+													<th><b>최다 매출건 시간</b></th>
+													<th><b>최저 매출건 시간</b></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>																									
+														<div class="anal-grid__img"></div>
+														<b>Nn시 ~ nn시(n.n%)</b>
+													</td>
+													<td>																									
+														<div class="anal-grid__img"></div>
+														<b>Nn시 ~ nn시(n.n%)</b>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- //매출건 비중 -->
+
+									<!-- 상세보기 -->
+									<div class="anal-grid__drop">상세보기</div>
+									<div class="table-type6 table-type6__1 anal-table anal-table__active">
+										<p class="table-caption"><b>시간대별 고객 이용 비중</b></p>
+										<span class="notice">단위: %</span>
+										<table summary="시간대별 매출액과 매출건의 비중에 관한 테이블입니다.">
+											<colgroup>
+												<col style="width: *">
+											</colgroup>
+											<thead>
+												<tr>
+													<th></th>
+													<th><b>매출액 비중</b></th>
+													<th><b>매출건 비중</b></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th><b>24~06시</b></th>
+													<td>n.n</td>
+													<td>n.n</td>
+												</tr>
+												<tr>
+													<th><b>21~24시</b></th>
+													<td>n.n</td>
+													<td>n.n</td>
+												</tr>
+												<tr>
+													<th><b>18~21시</b></th>
+													<td>n.n</td>
+													<td>n.n</td>
+												</tr>
+												<tr>
+													<th><b>12~15시</b></th>
+													<td>n.n</td>
+													<td>n.n</td>
+												</tr>
+												<tr>
+													<th><b>09~12시</b></th>
+													<td>n.n</td>
+													<td>n.n</td>
+												</tr>
+												<tr>
+													<th><b>06~09시</b></th>
+													<td>n.n</td>
+													<td>n.n</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- //상세보기 -->
+									<!-- 전문가 의견 -->
+									<div class="anal-grid__expert">
+										<p><b>전문가 의견</b></p>
+										<span class="middot last">
+											시간대별 고객 이용비중: 시간대별 고객 이용비중은 하루 중 고객이 집중되는 주력 시간대를 파악하는데 유용합니다. 
+											보통 업종별로 유사한 피크타임 패턴을 보일거라 예상하지만, 상권의 활성화 정도에 따라 하루에도 피크타임의 
+											패턴 및 횟수가 다르게 나타날 수 있습니다. 이러한 주력 시간대를 상권별, 업종별로 파악하여 
+											영업시간 조정 및 인력배치에 적절히 활용하면 투자시간과 투자비용대비 효율성을 이끌어 낼 수 있습니다.
+										</span>						
+									</div>
+									<!-- //전문가 의견 -->
+								</li>
+								<!-- //시간대별 -->
+
+								<!-- 성별/연령대별 -->
+								<li class="anal-grid__clsfc">		
+									<p class="middot"><b>성별/연령대별 고객 이용 비중</b></p>
+									<!-- 여성 -->
+									<div class="table-type6 table-type6__1 anal-table anal-table__female">
+										<p class="table-caption sub"><b>여성</b></p>
+										<table summary="여성의 최다/최저 이용 비중에 관한 테이블입니다.">
+											<colgroup>
+												<col style="width: *">
+											</colgroup>
+											<thead>
+												
+												<tr>
+													<th><b>최다이용</b></th>
+													<th><b>최저이용</b></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>																									
+														<div class="anal-grid__img"></div>
+														<span><b>Nn시 ~ nn시(n.n%)</b></span>
+													</td>
+													<td>																									
+														<div class="anal-grid__img"></div>
+														<span><b>Nn시 ~ nn시(n.n%)</b></span>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- 남성 -->
+									<div class="table-type6 table-type6__1 anal-table anal-table__male">
+										<p class="table-caption sub"><b>남성</b></p>
+										<table summary="남성의 최다/최저 이용 비중에 관한 테이블입니다.">
+											<colgroup>
+												<col style="width: *">
+											</colgroup>
+											<thead>
+												
+												<tr>
+													<th><b>최다이용</b></th>
+													<th><b>최저이용</b></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>																									
+														<div class="anal-grid__img"></div>
+														<span><b>Nn시 ~ nn시(n.n%)</b></span>
+													</td>
+													<td>																									
+														<div class="anal-grid__img"></div>
+														<span><b>Nn시 ~ nn시(n.n%)</b></span>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- 상세보기 -->
+									<div class="anal-grid__drop">상세보기</div>
+									<div class="table-type6 table-type6__1 anal-table anal-table__active">
+										<div class="table_caption"><b>성별/연령대별 고객 이용 비중</b></div>
+										<span class="notice">단위: %</span>
+										<table summary="연령대별 고객 이용 비중에 관한 테이블입니다.">
+											<colgroup>
+												<col style="width: *">
+											</colgroup>
+											<thead>
+												<tr>
+													<th></th>
+													<th><b>매출액 비중</b></th>
+													<th><b>매출건 비중</b></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th><b>20~29세</b></th>
+													<td>n.n</td>
+													<td>n.n</td>
+												</tr>
+												<tr>
+													<th><b>30~39세</b></th>
+													<td>n.n</td>
+													<td>n.n</td>
+												</tr>
+												<tr>
+													<th><b>40~49세</b></th>
+													<td>n.n</td>
+													<td>n.n</td>
+												</tr>
+												<tr>
+													<th><b>50~59세</b></th>
+													<td>n.n</td>
+													<td>n.n</td>
+												</tr>
+												<tr>
+													<th><b>60세이상</b></th>
+													<td>n.n</td>
+													<td>n.n</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- //상세보기 -->
+									<!-- 전문가 의견 -->
+									<div class="anal-grid__expert">
+										<p><b>전문가 의견</b></p>
+										<span class="middot last">
+											성별/연령대별 고객 이용비중: 성별/연령대별 고객 이용 비중을 통해서는 
+											선택한 지역과 업종을 주로 이용하는 타겟고객을 파악할 수 있습니다. 
+											남성이 소비를 주도하는지, 여성이 소비를 주도하는지, 
+											20~30대 젊은층에게 인기가 있는지, 40~50대 장년층에게 인기가 있는지를 
+											파악할 수 있으며 그러한 타겟고객에 맞는 매장인테리어와 메뉴구성, 상품 가격 결정 등 
+											다양한 점포마케팅에 활용하실 수 있습니다.
+										</span>						
+									</div>
+									<!-- 전문가 의견 -->
+								</li>
+								<!-- //성별/연령대별 -->
+								
+								<!-- 고객 연령대 변화 -->
+								<li class="anal-grid__clsfc">		
+									<p class="middot"><b>고객 연령대 변화</b></p>						
+									<div class="anal-grid__result">
+										<span>
+											#행정동 #소분류 업종은 전년대비 nn~nn세 남성/여성 고객 이용률이 가장 증가하였으며 
+											nn~nn세 남성/여성 고객 이용률이 가장 감소하였습니다.
+										</span>
+									</div>
+									<div class="table-type6 table-type6__1 anal-table anal-table__usage">
+										<table summary="고객 연령대에 따른 이용률 비중에 관한 테이블입니다.">
+											<colgroup>
+												<col style="width: *">
+											</colgroup>
+											<thead>
+												<tr>
+													<th><b>이용률 증가</b></th>
+													<th><b>이용률 감소</b></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>																									
+														<div class="anal-grid__img"></div>
+														<b>Nn시 ~ nn시(n.n%)</b>
+													</td>
+													<td>																									
+														<div class="anal-grid__img"></div>
+														<b>Nn시 ~ nn시(n.n%)</b>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- 상세보기 -->
+									<div class="anal-grid__drop">상세보기</div>
+									<div class="table-type6 table-type6__1 anal-table anal-table__active">
+										<div class="table_caption"><b>성별고객 연령대 변화</b></div>
+										<span class="notice">단위: %</span>
+										<table summary="성별에 따른 고객의 연령대 변화에 관한 테이블입니다.">
+											<colgroup>
+												<col style="width: 20%">
+												<col style="width: 30%">
+												<col style="width: 30%">
+												<col style="width: 10%">
+											</colgroup>
+											<thead>
+												<tr>
+													<th></th>
+													<th>YYYY년 MM월</th>
+													<th>YYYY년 MM월</th>
+													<th>증감</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th><b>20~29세</b></th>
+													<td>n.n</td>
+													<td>n.n</td>
+													<td><i class="dcrs"></i>n.n</td>
+												</tr>
+												<tr>
+													<th><b>30~39세</b></th>
+													<td>n.n</td>
+													<td>n.n</td>
+													<td><i class="incrs"></i>n.n</td>
+												</tr>
+												<tr>
+													<th><b>40~49세</b></th>
+													<td>n.n</td>
+													<td>n.n</td>
+													<td><i class="incrs"></i>n.n</td>
+												</tr>
+												<tr>
+													<th><b>50~59세</b></th>
+													<td>n.n</td>
+													<td>n.n</td>
+													<td><i class="incrs"></i>n.n</td>
+												</tr>
+												<tr>
+													<th><b>60세이상</b></th>
+													<td>n.n</td>
+													<td>n.n</td>
+													<td><i class="incrs"></i>n.n</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- //상세보기 -->
+								</li>
+								<!-- //고객 연령대 변화 -->
+							</ul>
+						</div>
+						<!-- //고객 분석 -->
+
+						<!-- 지역 분석 -->
+						<div class="anal-grid__zone">
+							<h3><b>7. 지역 분석</b><i class="foldder"></i></h3>
+							<ul>
+								<!-- 일 평군 유동인구 수 -->
+								<li class="anal-grid__clsfc">
+									<p class="middot"><b>일 평군 유동인구 수</b></p>					
+									<div class="anal-grid__result">
+										<span>#행정동 상권의 일 평균 유동인구 수는 nnn명으로 #시도 대비 nn.nn% 적은/많은 것으로 분석됩니다.</span>
+									</div>			
+									<div class="anal-grid__report anal-table__floating">
+										<div>
+											<h3><b>#시군구 대비 유동인구</b></h3>										
+											<div class="anal-grid__img"></div>
+											<span>#행정동 상권 기준 일 평균유동인구수는</span>
+											<span>#시군수 (nnn명) 대비 n.n% 적/많습니다.</span>
+										</div>
+										<div>
+											<h3><b>#시도 대비 유동인구</b></h3>										
+											<div class="anal-grid__img"></div>
+											<span>#행정동 상권 기준 일 평균유동인구수는</span>
+											<span>#시도 (nnn명) 대비 n.n% 적/많습니다.</span>
+										</div>
+									</div>
+									<!-- 상세보기 -->
+									<div class="anal-grid__drop">상세보기</div>
+									<div class="table-type5 table-type5__1 anal-table anal-table__active">
+										<p class="table_caption"><b>일 평균 유동인구 수</b></p>
+										<span class="notice">단위: 명</span>
+										<table summary="일 평균 유동인구 수에 관한 테이블입니다.">
+											<colgroup>
+												<col style="width: *">
+											</colgroup>
+											<thead>
+												<tr>														
+													<th><b>#시도</b></th>
+													<th><b>#시군구</b></th>
+													<th><b>#행정동</b></th>
+												</tr>
+											</thead>
+											<tbody align="center">
+												<tr>
+													<td>nnn</td>
+													<td>nnn</td>
+													<td>nnn</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>			
+									<!-- //상세보기 -->									
+									<!-- 전문가 의견 -->			
+									<div class="anal-grid__expert">
+										<p><b>전문가 의견</b></p>
+										<span class="middot">
+											일 평균 유동인구 수는 선택지역 내 분포한 유동인구 조사지점에서 
+											일주일간 계수한 유동인구 수를 일(하루) 기준으로 평균한 값입니다. 
+											지역 내의 전반적인 유동인구 규모를 파악할 수 있으며, 상위지역 평균과 비교하여 
+											분석 지역의 유동성을 수치로 확인해 볼 수 있습니다.
+										</span>			
+										<span class="middot">
+											유동인구수가 많다는 것은 지정 상권 주위를 도보로 이용하는 고객의 수가 많으므로 
+											창업자의 입장에서는 목표 고객의 수가 많을 가능성이 높다고 판단 할 수 있습니다. 
+											다만 유동인구의 구성과 특성을 파악하는 것이 중요합니다. 
+											예를 들어 등하교 목적의 유동인구, 출퇴근 목적의 유동인구, 쇼핑목적의 유동인구, 
+											비거주자 유동인구, 거주자 유동인구, 구매력이 있는 유동인구, 
+											교통수단만을 이용하기 위한 유동인구 등 다양한 목적과 특성을 파악함으로써 
+											목표고객이 될 수 있을지 판단해야 합니다.
+										</span>			
+										<span class="middot last">
+											이 외에도 유동인구 조사는 반드시 실사를 통한 검증이 필요합니다. 
+											보고서에 명시된 유동인구 조사를 바탕으로, 창업 희망지 주변의 유동인구의 동선은 어떤지, 
+											유동인구의 이동속도는 어떤지, 유동인구가 머무르지 않고 단지 이동을 위해 흘러가지는 않는지 등을 
+											여러 가지 요소를 꼼꼼하게 살펴보신 후 창업에 대한 의사결정을 하셔야 합니다.
+										</span>			
+									</div>
+									<!-- 전문가 의견 -->	
+								</li>
+								<!-- //일 평군 유동인구 수 -->
+
+								<!-- 성별/연령대별 주거인구 수 -->
+								<li class="anal-grid__clsfc">
+									<p class="middot"><b>성별/연령대별 주거인구 수</b></p>
+									<!-- 여성 -->
+									<div class="table-type6 table-type6__1 anal-table">
+										<p class="table-caption sub"><b>여성</b></p>
+										<table summary="여성 주거인구 수에 관한 테이블입니다.">
+											<colgroup>
+												<col style="width: *">
+											</colgroup>
+											<thead>
+												<tr>
+													<th><b>최다비중</b></th>
+													<th><b>최다비중</b></th>
+
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														<div class="anal-grid__img sls__female2"></div>
+														<b>10~19세 미만</b>
+													</td>
+													<td>
+														<div class="anal-grid__img sls__female4"></div>
+														<b>30~39세 미만</b>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>		
+									<!-- 남성 -->	
+									<div class="table-type6 table-type6__1 anal-table">
+										<p class="table-caption sub"><b>남성</b></p>
+										<table summary="남성 주거인구 수에 관한 테이블입니다.">
+											<colgroup>
+												<col style="width: *">
+											</colgroup>
+											<thead>
+												<tr>
+													<th><b>최다비중</b></th>
+													<th><b>최다비중</b></th>
+
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														<div class="anal-grid__img sls__male1"></div>
+														<b>10~19세 미만</b>
+													</td>
+													<td>
+														<div class="anal-grid__img sls__male4"></div>
+														<b>30~39세 미만</b>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>						
+									<!-- 상세보기 -->				
+									<div class="anal-grid__drop">상세보기</div>		
+									<div class="table-type6 table-type6__1 anal-table anal-table__active">
+										<p class="table-caption"><b>성별/연령대별 주거인구 수</b></p>
+										<span class="notice">단위: 명</span>
+										<table summary="성별/연령대별 주거인구 수에 관한 테이블입니다.">
+											<colgroup>
+												<col style="width: *">
+											</colgroup>
+											<thead>
+												<tr>
+													<th>구분</th>
+													<th>전체</th>
+													<th>여성</th>
+													<th>남성</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th>계</th>
+													<th>nnn</th>
+													<th>nnn</th>
+													<th>nnn</th>
+												</tr>
+												<tr>
+													<th>10세미만</th>
+													<th>nnn</th>
+													<th>nnn</th>
+													<th>nnn</th>
+												</tr>
+												<tr>
+													<th>10~19세</th>
+													<th>nnn</th>
+													<th>nnn</th>
+													<th>nnn</th>
+												</tr>
+												<tr>
+													<th>20~29세</th>
+													<th>nnn</th>
+													<th>nnn</th>
+													<th>nnn</th>
+												</tr>
+												<tr>
+													<th>30~39세</th>
+													<th>nnn</th>
+													<th>nnn</th>
+													<th>nnn</th>
+												</tr>
+												<tr>
+													<th>40~49세</th>
+													<th>nnn</th>
+													<th>nnn</th>
+													<th>nnn</th>
+												</tr>
+												<tr>
+													<th>50~59세</th>
+													<th>nnn</th>
+													<th>nnn</th>
+													<th>nnn</th>
+												</tr>
+												<tr>
+													<th>60세 이상</th>
+													<th>nnn</th>
+													<th>nnn</th>
+													<th>nnn</th>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- //상세보기 -->			
+								</li>
+								<!-- //일 평군 유동인구 수 -->					
+							</ul>
+						</div>
+						<!-- //지역 분석 -->
+					</div>
+					<!-- //content -->
+				</div>
+			</div>
+		</div>
+		<!-- //container -->
+
+		<!-- footer -->
+		<div class="footer">
+			<script src="../../../js/mobile/common.js"></script>
+
+			<script type="text/javascript">
+			$(document).ready(function(){
+				// 이용약관
+				$(".NM_22012_001").click(function() {
+					fancybox_open("../nm/NM_22012.do?termCode=001", null, false);
+					return false;
+				});
+
+				// 개인정보처리방침
+				$(".NM_22012_002").click(function() {
+					fancybox_open("../nm/NM_22012.do?termCode=002", null, false);
+					return false;
+				});
+
+				// PC버전
+				$(".PC").click(function() {
+					location.href = "https://t-renewal.taxdiet.co.kr/cm/main.html";
+					return false;
+				});
+			});
+			</script>
+
+			<ul class="footer__terms">
+				<li>
+					<a href="javascript:;" class="NM_22012_001">이용약관</a>
+				</li>
+				<li>
+					<a href="javascript:;" class="NM_22012_002">개인정보처리방침</a>
+				</li>
+				<li>
+					<a href="javascript:;" class="PC">PC버전</a>
+				</li>
+			</ul>
+			<p class="footer__copyright">Ⓒ NICE D&R Ltd.</p>
+
+			<!--
+			<div class="terms-wrap HeightAuto use-terms">
+				<iframe src="" id="terms" name="terms" frameborder="0"></iframe>
+			</div>
+			-->
+			<!-- 택스다이어트 모바일 전용 구글 애널리틱스 (PC용은 별도로 있음) -->
+			<!-- Global site tag (gtag.js) - Google Analytics -->
+			<script async src="https://www.googletagmanager.com/gtag/js?id=UA-36649342-22"></script>
+			<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'UA-36649342-22');
+			</script>
+		</div>
+		<!-- //footer -->
+		<div class="top-btn" style="display:none;">
+			<span>맨위로</span>
+		</div>
+	</div>
+</body>
+</html>

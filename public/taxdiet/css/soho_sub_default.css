@@ -5269,6 +5269,11 @@ h3.my_title strong { color: #0e8be5; font-weight: bold; }
 .ta-declaration-4 .ta-area-row {position: relative;}
 .ta-declaration-4 .ta-note-box {margin-left: 0; margin-top: 10px;}
 .ta-declaration-4 .ta-area-required::before {content: '*'; position: absolute; left: 10px; color: #ff7a7a;}
-.ta-declaration-4 .ta-area-row .updReset {position: absolute; top: 20px; right: 25px; width: 22px; height: 22px; border-radius: 22px; border: 0; background-color: #ff7a7a; vertical-align: -4px; cursor: pointer;}
+.ta-declaration-4 .ta-area-row .updReset {position: absolute; top: 20px; right: 10px; width: 22px; height: 22px; border-radius: 22px; border: 0; background-color: #ff7a7a; vertical-align: -4px; cursor: pointer;}
 .ta-declaration-4 .ta-area-row .updReset::before {content: ''; position: absolute; top: 5px; left: 10px; width: 2px; height: 12px; background-color: #fff; transform: rotate(45deg);}
 .ta-declaration-4 .ta-area-row .updReset::after {content: ''; position: absolute; top: 5px; left: 10px; width: 2px; height: 12px; background-color: #fff; transform: rotate(-45deg);}
+
+
+/** 200623 이준희 추가 예정 **/
+.my_contents_wrap .my_contents .member_profile_wrap .mp_wrap > li dl dt.height3 {height: 101px;}
+.my_contents_wrap .my_contents .member_profile_wrap .mp_wrap > li dl dd.line2 {line-height: 17px;}
